@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4db6514a2e4e194bbd1c6bdae54f388, type: 3}
-  m_Name: Office Tiles
+  m_Name: Room Tiles
   m_EditorClassIdentifier: 
   TileWeights:
     Weights:
-    - Value: {fileID: 673625397964624931, guid: 0e0847a1674e4d34e9e80020309cbbc8,
+    - Value: {fileID: 467409810628835098, guid: 2327f79eeeee11a4aba67dd5789b1ff9,
         type: 3}
       MainPathWeight: 1
-      BranchPathWeight: 0
+      BranchPathWeight: 1
       DepthWeightScale:
         serializedVersion: 2
         m_Curve:
@@ -32,7 +32,36 @@ MonoBehaviour:
           outWeight: 0
         - serializedVersion: 3
           time: 1
-          value: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      TileSet: {fileID: 11400000}
+    - Value: {fileID: 467409810628835098, guid: cc78b263270d88949ba1cb0eba699a2a,
+        type: 3}
+      MainPathWeight: 1
+      BranchPathWeight: 1
+      DepthWeightScale:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 0

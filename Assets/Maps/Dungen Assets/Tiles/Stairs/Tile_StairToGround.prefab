@@ -25,13 +25,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332519625898604465}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00000058114523}
-  m_LocalPosition: {x: -10.134, y: -4.485, z: -15}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.00000058114523}
+  m_LocalPosition: {x: -0.000002324581, y: -1.825, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1530545668196783578}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!114 &2963893223270655492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,6 +73,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3426890624380136707}
+  - component: {fileID: 4309549869896261876}
   m_Layer: 0
   m_Name: Tile_StairToGround
   m_TagString: Untagged
@@ -97,6 +98,71 @@ Transform:
   - {fileID: 1530545668196783578}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4309549869896261876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2910726941341010575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 238d443cf4b172f4989d5ce455c57c3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowImmediateRepeats: 1
+  Entrance: {fileID: 0}
+  Exit: {fileID: 0}
+  AllowRotation: 1
+  RepeatMode: 0
+  OverrideAutomaticTileBounds: 0
+  TileBoundsOverride:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0.5, y: 0.5, z: 0.5}
+  Entrances: []
+  Exits: []
+  OverrideConnectionChance: 0
+  ConnectionChance: 0
+  Tags:
+    Tags:
+    - id: 0
+  AllDoorways: []
+  UsedDoorways: []
+  UnusedDoorways: []
+  placement:
+    pathDepth: 0
+    normalizedPathDepth: 0
+    branchDepth: 0
+    normalizedBranchDepth: 0
+    branchId: -1
+    isOnMainPath: 0
+    localBounds:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0, y: 0, z: 0}
+    worldBounds:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0, y: 0, z: 0}
+    graphNode:
+      Graph: {fileID: 0}
+      TileSets: []
+      NodeType: 0
+      Position: 0
+      Label: 
+      Keys: []
+      Locks: []
+      LockPlacement: 0
+    graphLine:
+      Graph: {fileID: 0}
+      DungeonArchetypes: []
+      Position: 0
+      Length: 0
+      Keys: []
+      Locks: []
+    archetype: {fileID: 0}
+    tileSet: {fileID: 0}
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
+  fileVersion: 2
 --- !u!1 &4716930529817609152
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,17 +238,17 @@ PrefabInstance:
     - target: {fileID: 2118812253165670888, guid: eca3cc2fe6ef1eb43b69a85467d43fd3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.138161
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2118812253165670888, guid: eca3cc2fe6ef1eb43b69a85467d43fd3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.659268
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2118812253165670888, guid: eca3cc2fe6ef1eb43b69a85467d43fd3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12.996274
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2118812253165670888, guid: eca3cc2fe6ef1eb43b69a85467d43fd3,
         type: 3}
@@ -192,17 +258,17 @@ PrefabInstance:
     - target: {fileID: 2118812253165670888, guid: eca3cc2fe6ef1eb43b69a85467d43fd3,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2118812253165670888, guid: eca3cc2fe6ef1eb43b69a85467d43fd3,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2118812253165670888, guid: eca3cc2fe6ef1eb43b69a85467d43fd3,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2118812253165670888, guid: eca3cc2fe6ef1eb43b69a85467d43fd3,
         type: 3}
