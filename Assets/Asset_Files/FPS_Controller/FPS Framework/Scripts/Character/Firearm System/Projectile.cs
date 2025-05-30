@@ -1,7 +1,11 @@
+﻿using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
+using VHierarchy.Libs;
 
 namespace Akila.FPSFramework
 {
@@ -14,7 +18,7 @@ namespace Akila.FPSFramework
         public float speed = 50;
         public float gravity = 1;
         public float force = 10;
-        public int lifeTime = 5;
+        public float lifeTime = 5;
         public GameObject defaultDecal;
         public float hitRadius = 0.03f;
 
@@ -156,6 +160,7 @@ namespace Akila.FPSFramework
             return 30;
         }
 
+        List<GameObject> hitted = new();
         private void Update()
         {
             Ray ray = new Ray(previousPosition, -(previousPosition - transform.position));
@@ -165,10 +170,25 @@ namespace Akila.FPSFramework
 
             for (int i = 0; i < hits.Length; i++)
             {
-                RaycastHit hit = hits[i];
+                var enemyHit = hits[i].transform.GetComponentInParent<Damageable>();
 
+                if (enemyHit != null)
+                {
+                    hitted.Add(enemyHit.gameObject);
+                }
+                    
+
+                RaycastHit hit = hits[i];
                 if (hit.point != Vector3.zero && distance != 0)
                     UpdateHits(ray, hit);
+
+
+
+                if (destroyOnImpact && (enemyHit != null))
+                {
+                    Destroy(gameObject);
+                    break;
+                }
             }
 
             if (useAutoScaling)
@@ -212,6 +232,8 @@ namespace Akila.FPSFramework
             //stop if object has ignore component
             if (hit.transform == null) return;
 
+
+
             if (hit.transform.TryGetComponent(out IgnoreHitDetection ignore) || sourcePlayer && hit.transform == sourcePlayer.transform) return;
             onHit?.Invoke(hit.transform.gameObject, ray, hit);
             OnHit(hit);
@@ -232,7 +254,7 @@ namespace Akila.FPSFramework
 
         public virtual void OnHit(RaycastHit hit)
         {
-
+            
         }
 
         private void OnDrawGizmos()

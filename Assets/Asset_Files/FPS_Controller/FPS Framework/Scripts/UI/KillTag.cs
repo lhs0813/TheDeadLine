@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
@@ -41,7 +41,7 @@ namespace Akila.FPSFramework
             if (timer > 0) CanvasGroup.alpha = Mathf.Lerp(CanvasGroup.alpha, 1, Time.deltaTime * fadeSpeed);
         }
 
-        public void Show(Actor killer, string killed)
+        public void Show(Actor killer = null, string killed = null, float damage = 0)
         {
             if (killer)
             {
@@ -58,7 +58,7 @@ namespace Akila.FPSFramework
             if (type == KillFeedTagType.Message && message)
             {
                 timer = time;
-                message.text = $"<color=#{ColorUtility.ToHtmlStringRGB(labelColor)}>Eliminated <color=#{ColorUtility.ToHtmlStringRGB(nameColor)}>{killed}";
+                message.text = damage.ToString("F2");
             }
             if (animator) animator.Play("Show", 0, 0);
         }

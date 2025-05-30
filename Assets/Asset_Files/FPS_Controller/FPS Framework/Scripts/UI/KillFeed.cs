@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
@@ -31,24 +31,33 @@ namespace Akila.FPSFramework
         {
             counter.Show(killer, killed);
 
-            KillTag newTag = Instantiate(Tag, tagsHolder);
+            
             KillTag newSkull = Instantiate(skull, skullsHolder);
             RawImage newSkullImage = newSkull.GetComponent<RawImage>();
 
             newSkullImage.color = headshot && newSkull.updateImageColors ? headshotColor : newSkullImage.color;
-            newTag.message.color = headshot && newTag.updateImageColors ? headshotColor : newTag.message.color;
+            
 
 
             newSkull.gameObject.SetActive(true);
-            newTag.gameObject.SetActive(true);
+            
 
-            newTag.Show(killer, killed);
+            
             newSkull.Show(killer, killed);
+            
 
             audioSource.Stop();
 
             if (killSFX)
                 audioSource.PlayOneShot(killSFX);
+        }
+
+        public void DamageShow(float damage)
+        {
+            KillTag newTag = Instantiate(Tag, tagsHolder);
+            //newTag.message.color = headshot && newTag.updateImageColors ? headshotColor : newTag.message.color;
+            newTag.gameObject.SetActive(true);
+            newTag.Show(null, null, damage);
         }
     }
 }

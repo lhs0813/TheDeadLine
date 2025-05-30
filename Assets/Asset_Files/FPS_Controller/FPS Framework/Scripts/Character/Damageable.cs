@@ -32,6 +32,12 @@ namespace Akila.FPSFramework
         private bool died;
         public bool deadConfirmed { get; set; }
 
+
+        //킬 데미지 관련 변수 설정
+        KillFeed _killFeed;
+        public bool isPlayer = false;
+
+
         private void Awake()
         {
             maxHealth = health;
@@ -178,6 +184,28 @@ namespace Akila.FPSFramework
         public void Damage(float amount, GameObject damageSource)
         {
             health -= amount;
+
+            if(_killFeed == null)
+            {
+                _killFeed = FindAnyObjectByType<KillFeed>();
+            }
+            if(isPlayer == false)
+                _killFeed.DamageShow(amount);
+
+
+
+
+
+
+
+
+            /*KillTag newTag = Instantiate(Tag, tagsHolder);
+            newTag.message.color = headshot && newTag.updateImageColors ? headshotColor : newTag.message.color;
+            newTag.gameObject.SetActive(true);
+
+            newTag.Show(killer, killed);*/
+
+
             this.damageSource = damageSource;
         }
 

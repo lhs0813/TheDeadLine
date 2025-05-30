@@ -1,4 +1,4 @@
-using Akila.FPSFramework.Animation;
+﻿using Akila.FPSFramework.Animation;
 using Akila.FPSFramework.Internal;
 using System;
 using UnityEngine;
@@ -877,7 +877,7 @@ namespace Akila.FPSFramework
             }
 
             // Throw casing after firing
-            ThrowCasing();
+            //ThrowCasing();
         }
 
         /// <summary>
