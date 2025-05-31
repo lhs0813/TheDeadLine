@@ -41,8 +41,11 @@ namespace Akila.FPSFramework
             if (timer > 0) CanvasGroup.alpha = Mathf.Lerp(CanvasGroup.alpha, 1, Time.deltaTime * fadeSpeed);
         }
 
-        public void Show(Actor killer = null, string killed = null, float damage = 0)
+        public void Show(Actor killer = null, string killed = null, float damage = 0, Color color = default)
         {
+
+            
+
             if (killer)
             {
                 int kills = killer.kills;
@@ -59,6 +62,7 @@ namespace Akila.FPSFramework
             {
                 timer = time;
                 message.text = damage.ToString("F2");
+                message.color = color;
             }
             if (animator) animator.Play("Show", 0, 0);
         }

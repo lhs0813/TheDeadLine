@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
-using VHierarchy.Libs;
+
 
 namespace Akila.FPSFramework
 {
@@ -161,6 +161,7 @@ namespace Akila.FPSFramework
         }
 
         List<GameObject> hitted = new();
+        bool isHit = false;
         private void Update()
         {
             Ray ray = new Ray(previousPosition, -(previousPosition - transform.position));
@@ -183,12 +184,19 @@ namespace Akila.FPSFramework
                     UpdateHits(ray, hit);
 
 
-
-                if (destroyOnImpact && (enemyHit != null))
+                if (isHit && destroyOnImpact)
                 {
                     Destroy(gameObject);
                     break;
                 }
+                    
+
+                /*if (destroyOnImpact && hitted != null)
+                {
+                    Destroy(gameObject);
+                    break;
+                }*/
+                
             }
 
             if (useAutoScaling)
@@ -248,6 +256,8 @@ namespace Akila.FPSFramework
             }
 
             Firearm.UpdateHits(source.firearm, defaultDecal, ray, hit, CalculateDamage(), decalDirection);
+
+            isHit = true;
         }
 
         public bool isActive { get; set; } = true;

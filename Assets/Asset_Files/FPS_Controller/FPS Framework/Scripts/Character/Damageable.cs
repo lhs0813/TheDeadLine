@@ -181,7 +181,7 @@ namespace Akila.FPSFramework
             }
         }
 
-        public void Damage(float amount, GameObject damageSource)
+        public void Damage(float amount, GameObject damageSource, bool critical)
         {
             health -= amount;
 
@@ -190,7 +190,7 @@ namespace Akila.FPSFramework
                 _killFeed = FindAnyObjectByType<KillFeed>();
             }
             if(isPlayer == false)
-                _killFeed.DamageShow(amount);
+                _killFeed.DamageShow(amount, critical);
 
 
 

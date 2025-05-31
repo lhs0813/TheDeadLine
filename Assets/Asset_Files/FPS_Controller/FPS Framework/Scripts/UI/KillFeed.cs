@@ -52,12 +52,17 @@ namespace Akila.FPSFramework
                 audioSource.PlayOneShot(killSFX);
         }
 
-        public void DamageShow(float damage)
+        public void DamageShow(float damage, bool critical)
         {
             KillTag newTag = Instantiate(Tag, tagsHolder);
             //newTag.message.color = headshot && newTag.updateImageColors ? headshotColor : newTag.message.color;
             newTag.gameObject.SetActive(true);
-            newTag.Show(null, null, damage);
+
+            if(critical == false)
+                newTag.Show(null, null, damage, Color.white);
+            else
+                newTag.Show(null, null, damage, Color.red);
+
         }
     }
 }
