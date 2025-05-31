@@ -8,9 +8,8 @@ using UnityEngine;
 public class WeaponOnOff : MonoBehaviour
 {
     [Header("Skill")]
-    public GameObject next;
-    public GameObject startPosition;
-    bool _isUsing;
+
+   public  bool isUsing;
     [Space(30)]
 
 
@@ -27,14 +26,15 @@ public class WeaponOnOff : MonoBehaviour
     public AudioSource soundEnd;
 
 
+    Akila.FPSFramework.Firearm firearm;
+
 
 
     void Start()
     {
-        startPosition = GetComponentInChildren<TagWeaponStart>().gameObject;
         _effects = GetComponentsInChildren<ParticleSystem>().ToList();
         _lines = GetComponentsInChildren<LineReder>().ToList();
-
+        firearm = GetComponentInParent<Akila.FPSFramework.Firearm>();
 
         for (int i = 0; i < _effects.Count; i++)
             _effects[i].Stop(true, ParticleSystemStopBehavior.StopEmitting);
@@ -42,40 +42,57 @@ public class WeaponOnOff : MonoBehaviour
 
     void Update()
     {
-        // Fire turret
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if(firearm.isReloading)
         {
-            if (!_isUsing)
+            if (isUsing)
             {
-                _isUsing = true;
+                isUsing = false;
+                SkillStop();
+            }
+                return;
+        }
+
+        if(firearm.remainingAmmoCount==0)
+        {
+            if (isUsing)
+            {
+                isUsing = false;
+                SkillStop();
+            }
+                return;
+        }
+        if (firearm.readyToFire==false)
+        {
+            if (isUsing)
+            {
+                isUsing = false;
+                SkillStop();
+            }
+            return;
+        }
+
+
+
+            // Fire turret
+            if (firearm.itemInput.Controls.Firearm.Fire.IsPressed() == true)
+        {
+            if (!isUsing)
+            {
+                isUsing = true;
                 SkillStart();
             }
         }
 
-
-
-        if (_isUsing)
-        {
-            //마우스 위치기준 피격위치 
-            RaycastHit hit;
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 99))
-            { transform.LookAt(hit.point);}      
-
-        }
-
-
-
         // Stop firing
-        if (Input.GetKeyUp(KeyCode.Mouse0))
+        if (firearm.itemInput.Controls.Firearm.Fire.IsPressed() == false)
         {
-            if (_isUsing)
+            if (isUsing)
             {
-                _isUsing = false;
+                isUsing = false;
                 SkillStop();
             }
         }
     }
-
     public void SkillStart() 
     {
         for (int i = 0; i < _effects.Count; i++)         

@@ -16,11 +16,11 @@ public class Instance : MonoBehaviour
    public   void Spawn()
     {
         Quaternion temp = transform.rotation;
-        transform.Rotate(transform.forward, -num * angle / 2);
-        transform.Rotate(transform.forward, -angle / 2);
+        transform.Rotate(transform.up, -num * angle / 2);
+        transform.Rotate(transform.up, -angle / 2);
         for (int j = 0; j < num; j++)
         {
-            transform.Rotate(transform.forward, angle);
+            transform.Rotate(transform.up, angle);
             var o = Instantiate(next, transform.position, transform.rotation);
         }
         transform.rotation = temp;

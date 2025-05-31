@@ -5,31 +5,40 @@ using UnityEngine;
 
 public class Affector : MonoBehaviour
 {
-    [Header("OnHit")]
+    [Header("Affect")]
     public float damage;
     public float push;
+    public float slow;
+    public GameObject obj;
     [Space(30)]
 
 
     [Header("Check")]
-    public float checkTime = 0.2f; // 전체체크시간 
-    public float checkCycle = -1;//체크주기/ 음수면 무한체크
+    public float checkTime = 0.1f; // 전체체크시간 
+    public float checkCycle = 99;//체크주기
     public LayerMask LayerMask;
     public bool allowRepeat;
+    [Space(30)]
+
+
+    [Header("Hit")]
     public float hitCount = -1; //음수면 무한재공격
+    public bool hitMaxDestroy;
+    public bool hitFirstIgnore;
+    public GameObject hitEffect;
+    public GameObject hitNext;
+    bool hitIgnoreCheck;
     [Space(30)]
 
 
     [Header("Additional")]
-    public bool blockWall;
     public bool reflect;
-    public GameObject hitEffect;
     public UnityEngine.Events.UnityEvent OnHit;
-    public UnityEngine.Events.UnityEvent OnHitCountEnd;
     [Space(30)]
 
 
     List<GameObject> hitted = new();//중복방지start
+    GameObject hitGo;
     Vector3 hitPoint;
     Vector3 hitNormal;
     Vector3 before;
@@ -63,10 +72,8 @@ public class Affector : MonoBehaviour
 
     public void CheckTarget()
     {
-
         RaycastHit[] hits = Physics.SphereCastAll(before, transform.localScale.x / 2, transform.forward, Vector3.Distance(before, transform.position), LayerMask);
         System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
-
 
         for (int i = 0; i < hits.Length; i++)
         {
@@ -74,72 +81,117 @@ public class Affector : MonoBehaviour
                 continue;
 
 
+            if (hitFirstIgnore)
+            {
+                if (hitIgnoreCheck == false)
+                {
+                    hitIgnoreCheck = true;
+                    hitted.Add(hits[i].transform.gameObject);
+                    continue;
+                }
+            }
+
+
+
             if (hits[i].point == Vector3.zero)
                 hitPoint = hits[i].transform.position;
             else
                 hitPoint = hits[i].point;
 
-            
 
+
+            hitGo = hits[i].transform.gameObject;
             hitNormal = hits[i].normal;
             CommonEnter(hits[i].transform.gameObject);
         }
 
-
         before = transform.position;
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        CommonEnter(collision.gameObject);
+    }
+
 
     public void CommonEnter(GameObject go)
     {
-        var target = go.GetComponentInParent<Info>();
-        if (target == null)
+        //Damagebla 판단 
+        var damageTarget = go.GetComponentInParent<Akila.FPSFramework.Damageable>();
+        if (damageTarget)
         {
+            //팀확인
+            if (damageTarget.type == Akila.FPSFramework.HealthType.Player)
+                return;
+
+            //중복판별 
             if (hitted.Contains(go) == true)
                 return;
 
 
 
 
-            hitCount--;
-            if (hitCount == 0) Destroy(gameObject); // enabled = false;
-            if (allowRepeat == false) hitted.Add(go);
+
+            damageTarget.Damage(damage, gameObject);
 
 
-
-            if (reflect)
-            {
-                transform.position = hitPoint;
-                transform.forward = Vector3.Reflect(transform.forward, hitNormal);
-            }
+            if (obj)
+                Instantiate(obj, damageTarget.transform.position, transform.rotation, damageTarget.transform);
 
 
-
-            if (hitEffect) Destroy(Instantiate(hitEffect, hitPoint, transform.rotation), 5);
-            OnHit.Invoke();
+            CommonAffect(go);
         }
-        else
-        {
 
-            if (hitted.Contains(target.gameObject) == true)
+        //지형충돌
+        var environment = go.GetComponentInParent<MonoBehaviour>(); 
+        if (!environment)
+        {
+            if (hitted.Contains(go) == true)
                 return;
 
 
-
-
-            hitCount--;
-            if (hitCount == 0) Destroy(gameObject); // enabled = false;
-            if (allowRepeat == false) hitted.Add(go);
-
-
-            //-------------------------------------------------
-
-
-
-
-            if (hitEffect) Destroy(Instantiate(hitEffect, hitPoint, transform.rotation), 5);
-            OnHit.Invoke();
+            CommonAffect(go);
         }
     }
+    void CommonAffect(GameObject go)
+    {
+        if (allowRepeat == false)
+            hitted.Add(go);
+
+
+        hitCount--;
+        if (hitCount == 0)
+        {
+            if (hitMaxDestroy)
+                Destroy(gameObject); // enabled = false;
+            else
+                enabled = false;
+        }
+
+
+        if (reflect)
+        {
+            transform.position = hitPoint;
+            transform.forward = Vector3.Reflect(transform.forward, hitNormal);
+        }
+
+
+
+
+
+        if (hitEffect)
+            Destroy(Instantiate(hitEffect, hitPoint, transform.rotation, hitGo.transform), 5);
+
+
+
+        if (hitNext)
+            Instantiate(hitNext, hitPoint, Quaternion.LookRotation(Vector3.Reflect(transform.forward, hitNormal)));
+
+        OnHit.Invoke();
+    }
+
+
+
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, transform.localScale.x / 2);

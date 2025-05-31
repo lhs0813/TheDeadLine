@@ -1,9 +1,51 @@
+using Akila.FPSFramework;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Info : MonoBehaviour
 {
-    public int team;
+    [Header("Acting")]
+    public GameObject next;
+    public bool forwardWolrdUp;
+    public float force;
+    public float rotateRnd;
+    [Space(30)]
+
+
+    [Header("Info")]
+    public HealthType type;
+    public GameObject target;
+    public GameObject before;
+
+
+
+
+    void Start()
+    {
+        if (rotateRnd > 0)
+        {
+            transform.Rotate(transform.right, Random.Range(-rotateRnd, rotateRnd)); //랜덤 Y축 회전
+            transform.Rotate(transform.up, Random.Range(-rotateRnd, rotateRnd)); //랜덤 Y축 회전
+        }
+
+
+        if (forwardWolrdUp)
+            transform.forward = Vector3.up;
+
+        if (force > 0)
+            GetComponent<Rigidbody>().AddForce(transform.forward * force);
+
+    }
+
+
+    public void Next()
+    {
+        Instantiate(next, transform.position, transform.rotation);
+    }
+
+
+
+
 
 
     //최단 적 찾기
@@ -14,36 +56,29 @@ public class Info : MonoBehaviour
     static List<GameObject> GetEnemybyRange(GameObject from, float radius)
     {
         //적탐색
-        Collider[] cs = Physics.OverlapSphere(from.transform.position, radius, 1 << 6);
+        Collider[] cs = Physics.OverlapSphere(from.transform.position, radius);
 
 
-        List<GameObject> o = new List<GameObject>();
+        List<GameObject> o = new();
         for (int i = 0; i < cs.Length; i++)
         {
             if (cs[i] == null)
                 continue;
 
-            //var target = cs[i].GetComponentInParent<Hp>();
-            //if (target == null)
-            //    continue;
+            var target = cs[i].GetComponentInParent<Damageable>();
+            if (target == null)
+                continue;
 
-            //if (target.isDie)
-            //    continue;
+            if (target.deadConfirmed)
+                continue;
 
-
-            //var targetInfo = target.GetComponentInParent<Info>();
-            //if (targetInfo.hideRange > 0 && Vector3.Distance(from.transform.position, target.transform.position) > targetInfo.hideRange)
-            //    continue;
-
-            //if (!Info.isDifferTeam(from, target.gameObject))
-            //    continue;
-
-            //if (sight == null || !IsVisible(from, target.gameObject, sight.Radious, sight.Angle))
-            //    continue;
+            if (target.type == from.GetComponent<Info>().type)
+                continue;
 
 
-            //if (o.Contains(target.gameObject) == false)
-            //    o.Add(target.gameObject);
+
+            if (o.Contains(target.gameObject) == false)
+                o.Add(target.gameObject);           
         }
 
         return o;
@@ -68,3 +103,14 @@ public class Info : MonoBehaviour
     }
 }
 
+
+
+
+/*
+            //var targetInfo = target.GetComponentInParent<Info>();
+            //if (targetInfo.hideRange > 0 && Vector3.Distance(from.transform.position, target.transform.position) > targetInfo.hideRange)
+            //    continue;
+
+            //if (sight == null || !IsVisible(from, target.gameObject, sight.Radious, sight.Angle))
+            //    continue;
+ */

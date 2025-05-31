@@ -5,17 +5,18 @@ using System.Collections;
 public class Accel : MonoBehaviour
 {
     public GameObject target;
-    public Vector3 to;
 
-    public float accel = 10;
-    public float velocityMax = 10;
-    public float rotate = 0.2f;
-    public float distMax = 10;
-    public float break2 = 3;
+    public float accel = 15;
+    public float velocityMax = 30;
+    public float rotate = 1;
+    public float distMax = 20;
+    public float break2 = 1;
+    public float findRange = 30;
 
     public Vector3 all;
-    public Coroutine c_accel;
-    public Coroutine c_break;
+    public Vector3 to;
+    Coroutine c_accel;
+    Coroutine c_break;
 
     bool isClose;
     Info info;
@@ -35,15 +36,18 @@ public class Accel : MonoBehaviour
 
     void Update()
     {
-        if (!target)
+        if (target)
         {
-            // target = Info.GetCloseEnemy(gameObject);
             to = target.transform.position;
+        }
+        else
+        {
+             target = Info.GetCloseEnemy(gameObject, findRange);
         }
 
 
 
-        transform.position += all * Time.deltaTime;
+            transform.position += all * Time.deltaTime;
         transform.forward = Vector3.Lerp(transform.forward, all, Time.deltaTime * rotate);
 
 
