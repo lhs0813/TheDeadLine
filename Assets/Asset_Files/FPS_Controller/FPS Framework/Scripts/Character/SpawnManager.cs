@@ -100,7 +100,7 @@ namespace Akila.FPSFramework
             return GetPlayerSpawnPoint(sideId).rotation;
         }
 
-        private void OnDrawGizmos()
+        /*private void OnDrawGizmos()
         {
             foreach (SpwanSide point in sides)
             {
@@ -110,7 +110,7 @@ namespace Akila.FPSFramework
                     Gizmos.DrawWireSphere(transform.position, spawnRadius * transform.lossyScale.magnitude);
                 }
             }
-        }
+        }*/
 
         [ContextMenu("Setup/Network Components")]
         private void SetupNetworkComponents()
