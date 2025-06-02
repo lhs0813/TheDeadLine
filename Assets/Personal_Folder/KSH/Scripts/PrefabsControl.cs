@@ -5,7 +5,7 @@ using UnityEngine;
 public class PrefabsControl : MonoBehaviour
 {
     public List<GameObject> list = new();
-    public List<GameObject> list2 = new();
+    //public List<GameObject> list2 = new();
 
    
     void Start()
@@ -17,12 +17,19 @@ public class PrefabsControl : MonoBehaviour
 
     void FindWeapon()
     {
+        List<GameObject> temp = new ();
         for (int i = 0; i < list.Count; i++)
+        {           
+            var v = list[i].GetComponent<Pickable>();
+            if (v)
+            {
+                temp.Add(list[i]);
+            }
+        }
+
+        for (int i = 0; i < temp.Count; i++)
         {
-           
-            var v = list[i].GetComponent<Firearm>(); Debug.Log(v);
-            if(v) 
-                list2.Add(list[i]);
+            Instantiate(temp[i], transform.position + Vector3.right * 3 * i + Vector3.up * 2, transform.rotation);
         }
     }
 
