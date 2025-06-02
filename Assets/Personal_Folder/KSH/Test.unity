@@ -5908,6 +5908,94 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 177473663}
   m_Mesh: {fileID: 4300000, guid: 93832f9ea40faf847a0ae53ea01e04e7, type: 3}
+--- !u!1001 &223603974
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1857886866487137811, guid: 1a7ab214175ae25418318baf8f0b2b64,
+        type: 3}
+      propertyPath: m_Name
+      value: Chicken
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771001434693073939, guid: 1a7ab214175ae25418318baf8f0b2b64,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771001434693073939, guid: 1a7ab214175ae25418318baf8f0b2b64,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771001434693073939, guid: 1a7ab214175ae25418318baf8f0b2b64,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771001434693073939, guid: 1a7ab214175ae25418318baf8f0b2b64,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -30.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771001434693073939, guid: 1a7ab214175ae25418318baf8f0b2b64,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.14362478
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771001434693073939, guid: 1a7ab214175ae25418318baf8f0b2b64,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771001434693073939, guid: 1a7ab214175ae25418318baf8f0b2b64,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771001434693073939, guid: 1a7ab214175ae25418318baf8f0b2b64,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771001434693073939, guid: 1a7ab214175ae25418318baf8f0b2b64,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771001434693073939, guid: 1a7ab214175ae25418318baf8f0b2b64,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771001434693073939, guid: 1a7ab214175ae25418318baf8f0b2b64,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771001434693073939, guid: 1a7ab214175ae25418318baf8f0b2b64,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771001434693073939, guid: 1a7ab214175ae25418318baf8f0b2b64,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771001434693073939, guid: 1a7ab214175ae25418318baf8f0b2b64,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1a7ab214175ae25418318baf8f0b2b64, type: 3}
 --- !u!1 &251849253
 GameObject:
   m_ObjectHideFlags: 0
@@ -6780,6 +6868,7 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
+  isPlayer: 0
   onRespawn:
     m_PersistentCalls:
       m_Calls: []
@@ -10427,6 +10516,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isPlayer: 0
   onRespawn:
     m_PersistentCalls:
       m_Calls: []
@@ -13027,6 +13117,7 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
+  isPlayer: 0
   onRespawn:
     m_PersistentCalls:
       m_Calls: []
@@ -13442,6 +13533,7 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
+  isPlayer: 0
   onRespawn:
     m_PersistentCalls:
       m_Calls: []
@@ -21750,3 +21842,4 @@ SceneRoots:
   - {fileID: 625933136}
   - {fileID: 1177044634}
   - {fileID: 95105104}
+  - {fileID: 223603974}
