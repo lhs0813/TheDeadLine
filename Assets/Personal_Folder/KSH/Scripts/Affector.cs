@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 public class Affector : MonoBehaviour
@@ -9,15 +10,17 @@ public class Affector : MonoBehaviour
     public float damage;
     public float push;
     public float slow;
-    public GameObject obj;
+    public GameObject targetObject;//적 하위에 생성하는 디버프류 
     [Space(30)]
 
 
     [Header("Check")]
     public float checkTime = 0.1f; // 전체체크시간 
     public float checkCycle = 99;//체크주기
-    public LayerMask LayerMask;
+    //public LayerMask LayerMask;
     public bool allowRepeat;
+    public bool hitOnlyEnrionment;
+    public bool hitOnlyDamageble;
     [Space(30)]
 
 
@@ -25,20 +28,20 @@ public class Affector : MonoBehaviour
     public float hitCount = -1; //음수면 무한재공격
     public bool hitMaxDestroy;
     public bool hitFirstIgnore;
-    public GameObject hitEffect;
-    public GameObject hitNext;
-    bool hitIgnoreCheck;
-    [Space(30)]
-
-
-    [Header("Additional")]
     public bool reflect;
     public UnityEngine.Events.UnityEvent OnHit;
     [Space(30)]
 
 
+    [Header("HitEffect")]
+    public GameObject hitEffect;
+    public bool efDiretionHitNormal;
+    public GameObject hitNext;
+    public float efDestroyTime=10;
+    bool hitIgnoreCheck;
+    [Space(30)]
+
     List<GameObject> hitted = new();//중복방지start
-    GameObject hitGo;
     Vector3 hitPoint;
     Vector3 hitNormal;
     Vector3 before;
@@ -49,8 +52,7 @@ public class Affector : MonoBehaviour
         before = transform.position;
         if (checkTime > 0) StartCoroutine(CheckTime());
         if (checkCycle > 0) StartCoroutine(CheckCycle());
-    }
- 
+    } 
     IEnumerator CheckTime()
     {
         yield return new WaitForSeconds(checkTime);
@@ -64,22 +66,19 @@ public class Affector : MonoBehaviour
             yield return new WaitForSeconds(checkCycle);
         }
     }
-  
-
-
     private void OnDisable() { StopAllCoroutines(); }
-
-
     public void CheckTarget()
     {
-        RaycastHit[] hits = Physics.SphereCastAll(before, transform.localScale.x / 2, transform.forward, Vector3.Distance(before, transform.position), LayerMask);
+        RaycastHit[] hits = Physics.SphereCastAll(before, transform.localScale.x / 2, transform.forward, Vector3.Distance(before, transform.position));
         System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
 
         for (int i = 0; i < hits.Length; i++)
         {
             if (hits[i].collider == null)
                 continue;
-
+            
+            if (hitCount == 0)
+                break;
 
             if (hitFirstIgnore)
             {
@@ -93,15 +92,17 @@ public class Affector : MonoBehaviour
 
 
 
+
+
             if (hits[i].point == Vector3.zero)
                 hitPoint = hits[i].transform.position;
             else
                 hitPoint = hits[i].point;
 
-
-
-            hitGo = hits[i].transform.gameObject;
             hitNormal = hits[i].normal;
+
+
+
             CommonEnter(hits[i].transform.gameObject);
         }
 
@@ -111,6 +112,8 @@ public class Affector : MonoBehaviour
     {
         CommonEnter(collision.gameObject);
     }
+
+
 
 
     public void CommonEnter(GameObject go)
@@ -127,15 +130,27 @@ public class Affector : MonoBehaviour
             if (hitted.Contains(go) == true)
                 return;
 
+            //유닛X 지형만 
+            if (hitOnlyEnrionment)
+                return;
 
 
 
+                        
 
             damageTarget.Damage(damage, gameObject);
 
 
-            if (obj)
-                Instantiate(obj, damageTarget.transform.position, transform.rotation, damageTarget.transform);
+            if (slow > 0)
+            {
+                var nav = damageTarget.GetComponentInParent<NavMeshAgent>();
+                if (nav) nav.speed *= slow;
+            }
+
+
+            if (targetObject)
+                Instantiate(targetObject, damageTarget.transform.position, transform.rotation, damageTarget.transform);
+
 
 
             CommonAffect(go);
@@ -147,6 +162,11 @@ public class Affector : MonoBehaviour
         {
             if (hitted.Contains(go) == true)
                 return;
+
+            if (hitOnlyDamageble)
+                return;
+
+
 
 
             CommonAffect(go);
@@ -175,16 +195,31 @@ public class Affector : MonoBehaviour
         }
 
 
-
+        if(push!=0)
+        {
+            var rb = go.GetComponentInParent<Rigidbody>();
+            if (rb)
+                rb.linearVelocity = (go.transform.position - hitPoint).normalized * push;
+        }
 
 
         if (hitEffect)
-            Destroy(Instantiate(hitEffect, hitPoint, transform.rotation, hitGo.transform), 5);
+        {
+            if (efDiretionHitNormal)
+            {
+                var v= Instantiate(hitEffect, hitPoint, Quaternion.LookRotation(hitNormal)); 
+                v. transform.up= hitNormal;
 
+                Destroy(v, efDestroyTime);
+            }
+            else
+                Destroy(Instantiate(hitEffect, hitPoint, transform.rotation), efDestroyTime);
+        }
 
 
         if (hitNext)
             Instantiate(hitNext, hitPoint, Quaternion.LookRotation(Vector3.Reflect(transform.forward, hitNormal)));
+
 
         OnHit.Invoke();
     }

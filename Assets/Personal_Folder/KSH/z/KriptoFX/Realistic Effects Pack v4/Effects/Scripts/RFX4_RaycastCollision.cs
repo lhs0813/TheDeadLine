@@ -63,7 +63,8 @@ public class RFX4_RaycastCollision : MonoBehaviour
     private void UpdateRaycast()
     {
         RaycastHit raycastHit;
-        if (Physics.Raycast(transform.position, transform.forward, out raycastHit, RaycastDistance)) {
+        if (Physics.Raycast(transform.position, transform.forward, out raycastHit, RaycastDistance)) 
+        {
             Vector3 position;
             if (UsePivotPosition)
                 position = raycastHit.transform.position;
@@ -74,13 +75,13 @@ public class RFX4_RaycastCollision : MonoBehaviour
             if (handler != null)
                 handler(this, new RFX4_PhysicsMotion.RFX4_CollisionInfo { HitPoint = raycastHit.point, HitCollider = raycastHit.collider, HitGameObject = raycastHit.transform.gameObject});
 
+
             if (distanceParticles !=null)
             foreach (var rayPS in distanceParticles)
             {
-
                     if (rayPS != null && rayPS.name.Contains(particlesAdditionalName))
                     rayPS.GetComponent<ParticleSystemRenderer>().lengthScale = (transform.position - raycastHit.point).magnitude / rayPS.main.startSize.constantMax;
-
+                                
             }
 
             if (CollidedInstances.Count==0)

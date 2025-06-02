@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
+using Akila.FPSFramework;
 
 public class RFX1_TransformMotion : MonoBehaviour
 {
@@ -131,6 +132,21 @@ public class RFX1_TransformMotion : MonoBehaviour
         RaycastHit hit;
         if (!isCollided && Physics.Raycast(t.position, frameMoveOffsetWorld.normalized, out hit, Distance, CollidesWith))
         {
+
+
+
+            if (hit.transform.GetComponentInParent<FirstPersonController>()) 
+                return;
+
+            if (hit.transform.GetComponentInParent<Pickable>())
+                return;
+
+            if (hit.transform.GetComponentInParent<Firearm>())
+                return;
+
+
+
+
             if (frameMoveOffset.magnitude + RayCastTolerance > hit.distance)
             {
                 isCollided = true;
@@ -177,6 +193,7 @@ public class RFX1_TransformMotion : MonoBehaviour
         return new Vector3(vecX, vecY, vecZ);
     }
 
+    public bool isWorld;
     void OnCollisionBehaviour(RaycastHit hit)
     {
         var handler = CollisionEnter;
@@ -186,8 +203,16 @@ public class RFX1_TransformMotion : MonoBehaviour
         foreach (var effect in EffectsOnCollision)
         {
             var instance = Instantiate(effect, hit.point + hit.normal * CollisionOffset, new Quaternion());
-            instance.transform.parent = hit. transform;  
-            CollidedInstances.Add(instance);
+
+            if(isWorld) 
+            { }
+            else
+            instance.transform.parent = hit. transform;
+
+
+
+
+                CollidedInstances.Add(instance);
             if (HUE > -0.9f)
             {
                 var color = instance.AddComponent<RFX1_EffectSettingColor>();

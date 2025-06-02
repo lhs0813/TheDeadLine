@@ -40,28 +40,37 @@ public class WeaponOnOff : MonoBehaviour
             _effects[i].Stop(true, ParticleSystemStopBehavior.StopEmitting);
     }
 
+    private void OnEnable()
+    {
+        if (isUsing)
+        {
+            isUsing = false;
+            SkillStop();
+        }
+    }
+
     void Update()
     {
-        if(firearm.isReloading)
+        if (firearm.isReloading)
         {
             if (isUsing)
             {
                 isUsing = false;
                 SkillStop();
             }
-                return;
+            return;
         }
 
-        if(firearm.remainingAmmoCount==0)
+        if (firearm.remainingAmmoCount == 0)
         {
             if (isUsing)
             {
                 isUsing = false;
                 SkillStop();
             }
-                return;
+            return;
         }
-        if (firearm.readyToFire==false)
+        if (firearm.IsPlayingRestrictedAnimation())
         {
             if (isUsing)
             {
@@ -73,8 +82,10 @@ public class WeaponOnOff : MonoBehaviour
 
 
 
-            // Fire turret
-            if (firearm.itemInput.Controls.Firearm.Fire.IsPressed() == true)
+
+
+        // Fire turret
+        if (firearm.itemInput.Controls.Firearm.Fire.IsPressed() == true)
         {
             if (!isUsing)
             {

@@ -1,14 +1,24 @@
 using Akila.FPSFramework;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Info : MonoBehaviour
 {
     [Header("Acting")]
     public GameObject next;
+    public float endTime = -1;
     public bool forwardWolrdUp;
+    public bool forwardXZ;
     public float force;
     public float rotateRnd;
+    [Space(30)]
+
+
+    [Header("Parent")]//디버프로서 타겟 아래에 존재함
+    public bool navStop;
+    public float aniSpeed=-1;
+
     [Space(30)]
 
 
@@ -22,6 +32,10 @@ public class Info : MonoBehaviour
 
     void Start()
     {
+       if(endTime>=0)
+            Destroy(gameObject, endTime);
+
+
         if (rotateRnd > 0)
         {
             transform.Rotate(transform.right, Random.Range(-rotateRnd, rotateRnd)); //랜덤 Y축 회전
@@ -32,8 +46,22 @@ public class Info : MonoBehaviour
         if (forwardWolrdUp)
             transform.forward = Vector3.up;
 
+        if (forwardXZ)
+        { 
+            var v = transform.forward;
+            v.y = 0; v.Normalize();
+            transform.forward = v; 
+        }
+
         if (force > 0)
             GetComponent<Rigidbody>().AddForce(transform.forward * force);
+
+        //-------------------------------------------------------------------------------------------------------------------------------
+
+        var target = GetComponentInParent<Damageable>();
+        if (navStop) GetComponentInParent<NavMeshAgent>().isStopped = true;
+        if (aniSpeed >= 0) GetComponentInParent<Animator>().speed = aniSpeed;
+
 
     }
 

@@ -57,6 +57,7 @@ public class RFX1_ParticleCollisionDecal : MonoBehaviour
     private void OnParticleCollisionManual(GameObject other, int aliveParticles = -1)
     {
         collisionEvents.Clear();
+        if (other == null) return;
         var aliveEvents = initiatorPS.GetCollisionEvents(other, collisionEvents);
         for (int i = 0; i < aliveEvents; i++)
         {

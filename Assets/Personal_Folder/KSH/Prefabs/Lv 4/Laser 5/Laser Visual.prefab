@@ -50,21 +50,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   push: 0
+  slow: 0
+  targetObject: {fileID: 0}
   checkTime: 99
   checkCycle: 0.1
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 1
   allowRepeat: 0
+  hitOnlyEnrionment: 1
+  hitOnlyDamageble: 0
   hitCount: -1
   hitMaxDestroy: 0
   hitFirstIgnore: 1
   reflect: 1
-  hitEffect: {fileID: 0}
-  hitNext: {fileID: 0}
   OnHit:
     m_PersistentCalls:
       m_Calls: []
+  hitEffect: {fileID: 0}
+  efDiretionHitNormal: 0
+  hitNext: {fileID: 0}
+  efDestroyTime: 10
 --- !u!114 &8189339059673821376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,6 +97,7 @@ MonoBehaviour:
   time: 3
   isRepeat: 0
   num: 0
+  timeRndMax: 0
   OnTime:
     m_PersistentCalls:
       m_Calls:
@@ -124,6 +128,7 @@ MonoBehaviour:
   time: 10
   isRepeat: 0
   num: 0
+  timeRndMax: 0
   OnTime:
     m_PersistentCalls:
       m_Calls:

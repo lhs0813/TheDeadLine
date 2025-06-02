@@ -340,13 +340,13 @@ namespace Akila.FPSFramework
             // Validate muzzle and casing ejection port transforms.
             if (!muzzle)
             {
-                Debug.LogError("Muzzle transform is not assigned. Defaulting to the firearm's transform.", gameObject);
+               // Debug.LogError("Muzzle transform is not assigned. Defaulting to the firearm's transform.", gameObject);
                 muzzle = transform;
             }
 
             if (!casingEjectionPort)
             {
-                Debug.LogError("Casing ejection port transform is not assigned. Defaulting to the firearm's transform.", gameObject);
+                //Debug.LogError("Casing ejection port transform is not assigned. Defaulting to the firearm's transform.", gameObject);
                 casingEjectionPort = transform;
             }
 
