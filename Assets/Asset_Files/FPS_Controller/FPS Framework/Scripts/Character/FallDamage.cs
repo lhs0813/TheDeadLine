@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,7 +38,7 @@ namespace Akila.FPSFramework.Experimental
         {
             float impactVelocity = Mathf.Abs(controller.velocity.y);
             float damage = (impactVelocity / velocityThreshold) * this.damage;
-            healthSystem.Damage(damage, actor.gameObject);
+            healthSystem.Damage(damage, actor.gameObject, false);
         }
     }
 }

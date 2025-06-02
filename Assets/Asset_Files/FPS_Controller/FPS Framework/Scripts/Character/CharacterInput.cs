@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
@@ -112,17 +112,25 @@ namespace Akila.FPSFramework
             rawLookInput = 100 * new Vector2(rawLookInput_Unmultiplied.x * FPSFrameworkCore.XSensitivityMultiplier, rawLookInput_Unmultiplied.y * FPSFrameworkCore.YSensitivityMultiplier) * FPSFrameworkCore.SensitivityMultiplier;
 
             //Choose when to turn off sprinting input and when to use it.
-            if (moveInput.y < 0)
+
+
+            sprintInput = rawSprintInput;
+
+            // 특정 상황에 따른 달리기 함수.
+            /*if (moveInput.y < 0)
             {
-                tacticalSprintInput = false;
-                sprintInput = false;
+                *//*tacticalSprintInput = false;
+                sprintInput = false;*//*
+                tacticalSprintInput = moveInput.y < 0 && allowTacticalSprining ? rawTacticalSprintInput : false;
+                sprintInput = moveInput.y < 0 ? rawSprintInput : false;
+
 
             }
             else
             {
                 tacticalSprintInput = moveInput.y > 0 && allowTacticalSprining ? rawTacticalSprintInput : false;
                 sprintInput = moveInput.y > 0 ? rawSprintInput : false;
-            }
+            }*/
 
             if (tacticalSprintInput) sprintInput = false;
 
