@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -138,7 +138,7 @@ public class Affector : MonoBehaviour
 
                         
 
-            damageTarget.Damage(damage, gameObject);
+            damageTarget.Damage(damage, gameObject, false);
 
 
             if (slow > 0)

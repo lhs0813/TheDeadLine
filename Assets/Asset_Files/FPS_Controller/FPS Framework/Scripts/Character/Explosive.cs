@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine;
@@ -364,7 +364,7 @@ namespace Akila.FPSFramework
             }
         }
         
-        public void Damage(float amount, GameObject damageSource)
+        public void Damage(float amount, GameObject damageSource, bool critical)
         {
             if(!damageable) return;
 

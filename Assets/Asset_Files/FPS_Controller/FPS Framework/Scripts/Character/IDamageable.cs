@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
@@ -13,7 +13,7 @@ namespace Akila.FPSFramework
 
         public float health { get; set; }
         public float maxHealth { get; set; }
-        public void Damage(float amount, GameObject damageSource);
+        public void Damage(float amount, GameObject damageSource, bool critical = false);
 
         public  Vector3 damageDirection { get; set; }
         public bool deadConfirmed { get; set; }

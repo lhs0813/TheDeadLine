@@ -1,4 +1,4 @@
-using Akila.FPSFramework.Animation;
+﻿using Akila.FPSFramework.Animation;
 using Akila.FPSFramework.Internal;
 using System;
 using UnityEngine;
@@ -877,7 +877,7 @@ namespace Akila.FPSFramework
             }
 
             // Throw casing after firing
-            ThrowCasing();
+            //ThrowCasing();
         }
 
         /// <summary>
@@ -1000,8 +1000,15 @@ namespace Akila.FPSFramework
             if (damageable != null && damageable.health > 0)
             {
                 float totalDamage = damage * damageMultiplier;
-                
-                damageable.Damage(totalDamage, actor.gameObject);
+
+                bool critical = false;
+
+                if (damageMultiplier > 2)
+                    critical = true;
+
+
+
+                damageable.Damage(totalDamage, actor.gameObject, critical);
 
                 bool shouldHighlight = damageable.health <= damageable.maxHealth * 0.3f;
 
