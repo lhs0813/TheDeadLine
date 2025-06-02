@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
@@ -61,6 +61,11 @@ namespace Akila.FPSFramework
             {
                 if (interactKeyText) interactKeyText.SetText(controls.Player.Intract.GetBindingDisplayString());
                 if(interactActionText) interactActionText.SetText(interactable.GetInteractionName());
+
+
+
+                
+
 
                 if (controls.Player.Intract.triggered)
                 {
