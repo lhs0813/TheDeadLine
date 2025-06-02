@@ -1,0 +1,79 @@
+using Akila.FPSFramework;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PrefabsControl : MonoBehaviour
+{
+    public List<GameObject> list = new();
+    public List<GameObject> list2 = new();
+
+   
+    void Start()
+    {
+        FindWeapon();
+      //  WeaponSetting();
+    }
+
+
+    void FindWeapon()
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+           
+            var v = list[i].GetComponent<Firearm>(); Debug.Log(v);
+            if(v) 
+                list2.Add(list[i]);
+        }
+    }
+
+
+
+
+
+    [Header("WeaponSetting")]
+    public FirearmPreset data;
+
+    void WeaponSetting()
+    {
+        Firearm firearm = null;
+        Pickable pickable = null;
+        Projectile projectile = null;
+        for (int i = 0; i < list.Count; i++)
+        {
+           var v = list[i].GetComponent<Firearm>();
+            if(v) 
+                firearm = v;
+
+            var v1= list[i].GetComponent<Pickable>();
+            if(v1)
+                 pickable = v1;
+
+            var v2 = list[i].GetComponent<Projectile>();
+            if (v2)
+                projectile = v2;
+        }
+
+        data.replacement = pickable;
+        data.projectile = projectile;
+
+        firearm.Name = firearm.name;
+        firearm.preset = data;
+
+        pickable.name=firearm.name;
+        pickable.item = firearm;
+        
+    }
+}
+
+/*
+   System.IO.DirectoryInfo di = new DirectoryInfo(Application.dataPath + "/Personal_Folder/KSH");
+        foreach (FileInfo file in di.GetFiles("*.prefab",SearchOption.AllDirectories))
+        {
+            file.;
+            Debug.Log("ÆÄÀÏ¸í : " + file.Name);
+        }
+
+
+       // Asset_Files FPS_Controller
+
+ */

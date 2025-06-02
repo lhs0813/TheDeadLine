@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4510121470295001009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4276275151770304364}
+  - component: {fileID: 4840873230302153291}
+  - component: {fileID: 3858526839255306603}
+  m_Layer: 0
+  m_Name: Affect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4276275151770304364
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4510121470295001009}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4840873230302153291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4510121470295001009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09422978fb3c4e14990e44af765b9615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  next: {fileID: 0}
+  forwardWolrdUp: 0
+  forwardXZ: 0
+  force: 0
+  rotateRnd: 0
+  navStop: 0
+  aniSpeed: -1
+  type: 0
+  target: {fileID: 0}
+  before: {fileID: 0}
+--- !u!114 &3858526839255306603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4510121470295001009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c29a97481c1df141930d343887b9064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  push: 0
+  slow: 0
+  targetObject: {fileID: 4081213117956142783, guid: 73cee9a7c20babc428fdd973a1607580,
+    type: 3}
+  checkTime: 99
+  checkCycle: 0.1
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  allowRepeat: 0
+  hitCount: -1
+  hitMaxDestroy: 0
+  hitFirstIgnore: 0
+  reflect: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  hitEffect: {fileID: 0}
+  efDiretionHitNormal: 0
+  hitNext: {fileID: 0}
