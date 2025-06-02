@@ -16,7 +16,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
     protected IZombieState currentState;
     protected UnityEngine.AI.NavMeshAgent agent;
-
+    public UnityEngine.AI.NavMeshAgent Agent => agent;
     protected virtual void Awake()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
