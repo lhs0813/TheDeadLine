@@ -4,17 +4,33 @@ using UnityEngine;
 
 public class PrefabsControl : MonoBehaviour
 {
-    public List<GameObject> list;
+    public List<GameObject> list = new();
+    public List<GameObject> list2 = new();
 
-        void Start()
+   
+    void Start()
     {
-        WeaponSetting();
+        FindWeapon();
+      //  WeaponSetting();
+    }
+
+
+    void FindWeapon()
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+           
+            var v = list[i].GetComponent<Firearm>(); Debug.Log(v);
+            if(v) 
+                list2.Add(list[i]);
+        }
     }
 
 
 
 
-    [Header("Acting")]
+
+    [Header("WeaponSetting")]
     public FirearmPreset data;
 
     void WeaponSetting()
@@ -48,3 +64,16 @@ public class PrefabsControl : MonoBehaviour
         
     }
 }
+
+/*
+   System.IO.DirectoryInfo di = new DirectoryInfo(Application.dataPath + "/Personal_Folder/KSH");
+        foreach (FileInfo file in di.GetFiles("*.prefab",SearchOption.AllDirectories))
+        {
+            file.;
+            Debug.Log("ÆÄÀÏ¸í : " + file.Name);
+        }
+
+
+       // Asset_Files FPS_Controller
+
+ */
