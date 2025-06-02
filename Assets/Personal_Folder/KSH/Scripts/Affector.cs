@@ -10,7 +10,6 @@ public class Affector : MonoBehaviour
     public float damage;
     public float push;
     public float slow;
-    public GameObject targetObject;//적 하위에 생성하는 디버프류 
     [Space(30)]
 
 
@@ -19,8 +18,8 @@ public class Affector : MonoBehaviour
     public float checkCycle = 99;//체크주기
     //public LayerMask LayerMask;
     public bool allowRepeat;
-    public bool hitOnlyEnrionment;
-    public bool hitOnlyDamageble;
+    public bool hitEnrionment =true;
+    public bool hitDamageble=true;
     [Space(30)]
 
 
@@ -36,6 +35,8 @@ public class Affector : MonoBehaviour
     [Header("HitEffect")]
     public GameObject hitEffect;
     public bool efDiretionHitNormal;
+    public bool efInChiled;
+    public bool efInChiledlocalPositionZero;
     public GameObject hitNext;
     public float efDestroyTime=10;
     bool hitIgnoreCheck;
@@ -131,7 +132,7 @@ public class Affector : MonoBehaviour
                 return;
 
             //유닛X 지형만 
-            if (hitOnlyEnrionment)
+            if (hitDamageble ==false)
                 return;
 
 
@@ -148,8 +149,7 @@ public class Affector : MonoBehaviour
             }
 
 
-            if (targetObject)
-                Instantiate(targetObject, damageTarget.transform.position, transform.rotation, damageTarget.transform);
+
 
 
 
@@ -163,7 +163,7 @@ public class Affector : MonoBehaviour
             if (hitted.Contains(go) == true)
                 return;
 
-            if (hitOnlyDamageble)
+            if (hitEnrionment==false)
                 return;
 
 
@@ -205,15 +205,29 @@ public class Affector : MonoBehaviour
 
         if (hitEffect)
         {
+            GameObject v = null;
             if (efDiretionHitNormal)
             {
-                var v= Instantiate(hitEffect, hitPoint, Quaternion.LookRotation(hitNormal)); 
-                v. transform.up= hitNormal;
+                v = Instantiate(hitEffect, hitPoint, Quaternion.LookRotation(hitNormal));
+                v.transform.up = hitNormal;
 
-                Destroy(v, efDestroyTime);
             }
             else
-                Destroy(Instantiate(hitEffect, hitPoint, transform.rotation), efDestroyTime);
+            {
+                v = Instantiate(hitEffect, hitPoint, transform.rotation);
+            }
+
+
+            if (efInChiled)
+            {
+                if (v)
+                {
+                    v.transform.parent = go.transform;
+                    if(efInChiledlocalPositionZero)v.transform.localPosition = Vector3.zero;
+                }
+            }
+
+            Destroy(v, efDestroyTime);
         }
 
 
