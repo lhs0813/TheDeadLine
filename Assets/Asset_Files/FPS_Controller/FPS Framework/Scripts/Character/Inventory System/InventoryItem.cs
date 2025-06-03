@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -155,6 +157,10 @@ namespace Akila.FPSFramework
         /// <summary>
         /// Wave modifier for walking animation.
         /// </summary>
+        /// 
+
+        public ProceduralAnimation DropAnimation { get; protected set; }
+
         private WaveAnimationModifier walkingWaveAnimationModifier { get; set; }
 
 
@@ -358,6 +364,15 @@ namespace Akila.FPSFramework
             }
         }
 
+
+        public IEnumerator DropAnimationDelay(bool removeFromList = true)
+        {
+            
+            yield return new WaitForSeconds(0.5f);
+            
+            Drop(removeFromList);
+        }
+
         /// <summary>
         /// Drops the item on the ground.
         /// </summary>
@@ -378,8 +393,11 @@ namespace Akila.FPSFramework
             CameraManager cameraManager = transform.SearchFor<CameraManager>();
 
             // Calculate the drop force and torque based on inventory settings.
-            Vector3 force = Vector3.down * inventory.dropForce;
-            Vector3 torque = transform.right * inventory.dropForce * 3;
+            /*Vector3 force = Vector3.down * inventory.dropForce;
+            Vector3 torque = transform.right * inventory.dropForce * 3;*/
+
+            Vector3 force = Camera.main.transform.forward * inventory.dropForce;
+            Vector3 torque = Camera.main.transform.right * inventory.dropForce * 3;
 
             // If CameraManager exists, reset its field of view.
             if (cameraManager)

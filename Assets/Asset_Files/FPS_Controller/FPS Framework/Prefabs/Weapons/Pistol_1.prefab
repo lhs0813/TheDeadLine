@@ -1258,6 +1258,106 @@ MonoBehaviour:
     speed: 10
     fadeOutTime: 1
     weight: 1
+--- !u!1 &3323632544805947409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2242317313167484991}
+  - component: {fileID: 2058503214979514567}
+  - component: {fileID: 7841898060193318537}
+  m_Layer: 0
+  m_Name: Throw Animation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2242317313167484991
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3323632544805947409}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.031798247, y: -0.90381116, z: -0.034677144, w: -0.42533714}
+  m_LocalPosition: {x: 306.98578, y: -10.688639, z: 387.12277}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6518075918089467556}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2058503214979514567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3323632544805947409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4abcd5dbe64ac344b80b42ee643aa96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Throw
+  length: 0.12
+  weight: 1
+  loop: 0
+  autoStop: 0
+  perModifierConnections: 1
+  playOnAwake: 0
+  triggerType: 0
+  triggerInputAction:
+    m_Name: 'Right Button [Mouse]'
+    m_Type: 1
+    m_ExpectedControlType: 
+    m_Id: 524f75d7-e1dd-44c9-9a97-5e2a7ae889d1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 25f4f2bd-a61d-4fb9-ac49-5a5f0b6bee34
+      m_Path: <Keyboard>/b
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: 'Right Button [Mouse]'
+      m_Flags: 0
+    m_Flags: 0
+  events:
+    OnPlay:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPlayed:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStoped:
+      m_PersistentCalls:
+        m_Calls: []
+  customEvents: []
+  connections:
+  - type: 4
+    target: {fileID: 6850227354709662327}
+--- !u!114 &7841898060193318537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3323632544805947409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4cdba485b735c4193f2c375b6724ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position: {x: 0, y: 0, z: -0.04}
+  rotation: {x: 0, y: 0, z: 11.49}
+  defaultPosition: {x: 0, y: 0, z: 0}
+  defaultRotation: {x: 0, y: 0, z: 0}
 --- !u!1 &4155667616213351707
 GameObject:
   m_ObjectHideFlags: 0
@@ -2494,6 +2594,7 @@ Transform:
   - {fileID: 5464944966158974508}
   - {fileID: 3006359563748637360}
   - {fileID: 6941714740494506221}
+  - {fileID: 2242317313167484991}
   m_Father: {fileID: 1069960484613499417}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8143288230373219598
