@@ -555,7 +555,7 @@ namespace Akila.FPSFramework
 
             if (itemInput.ReloadInput)
             {
-                Reload();
+                /*Reload();*/
             }
 
             bool isRotationDefault = true;
