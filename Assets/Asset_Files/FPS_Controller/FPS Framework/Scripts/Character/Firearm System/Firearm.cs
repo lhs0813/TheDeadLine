@@ -548,10 +548,9 @@ namespace Akila.FPSFramework
             if (itemInput.DropInput)
             {
                 //Drop();
-                StartCoroutine(DropAnimationDelay());
+                StartCoroutine(DropChangeAnimationDelay());
                 
-                Animator _anim = GetComponentInChildren<Animator>();
-                _anim.SetTrigger("Throw");
+                
             }
 
             if (itemInput.ReloadInput)
@@ -603,10 +602,21 @@ namespace Akila.FPSFramework
                     ? itemInput.Controls.Firearm.Fire.IsPressed()
                     : itemInput.Controls.Firearm.Fire.triggered;
 
-                if (itemInput.Controls.Firearm.Fire.triggered && remainingAmmoCount == 0 && preset.canAutomaticallyReload)
+                /*if (itemInput.Controls.Firearm.Fire.triggered && remainingAmmoCount == 0 && preset.canAutomaticallyReload)
                 {
                     Reload();
+                }*/
+
+                /*if (itemInput.Controls.Firearm.Fire.triggered && remainingAmmoCount == 0 && preset.canAutomaticallyReload)
+                {
+                    Reload();
+                }*/
+
+                if (remainingAmmoCount == 0)
+                {
+                    StartCoroutine(DropAnimationDelay());
                 }
+                
 
                 attemptingToFire = isFireInputActive && remainingAmmoCount > 0;
 

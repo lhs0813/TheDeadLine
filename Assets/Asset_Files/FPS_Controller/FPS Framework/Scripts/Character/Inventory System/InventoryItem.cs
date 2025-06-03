@@ -17,6 +17,9 @@ namespace Akila.FPSFramework
     /// </summary>
     public abstract class InventoryItem : Item
     {
+        Vector3 force;
+        Vector3 torque;
+        private bool isDropping = false;
         /// <summary>
         /// Represents the firearm component of the item. If the weapon is not a firearm, this will be null.
         /// </summary>
@@ -367,11 +370,48 @@ namespace Akila.FPSFramework
 
         public IEnumerator DropAnimationDelay(bool removeFromList = true)
         {
-            
+            if (isDropping) yield break;
+            isDropping = true;
+
+            Animator _anim = GetComponentInChildren<Animator>();
+            _anim.SetTrigger("Throw");
+
+            force = Camera.main.transform.forward * inventory.dropForce;
+            torque = Camera.main.transform.right * inventory.dropForce * 3;
+
             yield return new WaitForSeconds(0.5f);
-            
+
             Drop(removeFromList);
+
+            isDropping = false;
         }
+
+
+        public IEnumerator DropChangeAnimationDelay(bool removeFromList = true)
+        {
+            if (isDropping) yield break;
+            isDropping = true;
+
+            Animator _anim = GetComponentInChildren<Animator>();
+            _anim.SetTrigger("Drop");
+
+            force = Vector3.down * inventory.dropForce;
+            torque = transform.right * inventory.dropForce * 3;
+
+            yield return new WaitForSeconds(0.5f);
+
+            Vector3 pos = inventory.dropPoint.position;
+            pos.y -= 0.5f;
+            inventory.dropPoint.position = pos;
+
+            Drop(removeFromList);
+
+            pos.y += 0.5f;
+            inventory.dropPoint.position = pos;
+
+            isDropping = false;
+        }
+
 
         /// <summary>
         /// Drops the item on the ground.
@@ -392,12 +432,11 @@ namespace Akila.FPSFramework
             // Search for the CameraManager component to reset field of view.
             CameraManager cameraManager = transform.SearchFor<CameraManager>();
 
-            // Calculate the drop force and torque based on inventory settings.
-            /*Vector3 force = Vector3.down * inventory.dropForce;
+            /*// Calculate the drop force and torque based on inventory settings.
+            Vector3 force = Vector3.down * inventory.dropForce;
             Vector3 torque = transform.right * inventory.dropForce * 3;*/
 
-            Vector3 force = Camera.main.transform.forward * inventory.dropForce;
-            Vector3 torque = Camera.main.transform.right * inventory.dropForce * 3;
+
 
             // If CameraManager exists, reset its field of view.
             if (cameraManager)
