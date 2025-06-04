@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
@@ -122,7 +122,9 @@ namespace Akila.FPSFramework
             if (characterInput.controls.Player.Item7.triggered && items.Count >= 7) currentItemIndex = 6;
             if (characterInput.controls.Player.Item8.triggered && items.Count >= 8) currentItemIndex = 7;
             if (characterInput.controls.Player.Item9.triggered && items.Count >= 9) currentItemIndex = 8;
+
             
+
             if (characterInput.controls.Player.SwitchItem.ReadValue<float>() > 0) currentItemIndex++;
 
             if (characterInput.controls.Player.SwitchItem.ReadValue<float>() < 0)

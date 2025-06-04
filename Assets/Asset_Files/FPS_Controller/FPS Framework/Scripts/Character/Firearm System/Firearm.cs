@@ -26,7 +26,7 @@ namespace Akila.FPSFramework
         public FirearmEvents events;
 
         public InventoryCollectable ammoProfile { get; set; }
-
+        
         private Crosshair crosshair;
         /// <summary>
         /// Pattern for bullet spread when hip firing.
@@ -547,12 +547,15 @@ namespace Akila.FPSFramework
             // Handle item input actions
             if (itemInput.DropInput)
             {
-                Drop();
+                //Drop();
+                StartCoroutine(DropAnimationDelay());
+                
+                
             }
 
             if (itemInput.ReloadInput)
             {
-                Reload();
+                /*Reload();*/
             }
 
             bool isRotationDefault = true;
@@ -599,10 +602,21 @@ namespace Akila.FPSFramework
                     ? itemInput.Controls.Firearm.Fire.IsPressed()
                     : itemInput.Controls.Firearm.Fire.triggered;
 
-                if (itemInput.Controls.Firearm.Fire.triggered && remainingAmmoCount == 0 && preset.canAutomaticallyReload)
+                /*if (itemInput.Controls.Firearm.Fire.triggered && remainingAmmoCount == 0 && preset.canAutomaticallyReload)
                 {
                     Reload();
+                }*/
+
+                /*if (itemInput.Controls.Firearm.Fire.triggered && remainingAmmoCount == 0 && preset.canAutomaticallyReload)
+                {
+                    Reload();
+                }*/
+
+                if (remainingAmmoCount == 0)
+                {
+                    StartCoroutine(DropAnimationDelay());
                 }
+                
 
                 attemptingToFire = isFireInputActive && remainingAmmoCount > 0;
 
