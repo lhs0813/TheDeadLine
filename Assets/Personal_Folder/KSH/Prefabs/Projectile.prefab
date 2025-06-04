@@ -250,10 +250,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 0}
+  endTime: -1
   forwardWolrdUp: 0
+  forwardXZ: 0
   force: 0
   rotateRnd: 0
+  navStop: 0
+  aniSpeed: -1
   type: 0
+  target: {fileID: 0}
+  before: {fileID: 0}
 --- !u!114 &1361489611833466017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,21 +274,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   push: 0
+  slow: 0
   checkTime: 999
   checkCycle: 0.1
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
   allowRepeat: 0
+  hitEnrionment: 1
+  hitDamageble: 1
+  isRayCast: 0
   hitCount: -1
   hitMaxDestroy: 0
   hitFirstIgnore: 0
   reflect: 0
-  hitEffect: {fileID: 0}
-  hitNext: {fileID: 0}
   OnHit:
     m_PersistentCalls:
       m_Calls: []
+  hitEffect: {fileID: 0}
+  efDiretionHitNormal: 0
+  efInChiled: 0
+  efInChiledlocalPositionZero: 0
+  hitNext: {fileID: 0}
+  efDestroyTime: 10
 --- !u!114 &9215762499516411650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,24 +306,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f41583476af8dba44b8337cb4f7e2516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 5
+  time: 10
   isRepeat: 0
   num: 0
+  timeRndMax: 0
   OnTime:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 9215762499516411650}
-        m_TargetAssemblyTypeName: Timer, Assembly-CSharp
-        m_MethodName: DestroyThis
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  onDestroy: 1
 --- !u!1001 &1639572273638576871
 PrefabInstance:
   m_ObjectHideFlags: 0

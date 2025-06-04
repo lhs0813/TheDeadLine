@@ -8,15 +8,22 @@ public class Timer : MonoBehaviour
     public bool isRepeat;
     public int num;//0이면 무한반복 / 1이상부터 개수적용
     public float timeRndMax;
-
     public UnityEngine.Events.UnityEvent OnTime;
+    public bool onDestroy;
 
     int num_count;
 
 
+    void OnEnable()    
+    {        
+        if(onDestroy)
+            OnTime.AddListener(DestroyThis);
 
-     void OnEnable()    {        StartCoroutine(Act());    }
+        StartCoroutine(Act());    
+    }
     void OnDisable()    {        StopAllCoroutines();    }
+
+
     IEnumerator Act()
     {
         if (isRepeat)

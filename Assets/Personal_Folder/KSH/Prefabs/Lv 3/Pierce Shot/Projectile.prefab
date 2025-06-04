@@ -4931,6 +4931,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7217915017282686811}
   - component: {fileID: 8507571554341284225}
+  - component: {fileID: 2044851225359095213}
   - component: {fileID: 120615851873118531}
   - component: {fileID: 6761884798382807838}
   - component: {fileID: 1074779488342881647}
@@ -4951,7 +4952,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1839305139387854549}
@@ -5009,6 +5010,29 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2044851225359095213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8186402241448180234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09422978fb3c4e14990e44af765b9615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  next: {fileID: 0}
+  endTime: 10
+  forwardWolrdUp: 0
+  forwardXZ: 0
+  force: 0
+  rotateRnd: 5
+  navStop: 0
+  aniSpeed: -1
+  type: 0
+  target: {fileID: 0}
+  before: {fileID: 0}
 --- !u!114 &120615851873118531
 MonoBehaviour:
   m_ObjectHideFlags: 0
