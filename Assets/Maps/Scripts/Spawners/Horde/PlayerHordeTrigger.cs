@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerHordeTrigger : MonoBehaviour
 {
     private bool activated = false;
+    private int currentMapIndex;
 
     [Header("Spawn Cooldown & Range")]
     [SerializeField] private FloatRange currentCreatureSpawnCooldownRange;
@@ -20,15 +21,18 @@ public class PlayerHordeTrigger : MonoBehaviour
         playerTransform = this.transform;
     }
 
+    //TODO : 기차역 도착시 호출해주어야함.
     public void ActivatePlayerHordeTrigger(int mapIndex)
     {
+        currentMapIndex = mapIndex;
         activated = true;
         nextTriggerTime = Time.time;
 
-        currentCreatureSpawnCooldownRange = MapGenCalculator.GetEnemyTriggerCooldownRange(mapIndex);
-        currentCreatureSpawnRadiusRange = MapGenCalculator.GetEnemyTriggerRadiusFromPlayerRange();
+        currentCreatureSpawnCooldownRange = MapGenCalculator.GetHordeTriggerCooldownRange(mapIndex);
+        currentCreatureSpawnRadiusRange = MapGenCalculator.GetHordeTriggerRadiusFromPlayerRange();
     }
 
+    //TODO : 기차역 출발시 호출해주어야함.
     public void DeactivatePlayerHordeTrigger(int mapIndex)
     {
         activated = false;
@@ -66,7 +70,7 @@ public class PlayerHordeTrigger : MonoBehaviour
 
             if (collider.TryGetComponent(out HordeSpawner spawner))
             {
-                spawner.TrySpawn();
+                spawner.TrySpawn(currentMapIndex);
                 currentValidTargets.Add(collider.transform);
             }
         }

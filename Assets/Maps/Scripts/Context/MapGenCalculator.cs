@@ -28,6 +28,11 @@ public static class MapGenCalculator
 
         return new IntRange(min, max);
     }
+
+    // public static IntRange GetNormalCreatureSpawnerPropCountRange(int stageIndex)
+    // {
+
+    // }
     #endregion
 
     #region EnemyCounts
@@ -48,12 +53,12 @@ public static class MapGenCalculator
     #endregion
 
     #region EnemyTrigger
-    public static FloatRange GetEnemyTriggerCooldownRange(int stageIndex)
+    public static FloatRange GetHordeTriggerCooldownRange(int stageIndex)
     {
         return new FloatRange(MapGenConstants.BaseEnemyTriggerCooldown + stageIndex * MapGenConstants.EnemyTriggerCooldownOffset, MapGenConstants.BaseEnemyTriggerCooldown);
     }
 
-    public static FloatRange GetEnemyTriggerRadiusFromPlayerRange()
+    public static FloatRange GetHordeTriggerRadiusFromPlayerRange()
     {
         return new FloatRange(MapGenConstants.MinCreatureSpawnRadius, MapGenConstants.MaxCreatureSpawnRadius);
     }

@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using DunGen;
 using DunGen.Graph;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 /// <summary>
@@ -49,11 +50,16 @@ public class MapGenerationManager : MonoBehaviour
     async void Start()
     {
         runtimeDungeon = GetComponent<RuntimeDungeon>();
-
+        runtimeDungeon.Generator.OnGenerationComplete += BakeNavMeshOnMapLoaded;
         await LoadMap(1);
     }
 
 
+
+    void OnDestroy()
+    {
+        
+    }
 
     /// <summary>
     /// 스테이지 인덱스를 받아서 맵 생성.
@@ -67,8 +73,9 @@ public class MapGenerationManager : MonoBehaviour
         //Dungeon Flow 설정.
         runtimeDungeon.Generator.DungeonFlow = currentMapContext.DungeonFlow;
         //Dungeon Flow - Global Props 설정.
-        runtimeDungeon.Generator.DungeonFlow.GlobalProps.Add(new DungeonFlow.GlobalPropSettings(0, currentMapContext.GunPropCountRange));
-        runtimeDungeon.Generator.DungeonFlow.GlobalProps.Add(new DungeonFlow.GlobalPropSettings(1, currentMapContext.SkillPointItemCountRange));
+        runtimeDungeon.Generator.DungeonFlow.GlobalProps.Add(new DungeonFlow.GlobalPropSettings(MapGenConstants.GunPropIndex, currentMapContext.GunPropCountRange));
+        runtimeDungeon.Generator.DungeonFlow.GlobalProps.Add(new DungeonFlow.GlobalPropSettings(MapGenConstants.SkillPointItemIndex, currentMapContext.SkillPointItemCountRange));
+        //runtimeDungeon.Generator.DungeonFlow.GlobalProps.Add(new DungeonFlow.GlobalPropSettings(MapGenConstants.NormalSpawnerPropIndex), );
 
         //맵 생성.
         runtimeDungeon.Generate();
@@ -77,6 +84,10 @@ public class MapGenerationManager : MonoBehaviour
         //맵 생성시 트리거할 액션 Invoke.
         OnMapLoadedAction?.Invoke(mapIndex);
     }
-    
+
+    private void BakeNavMeshOnMapLoaded(DungeonGenerator generator)
+    {
+        generator.Root.GetComponent<NavMeshSurface>().BuildNavMesh();
+    }
 
 }

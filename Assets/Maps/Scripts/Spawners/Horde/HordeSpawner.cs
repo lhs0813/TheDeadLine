@@ -4,14 +4,16 @@ using System.Collections.Generic;
 
 public class HordeSpawner : MonoBehaviour
 {
-    [SerializeField] private int spawnCount = 5;
     [SerializeField] private float spawnRadius = 5f;
-    [SerializeField] private float minSpacing = 1.5f; 
+    [SerializeField] private float minSpacing = 1.5f;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private EnemyType spawnType;
 
-    public void TrySpawn()
+    public void TrySpawn(int mapIndex)
     {
+
+        int spawnCount = GetSpawnCount(mapIndex);
+
         List<Vector3> validPositions = new List<Vector3>();
         int attempts = 0;
         int maxAttempts = spawnCount * 10;
@@ -48,7 +50,19 @@ public class HordeSpawner : MonoBehaviour
             GameObject enemy = EnemyPoolManager.Instance.Spawn(spawnType, pos, Quaternion.identity);
 
             //TODO : enemy.GetComponent<EnemyClass>().Initialize();
-            
+
         }
+    }
+
+    private int GetSpawnCount(int mapIndex)
+    {
+        int count = 1;
+
+        if (spawnType == EnemyType.Normal)
+        {
+            count = MapGenCalculator.GetCreatureSpawnCountRangePerRoom(mapIndex).GetRandom(new DunGen.RandomStream());
+        }
+
+        return count; //특수 적들은 하나만 스폰.
     }
 }

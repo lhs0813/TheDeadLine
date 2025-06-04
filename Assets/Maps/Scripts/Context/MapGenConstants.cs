@@ -20,7 +20,10 @@ public static class MapGenConstants
 
     ///Prop Indice
     public const int GunPropIndex = 0; //Global Prop 컴포넌트에서 사용하는 총기 프롭의 Index.
-    public const int SkillPointItemIndex = 1;  //Global Prop 컴포넌트에서 사용하는 스킬포인트 아이템의 Index.
+    public const int SkillPointItemIndex = 10;  //Global Prop 컴포넌트에서 사용하는 스킬포인트 아이템의 Index.
+    public const int NormalSpawnerPropIndex = 20;
+    public const int BigSpawnerPropIndex = 21;
+    public const int BombSpawnerPropIndex = 22;
 
     ///Max Enemy Count On a stage
     public const int MaxNormalCreatureCountLimitOnStage = 250; //스테이지 내 일반 적의 수의 리미트.

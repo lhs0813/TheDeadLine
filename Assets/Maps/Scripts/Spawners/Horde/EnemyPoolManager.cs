@@ -17,6 +17,8 @@ public class EnemyPoolManager : MonoBehaviour
     public static EnemyPoolManager Instance { get; private set; }
 
     private Dictionary<EnemyType, ObjectPool<GameObject>> enemyPools = new();
+    private List<GameObject> activeEnemies = new();
+
     public Transform EnemyContainer;
 
     [SerializeField] private List<GameObject> normalCreaturePrefabs;
@@ -38,6 +40,7 @@ public class EnemyPoolManager : MonoBehaviour
 
     private async void Start()
     {
+        MapGenerationManager.Instance.OnMapLoadedAction += InitializeSpawnLimits;
         await InitializeNormalCreatures();
     }
 
@@ -54,8 +57,8 @@ public class EnemyPoolManager : MonoBehaviour
             GetNormalCreature,
             ReleaseNormalCreature,
             DestroyNormalCreature,
-            defaultCapacity: counts[EnemyType.Normal],
-            maxSize: counts[EnemyType.Normal] * 2
+            defaultCapacity: MapGenConstants.MaxNormalCreatureCountLimitOnStage / 2,
+            maxSize: MapGenConstants.MaxNormalCreatureCountLimitOnStage
         );
 
         enemyPools[EnemyType.Big] = new ObjectPool<GameObject>(
@@ -63,8 +66,8 @@ public class EnemyPoolManager : MonoBehaviour
             GetBigCreature,
             ReleaseBigCreature,
             DestroyBigCreature,
-            defaultCapacity: counts[EnemyType.Big],
-            maxSize: counts[EnemyType.Big] * 2
+            defaultCapacity: MapGenConstants.MaxBigCreatureCountLimitOnStage / 2,
+            maxSize: MapGenConstants.MaxBigCreatureCountLimitOnStage
         );
 
         enemyPools[EnemyType.Bomb] = new ObjectPool<GameObject>(
@@ -72,8 +75,8 @@ public class EnemyPoolManager : MonoBehaviour
             GetBombCreature,
             ReleaseBombCreature,
             DestroyBombCreature,
-            defaultCapacity: counts[EnemyType.Bomb],
-            maxSize: counts[EnemyType.Bomb] * 2
+            defaultCapacity: MapGenConstants.MaxBombCreatureCountLimitOnStage / 2,
+            maxSize: MapGenConstants.MaxBombCreatureCountLimitOnStage
         );
     }
 
@@ -128,15 +131,53 @@ public class EnemyPoolManager : MonoBehaviour
     #region Common Logics
     public GameObject Spawn(EnemyType type, Vector3 pos, Quaternion rot)
     {
+        if (currentCounts[type] >= maxCounts[type])
+            return null;
+
         var obj = enemyPools[type].Get();
         obj.transform.SetPositionAndRotation(pos, rot);
+        currentCounts[type]++;
+        activeEnemies.Add(obj);
         return obj;
     }
 
     public void ReturnToPool(EnemyType type, GameObject obj)
     {
+        currentCounts[type] = Mathf.Max(0, currentCounts[type] - 1);
         enemyPools[type].Release(obj);
+        activeEnemies.Remove(obj);
     }
+
+    public void ReturnAllEnemiesToPool()
+    {
+        for (int i = activeEnemies.Count - 1; i >= 0; i--)
+        {
+            GameObject enemy = activeEnemies[i];
+            if (enemy != null)
+            {
+                //TODO : 적 타입 가져오기.
+                //EnemyType type = enemy.GetComponent<EnemyIdentifier>().Type; // 예: EnemyIdentifier 스크립트 필요
+                //ReturnToPool(type, enemy);
+            }
+        }
+        activeEnemies.Clear();
+    }
+
+
+    private Dictionary<EnemyType, int> currentCounts = new();
+    private Dictionary<EnemyType, int> maxCounts = new();
+
+    public void InitializeSpawnLimits(int stageIndex)
+    {
+        currentCounts[EnemyType.Normal] = 0;
+        currentCounts[EnemyType.Big] = 0;
+        currentCounts[EnemyType.Bomb] = 0;
+
+        maxCounts[EnemyType.Normal] = MapGenCalculator.GetMaxNormalCount(stageIndex);
+        maxCounts[EnemyType.Big] = MapGenCalculator.GetMaxBigCount(stageIndex);
+        maxCounts[EnemyType.Bomb] = MapGenCalculator.GetMaxBombCount(stageIndex);
+    }
+
 
     #endregion
 }
