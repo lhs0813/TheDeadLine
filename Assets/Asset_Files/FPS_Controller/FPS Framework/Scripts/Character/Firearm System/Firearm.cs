@@ -548,7 +548,7 @@ namespace Akila.FPSFramework
             if (itemInput.DropInput)
             {
                 //Drop();
-                StartCoroutine(DropChangeAnimationDelay());
+                StartCoroutine(DropAnimationDelay());
                 
                 
             }

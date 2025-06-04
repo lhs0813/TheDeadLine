@@ -376,8 +376,8 @@ namespace Akila.FPSFramework
             Animator _anim = GetComponentInChildren<Animator>();
             _anim.SetTrigger("Throw");
 
-            force = Camera.main.transform.forward * inventory.dropForce;
-            torque = Camera.main.transform.right * inventory.dropForce * 3;
+            /*force = Camera.main.transform.forward * inventory.dropForce;
+            torque = Camera.main.transform.right * inventory.dropForce * 3;*/
 
             yield return new WaitForSeconds(0.5f);
 
@@ -419,6 +419,9 @@ namespace Akila.FPSFramework
         /// <param name="removeFromList">If true, the item will be removed from the Inventory's Items List.</param>
         public virtual void Drop(bool removeFromList = true)
         {
+            force = Camera.main.transform.forward * inventory.dropForce;
+            torque = Camera.main.transform.right * inventory.dropForce * 3;
+
             // Invoke the onDropped event if set.
             onDropped?.Invoke();
 
