@@ -39,9 +39,9 @@ public class UI_Inventory_Update : MonoBehaviour
         }
 
         // 2. 전부 색 초기화 (예: 흰색)
-        inventory1.color = Color.black;
-        inventory2.color = Color.black;
-        inventory3.color = Color.black;
+        inventory1.color = Color.white;
+        inventory2.color = Color.white;
+        inventory3.color = Color.white;
 
         // 3. 활성화된 첫 번째 오브젝트를 찾고 그 인덱스를 기반으로 색 변경
         for (int i = 0; i < pocket.Count; i++)
@@ -51,10 +51,10 @@ public class UI_Inventory_Update : MonoBehaviour
                 switch (i)
                 {
                     case 0:
-                        inventory1.color = Color.red;
+                        inventory1.color = Color.yellow;
                         break;
                     case 1:
-                        inventory2.color = Color.red;
+                        inventory2.color = Color.yellow;
                         break;
                     case 2:
                         inventory3.color = Color.red;
