@@ -5,6 +5,7 @@ using UnityEngine.Video;
 
 public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    float alphaThreshold = 0.1f;
     public string skillId;
     public SkillNode[] prerequisites;
     public int requiredPoints = 1;
@@ -28,6 +29,7 @@ public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void Start()
     {
+        GetComponent<Image>().alphaHitTestMinimumThreshold = alphaThreshold;
         button.onClick.AddListener(OnClick);
         UpdateVisual();
     }

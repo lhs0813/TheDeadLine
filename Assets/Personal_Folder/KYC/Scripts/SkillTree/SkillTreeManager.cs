@@ -63,7 +63,7 @@ public class SkillTreeManager : MonoBehaviour
     {
         if (pointsText != null)
         {
-            pointsText.text = $"Available Points: {availablePoints}";
+            pointsText.text = $"{availablePoints}";
         }
     }
 

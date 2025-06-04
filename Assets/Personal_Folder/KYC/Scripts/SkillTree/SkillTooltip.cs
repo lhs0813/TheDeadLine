@@ -56,4 +56,6 @@ public class SkillTooltip : MonoBehaviour
         videoPlayer.Stop();
         panel.SetActive(false);
     }
+  
+
 }

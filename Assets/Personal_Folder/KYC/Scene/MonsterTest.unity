@@ -356,9 +356,9 @@ MonoBehaviour:
   skillId: 
   prerequisites: []
   requiredPoints: 3
-  skillName: 
-  description: 
-  previewVideo: {fileID: 0}
+  skillName: Iron Skin
+  description: Reduces damage taken by 20%
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 1
   exclusiveGroupId: 0
   button: {fileID: 137010121}
@@ -552,7 +552,7 @@ MonoBehaviour:
   requiredPoints: 3
   skillName: 
   description: 
-  previewVideo: {fileID: 0}
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 2
   exclusiveGroupId: 0
   button: {fileID: 191741186}
@@ -785,7 +785,7 @@ MonoBehaviour:
   requiredPoints: 5
   skillName: 
   description: 
-  previewVideo: {fileID: 0}
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 2
   exclusiveGroupId: 1
   button: {fileID: 262885936}
@@ -1229,7 +1229,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ATTACK                  DEFEND                 UTILITY
+  m_text: ATTACK            DEFEND            UTILITY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7492bce92008fbf4988854aee08d3368, type: 2}
   m_sharedMaterial: {fileID: -405315435473692670, guid: 7492bce92008fbf4988854aee08d3368,
@@ -1434,9 +1434,9 @@ MonoBehaviour:
   skillId: 
   prerequisites: []
   requiredPoints: 3
-  skillName: 
-  description: 
-  previewVideo: {fileID: 0}
+  skillName: Phantom Step
+  description: Increases evasion rate by 20%
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 1
   exclusiveGroupId: 0
   button: {fileID: 514019085}
@@ -1600,9 +1600,9 @@ MonoBehaviour:
   - {fileID: 832924464}
   - {fileID: 872347119}
   requiredPoints: 5
-  skillName: 
-  description: 
-  previewVideo: {fileID: 0}
+  skillName: Iron Grip
+  description: Greatly reduces weapon recoil
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 0
   exclusiveGroupId: 1
   button: {fileID: 615021816}
@@ -1730,7 +1730,7 @@ MonoBehaviour:
   requiredPoints: 5
   skillName: 
   description: 
-  previewVideo: {fileID: 0}
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 2
   exclusiveGroupId: 1
   button: {fileID: 655202123}
@@ -1976,9 +1976,9 @@ MonoBehaviour:
   - {fileID: 1958395573}
   - {fileID: 1913867647}
   requiredPoints: 7
-  skillName: 
-  description: 
-  previewVideo: {fileID: 0}
+  skillName: Life Leech
+  description: Restores health upon killing an enemy.
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 1
   exclusiveGroupId: 2
   button: {fileID: 680718161}
@@ -2224,9 +2224,9 @@ MonoBehaviour:
   - {fileID: 1958395573}
   - {fileID: 1913867647}
   requiredPoints: 7
-  skillName: 
-  description: 
-  previewVideo: {fileID: 0}
+  skillName: Double Vitality
+  description: Doubles maximum health.
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 1
   exclusiveGroupId: 2
   button: {fileID: 743259724}
@@ -2551,8 +2551,8 @@ MonoBehaviour:
   skillId: 
   prerequisites: []
   requiredPoints: 3
-  skillName: Head Shot Damage UP
-  description: Heat Shot Damage +25%
+  skillName: Head Hunter
+  description: Headshots deal 25% more damage
   previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 0
   exclusiveGroupId: 0
@@ -2641,6 +2641,78 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 832924462}
+  m_CullTransparentMesh: 1
+--- !u!1 &836270533
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 836270534}
+  - component: {fileID: 836270536}
+  - component: {fileID: 836270535}
+  m_Layer: 5
+  m_Name: RawImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &836270534
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836270533}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1281842110}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1560, y: 1024}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &836270535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836270533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 8f7cb76c25b4a22459a2c03bd1a9bbaa, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &836270536
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836270533}
   m_CullTransparentMesh: 1
 --- !u!1 &836371039 stripped
 GameObject:
@@ -2747,9 +2819,9 @@ MonoBehaviour:
   - {fileID: 877352774}
   - {fileID: 851413527}
   requiredPoints: 10
-  skillName: 
-  description: 
-  previewVideo: {fileID: 0}
+  skillName: Ammo Fiesta
+  description: Provides unlimited ammunition
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 0
   exclusiveGroupId: -1
   button: {fileID: 838571606}
@@ -2894,9 +2966,9 @@ MonoBehaviour:
   - {fileID: 1858687876}
   - {fileID: 615021815}
   requiredPoints: 7
-  skillName: 
-  description: 
-  previewVideo: {fileID: 0}
+  skillName: Death Blossom
+  description: 10% chance for the enemy to explode upon death.
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 0
   exclusiveGroupId: 2
   button: {fileID: 851413528}
@@ -3226,8 +3298,8 @@ MonoBehaviour:
   skillId: 
   prerequisites: []
   requiredPoints: 3
-  skillName: 
-  description: 
+  skillName: Rapid Fire
+  description: Increases weapon fire rate by 15%
   previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 0
   exclusiveGroupId: 0
@@ -3354,9 +3426,9 @@ MonoBehaviour:
   - {fileID: 1858687876}
   - {fileID: 615021815}
   requiredPoints: 7
-  skillName: 
-  description: 
-  previewVideo: {fileID: 0}
+  skillName: Desperate Strike
+  description: Damage increases as your health decreases
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 0
   exclusiveGroupId: 2
   button: {fileID: 877352776}
@@ -3491,14 +3563,14 @@ RectTransform:
   m_GameObject: {fileID: 890485641}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.72, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1870212494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 327}
+  m_AnchoredPosition: {x: -252, y: -126}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &890485643
@@ -3523,8 +3595,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 91c8601d0aa018446989fc9066e8c76a, type: 2}
+  m_sharedMaterial: {fileID: -893672867870398154, guid: 91c8601d0aa018446989fc9066e8c76a,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3548,12 +3621,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 97.46
-  m_fontSizeBase: 97.46
+  m_fontSize: 139.45
+  m_fontSizeBase: 141.5
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 144.22
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
@@ -3586,7 +3659,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -250.28618, y: 0, z: 0, w: 0}
+  m_margin: {x: -250.28618, y: 0, z: -599.7237, w: -89.45981}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3639,7 +3712,7 @@ MonoBehaviour:
   requiredPoints: 7
   skillName: 
   description: 
-  previewVideo: {fileID: 0}
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 2
   exclusiveGroupId: 2
   button: {fileID: 892310254}
@@ -4231,7 +4304,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -299}
+  m_AnchoredPosition: {x: 0, y: 178}
   m_SizeDelta: {x: 256, y: 256}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1067679686
@@ -4308,7 +4381,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -76, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1157951371
@@ -4687,6 +4760,143 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1242783754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1242783755}
+  - component: {fileID: 1242783757}
+  - component: {fileID: 1242783756}
+  m_Layer: 5
+  m_Name: Availabel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1242783755
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242783754}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1281842110}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 383, y: 221}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1242783756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242783754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Current Points
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 91c8601d0aa018446989fc9066e8c76a, type: 2}
+  m_sharedMaterial: {fileID: -893672867870398154, guid: 91c8601d0aa018446989fc9066e8c76a,
+    type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 86.27
+  m_fontSizeBase: 86.27
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: -190.60974, w: -189.28162}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1242783757
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242783754}
+  m_CullTransparentMesh: 1
 --- !u!1 &1281842106
 GameObject:
   m_ObjectHideFlags: 0
@@ -4783,12 +4993,14 @@ RectTransform:
   m_Children:
   - {fileID: 2070896642}
   - {fileID: 1448131479}
+  - {fileID: 1242783755}
   - {fileID: 1950726485}
   - {fileID: 399399410}
   - {fileID: 1706272547}
   - {fileID: 1147006468}
   - {fileID: 1911797246}
   - {fileID: 1870212494}
+  - {fileID: 836270534}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5186,7 +5398,7 @@ MonoBehaviour:
   requiredPoints: 3
   skillName: 
   description: 
-  previewVideo: {fileID: 0}
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 2
   exclusiveGroupId: 0
   button: {fileID: 1333504374}
@@ -5633,7 +5845,7 @@ MonoBehaviour:
   requiredPoints: 7
   skillName: 
   description: 
-  previewVideo: {fileID: 0}
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 2
   exclusiveGroupId: 2
   button: {fileID: 1405311736}
@@ -5768,14 +5980,14 @@ RectTransform:
   m_GameObject: {fileID: 1434206469}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.72, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1870212494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 153}
+  m_AnchoredPosition: {x: -232, y: -294}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1434206471
@@ -5800,8 +6012,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 91c8601d0aa018446989fc9066e8c76a, type: 2}
+  m_sharedMaterial: {fileID: -893672867870398154, guid: 91c8601d0aa018446989fc9066e8c76a,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5825,10 +6038,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 88
-  m_fontSizeBase: 88
+  m_fontSize: 72
+  m_fontSizeBase: 77.89
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -5841,7 +6054,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 0
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -5863,7 +6076,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -257.23383, y: 0, z: 0, w: 0}
+  m_margin: {x: -257.23383, y: 0, z: -565.0813, w: -123.39346}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -6380,14 +6593,14 @@ RectTransform:
   m_GameObject: {fileID: 1567990652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.7, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1870212494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 31, y: 42}
+  m_AnchoredPosition: {x: -152, y: -484}
   m_SizeDelta: {x: 200.56, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1567990654
@@ -6412,8 +6625,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7492bce92008fbf4988854aee08d3368, type: 2}
+  m_sharedMaterial: {fileID: -405315435473692670, guid: 7492bce92008fbf4988854aee08d3368,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6437,8 +6651,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 97
-  m_fontSizeBase: 97
+  m_fontSize: 85.4
+  m_fontSizeBase: 85.4
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7025,6 +7239,142 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 336320234}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1696685300
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1696685301}
+  - component: {fileID: 1696685303}
+  - component: {fileID: 1696685302}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1696685301
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696685300}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.7, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1870212494}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -673, y: -588}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1696685302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696685300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Press Icon To Upgrade
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: -211.24542, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1696685303
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696685300}
+  m_CullTransparentMesh: 1
 --- !u!1 &1706272546
 GameObject:
   m_ObjectHideFlags: 0
@@ -7390,7 +7740,7 @@ MonoBehaviour:
   requiredPoints: 10
   skillName: 
   description: 
-  previewVideo: {fileID: 0}
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 1
   exclusiveGroupId: -1
   button: {fileID: 1790808653}
@@ -7537,7 +7887,7 @@ MonoBehaviour:
   requiredPoints: 10
   skillName: 
   description: 
-  previewVideo: {fileID: 0}
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 2
   exclusiveGroupId: -1
   button: {fileID: 1817746141}
@@ -7884,9 +8234,9 @@ MonoBehaviour:
   - {fileID: 832924464}
   - {fileID: 872347119}
   requiredPoints: 5
-  skillName: 
-  description: 
-  previewVideo: {fileID: 0}
+  skillName: Lucky Strike
+  description: 10% chance to deal double damage
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 0
   exclusiveGroupId: 1
   button: {fileID: 1858687877}
@@ -8011,12 +8361,13 @@ RectTransform:
   - {fileID: 1434206470}
   - {fileID: 1567990653}
   - {fileID: 1067679685}
+  - {fileID: 1696685301}
   m_Father: {fileID: 1281842110}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 481, y: 20}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 509, y: 34.099995}
+  m_SizeDelta: {x: 0, y: 23.799986}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1870212495
 MonoBehaviour:
@@ -8050,7 +8401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8114,7 +8465,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -137, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1913867646
@@ -8154,9 +8505,10 @@ MonoBehaviour:
   - {fileID: 514019083}
   - {fileID: 137010119}
   requiredPoints: 5
-  skillName: 
-  description: 
-  previewVideo: {fileID: 0}
+  skillName: Last Stand
+  description: Become invincible for 3 seconds when your health is below 20%. (Can
+    activate once per station)
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 1
   exclusiveGroupId: 1
   button: {fileID: 1913867649}
@@ -8298,7 +8650,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 493, y: 388}
+  m_AnchoredPosition: {x: 526, y: 40}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1950726486
@@ -8329,7 +8681,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8356,14 +8708,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 230.2
+  m_fontSizeBase: 230.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -8394,7 +8746,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -150.79285, w: 0}
+  m_margin: {x: -251.27856, y: 0, z: -150.79285, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -8437,9 +8789,9 @@ MonoBehaviour:
   - {fileID: 514019083}
   - {fileID: 137010119}
   requiredPoints: 5
-  skillName: 
-  description: 
-  previewVideo: {fileID: 0}
+  skillName: Vitality Bloom
+  description: increases health regeneration rate
+  previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 1
   exclusiveGroupId: 1
   button: {fileID: 1958395575}
