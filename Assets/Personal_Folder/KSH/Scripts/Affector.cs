@@ -164,7 +164,7 @@ public class Affector : MonoBehaviour
         }
 
         //지형충돌
-        var environment = go.GetComponentInParent<MonoBehaviour>(); 
+        var environment = go.GetComponent<MonoBehaviour>(); 
         if (!environment)
         {
             if (hitted.Contains(go) == true)
