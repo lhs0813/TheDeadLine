@@ -10,8 +10,8 @@ public class PrefabsControl : MonoBehaviour
    
     void Start()
     {
-        InstPickables();
-      //  WeaponSetting();
+        //InstPickables();
+        WeaponSetting();
     }
 
 
