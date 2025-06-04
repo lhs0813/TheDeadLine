@@ -10,7 +10,6 @@ public class Affector : MonoBehaviour
     public float damage;
     public float push;
     public float slow;
-    public GameObject targetObject;//적 하위에 생성하는 디버프류 
     [Space(30)]
 
 
@@ -19,8 +18,9 @@ public class Affector : MonoBehaviour
     public float checkCycle = 99;//체크주기
     //public LayerMask LayerMask;
     public bool allowRepeat;
-    public bool hitOnlyEnrionment;
-    public bool hitOnlyDamageble;
+    public bool hitEnrionment =true;
+    public bool hitDamageble=true;
+    public bool isRayCast;
     [Space(30)]
 
 
@@ -36,12 +36,16 @@ public class Affector : MonoBehaviour
     [Header("HitEffect")]
     public GameObject hitEffect;
     public bool efDiretionHitNormal;
+    public bool efInChiled;
+    public bool efInChiledlocalPositionZero;
     public GameObject hitNext;
     public float efDestroyTime=10;
-    bool hitIgnoreCheck;
     [Space(30)]
 
+
     List<GameObject> hitted = new();//중복방지start
+    bool hitFirstIgnoreCheck;
+    GameObject hitGameobject;
     Vector3 hitPoint;
     Vector3 hitNormal;
     Vector3 before;
@@ -67,29 +71,37 @@ public class Affector : MonoBehaviour
         }
     }
     private void OnDisable() { StopAllCoroutines(); }
+
+
+
     public void CheckTarget()
     {
-        RaycastHit[] hits = Physics.SphereCastAll(before, transform.localScale.x / 2, transform.forward, Vector3.Distance(before, transform.position));
+        RaycastHit[] hits = null;
+        if (isRayCast)
+            hits = Physics.RaycastAll(before, transform.forward, Vector3.Distance(before, transform.position));
+        else
+            hits = Physics.SphereCastAll(before, transform.localScale.x / 2, transform.forward, Vector3.Distance(before, transform.position));
+
         System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
+
 
         for (int i = 0; i < hits.Length; i++)
         {
             if (hits[i].collider == null)
                 continue;
-            
+
             if (hitCount == 0)
                 break;
 
             if (hitFirstIgnore)
             {
-                if (hitIgnoreCheck == false)
+                if (hitFirstIgnoreCheck == false)
                 {
-                    hitIgnoreCheck = true;
+                    hitFirstIgnoreCheck = true;
                     hitted.Add(hits[i].transform.gameObject);
                     continue;
                 }
             }
-
 
 
 
@@ -130,16 +142,14 @@ public class Affector : MonoBehaviour
             if (hitted.Contains(go) == true)
                 return;
 
-            //유닛X 지형만 
-            if (hitOnlyEnrionment)
+            //유닛만 
+            if (hitDamageble ==false)
                 return;
 
 
-
-                        
+                                    
 
             damageTarget.Damage(damage, gameObject, false);
-
 
             if (slow > 0)
             {
@@ -147,9 +157,6 @@ public class Affector : MonoBehaviour
                 if (nav) nav.speed *= slow;
             }
 
-
-            if (targetObject)
-                Instantiate(targetObject, damageTarget.transform.position, transform.rotation, damageTarget.transform);
 
 
 
@@ -163,7 +170,7 @@ public class Affector : MonoBehaviour
             if (hitted.Contains(go) == true)
                 return;
 
-            if (hitOnlyDamageble)
+            if (hitEnrionment==false)
                 return;
 
 
@@ -174,9 +181,10 @@ public class Affector : MonoBehaviour
     }
     void CommonAffect(GameObject go)
     {
+        hitGameobject = go;
+
         if (allowRepeat == false)
             hitted.Add(go);
-
 
         hitCount--;
         if (hitCount == 0)
@@ -186,6 +194,8 @@ public class Affector : MonoBehaviour
             else
                 enabled = false;
         }
+
+
 
 
         if (reflect)
@@ -205,15 +215,26 @@ public class Affector : MonoBehaviour
 
         if (hitEffect)
         {
+            GameObject v = null;
             if (efDiretionHitNormal)
             {
-                var v= Instantiate(hitEffect, hitPoint, Quaternion.LookRotation(hitNormal)); 
-                v. transform.up= hitNormal;
-
-                Destroy(v, efDestroyTime);
+                v = Instantiate(hitEffect, hitPoint, Quaternion.LookRotation(hitNormal));
+                v.transform.up = hitNormal;
             }
             else
-                Destroy(Instantiate(hitEffect, hitPoint, transform.rotation), efDestroyTime);
+            {
+                v = Instantiate(hitEffect, hitPoint, transform.rotation);
+            }
+
+
+            if (efInChiled)
+            {
+                v.transform.parent = go.transform;
+                if (efInChiledlocalPositionZero) 
+                    v.transform.localPosition = Vector3.zero;
+            }
+
+            Destroy(v, efDestroyTime);
         }
 
 
@@ -225,6 +246,14 @@ public class Affector : MonoBehaviour
     }
 
 
+    public void ThisPosToHitPoint() { transform.position = hitPoint; }
+    public void TargetPosToThis()
+    {
+        var nav = hitGameobject.GetComponentInParent<NavMeshAgent>();
+        if(nav) nav.enabled = false;
+
+        hitGameobject.transform.parent = transform; 
+    }
 
 
     private void OnDrawGizmos()

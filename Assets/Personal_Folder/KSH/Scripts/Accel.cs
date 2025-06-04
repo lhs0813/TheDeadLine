@@ -8,7 +8,7 @@ public class Accel : MonoBehaviour
 
     public float accel = 15;
     public float velocityMax = 30;
-    public float rotate = 1;
+    public float rotateSpeed = 1;
     public float distMax = 20;
     public float break2 = 1;
     public float findRange = 30;
@@ -48,7 +48,7 @@ public class Accel : MonoBehaviour
 
 
             transform.position += all * Time.deltaTime;
-        transform.forward = Vector3.Lerp(transform.forward, all, Time.deltaTime * rotate);
+        transform.forward = Vector3.Lerp(transform.forward, all, Time.deltaTime * rotateSpeed);
 
 
 

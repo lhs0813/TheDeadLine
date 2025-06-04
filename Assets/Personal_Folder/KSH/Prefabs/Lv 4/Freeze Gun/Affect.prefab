@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 0}
+  endTime: -1
   forwardWolrdUp: 0
   forwardXZ: 0
   force: 0
@@ -70,14 +71,11 @@ MonoBehaviour:
   damage: 1
   push: 0
   slow: 0
-  targetObject: {fileID: 4081213117956142783, guid: 73cee9a7c20babc428fdd973a1607580,
-    type: 3}
   checkTime: 99
   checkCycle: 0.1
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
   allowRepeat: 0
+  hitEnrionment: 0
+  hitDamageble: 1
   hitCount: -1
   hitMaxDestroy: 0
   hitFirstIgnore: 0
@@ -85,6 +83,10 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls: []
-  hitEffect: {fileID: 0}
+  hitEffect: {fileID: 4081213117956142783, guid: 73cee9a7c20babc428fdd973a1607580,
+    type: 3}
   efDiretionHitNormal: 0
+  efInChiled: 1
+  efInChiledlocalPositionZero: 1
   hitNext: {fileID: 0}
+  efDestroyTime: 10

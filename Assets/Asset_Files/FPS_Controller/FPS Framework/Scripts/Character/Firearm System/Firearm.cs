@@ -15,7 +15,8 @@ namespace Akila.FPSFramework
 
         [Tooltip("The Transform from which the shots are fired.")]
         public Transform muzzle;
-
+        public GameObject handLeftWeapon;
+        public GameObject handRight;
         [Tooltip("The Transform from which shell casings are ejected.")]
         public Transform casingEjectionPort;
 
@@ -185,7 +186,7 @@ namespace Akila.FPSFramework
         {
             get
             {
-                if(aimingAnimation != null)
+                if (aimingAnimation != null)
                     return aimingAnimation.progress;
 
                 return 0;
@@ -280,7 +281,7 @@ namespace Akila.FPSFramework
                 firearmHUD.firearm = this;
             }
 
-            if(preset.crosshair == null)
+            if (preset.crosshair == null)
             {
                 Debug.LogError("Crosshair is not set in the preset. Fire's crosshair won't be initialized.", gameObject);
             }
@@ -312,7 +313,7 @@ namespace Akila.FPSFramework
             }
 
             //Initialize ammo profile from inventory
-            foreach(InventoryCollectable collectable in inventory.collectables)
+            foreach (InventoryCollectable collectable in inventory.collectables)
             {
                 if (collectable.GetIdentifier() == preset.ammoType)
                     ammoProfile = collectable;
@@ -340,7 +341,7 @@ namespace Akila.FPSFramework
             // Validate muzzle and casing ejection port transforms.
             if (!muzzle)
             {
-               // Debug.LogError("Muzzle transform is not assigned. Defaulting to the firearm's transform.", gameObject);
+                // Debug.LogError("Muzzle transform is not assigned. Defaulting to the firearm's transform.", gameObject);
                 muzzle = transform;
             }
 
@@ -459,7 +460,7 @@ namespace Akila.FPSFramework
                 currentSprayAmount = Mathf.Lerp(hipFireSprayPattern.totalAmount * currentSprayMultiplier, aimDownSightsSprayPattern.totalAmount * currentSprayMultiplier, aimProgress);
             }
         }
-        
+
 
         private void LateUpdate()
         {
@@ -573,10 +574,10 @@ namespace Akila.FPSFramework
                 {
                     if (itemInput.FireModeSwitchInput)
                     {
-                        currentFireMode = (currentFireMode == FireMode.Auto) ? FireMode.SemiAuto: FireMode.Auto;
+                        currentFireMode = (currentFireMode == FireMode.Auto) ? FireMode.SemiAuto : FireMode.Auto;
 
                         events.OnFireModeChange?.Invoke();
-                        
+
                         Debug.Log($"Selective Mode Switched To: {currentFireMode}");
                     }
                 }
@@ -791,7 +792,7 @@ namespace Akila.FPSFramework
             {
                 ApplyFireOnce();
             }
-            
+
             // Cancel any pending FireDone invocations
             CancelInvoke();
 
@@ -870,7 +871,7 @@ namespace Akila.FPSFramework
                 animator?.CrossFade("Fire", preset.fireTransition, 0, 0f);
             }
 
-            foreach(ParticleSystem effect in firearmParticleEffects)
+            foreach (ParticleSystem effect in firearmParticleEffects)
             {
                 if (isParticleEffectsActive && effect != chamberingEffects) effect.Play();
             }
@@ -969,14 +970,14 @@ namespace Akila.FPSFramework
             }
 
             //Exit if firearm preset is not set
-            if(firearm.preset == null)
+            if (firearm.preset == null)
             {
                 Debug.Log($"Firearm preset is not set {new System.Diagnostics.StackTrace()}.", firearm);
 
                 return;
             }
 
-            if(firearm.character == null)
+            if (firearm.character == null)
             {
                 Debug.LogError($"Character (ICharacterController) in the firearm is not set.", firearm);
 
@@ -984,7 +985,7 @@ namespace Akila.FPSFramework
             }
 
             Actor actor = firearm.actor;
-            
+
             FirearmPreset preset = firearm.preset;
 
             FirearmAttachmentsManager firearmAttachmentsManager = firearm.firearmAttachmentsManager;
@@ -1429,7 +1430,7 @@ namespace Akila.FPSFramework
                 return;
             }
 
-            if(characterManager)
+            if (characterManager)
             {
                 characterManager.attemptingToAim = false;
                 characterManager.isAiming = false;
