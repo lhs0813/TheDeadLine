@@ -9,7 +9,10 @@ public class Affector : MonoBehaviour
     [Header("Affect")]
     public float damage;
     public float push;
-    public float slow;
+    public float motionMultifly=-1; //0 ~ 1 ~ 99999
+    public float navMultifly=-1; //0 ~ 1 ~ 99999
+    public Vector3 sizeMultifly; //0 ~ 1 ~ 99999
+    public bool disableCollider;
     [Space(30)]
 
 
@@ -147,16 +150,47 @@ public class Affector : MonoBehaviour
                 return;
 
 
-                                    
+
+                                                
 
             damageTarget.Damage(damage, gameObject, false);
 
-            if (slow > 0)
+
+            if (motionMultifly >= 0)
             {
-                var nav = damageTarget.GetComponentInParent<NavMeshAgent>();
-                if (nav) nav.speed *= slow;
+                var ani = damageTarget.GetComponentInParent<Animator>();
+                if (ani)
+                {
+                    ani.speed *= motionMultifly;
+                }
             }
 
+            if (navMultifly >= 0)
+            {
+                var nav = damageTarget.GetComponentInParent<NavMeshAgent>();
+                if (nav)
+                {
+                    nav.speed *= navMultifly;
+                    nav.angularSpeed *= navMultifly;
+                }
+            }
+
+            if (sizeMultifly !=Vector3.zero)
+            {
+                Vector3 temp = damageTarget.transform.localScale;
+                temp.x *= sizeMultifly.x;
+                temp.y *= sizeMultifly.y;
+                temp.z *= sizeMultifly.z;
+                damageTarget.transform.localScale = temp;
+
+            }
+
+            if (disableCollider)
+            {
+               var v= damageTarget.GetComponentsInChildren<Collider>();
+                for(int i = 0; i < v.Length; i++) 
+                    v[i].enabled = false; 
+            }
 
 
 
@@ -172,7 +206,6 @@ public class Affector : MonoBehaviour
 
             if (hitEnrionment==false)
                 return;
-
 
 
 
@@ -206,10 +239,10 @@ public class Affector : MonoBehaviour
 
 
         if(push!=0)
-        {
+        {            
             var rb = go.GetComponentInParent<Rigidbody>();
             if (rb)
-                rb.linearVelocity = (go.transform.position - hitPoint).normalized * push;
+                rb.linearVelocity = (go.transform.position - transform.position).normalized * push;
         }
 
 

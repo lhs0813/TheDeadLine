@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8907642735884183816}
-  - component: {fileID: 238086838817667629}
   - component: {fileID: 2529491498804309575}
   - component: {fileID: 15665906844489685}
   m_Layer: 0
@@ -35,29 +34,6 @@ Transform:
   - {fileID: 4140440674907524521}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &238086838817667629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3123705248179510128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09422978fb3c4e14990e44af765b9615, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  next: {fileID: 0}
-  endTime: -1
-  forwardWolrdUp: 0
-  forwardXZ: 0
-  force: 0
-  rotateRnd: 0
-  navStop: 0
-  aniSpeed: -1
-  type: 0
-  target: {fileID: 0}
-  before: {fileID: 0}
 --- !u!114 &2529491498804309575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,12 +48,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   push: 0
-  slow: 0
+  timeMultifly: -1
   checkTime: 5
   checkCycle: 0.5
   allowRepeat: 1
-  hitEnrionment: 1
+  hitEnrionment: 0
   hitDamageble: 1
+  isRayCast: 0
   hitCount: -1
   hitMaxDestroy: 0
   hitFirstIgnore: 0
@@ -105,12 +82,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   push: 0
-  slow: 70
+  timeMultifly: 0.5
   checkTime: 5
   checkCycle: 0.2
   allowRepeat: 0
-  hitEnrionment: 1
+  hitEnrionment: 0
   hitDamageble: 1
+  isRayCast: 0
   hitCount: -1
   hitMaxDestroy: 0
   hitFirstIgnore: 0

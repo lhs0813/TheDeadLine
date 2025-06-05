@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4276275151770304364}
-  - component: {fileID: 4840873230302153291}
   - component: {fileID: 3858526839255306603}
   m_Layer: 0
   m_Name: Affect
@@ -33,29 +32,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4840873230302153291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4510121470295001009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09422978fb3c4e14990e44af765b9615, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  next: {fileID: 0}
-  endTime: -1
-  forwardWolrdUp: 0
-  forwardXZ: 0
-  force: 0
-  rotateRnd: 0
-  navStop: 0
-  aniSpeed: -1
-  type: 0
-  target: {fileID: 0}
-  before: {fileID: 0}
 --- !u!114 &3858526839255306603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,12 +46,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   push: 0
-  slow: 0
+  timeMultifly: 0
   checkTime: 99
   checkCycle: 0.1
   allowRepeat: 0
   hitEnrionment: 0
   hitDamageble: 1
+  isRayCast: 0
   hitCount: -1
   hitMaxDestroy: 0
   hitFirstIgnore: 0
@@ -89,4 +66,4 @@ MonoBehaviour:
   efInChiled: 1
   efInChiledlocalPositionZero: 1
   hitNext: {fileID: 0}
-  efDestroyTime: 10
+  efDestroyTime: 99
