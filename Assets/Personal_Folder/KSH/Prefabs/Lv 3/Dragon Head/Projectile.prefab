@@ -78,6 +78,7 @@ MonoBehaviour:
   - {fileID: 3672915962696690686}
   HUE: -1
   CollidedInstances: []
+  isWorld: 0
 --- !u!1 &1428536854032171218
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,12 +268,11 @@ MonoBehaviour:
   damage: 50
   push: 0
   slow: 0
-  targetObject: {fileID: 0}
   checkTime: 999
   checkCycle: 0.1
   allowRepeat: 0
-  hitOnlyEnrionment: 1
-  hitOnlyDamageble: 0
+  hitEnrionment: 1
+  hitDamageble: 0
   hitCount: 1
   hitMaxDestroy: 1
   hitFirstIgnore: 0
@@ -295,6 +295,8 @@ MonoBehaviour:
   hitEffect: {fileID: 2721738595080398438, guid: dbdb9d76672c62a408a356edf00921dc,
     type: 3}
   efDiretionHitNormal: 1
+  efInChiled: 0
+  efInChiledlocalPositionZero: 0
   hitNext: {fileID: 0}
   efDestroyTime: 99
 --- !u!1 &2069878048387975194
@@ -19894,12 +19896,11 @@ MonoBehaviour:
   damage: 50
   push: 0
   slow: 0
-  targetObject: {fileID: 0}
   checkTime: 999
   checkCycle: 0.1
   allowRepeat: 0
-  hitOnlyEnrionment: 0
-  hitOnlyDamageble: 0
+  hitEnrionment: 0
+  hitDamageble: 1
   hitCount: -1
   hitMaxDestroy: 0
   hitFirstIgnore: 0
@@ -19910,6 +19911,8 @@ MonoBehaviour:
   hitEffect: {fileID: 5677754778149666026, guid: 33d342a96ece95c47bfba9c00eeb38c4,
     type: 3}
   efDiretionHitNormal: 1
+  efInChiled: 0
+  efInChiledlocalPositionZero: 0
   hitNext: {fileID: 0}
   efDestroyTime: 10
 --- !u!1 &5289190333574607730

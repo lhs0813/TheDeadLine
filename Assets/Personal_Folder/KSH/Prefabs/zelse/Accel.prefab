@@ -4831,7 +4831,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09422978fb3c4e14990e44af765b9615, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  next: {fileID: 0}
+  endTime: -1
+  forwardWolrdUp: 0
+  forwardXZ: 0
+  force: 0
+  rotateRnd: 0
+  navStop: 0
+  aniSpeed: -1
   type: 0
+  target: {fileID: 0}
+  before: {fileID: 0}
 --- !u!114 &1310901503797194534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4844,23 +4854,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c29a97481c1df141930d343887b9064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 99
   push: 0
-  checkTime: 0.1
-  checkCycle: 99
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  allowRepeat: 0
+  slow: 0
+  checkTime: 99
+  checkCycle: 0.1
+  allowRepeat: 1
+  hitEnrionment: 1
+  hitDamageble: 1
+  isRayCast: 0
   hitCount: -1
   hitMaxDestroy: 0
   hitFirstIgnore: 0
   reflect: 0
-  hitEffect: {fileID: 0}
-  hitNext: {fileID: 0}
   OnHit:
     m_PersistentCalls:
       m_Calls: []
+  hitEffect: {fileID: 0}
+  efDiretionHitNormal: 0
+  efInChiled: 0
+  efInChiledlocalPositionZero: 0
+  hitNext: {fileID: 0}
+  efDestroyTime: 10
 --- !u!114 &2739247030862651436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4874,13 +4889,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  to: {x: 0, y: 0, z: 0}
-  accel: 10
-  velocityMax: 10
-  rotate: 0.2
+  accel: 30
+  velocityMax: 50
+  rotateSpeed: 1
   distMax: 10
   break2: 1
+  findRange: 30
   all: {x: 0, y: 0, z: 0}
+  to: {x: 0, y: 0, z: 0}
 --- !u!1 &2405758364967896953
 GameObject:
   m_ObjectHideFlags: 0
@@ -5132,8 +5148,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.5
+      scalar: 0.3
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:

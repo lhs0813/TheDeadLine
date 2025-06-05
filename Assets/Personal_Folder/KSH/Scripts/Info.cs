@@ -15,7 +15,7 @@ public class Info : MonoBehaviour
     [Space(30)]
 
 
-    [Header("Parent")]//디버프로서 타겟 아래에 존재함
+    [Header("AffectParent")]//디버프로서 타겟 아래에 존재함
     public bool navStop;
     public float aniSpeed=-1;
 
@@ -100,7 +100,7 @@ public class Info : MonoBehaviour
             if (target.deadConfirmed)
                 continue;
 
-            if (target.type == from.GetComponent<Info>().type)
+            if (target.type == HealthType.Player)
                 continue;
 
 

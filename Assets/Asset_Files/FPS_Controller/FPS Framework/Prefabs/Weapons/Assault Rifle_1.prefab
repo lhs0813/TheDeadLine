@@ -557,9 +557,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cf5bb42081a40a4484bd38dfdf7dbd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Assault Rifle_1
+  Name: M4a1
+  gunImage: {fileID: 21300000, guid: 1408d7afa8673b742a179c3afc2d6c49, type: 3}
+  grade: {r: 0, g: 0.532712, b: 1, a: 0.50980395}
   preset: {fileID: 11400000, guid: a727cac81fab1e34c9b8a0889512b165, type: 2}
   muzzle: {fileID: 113995438697614323}
+  handLeftWeapon: {fileID: 0}
+  handRight: {fileID: 0}
   casingEjectionPort: {fileID: 395104232405325147}
   chamberingEffects: {fileID: 0}
   events:
@@ -581,7 +585,6 @@ MonoBehaviour:
     OnFireModeChange:
       m_PersistentCalls:
         m_Calls: []
-  a: {fileID: 0}
 --- !u!114 &2052470699772223401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,7 +599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeAttachments:
   - type: Sight
-    name: 
+    name: Red Dot 3
   - type: Muzzle
     name: 
   - type: Stock
@@ -8186,6 +8189,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Laser
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116482618706161305, guid: 56c5d04632cc6ba439145b34f02a051d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9116482618706161306, guid: 56c5d04632cc6ba439145b34f02a051d,
         type: 3}

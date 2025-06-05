@@ -1,7 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Akila.FPSFramework
 {
@@ -19,6 +20,9 @@ namespace Akila.FPSFramework
         [Header("Colors")]
         public Color normalColor = Color.white;
         public Color alertColor = Color.red;
+
+        [Header("Image")]
+        public Image gunImage;
 
         public Firearm firearm { get; set; }
 
@@ -41,6 +45,8 @@ namespace Akila.FPSFramework
 
             remainingAmmoText.color = firearm.remainingAmmoCount <= firearm.preset.magazineCapacity / 3 ? alertColor : normalColor;
             remainingAmmoTypeText.color = firearm.remainingAmmoTypeCount <= 0 ? alertColor : normalColor;
+
+            gunImage.sprite = firearm.gunImage;
         }
 
         private void LateUpdate()

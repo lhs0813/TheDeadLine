@@ -10,12 +10,12 @@ public class PrefabsControl : MonoBehaviour
    
     void Start()
     {
-        FindWeapon();
-      //  WeaponSetting();
+        //InstPickables();
+        WeaponSetting();
     }
 
 
-    void FindWeapon()
+    void InstPickables()
     {
         List<GameObject> temp = new ();
         for (int i = 0; i < list.Count; i++)
