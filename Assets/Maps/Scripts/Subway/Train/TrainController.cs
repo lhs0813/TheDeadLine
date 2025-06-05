@@ -46,11 +46,10 @@ public class TrainController : MonoBehaviour
 
     IEnumerator TrainArriveCoroutine()
     {
-        //TODO : Stop Train
         isMoving = false;
 
         yield return new WaitForSeconds(trainArriveDelay);
-        trainDoorController.OpenDoor();
+        //trainDoorController.OpenDoor();
 
     }
 
@@ -87,7 +86,7 @@ public class TrainController : MonoBehaviour
     {
         if (!isMoving) return; //역 정차시 움직이지 않음.
 
-        transform.Translate(Vector3.forward * currentSpeed * Time.deltaTime); // 또는 원하는 방향
+        transform.Translate(Vector3.right * currentSpeed * Time.deltaTime); // 또는 원하는 방향
     }
 
     /// <summary>
