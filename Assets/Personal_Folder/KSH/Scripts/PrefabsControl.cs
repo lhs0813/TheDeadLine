@@ -66,7 +66,7 @@ public class PrefabsControl : MonoBehaviour
         firearm.Name = firearm.name;
         firearm.preset = data;
 
-        pickable.name=firearm.name;
+        pickable.Name = firearm.name;
         pickable.item = firearm;
         
     }

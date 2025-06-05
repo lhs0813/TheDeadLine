@@ -174,6 +174,7 @@ namespace Akila.FPSFramework
         /// Invoked when the item is dropped.
         /// </summary>
         public Action onDropped;
+        public UnityEngine.Events.UnityEvent OnDropStart;
 
         /// <summary>
         /// If false, the Drop() function will return after invoking the onDrop event.
@@ -372,6 +373,11 @@ namespace Akila.FPSFramework
         {
             if (isDropping) yield break;
             isDropping = true;
+            OnDropStart.Invoke();
+
+
+
+
 
             Animator _anim = GetComponentInChildren<Animator>();
             _anim.SetTrigger("Throw");
