@@ -1,5 +1,4 @@
 ﻿using Akila.FPSFramework;
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,56 +13,80 @@ public class UI_Inventory_Update : MonoBehaviour
 
     [SerializeField] private GameObject _playerInventory;
 
+    private Image[] _inventorySlots;
 
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
         _playerInventory = FindAnyObjectByType<Inventory>().gameObject;
+
+        // Image 배열 초기화
+        _inventorySlots = new Image[] { inventory1, inventory2, inventory3 };
+
         InventoryCheck();
     }
 
     private void Update()
     {
-
         InventoryCheck();
     }
 
     public void InventoryCheck()
     {
-        // 1. 자식 게임오브젝트 수집
+        // 1. 자식 GameObject 리스트 수집
         List<GameObject> pocket = new List<GameObject>();
         for (int i = 0; i < _playerInventory.transform.childCount; i++)
         {
-            GameObject child = _playerInventory.transform.GetChild(i).gameObject;
-            pocket.Add(child);
+            pocket.Add(_playerInventory.transform.GetChild(i).gameObject);
         }
 
-        // 2. 전부 색 초기화 (예: 흰색)
-        inventory1.color = Color.white;
-        inventory2.color = Color.white;
-        inventory3.color = Color.white;
-
-        // 3. 활성화된 첫 번째 오브젝트를 찾고 그 인덱스를 기반으로 색 변경
-        for (int i = 0; i < pocket.Count; i++)
+        // 2. 각 슬롯마다 UI 갱신
+        for (int i = 0; i < _inventorySlots.Length; i++)
         {
-            if (pocket[i].activeSelf)
+            Image gunBackground = _inventorySlots[i].transform.GetChild(1).GetComponent<Image>();
+            Image gunImage = _inventorySlots[i].transform.GetChild(2).GetComponent<Image>();
+            
+            if (i < pocket.Count && pocket[i] != null)
             {
-                switch (i)
-                {
-                    case 0:
-                        inventory1.color = Color.yellow;
-                        break;
-                    case 1:
-                        inventory2.color = Color.yellow;
-                        break;
-                    case 2:
-                        inventory3.color = Color.red;
-                        break;
-                }
-                break; // 첫 번째 활성화된 오브젝트만 체크
+                Firearm firearm = pocket[i].GetComponent<Firearm>();
+                gunImage.enabled = true;
+                gunBackground.enabled = true;
+                gunBackground.color = firearm.grade;
+                gunImage.sprite = firearm != null ? firearm.gunImage : null;
+            }
+            else
+            {
+                gunImage.enabled = false;
+                gunBackground.enabled = false;
             }
         }
+
+        // 3. 첫 번째 활성 무기 색상 강조
+        for (int i = 0; i < _inventorySlots.Length; i++)
+        {
+            if (i < pocket.Count && pocket[i] != null)
+            {
+                if (pocket[i].activeSelf)
+                {
+                    _inventorySlots[i].transform.localScale = new Vector3(0.8f, 0.8f, 0.8f); // 활성화된 무기 강조
+                }
+                else
+                {
+                    _inventorySlots[i].transform.localScale = new Vector3(0.7f, 0.7f, 0.7f); // 비활성화된 무기
+                }
+            }
+            else
+            {
+                // pocket[i]가 없을 경우에도 스케일을 초기화
+                _inventorySlots[i].transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            }
+        }
+
     }
-
-
 }
+
