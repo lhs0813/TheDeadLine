@@ -15,7 +15,7 @@ public class PrefabsControl : MonoBehaviour
 
     void Start()
     {
-        // WeaponSetting();
+         WeaponSetting();
         //InstPickables();
         // EraseMeshCollider();
     }

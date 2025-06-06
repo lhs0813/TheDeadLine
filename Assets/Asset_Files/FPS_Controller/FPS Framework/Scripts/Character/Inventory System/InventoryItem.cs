@@ -483,8 +483,11 @@ namespace Akila.FPSFramework
             }
 
 
+
+            Destroy(newPickupable.GetComponent<Pickable>());
             newPickupable.GetComponent<PickableEffect>().enabled = false;
-            Destroy(newPickupable,3);
+            Destroy(newPickupable.gameObject,3);
+
 
 
 
