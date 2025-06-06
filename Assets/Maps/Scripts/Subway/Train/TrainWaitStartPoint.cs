@@ -6,7 +6,7 @@ public class TrainWaitStartPoint : MonoBehaviour
     {
         if (other.CompareTag("Train Trigger"))
         {
-            other.GetComponent<TrainController>().MoveToWaitingRail();
+            other.GetComponentInParent<TrainController>().MoveToWaitingRail();
         }
     }
 }

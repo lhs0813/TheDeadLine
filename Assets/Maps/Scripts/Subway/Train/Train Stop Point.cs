@@ -7,7 +7,7 @@ public class TrainStopPoint : MonoBehaviour
         if (other.CompareTag("Train Trigger"))
         {
             Debug.Log("열차가 플랫폼에 도착");
-            other.GetComponentInParent<TrainController>().TrainArrive();
+            GamePlayManager.instance.GoCombatState();
         }
 
         Destroy(gameObject, 5f);

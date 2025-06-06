@@ -1,5 +1,7 @@
 using System.Collections;
+using Akila.FPSFramework;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class TrainController : MonoBehaviour
 {
@@ -37,7 +39,7 @@ public class TrainController : MonoBehaviour
 
     IEnumerator TrainDepartCoroutine()
     {
-        trainDoorController.CloseDoor();
+        //trainDoorController.CloseDoor();
         yield return new WaitForSeconds(trainDepartDelay); // 문 닫히는 시간보다 길게
 
         CheckAndAttachPlayer();
@@ -47,8 +49,10 @@ public class TrainController : MonoBehaviour
     IEnumerator TrainArriveCoroutine()
     {
         isMoving = false;
+        isStopping = false;
 
         yield return new WaitForSeconds(trainArriveDelay);
+        DetachPlayer();
         //trainDoorController.OpenDoor();
 
     }
@@ -113,21 +117,35 @@ public class TrainController : MonoBehaviour
 
     void CheckAndAttachPlayer()
     {
-        Collider[] hits = Physics.OverlapBox(
-            trainInteriorZone.bounds.center,
-            trainInteriorZone.bounds.extents,
-            trainInteriorZone.transform.rotation,
-            LayerMask.GetMask("Player") // 플레이어 전용 레이어 사용 권장
-        );
+        // Debug.Log("Check and Attack Player");
+        // Collider[] hits = Physics.OverlapBox(
+        //     trainInteriorZone.bounds.center,
+        //     trainInteriorZone.bounds.extents,
+        //     trainInteriorZone.transform.rotation
+        //     //LayerMask.GetMask("Player") // 플레이어 전용 레이어 사용 권장
+        // );
 
-        foreach (var hit in hits)
+        // foreach (var hit in hits)
+        // {
+        //     Debug.Log(hit.name);
+
+        //     if (hit.CompareTag("Player"))
+        //     {
+        //         hit.transform.SetParent(trainTransform);
+        //         Debug.Log("✅ Player attached to train.");
+        //     }
+        // }
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (trainInteriorZone.bounds.Contains(player.transform.position))
         {
-            if (hit.CompareTag("Player"))
-            {
-                hit.transform.SetParent(trainTransform);
-                Debug.Log("✅ Player attached to train.");
-            }
+            player.transform.SetParent(trainTransform);
         }
+    }
+
+    void DetachPlayer()
+    {
+        FindAnyObjectByType<CharacterManager>().transform.SetParent(null);
     }
 
 
