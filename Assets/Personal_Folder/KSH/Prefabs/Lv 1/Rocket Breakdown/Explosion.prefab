@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1953356882760207080}
+  - component: {fileID: 6534240060332750506}
   - component: {fileID: 8704687301897540299}
   - component: {fileID: 618166253233097438}
   - component: {fileID: 622698060585821937}
-  - component: {fileID: 6534240060332750506}
   - component: {fileID: -893456048550719804}
   m_Layer: 0
   m_Name: Explosion
@@ -37,6 +37,43 @@ Transform:
   - {fileID: 1899046518422709250}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6534240060332750506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875673432313481385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c29a97481c1df141930d343887b9064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 120
+  push: 0
+  motionMultifly: -1
+  navMultifly: -1
+  sizeMultifly: {x: 0, y: 0, z: 0}
+  disableCollider: 0
+  checkTime: 0.1
+  checkCycle: 99
+  allowRepeat: 0
+  hitEnrionment: 1
+  hitDamageble: 1
+  isRayCast: 0
+  hitCount: -1
+  hitMaxDestroy: 0
+  hitFirstIgnore: 0
+  reflect: 0
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  hitEffect: {fileID: 0}
+  efDiretionHitNormal: 0
+  efInChiled: 0
+  efInChiledlocalPositionZero: 0
+  hitNext: {fileID: 0}
+  efDestroyTime: 10
 --- !u!198 &8704687301897540299
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4950,35 +4987,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6534240060332750506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875673432313481385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c29a97481c1df141930d343887b9064, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 120
-  push: 0
-  checkTime: 0.1
-  checkCycle: 99
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  allowRepeat: 0
-  hitCount: -1
-  hitMaxDestroy: 0
-  hitFirstIgnore: 0
-  reflect: 0
-  hitEffect: {fileID: 0}
-  hitNext: {fileID: 0}
-  OnHit:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &-893456048550719804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4994,9 +5002,11 @@ MonoBehaviour:
   time: 10
   isRepeat: 0
   num: 0
+  timeRndMax: 0
   OnTime:
     m_PersistentCalls:
       m_Calls: []
+  onDestroy: 0
 --- !u!1 &1676865332932233877
 GameObject:
   m_ObjectHideFlags: 0

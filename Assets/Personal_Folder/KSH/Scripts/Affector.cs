@@ -73,7 +73,7 @@ public class Affector : MonoBehaviour
             yield return new WaitForSeconds(checkCycle);
         }
     }
-    private void OnDisable() { StopAllCoroutines(); }
+    private void OnDisable() { Debug.Log(1); StopAllCoroutines(); }
 
 
 

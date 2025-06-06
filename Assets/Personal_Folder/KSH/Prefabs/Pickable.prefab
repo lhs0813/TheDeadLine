@@ -309,6 +309,7 @@ GameObject:
   - component: {fileID: 8065355004949804951}
   - component: {fileID: 8065355004949804950}
   - component: {fileID: 2246658551994561071}
+  - component: {fileID: -2888857057456982696}
   m_Layer: 15
   m_Name: Pickable
   m_TagString: Untagged
@@ -427,6 +428,24 @@ MonoBehaviour:
   - type: Laser
     name: 
   attachments: []
+--- !u!114 &-2888857057456982696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8065355004949804945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af5752a325cd575438d266d645da95ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 1
+  effects:
+  - {fileID: 8248329602048615276, guid: ff9d06b767fae5444aa8bcc221bfcb33, type: 3}
+  - {fileID: 8248329602048615276, guid: 1186bfe035bd6cb4f906c877b515788f, type: 3}
+  - {fileID: 8248329602048615276, guid: 83c850be3f790d0428c73e6cc592a895, type: 3}
+  - {fileID: 8248329602048615276, guid: cf856e2e7dfc1ad43ab3fef0706bf907, type: 3}
 --- !u!1 &8065355005266530198
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,7 +472,7 @@ Transform:
   m_GameObject: {fileID: 8065355005266530198}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
