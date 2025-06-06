@@ -4970,15 +4970,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c29a97481c1df141930d343887b9064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 100
+  damage: 80
   push: 0
-  slow: 0
-  targetObject: {fileID: 0}
+  motionMultifly: -1
+  navMultifly: -1
+  sizeMultifly: {x: 0, y: 0, z: 0}
+  disableCollider: 0
   checkTime: 0.1
   checkCycle: 99
   allowRepeat: 0
-  hitOnlyEnrionment: 0
-  hitOnlyDamageble: 0
+  hitEnrionment: 1
+  hitDamageble: 1
+  isRayCast: 0
   hitCount: -1
   hitMaxDestroy: 0
   hitFirstIgnore: 0
@@ -4988,6 +4991,8 @@ MonoBehaviour:
       m_Calls: []
   hitEffect: {fileID: 0}
   efDiretionHitNormal: 0
+  efInChiled: 0
+  efInChiledlocalPositionZero: 0
   hitNext: {fileID: 0}
   efDestroyTime: 10
 --- !u!1 &1676865332932233877

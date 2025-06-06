@@ -10,8 +10,9 @@ public class PrefabsControl : MonoBehaviour
    
     void Start()
     {
-        //InstPickables();
         WeaponSetting();
+        //InstPickables();
+       // EraseMeshCollider();
     }
 
 
@@ -34,8 +35,13 @@ public class PrefabsControl : MonoBehaviour
     }
 
 
+    void EraseMeshCollider()
+    {
+      var v=  list[0].GetComponentsInChildren<MeshCollider>(true);
+        for (int i = 0; i < v.Length; i++)
+        Destroy(v[i]);
 
-
+    }
 
     [Header("WeaponSetting")]
     public FirearmPreset data;
@@ -66,7 +72,7 @@ public class PrefabsControl : MonoBehaviour
         firearm.Name = firearm.name;
         firearm.preset = data;
 
-        pickable.name=firearm.name;
+        pickable.Name = firearm.name;
         pickable.item = firearm;
         
     }

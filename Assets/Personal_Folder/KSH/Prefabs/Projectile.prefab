@@ -158,7 +158,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5533149664834043034}
   - component: {fileID: 5533149664834043035}
-  - component: {fileID: 7932546985399243949}
   - component: {fileID: 1361489611833466017}
   - component: {fileID: 9215762499516411650}
   m_Layer: 0
@@ -237,29 +236,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7932546985399243949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5533149664834043029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09422978fb3c4e14990e44af765b9615, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  next: {fileID: 0}
-  endTime: -1
-  forwardWolrdUp: 0
-  forwardXZ: 0
-  force: 0
-  rotateRnd: 0
-  navStop: 0
-  aniSpeed: -1
-  type: 0
-  target: {fileID: 0}
-  before: {fileID: 0}
 --- !u!114 &1361489611833466017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,7 +250,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   push: 0
-  slow: 0
+  motionMultifly: -1
+  navMultifly: -1
+  sizeMultifly: {x: 0, y: 0, z: 0}
   checkTime: 999
   checkCycle: 0.1
   allowRepeat: 0

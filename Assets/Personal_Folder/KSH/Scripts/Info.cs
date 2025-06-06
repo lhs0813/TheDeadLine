@@ -15,12 +15,6 @@ public class Info : MonoBehaviour
     [Space(30)]
 
 
-    [Header("AffectParent")]//디버프로서 타겟 아래에 존재함
-    public bool navStop;
-    public float aniSpeed=-1;
-
-    [Space(30)]
-
 
     [Header("Info")]
     public HealthType type;
@@ -58,9 +52,6 @@ public class Info : MonoBehaviour
 
         //-------------------------------------------------------------------------------------------------------------------------------
 
-        var target = GetComponentInParent<Damageable>();
-        if (navStop) GetComponentInParent<NavMeshAgent>().isStopped = true;
-        if (aniSpeed >= 0) GetComponentInParent<Animator>().speed = aniSpeed;
 
 
     }

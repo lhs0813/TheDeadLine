@@ -366,7 +366,20 @@ namespace Akila.FPSFramework
                     character.ResetSpeed();
                 }
             }
+
+
+            OnDropStart.AddListener(DropStart);
+
         }
+        void DropStart() 
+        { 
+          if(handLeftWeapon && handRight) 
+                handLeftWeapon.transform.parent = handRight.transform;
+        }
+
+
+
+
 
         /// <summary>
         /// Updates the firearm's state, including handling reloading, ammo, and animation states.
