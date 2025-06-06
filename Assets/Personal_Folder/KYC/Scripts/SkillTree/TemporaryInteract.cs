@@ -1,12 +1,18 @@
 ﻿using UnityEngine;
+using System;
 
 public class RotateOnTrigger : MonoBehaviour
 {
+    public static Action onLapTop;
+    public static Action offLapTop;
+
     public GameObject targetObject;        // 회전시킬 오브젝트
     public float openAngle = -20f;         // 열릴 때 X축 회전 각도
     private float closeAngle = 89.7f;          // 닫힐 때 X축 회전 각도
     public float rotationSpeed = 50f;      // 회전 속도
     public GameObject skillUI;
+
+    public bool isLapTopOn = false;
 
     private bool isPlayerInside = false;
 
@@ -36,25 +42,41 @@ public class RotateOnTrigger : MonoBehaviour
         targetObject.transform.rotation = Quaternion.Euler(newRotation);
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void LabtopOn()
     {
-        if (other.CompareTag("Player"))
-        {
-            isPlayerInside = true;
-            skillUI.SetActive(true);
-            Cursor.visible = true;                              // 커서 보이기
-            Cursor.lockState = CursorLockMode.None;
-        }
+        onLapTop?.Invoke();
+
+        isPlayerInside = true;
+        skillUI.SetActive(true);
+        isLapTopOn = true;
+        Cursor.visible = true;                              // 커서 보이기
+        Cursor.lockState = CursorLockMode.None;
     }
 
-    private void OnTriggerExit(Collider other)
+    public void LabtopOff()
+    {
+        offLapTop?.Invoke();
+
+        isPlayerInside = false;
+        skillUI.SetActive(false);
+        isLapTopOn = false;
+        Cursor.visible = false;                             // 커서 숨기기
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    /*private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerInside = false;
-            skillUI.SetActive(false);
-            Cursor.visible = false;                             // 커서 숨기기
-            Cursor.lockState = CursorLockMode.Locked;
+            
         }
-    }
+    }*/
+
+    /*private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            
+        }
+    }*/
 }

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Akila.FPSFramework.UI
 {
@@ -19,6 +19,8 @@ namespace Akila.FPSFramework.UI
         /// </summary>
         public bool IsPaused => FPSFrameworkCore.IsPaused;
 
+        private bool _inputBlocked = false;
+
         /// <summary>
         /// Initializes the Pause Menu.
         /// </summary>
@@ -32,6 +34,9 @@ namespace Akila.FPSFramework.UI
 
             // Ensure the game starts unpaused
             FPSFrameworkCore.IsPaused = false;
+
+            RotateOnTrigger.onLapTop += InputStop;
+            RotateOnTrigger.offLapTop += InputStart;
         }
 
         /// <summary>
@@ -41,8 +46,14 @@ namespace Akila.FPSFramework.UI
         {
             base.Update();
 
+            
+
             if (_controls.UI.Pause.triggered)
             {
+                if (_inputBlocked)
+                    return;
+
+
                 if (IsPaused)
                     Unpause();
                 else
@@ -51,6 +62,20 @@ namespace Akila.FPSFramework.UI
 
             if(IsPaused == false) CloseMenu();
         }
+
+        private void InputStop()
+        {
+            _inputBlocked = true;
+            _controls.Disable();
+        }
+
+        private void InputStart()
+        {
+            _inputBlocked = false;
+            _controls.Enable();
+        }
+
+
 
         /// <summary>
         /// Pauses the game and opens the pause menu.
