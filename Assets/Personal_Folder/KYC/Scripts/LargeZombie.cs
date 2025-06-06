@@ -2,8 +2,8 @@
 {
     protected override void Start()
     {
-        health = 250f;
-        moveSpeed = 1f;
+        health = 500f;
+        moveSpeed = 1.5f;
         base.Start();
     }
 }
