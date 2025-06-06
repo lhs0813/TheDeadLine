@@ -9,7 +9,7 @@ public class ChaseState : IZombieState
     {
         this._zombie = zombie;
         _player = GameObject.FindWithTag("Player")?.transform;
-        _zombie.Animator.SetTrigger("TriggerRun");
+        _zombie.Animator.SetTrigger("ToChase"); // Blend Tree 상태 전이 트리거
         _zombie.Agent.speed = _zombie.moveSpeed * 1.5f; // 또는 원하는 값 (예: 4f)
     }
 

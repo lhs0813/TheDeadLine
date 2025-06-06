@@ -2,7 +2,6 @@
 
 public abstract class ZombieBase : MonoBehaviour, IZombie
 {
-
     private Animator _anim;
     private int _walkIndex;
     private int _runIndex;
@@ -13,10 +12,12 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     public float health = 100f;
     public float moveSpeed = 2f;
     public float detectionRange = 10f;
+    public float attackRange = 2f;
 
     protected IZombieState currentState;
     protected UnityEngine.AI.NavMeshAgent agent;
     public UnityEngine.AI.NavMeshAgent Agent => agent;
+
     protected virtual void Awake()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -26,21 +27,17 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         }
         else
         {
-            agent.speed = moveSpeed; 
+            agent.speed = moveSpeed;
         }
         _anim = GetComponent<Animator>();
 
-        // 좀비마다 애니메이션 인덱스 랜덤 설정
-        _walkIndex = Random.Range(0, 3);   // Walk 0~2
-        _runIndex = Random.Range(0, 4);    // Run 0~3
-        _attackIndex = Random.Range(0, 3); // Attack 0~
+        _walkIndex = Random.Range(0, 3);
+        _runIndex = Random.Range(0, 3);
+        _attackIndex = Random.Range(0, 3);
 
-
-        _anim.SetInteger("walkIndex", _walkIndex);
-        _anim.SetInteger("runIndex", _runIndex);
-        _anim.SetInteger("attackIndex", _attackIndex);
-
-        _anim.SetTrigger("TriggerWalk");
+        _anim.SetFloat("walkIndex", _walkIndex);
+        _anim.SetFloat("runIndex", _runIndex);
+        _anim.SetFloat("attackIndex", _attackIndex);
     }
 
     public void SetState(IZombieState newState)
@@ -83,6 +80,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
             agent.SetDestination(target);
         }
     }
+
     public void StopMovement()
     {
         if (agent != null && agent.isOnNavMesh)
@@ -98,10 +96,17 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
             agent.isStopped = false;
         }
     }
+
     public virtual bool IsPlayerInRange(Transform player)
     {
         return Vector3.Distance(transform.position, player.position) < detectionRange;
     }
 
-
+    public void AttackEnd()
+    {
+        if (currentState is AttackState)
+        {
+            ((AttackState)currentState).OnAttackEnd();
+        }
+    }
 }

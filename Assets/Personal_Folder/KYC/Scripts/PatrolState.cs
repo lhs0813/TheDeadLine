@@ -9,7 +9,7 @@ public class PatrolState : IZombieState
     public void Enter(ZombieBase zombie)
     {
         this._zombie = zombie;
-        _zombie.Animator.SetTrigger("TriggerWalk");
+        _zombie.Animator.SetTrigger("ToPatrol"); // Blend Tree 상태 전이 트리거
         _patrolTarget = GetRandomPoint(); 
         zombie.MoveTowards(_patrolTarget);
         GameObject playerObj = GameObject.FindWithTag("Player");
