@@ -8,8 +8,11 @@ public class SkillTreeManager : MonoBehaviour
 {
     public int availablePoints = 0;
     public TextMeshProUGUI pointsText;
+    public TextMeshProUGUI pointsText2;
     public PlayerStats playerStats;
     public List<SkillNode> allSkills;
+    private float _resetKeyTime = 0f;
+    public int resetTicket = 1; // (초기값 원하는 대로)
 
     public event Action<int> OnPointChanged;
 
@@ -47,23 +50,44 @@ public class SkillTreeManager : MonoBehaviour
 
     public void ResetAllSkills()
     {
+        int refundedPoints = 0;
         foreach (var skill in allSkills)
         {
             if (skill.IsUnlocked)
             {
+                refundedPoints += skill.requiredPoints;
                 skill.Reset(playerStats);
             }
         }
-
-        availablePoints = allSkills.Count; // 필요 시 수정 가능
+        availablePoints += refundedPoints;
         OnPointChanged?.Invoke(availablePoints);
     }
+
 
     private void Update()
     {
         if (pointsText != null)
         {
             pointsText.text = $"{availablePoints}";
+        }
+        if (pointsText2 != null)
+        {
+            pointsText2.text = $"{availablePoints}";
+        }
+        // 리셋 키(예: F) 3초 동안 누르기
+        if (UnityEngine.InputSystem.Keyboard.current.fKey.isPressed)
+        {
+            _resetKeyTime += Time.unscaledDeltaTime;
+
+            if (_resetKeyTime >= 3f)
+            {
+                TryResetAllSkills();
+                _resetKeyTime = 0f; // 한 번만 실행
+            }
+        }
+        else
+        {
+            _resetKeyTime = 0f;
         }
     }
 
@@ -76,6 +100,18 @@ public class SkillTreeManager : MonoBehaviour
             skill.IsUnlocked);
     }
 
-
+    public void TryResetAllSkills()
+    {
+        if (resetTicket > 0)
+        {
+            resetTicket--;
+            ResetAllSkills();
+            Debug.Log("스킬을 전부 초기화했습니다. 남은 리셋권: " + resetTicket);
+        }
+        else
+        {
+            Debug.Log("리셋권이 없습니다!");
+        }
+    }
 
 }

@@ -171,7 +171,10 @@ namespace Akila.FPSFramework
 
             for (int i = 0; i < hits.Length; i++)
             {
+
+                //var enemyHit = hits[i].transform.root.transform.GetChild(0).GetComponent<Damageable>();
                 var enemyHit = hits[i].transform.GetComponentInParent<Damageable>();
+
 
                 if (enemyHit != null)
                 {

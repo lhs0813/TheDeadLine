@@ -47,11 +47,11 @@ public class MapGenerationManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    async void Start()
+    void Start()
     {
         runtimeDungeon = GetComponent<RuntimeDungeon>();
         runtimeDungeon.Generator.OnGenerationComplete += BakeNavMeshOnMapLoaded;
-        await LoadMap(1);
+
     }
 
 
