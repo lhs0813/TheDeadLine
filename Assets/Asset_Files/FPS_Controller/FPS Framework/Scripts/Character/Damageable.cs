@@ -17,6 +17,7 @@ namespace Akila.FPSFramework
         [Space]
         public bool destoryOnDeath;
         public bool destroyRoot;
+        public bool Ragdoll_Character;
         public bool ragdolls;
         public GameObject deathEffect;
 
@@ -40,7 +41,17 @@ namespace Akila.FPSFramework
 
         private void Awake()
         {
-            maxHealth = health;
+            // 부모에서 ZombieBase를 찾아 health 가져오기
+            ZombieBase zombie = GetComponentInParent<ZombieBase>();
+            if (zombie != null)
+            {
+                health = zombie.health;
+                maxHealth = zombie.health;
+            }
+            else
+            {
+                maxHealth = health;
+            }
         }
 
         private void Start()
@@ -151,7 +162,7 @@ namespace Akila.FPSFramework
             }
 
             if (destoryOnDeath && !destroyRoot) Destroy(gameObject, destroyDelay);
-            if (destoryOnDeath && destroyRoot) Destroy(gameObject.transform.parent.gameObject, destroyDelay);
+            if (destoryOnDeath && destroyRoot) Destroy(gameObject.transform.root.gameObject, destroyDelay);
             if (!died) Respwan();
 
             if (ragdoll) ragdoll.Enable(damageDirection);

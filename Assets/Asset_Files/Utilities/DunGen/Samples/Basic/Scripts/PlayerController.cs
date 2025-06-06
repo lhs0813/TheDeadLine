@@ -60,7 +60,7 @@ namespace DunGen.Demo
 			if (status == GenerationStatus.Complete)
 			{
 				FrameDungeonWithCamera();
-				transform.position = new Vector3(0, 1, 7); // Hard-coded spawn position
+				//transform.position = new Vector3(0, 1, 7); // Hard-coded spawn position
 				velocity = Vector3.zero;
 			}
 		}

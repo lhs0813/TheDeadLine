@@ -2,6 +2,7 @@
 using Akila.FPSFramework.Internal;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEngine.ParticleSystem;
 
 namespace Akila.FPSFramework
@@ -10,6 +11,7 @@ namespace Akila.FPSFramework
     [RequireComponent(typeof(FirearmAttachmentsManager))]
     public class Firearm : InventoryItem
     {
+
         [Tooltip("The firearm preset that defines all values for this firearm. This preset is a ScriptableObject.")]
         public FirearmPreset preset;
 
