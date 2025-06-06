@@ -162,7 +162,7 @@ namespace Akila.FPSFramework
             }
 
             if (destoryOnDeath && !destroyRoot) Destroy(gameObject, destroyDelay);
-            if (destoryOnDeath && destroyRoot) Destroy(gameObject.transform.root.gameObject, destroyDelay);
+            if (destoryOnDeath && destroyRoot) Destroy(gameObject.transform.parent.gameObject, destroyDelay);
             if (!died) Respwan();
 
             if (ragdoll) ragdoll.Enable(damageDirection);
