@@ -4083,6 +4083,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6646423936425622211, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
         type: 3}
+      propertyPath: m_Layer
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 6646423936425622211, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -4094,7 +4099,7 @@ PrefabInstance:
     - target: {fileID: 6646423936434964611, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
         type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4116,6 +4121,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3949428979756181439}
+    - targetCorrespondingSourceObject: {fileID: 6646423936425622211, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2621103383038319176}
   m_SourcePrefab: {fileID: 100100000, guid: 1dfe47b5501cc6941b009b3227c4cd0b, type: 3}
 --- !u!95 &3369477374627334908 stripped
 Animator:
@@ -4142,7 +4151,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 550
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -4182,7 +4191,7 @@ MonoBehaviour:
   handler:
     _Editor_SelectedChain: 0
     _Editor_ChainCategory: 2
-    _EditorCategory: 3
+    _EditorCategory: 2
     _EditorMainCategory: 0
     _EditorMotionCategory: 2
     m_hemi: {fileID: -2508796484986968503, guid: 44d994eaad14fdf49a2dd378b4d62094,
@@ -4385,7 +4394,7 @@ MonoBehaviour:
     OptimizeOnZeroBlend: 0
     HideDummyInSceneView: 0
     IgnoreBoundedColliders: 1
-    RagdollDummyLayer: 0
+    RagdollDummyLayer: 24
     UnscaledTime: 0
     FadeInAnimation: 0
     IgnoreSourceSkeletonColliders: 1
@@ -5457,6 +5466,31 @@ MonoBehaviour:
       AlternativeTensorsOnFall: 0
       HardMatchMultiply: 1
     parentObject: {fileID: 3369477374636832956}
+--- !u!143 &2621103383038319176
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3369477374636832956}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 0.3
+  m_Radius: 0.05
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.135, z: 0}
 --- !u!4 &3369477374637122716 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6646423936425453283, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
