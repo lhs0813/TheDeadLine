@@ -7,35 +7,12 @@ public class PrefabsControl : MonoBehaviour
     public List<GameObject> list = new();
     //public List<GameObject> list2 = new();
 
- //   public Material material;
-    public FirearmPreset data;
-
-
-
-
+   
     void Start()
     {
-         WeaponSetting();
+        WeaponSetting();
         //InstPickables();
-        // EraseMeshCollider();
-    }
-
-    void WeaponMaterial()
-    {
-
-        //for (int i = 0; i < list.Count; i++)
-        //{
-        //    var v = list[i].GetComponent<Pickable>();
-        //    if (v)
-        //    { 
-        //        v.GetComponentInChildren<Renderer>().materials. = material;
-                
-        //    }
-        //}
-
-
-
-
+       // EraseMeshCollider();
     }
 
 
@@ -66,7 +43,8 @@ public class PrefabsControl : MonoBehaviour
 
     }
 
-
+    [Header("WeaponSetting")]
+    public FirearmPreset data;
 
     void WeaponSetting()
     {

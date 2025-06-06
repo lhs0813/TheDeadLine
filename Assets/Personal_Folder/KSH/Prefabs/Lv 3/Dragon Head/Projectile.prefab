@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7132077209428283497}
+  - component: {fileID: 590436004565561748}
   m_Layer: 0
   m_Name: Collision
   m_TagString: Untagged
@@ -43,6 +44,40 @@ Transform:
   - {fileID: 7140567353286219919}
   m_Father: {fileID: 8291164892465315268}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &590436004565561748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556683231341858438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 151e5fb4355af6c4ab88423606b59ab8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Distance: 30
+  Speed: 6
+  TimeDelay: 0
+  RandomMoveRadius: 0
+  RandomMoveSpeedScale: 0
+  Target: {fileID: 0}
+  CollidesWith:
+    serializedVersion: 2
+    m_Bits: 0
+  EffectsOnCollision: []
+  CollisionOffset: 0.05
+  DestroyTimeDelay: 10
+  CollisionEffectInWorldSpace: 1
+  DeactivatedObjectsOnCollision:
+  - {fileID: 3400463378273521398}
+  - {fileID: 3103363415335311065}
+  - {fileID: 3777421205850862590}
+  - {fileID: 5289190333574607730}
+  - {fileID: 3308851414453688444}
+  - {fileID: 3672915962696690686}
+  HUE: -1
+  CollidedInstances: []
 --- !u!1 &1428536854032171218
 GameObject:
   m_ObjectHideFlags: 0
@@ -54,7 +89,6 @@ GameObject:
   - component: {fileID: 8291164892465315268}
   - component: {fileID: -5030959633683030442}
   - component: {fileID: -1606961413775033222}
-  - component: {fileID: 1885929583247149537}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -162,20 +196,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   onDestroy: 0
---- !u!114 &1885929583247149537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1428536854032171218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c1c61262a344bf44bb8bf3523ee306e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocity: 10
-  accel: 0
 --- !u!1 &1654991921739635943
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +205,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8719475580057633963}
-  - component: {fileID: 5646561509485723657}
+  - component: {fileID: 786074187876048465}
+  - component: {fileID: 7522293532617194919}
   m_Layer: 0
   m_Name: Affector land
   m_TagString: Untagged
@@ -209,7 +230,28 @@ Transform:
   - {fileID: 2196108085921446485}
   m_Father: {fileID: 7132077209428283497}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5646561509485723657
+--- !u!114 &786074187876048465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654991921739635943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09422978fb3c4e14990e44af765b9615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  next: {fileID: 0}
+  endTime: -1
+  forwardWolrdUp: 0
+  forwardXZ: 0
+  force: 0
+  rotateRnd: 0
+  type: 0
+  target: {fileID: 0}
+  before: {fileID: 0}
+--- !u!114 &7522293532617194919
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,18 +285,6 @@ MonoBehaviour:
       - m_Target: {fileID: 5269569927593850427}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5646561509485723657}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Akila.FPSFramework;
+using UnityEngine;
 
 public abstract class ZombieBase : MonoBehaviour, IZombie
 {
@@ -107,6 +108,18 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         if (currentState is AttackState)
         {
             ((AttackState)currentState).OnAttackEnd();
+        }
+    }
+    public void DamageTiming()
+    {
+        // 플레이어가 null인지 체크
+        var playerObj = GameObject.FindWithTag("Player");
+        if (playerObj == null) return;
+
+        float distance = Vector3.Distance(transform.position, playerObj.transform.position);
+        if (distance <= attackRange)
+        {
+            Debug.Log("공격 타이밍!");
         }
     }
 }
