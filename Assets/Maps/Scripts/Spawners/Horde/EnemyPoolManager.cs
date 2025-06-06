@@ -40,11 +40,11 @@ public class EnemyPoolManager : MonoBehaviour
 
     private async void Start()
     {
-        MapGenerationManager.Instance.OnMapLoadedAction += InitializeSpawnLimits;
-        await InitializeNormalCreatures();
+        InitializeSpawnLimits(1);
+        await InitializeEnemyPools();
     }
 
-    public async Task InitializeEnemyPools(Dictionary<EnemyType, int> counts)
+    public async Task InitializeEnemyPools()
     {
         if (normalCreaturePrefabs.Count == 0)
             await InitializeNormalCreatures();
@@ -52,6 +52,7 @@ public class EnemyPoolManager : MonoBehaviour
         await InitializeBigCreature();
         await InitializeBombCreature();
 
+        // 1) 풀 생성
         enemyPools[EnemyType.Normal] = new ObjectPool<GameObject>(
             CreateNormalCreature,
             GetNormalCreature,
@@ -78,6 +79,46 @@ public class EnemyPoolManager : MonoBehaviour
             defaultCapacity: MapGenConstants.MaxBombCreatureCountLimitOnStage / 2,
             maxSize: MapGenConstants.MaxBombCreatureCountLimitOnStage
         );
+
+        // 2) 풀을 미리 채워두기 (Create → Release)
+        InitializeEnemyPoolsObjects();
+    }
+
+    /// <summary>
+    /// ObjectPool을 defaultCapacity만큼 채우기 위해,
+    /// CreateXxxCreature()를 직접 호출하고 곧바로 Release()해서
+    /// 풀 안에 서로 다른 인스턴스들을 쌓는 메서드
+    /// </summary>
+    private void InitializeEnemyPoolsObjects()
+    {
+        // 1) Normal 타입 풀 채우기
+        int normalWarmCount = MapGenConstants.MaxNormalCreatureCountLimitOnStage / 2;
+        var normalPool = enemyPools[EnemyType.Normal];
+        for (int i = 0; i < normalWarmCount; i++)
+        {
+            // Get()가 아닌, CreateNormalCreature()를 직접 호출 → 새 인스턴스 생성
+            GameObject newNormal = CreateNormalCreature();
+            // 풀에 바로 등록 (Release 하면 SetActive(false) 실행되고 푸시됨)
+            normalPool.Release(newNormal);
+        }
+
+        // 2) Big 타입 풀 채우기
+        int bigWarmCount = MapGenConstants.MaxBigCreatureCountLimitOnStage / 2;
+        var bigPool = enemyPools[EnemyType.Big];
+        for (int i = 0; i < bigWarmCount; i++)
+        {
+            GameObject newBig = CreateBigCreature();
+            bigPool.Release(newBig);
+        }
+
+        // 3) Bomb 타입 풀 채우기
+        int bombWarmCount = MapGenConstants.MaxBombCreatureCountLimitOnStage / 2;
+        var bombPool = enemyPools[EnemyType.Bomb];
+        for (int i = 0; i < bombWarmCount; i++)
+        {
+            GameObject newBomb = CreateBombCreature();
+            bombPool.Release(newBomb);
+        }
     }
 
     #region ObjectPool Arguments - Normal Creature
@@ -91,13 +132,14 @@ public class EnemyPoolManager : MonoBehaviour
     private GameObject CreateNormalCreature()
     {
         int idx = UnityEngine.Random.Range(0, normalCreaturePrefabs.Count);
-        return Instantiate(normalCreaturePrefabs[idx], EnemyContainer);
+        var newObj = Instantiate(normalCreaturePrefabs[idx], Vector3.zero, Quaternion.identity, EnemyContainer);
+        newObj.SetActive(false);
+        return newObj;
     }
 
     private void GetNormalCreature(GameObject obj) => obj.SetActive(true);
     private void ReleaseNormalCreature(GameObject obj) => obj.SetActive(false);
-    private void DestroyNormalCreature(GameObject obj) => Destroy(obj);
-
+    private void DestroyNormalCreature(GameObject obj) => DestroyImmediate(obj);
     #endregion
 
     #region ObjectPool Arguments - Big Creature
@@ -107,25 +149,35 @@ public class EnemyPoolManager : MonoBehaviour
         bigCreaturePrefab = await handle.Task;
     }
 
-    private GameObject CreateBigCreature() => Instantiate(bigCreaturePrefab, EnemyContainer);
+    private GameObject CreateBigCreature()
+    {
+        var newObj = Instantiate(bigCreaturePrefab, Vector3.zero, Quaternion.identity, EnemyContainer);
+        newObj.SetActive(false);
+        return newObj;
+    }
+
     private void GetBigCreature(GameObject obj) => obj.SetActive(true);
     private void ReleaseBigCreature(GameObject obj) => obj.SetActive(false);
-    private void DestroyBigCreature(GameObject obj) => Destroy(obj);
-
+    private void DestroyBigCreature(GameObject obj) => DestroyImmediate(obj);
     #endregion
 
     #region ObjectPool Arguments - Bomb Creature
     private async Task InitializeBombCreature()
     {
-        var handle = Addressables.LoadAssetAsync<GameObject>("Enemy_Bomb");
+        var handle = Addressables.LoadAssetAsync<GameObject>("Enemy_Fast");
         bombCreaturePrefab = await handle.Task;
     }
 
-    private GameObject CreateBombCreature() => Instantiate(bombCreaturePrefab, EnemyContainer);
+    private GameObject CreateBombCreature()
+    {
+        var newObj = Instantiate(bombCreaturePrefab, Vector3.zero, Quaternion.identity, EnemyContainer);
+        newObj.SetActive(false);
+        return newObj;
+    }
+
     private void GetBombCreature(GameObject obj) => obj.SetActive(true);
     private void ReleaseBombCreature(GameObject obj) => obj.SetActive(false);
-    private void DestroyBombCreature(GameObject obj) => Destroy(obj);
-
+    private void DestroyBombCreature(GameObject obj) => DestroyImmediate(obj);
     #endregion
 
     #region Common Logics
@@ -155,14 +207,13 @@ public class EnemyPoolManager : MonoBehaviour
             GameObject enemy = activeEnemies[i];
             if (enemy != null)
             {
-                //TODO : 적 타입 가져오기.
-                //EnemyType type = enemy.GetComponent<EnemyIdentifier>().Type; // 예: EnemyIdentifier 스크립트 필요
-                //ReturnToPool(type, enemy);
+                // TODO : 적 타입 가져오기
+                // EnemyType type = enemy.GetComponent<EnemyIdentifier>().Type;
+                // ReturnToPool(type, enemy);
             }
         }
         activeEnemies.Clear();
     }
-
 
     private Dictionary<EnemyType, int> currentCounts = new();
     private Dictionary<EnemyType, int> maxCounts = new();
@@ -177,7 +228,5 @@ public class EnemyPoolManager : MonoBehaviour
         maxCounts[EnemyType.Big] = MapGenCalculator.GetMaxBigCount(stageIndex);
         maxCounts[EnemyType.Bomb] = MapGenCalculator.GetMaxBombCount(stageIndex);
     }
-
-
     #endregion
 }

@@ -17,10 +17,12 @@ public class TrainController : MonoBehaviour
     [SerializeField] private Collider trainInteriorZone; // 플레이어가 안에 있는지 확인할 트리거 콜라이더
     [SerializeField] private Transform trainTransform;
     TrainDoorController trainDoorController;
+    PlayerHordeTrigger playerHordeTrigger;
 
     void Start()
     {
         trainDoorController = GetComponent<TrainDoorController>();
+        playerHordeTrigger = FindAnyObjectByType<PlayerHordeTrigger>();
     }
 
     /// <summary>
@@ -41,6 +43,7 @@ public class TrainController : MonoBehaviour
     {
         //trainDoorController.CloseDoor();
         yield return new WaitForSeconds(trainDepartDelay); // 문 닫히는 시간보다 길게
+
 
         CheckAndAttachPlayer();
         isMoving = true;
