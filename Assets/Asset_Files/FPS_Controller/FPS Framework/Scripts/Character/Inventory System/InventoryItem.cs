@@ -482,17 +482,6 @@ namespace Akila.FPSFramework
                 Debug.LogError("The replacement object doesn't have a Rigidbody component.");
             }
 
-
-
-            Destroy(newPickupable.GetComponent<Pickable>());
-            newPickupable.GetComponent<PickableEffect>().enabled = false;
-            Destroy(newPickupable.gameObject,3);
-
-
-
-
-
-
             // Remove the current item from the inventory list if specified.
             if (removeFromList) inventory.items.Remove(this);
 
