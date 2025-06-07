@@ -55,7 +55,7 @@ public class EnemyPoolManager : MonoBehaviour
         // 1) 풀 생성
         enemyPools[EnemyType.Normal] = new ObjectPool<GameObject>(
             CreateNormalCreature,
-            GetNormalCreature,
+            null,
             ReleaseNormalCreature,
             DestroyNormalCreature,
             defaultCapacity: MapGenConstants.MaxNormalCreatureCountLimitOnStage / 2,
@@ -64,7 +64,7 @@ public class EnemyPoolManager : MonoBehaviour
 
         enemyPools[EnemyType.Big] = new ObjectPool<GameObject>(
             CreateBigCreature,
-            GetBigCreature,
+            null,
             ReleaseBigCreature,
             DestroyBigCreature,
             defaultCapacity: MapGenConstants.MaxBigCreatureCountLimitOnStage / 2,
@@ -73,7 +73,7 @@ public class EnemyPoolManager : MonoBehaviour
 
         enemyPools[EnemyType.Bomb] = new ObjectPool<GameObject>(
             CreateBombCreature,
-            GetBombCreature,
+            null,
             ReleaseBombCreature,
             DestroyBombCreature,
             defaultCapacity: MapGenConstants.MaxBombCreatureCountLimitOnStage / 2,
@@ -188,10 +188,17 @@ public class EnemyPoolManager : MonoBehaviour
 
         var obj = enemyPools[type].Get();
         obj.transform.SetPositionAndRotation(pos, rot);
+        obj.SetActive(true);
+
+        // 🔹 여기서 타입 정보를 설정
+        if (obj.TryGetComponent<EnemyIdentifier>(out var id))
+            id.Type = type;
+
         currentCounts[type]++;
         activeEnemies.Add(obj);
         return obj;
     }
+
 
     public void ReturnToPool(EnemyType type, GameObject obj)
     {
