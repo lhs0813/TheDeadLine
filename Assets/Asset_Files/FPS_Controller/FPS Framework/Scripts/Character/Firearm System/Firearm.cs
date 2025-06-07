@@ -337,8 +337,11 @@ namespace Akila.FPSFramework
 
 
             // Set the initial ammo and magazine capacity based on the preset.
-            remainingAmmoCount = preset.reserve;
-            magazineCapacity = preset.magazineCapacity;
+
+                remainingAmmoCount = preset.reserve;
+                magazineCapacity = preset.magazineCapacity;
+
+
 
             // Validate muzzle and casing ejection port transforms.
             if (!muzzle)
@@ -748,7 +751,7 @@ namespace Akila.FPSFramework
             onFire?.Invoke(position, rotation, finalDirection);
 
             // Update fire timer
-            fireTimer = Time.time + 60f / preset.fireRate;
+            fireTimer = Time.time + 60f / preset.fireRate * SkillEffectHandler.Instance.attackSpeedBonus;
 
             // Check if currently playing a restricted animation
             if (!IsPlayingRestrictedAnimation())
@@ -878,7 +881,15 @@ namespace Akila.FPSFramework
             }
 
             // Decrease remaining ammo count and update spray amount
-            remainingAmmoCount--;
+            if(SkillEffectHandler.Instance.isAmmoInfinite == true)
+            {
+
+            }
+            else
+            {
+                remainingAmmoCount--;
+            }
+
 
             // Play firing animation across all animators
             foreach (Animator animator in animators)
@@ -1211,10 +1222,11 @@ namespace Akila.FPSFramework
             // Apply camera recoil adjustments if the character manager is assigned
             if (characterManager)
             {
+                float recoilMultiplier = SkillEffectHandler.Instance.recoilMultiplier ;
                 // Calculate the recoil values based on the preset and firearm attachments, considering aiming state
-                float verticalRecoil = preset.verticalRecoil * firearmAttachmentsManager.recoil;
-                float horizontalRecoil = preset.horizontalRecoil * firearmAttachmentsManager.recoil;
-                float cameraRecoil = preset.cameraRecoil * firearmAttachmentsManager.recoil;
+                float verticalRecoil = preset.verticalRecoil * firearmAttachmentsManager.recoil * recoilMultiplier;
+                float horizontalRecoil = preset.horizontalRecoil * firearmAttachmentsManager.recoil * recoilMultiplier;
+                float cameraRecoil = preset.cameraRecoil * firearmAttachmentsManager.recoil * recoilMultiplier;
 
                 // Apply the calculated recoil to the camera manager
                 characterManager.cameraManager.ApplyRecoil(verticalRecoil, horizontalRecoil, cameraRecoil, itemInput.AimInput);

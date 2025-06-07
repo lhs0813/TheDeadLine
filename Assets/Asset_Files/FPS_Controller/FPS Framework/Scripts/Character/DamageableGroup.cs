@@ -25,13 +25,29 @@ namespace Akila.FPSFramework
         }
 
         public HumanBodyBones GetBone()
-        {
+        { 
             return bone;
         }
 
         public float GetDamageMultipler()
         {
-            return damageMultipler;
+            float multiplier = damageMultipler;
+
+            // 🎯 헤드샷 보정: Head일 때만 적용
+            if (bone == HumanBodyBones.Head)
+            {
+                multiplier *= SkillEffectHandler.Instance.headshotDamageMultiplier;
+            }
+
+            // 🎯 크리티컬 확률 적용 (모든 부위에 적용)
+            if (Random.value <= SkillEffectHandler.Instance.criticalChance)
+            {
+                multiplier *= SkillEffectHandler.Instance.criticalMultiplier;
+                Debug.Log("💥 크리티컬 데미지 발동!");
+            }
+
+            return multiplier;
         }
+
     }
 }
