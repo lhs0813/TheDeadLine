@@ -44,17 +44,24 @@ namespace Akila.FPSFramework
 
         private void Awake()
         {
-            // 부모에서 ZombieBase를 찾아 health 가져오기
-            ZombieBase zombie = GetComponentInParent<ZombieBase>();
-            if (zombie != null)
+
+
+        }
+
+        //------0607 김현우 수정 : 죽고 다시 로딩될 시, 체력을 재차 초기화함.
+        public void ResetHealth(ZombieBase zombieBase)
+        {
+            if (zombieBase != null)
             {
-                health = zombie.health;
-                maxHealth = zombie.health;
+                health = zombieBase.health;
+                maxHealth = zombieBase.health;
             }
             else
             {
                 maxHealth = health;
             }
+
+            died = false;
         }
 
         private void Start()
@@ -87,9 +94,9 @@ namespace Akila.FPSFramework
             }
 
             if (type == HealthType.Other)
-                {
-                    if (ragdoll || Actor) Debug.LogWarning($"{this} has humanoid components and it's type is Other please change type to Humanoid to avoid errors.");
-                }
+            {
+                if (ragdoll || Actor) Debug.LogWarning($"{this} has humanoid components and it's type is Other please change type to Humanoid to avoid errors.");
+            }
         }
 
         public bool allowDamageScreen { get; set; } = true;

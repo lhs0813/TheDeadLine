@@ -92,7 +92,8 @@ public class EnemyPoolManager : MonoBehaviour
     private void InitializeEnemyPoolsObjects()
     {
         // 1) Normal 타입 풀 채우기
-        int normalWarmCount = MapGenConstants.MaxNormalCreatureCountLimitOnStage / 2;
+        //int normalWarmCount = MapGenConstants.MaxNormalCreatureCountLimitOnStage / 2;
+        int normalWarmCount = 5;
         var normalPool = enemyPools[EnemyType.Normal];
         for (int i = 0; i < normalWarmCount; i++)
         {
