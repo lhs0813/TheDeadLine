@@ -12,8 +12,8 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     [Header("Zombie Stats")]
     public float health = 100f;
     public float moveSpeed = 2f;
-    public float detectionRange = 10f;
-    public float attackRange = 2f;
+    public float detectionRange = 50f;
+    public float attackRange = 2.5f;
 
     protected IZombieState currentState;
     protected UnityEngine.AI.NavMeshAgent agent;
