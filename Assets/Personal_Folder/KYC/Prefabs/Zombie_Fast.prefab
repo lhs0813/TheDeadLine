@@ -3476,10 +3476,20 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: bc771e8f683769843baa8ca112baa74a, type: 2}
+    - target: {fileID: 7851250638628943420, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7851250638638286266, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
         type: 3}
       propertyPath: m_Name
       value: zombie_peak_hand
+      objectReference: {fileID: 0}
+    - target: {fileID: 7851250638638286266, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 7851250638638286266, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
         type: 3}
@@ -4146,6 +4156,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4984091214926099872}
+    - targetCorrespondingSourceObject: {fileID: 7851250638638286266, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6621449640275703224}
   m_SourcePrefab: {fileID: 100100000, guid: 0f4b038f001b7fc42a5efbd1995d6ec5, type: 3}
 --- !u!1 &6312709096983426559 stripped
 GameObject:
@@ -4188,9 +4202,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  moveSpeed: 2
-  detectionRange: 10
-  attackRange: 2
+  moveSpeed: 7
+  detectionRange: 40
+  attackRange: 2.5
 --- !u!114 &4984091214926099872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4399,11 +4413,11 @@ MonoBehaviour:
     UnitySolverIterations: 12
     Calibrate: 1
     AnimatePhysics: 0
-    ApplyPositions: 0
+    ApplyPositions: 1
     OptimizeOnZeroBlend: 0
     HideDummyInSceneView: 0
     IgnoreBoundedColliders: 1
-    RagdollDummyLayer: 0
+    RagdollDummyLayer: 24
     UnscaledTime: 0
     FadeInAnimation: 0
     IgnoreSourceSkeletonColliders: 1
@@ -5475,6 +5489,31 @@ MonoBehaviour:
       AlternativeTensorsOnFall: 0
       HardMatchMultiply: 1
     parentObject: {fileID: 6312709096983426559}
+--- !u!143 &6621449640275703224
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6312709096983426559}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2.3
+  m_Radius: 0.3
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!4 &6312709096983587201 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7851250638638782916, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,

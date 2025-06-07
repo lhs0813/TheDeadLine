@@ -63,7 +63,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &4421320683149247144
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -282,7 +282,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &5018081848858710397
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -558,7 +558,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &475241687380959071
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -775,7 +775,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &6176617757091926878
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1055,7 +1055,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &577112015696552094
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1269,7 +1269,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &9121785511675492143
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1484,7 +1484,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &8696925437562506162
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1701,7 +1701,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &3489444858378830525
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1917,7 +1917,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &9217079241275080552
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2164,7 +2164,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &8093241221117017131
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2381,7 +2381,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &6252674628691510719
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2598,7 +2598,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &4721430971778187682
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2878,7 +2878,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &2323735559658474220
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3094,7 +3094,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &8262374611061963355
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3309,7 +3309,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &7092837670057277033
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4118,6 +4118,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6359369538288336438, guid: 3940456e5262ba34aa1ba333b7a52f85,
         type: 3}
+      propertyPath: m_Layer
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359369538288336438, guid: 3940456e5262ba34aa1ba333b7a52f85,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -4126,6 +4131,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 8626ba7114a1f194192cce9cbee6b145, type: 2}
+    - target: {fileID: 6359369538295614534, guid: 3940456e5262ba34aa1ba333b7a52f85,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -4146,6 +4156,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4743159691591888744}
+    - targetCorrespondingSourceObject: {fileID: 6359369538288336438, guid: 3940456e5262ba34aa1ba333b7a52f85,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8799678645491845535}
   m_SourcePrefab: {fileID: 100100000, guid: 3940456e5262ba34aa1ba333b7a52f85, type: 3}
 --- !u!95 &9125874592455484218 stripped
 Animator:
@@ -4172,7 +4186,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 550
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -4196,7 +4210,7 @@ MonoBehaviour:
   health: 100
   moveSpeed: 2
   detectionRange: 10
-  attackRange: 2
+  attackRange: 2.5
 --- !u!114 &4743159691591888744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4213,7 +4227,7 @@ MonoBehaviour:
     _Editor_SelectedChain: 0
     _Editor_ChainCategory: 0
     _EditorCategory: 3
-    _EditorMainCategory: 0
+    _EditorMainCategory: 1
     _EditorMotionCategory: 2
     m_hemi: {fileID: -2508796484986968503, guid: 44d994eaad14fdf49a2dd378b4d62094,
       type: 3}
@@ -4326,16 +4340,8 @@ MonoBehaviour:
         localRotation: {x: 0.51967156, y: 0.35911244, z: -0.26991257, w: 0.72672343}
         rootSpaceRotation: {x: -0.016833864, y: 0.58866775, z: 0.80810666, w: 0.012267279}
       LastBaseTransform: {fileID: 9125874592462965928}
-    UseExtraFeatures: 1
-    ExtraFeatures:
-    - CustomName: 
-      enabled: 1
-      FeatureReference: {fileID: 11400000, guid: fec516eb5421cbb4aa744a2e99ff15ef,
-        type: 2}
-      customStringList: []
-      customObjectList: []
-      customEventsList: []
-      variables: []
+    UseExtraFeatures: 0
+    ExtraFeatures: []
     IsHumanoid: 1
     dummyContainer: {fileID: 6800121496256099508}
     inBetweenPreGenerateMemory:
@@ -4391,7 +4397,7 @@ MonoBehaviour:
     RagdollThicknessMultiplier: 1
     ReferenceMass: 50
     RigidbodiesInterpolation: 1
-    RigidbodiesDetectionMode: 0
+    RigidbodiesDetectionMode: 1
     RigidbodyDragValue: 0
     RigidbodyAngularDragValue: 0.2
     JointContactDistance: 0
@@ -4414,11 +4420,11 @@ MonoBehaviour:
     UnitySolverIterations: 12
     Calibrate: 1
     AnimatePhysics: 0
-    ApplyPositions: 0
+    ApplyPositions: 1
     OptimizeOnZeroBlend: 0
     HideDummyInSceneView: 0
     IgnoreBoundedColliders: 1
-    RagdollDummyLayer: 0
+    RagdollDummyLayer: 24
     UnscaledTime: 0
     FadeInAnimation: 0
     IgnoreSourceSkeletonColliders: 1
@@ -5490,6 +5496,31 @@ MonoBehaviour:
       AlternativeTensorsOnFall: 0
       HardMatchMultiply: 1
     parentObject: {fileID: 9125874592462868810}
+--- !u!143 &8799678645491845535
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9125874592462868810}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.8
+  m_Radius: 0.25
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!4 &9125874592462965888 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6359369538288100348, guid: 3940456e5262ba34aa1ba333b7a52f85,

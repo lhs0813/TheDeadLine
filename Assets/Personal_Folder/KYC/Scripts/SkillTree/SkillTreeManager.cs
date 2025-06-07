@@ -3,9 +3,15 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine;
 using static SkillNode;
+using Lolopupka;
+using Akila.FPSFramework;
 
 public class SkillTreeManager : MonoBehaviour
 {
+    
+
+    private Controls input;
+
     public int availablePoints = 0;
     public TextMeshProUGUI pointsText;
     public TextMeshProUGUI pointsText2;
@@ -16,9 +22,24 @@ public class SkillTreeManager : MonoBehaviour
 
     public event Action<int> OnPointChanged;
 
+    public RotateOnTrigger laptopTrigger;
+
+
     private void Start()
     {
+        input = new Controls();
         OnPointChanged?.Invoke(availablePoints);
+
+        input.UI.Pause.performed += ctx =>
+        {
+            if (laptopTrigger.isLapTopOn)
+            {
+                Debug.Log("노트북 꺼짐");
+                laptopTrigger.LabtopOff();
+            }
+            
+        };
+
     }
 
     public bool TryUnlockSkill(SkillNode skill)
@@ -66,6 +87,11 @@ public class SkillTreeManager : MonoBehaviour
 
     private void Update()
     {
+        if (laptopTrigger.isLapTopOn)
+            input.UI.Enable();
+        else
+            input.UI.Disable();
+
         if (pointsText != null)
         {
             pointsText.text = $"{availablePoints}";
@@ -75,7 +101,7 @@ public class SkillTreeManager : MonoBehaviour
             pointsText2.text = $"{availablePoints}";
         }
         // 리셋 키(예: F) 3초 동안 누르기
-        if (UnityEngine.InputSystem.Keyboard.current.fKey.isPressed)
+        if (input.Player.Intract.ReadValue<float>() > 0f)
         {
             _resetKeyTime += Time.unscaledDeltaTime;
 

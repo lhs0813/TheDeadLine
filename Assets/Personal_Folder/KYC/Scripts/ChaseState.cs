@@ -25,7 +25,7 @@ public class ChaseState : IZombieState
 
         float distance = Vector3.Distance(_zombie.transform.position, _player.position);
 
-        if (distance < 1.5f)
+        if (distance < _zombie.attackRange)
         {
             _zombie.SetState(new AttackState());
         }

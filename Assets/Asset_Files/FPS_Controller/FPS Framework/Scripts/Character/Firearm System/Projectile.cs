@@ -169,12 +169,29 @@ namespace Akila.FPSFramework
 
             RaycastHit[] hits = Physics.SphereCastAll(ray, hitRadius, distance, hittableLayers);
 
+            Vector3 shootOrigin = startPosition;
+            Vector3 shootDirection = direction;
+
+            Ray ray2 = new Ray(shootOrigin, shootDirection);
+            RaycastHit[] Push = Physics.SphereCastAll(ray2, hitRadius, distance, LayerMask.GetMask("Monster_Ragdoll"));
+
+            foreach (RaycastHit hit in hits)
+            {
+                Rigidbody rb = hit.rigidbody;
+                if (rb != null)
+                {
+                    rb.AddForceAtPosition(shootDirection * force * 5, hit.point, ForceMode.Impulse);
+                }
+            }
+
+
             for (int i = 0; i < hits.Length; i++)
             {
 
                 //var enemyHit = hits[i].transform.root.transform.GetChild(0).GetComponent<Damageable>();
                 var enemyHit = hits[i].transform.GetComponentInParent<Damageable>();
 
+                
 
                 if (enemyHit != null)
                 {
