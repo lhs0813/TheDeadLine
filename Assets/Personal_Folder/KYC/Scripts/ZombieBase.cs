@@ -11,6 +11,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
     [Header("Zombie Stats")]
     public float health = 100f;
+    public float maxHealth = 100f;
     public float moveSpeed = 2f;
     public float detectionRange = 10f;
     public float attackRange = 2f;
@@ -50,6 +51,18 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
     protected virtual void Start()
     {
+        maxHealth = health;
+    }
+
+
+    void OnEnable() //------0607 김현우 수정 : Pooling 대응, 좀비 초기화는 OnEnable에서 수행.
+    {
+        InitializeZombieState();
+    }
+
+    private void InitializeZombieState()
+    {
+        health = maxHealth;
         SetState(new PatrolState());
     }
 
