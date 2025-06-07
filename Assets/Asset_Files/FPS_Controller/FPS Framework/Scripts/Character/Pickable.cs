@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -53,7 +53,10 @@ namespace Akila.FPSFramework
                 case PickableType.Collectable:
                     InteractWithCollectable(source);
                     break;
-                default:
+                case PickableType.Interact:
+                    InteractWithInteract(source);
+                    break;
+                 default:
                     Debug.LogWarning($"Unhandled pickable type: {type}", gameObject);
                     break;
             }
@@ -152,6 +155,20 @@ namespace Akila.FPSFramework
             Destroy(gameObject);
         }
 
+        public virtual void InteractWithInteract(InteractionsManager source)
+        {
+            if (source == null || source.Inventory == null)
+            {
+                Debug.LogError("Missing source or inventory reference during collectable interaction.", gameObject);
+                return;
+            }
+
+
+            GetComponent<RotateOnTrigger>().LabtopOn();
+
+           
+        }
+
         [ContextMenu("Setup/Network Components")]
         private void SetupNetworkComponents()
         {
@@ -165,5 +182,6 @@ namespace Akila.FPSFramework
     {
         Item = 0,
         Collectable = 1,
+        Interact = 2,
     }
 }
