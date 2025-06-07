@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -25,6 +26,7 @@ public class EnemyPoolManager : MonoBehaviour
 
     private GameObject bigCreaturePrefab;
     private GameObject bombCreaturePrefab;
+    [SerializeField] private float corpseDisappearDuration;
 
     private void Awake()
     {
@@ -203,6 +205,12 @@ public class EnemyPoolManager : MonoBehaviour
 
     public void ReturnToPool(EnemyType type, GameObject obj)
     {
+        StartCoroutine(CorpseDisappearCoroutine(type, obj));
+    }
+
+    IEnumerator CorpseDisappearCoroutine(EnemyType type, GameObject obj)
+    {
+        yield return new WaitForSeconds(5f);
         currentCounts[type] = Mathf.Max(0, currentCounts[type] - 1);
         enemyPools[type].Release(obj);
         activeEnemies.Remove(obj);

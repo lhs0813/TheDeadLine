@@ -16,6 +16,10 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField] private float waitingDuration = 20f; // 열차 대기 시간
     [SerializeField] private float combatDuration = 180f; //전투시간. 
 
+    //Actions.
+    public Action OnStationArriveAction;
+    public Action OnStationDepartAction;
+
     private void Awake()
     {
         if (instance == null)
@@ -76,6 +80,8 @@ public class GamePlayManager : MonoBehaviour
         newCombatEndTime = Timer + combatDuration;
 
         trainController.TrainArrive();
+
+        OnStationArriveAction?.Invoke();
     }
 
     /// <summary>
@@ -85,6 +91,8 @@ public class GamePlayManager : MonoBehaviour
     {
         isCombatting = false;
         trainController.TrainDepart();
+
+        OnStationDepartAction?.Invoke();
     }
 
     private void Update()
