@@ -52,6 +52,8 @@ MonoBehaviour:
   forwardXZ: 0
   force: 0
   rotateRnd: 0
+  navStop: 0
+  aniSpeed: -1
   type: 0
   target: {fileID: 0}
   before: {fileID: 0}
@@ -67,18 +69,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c29a97481c1df141930d343887b9064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 30
+  damage: 1
   push: 0
-  motionMultifly: -1
-  navMultifly: -1
-  sizeMultifly: {x: 0, y: 0, z: 0}
-  disableCollider: 0
+  slow: 0
   checkTime: 99
-  checkCycle: 0.5
+  checkCycle: 0.1
   allowRepeat: 1
   hitEnrionment: 0
   hitDamageble: 1
-  isRayCast: 0
   hitCount: -1
   hitMaxDestroy: 0
   hitFirstIgnore: 0
