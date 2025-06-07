@@ -2214,8 +2214,8 @@ MonoBehaviour:
   health: 100
   destroyDelay: 0
   damageCameraShake: 0.3
-  destoryOnDeath: 0
-  destroyRoot: 0
+  destoryOnDeath: 1
+  destroyRoot: 1
   Ragdoll_Character: 0
   ragdolls: 0
   deathEffect: {fileID: 0}
@@ -3440,7 +3440,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7311625215629863719}
-  - component: {fileID: 2812673905614575844}
   m_Layer: 0
   m_Name: Zombie_Large
   m_TagString: Untagged
@@ -3464,19 +3463,6 @@ Transform:
   - {fileID: 2498263731306840153}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2812673905614575844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8615622483470522735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d9079b8e236ef1449d9bc30d69985db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 1
 --- !u!1001 &567326853464010154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4311,7 +4297,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2498263731307207801}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.2
+  m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -4337,9 +4323,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 500
-  maxHealth: 100
-  moveSpeed: 2
-  detectionRange: 10
+  moveSpeed: 3.5
+  detectionRange: 50
   attackRange: 2.5
 --- !u!114 &3619418702457158934
 MonoBehaviour:
