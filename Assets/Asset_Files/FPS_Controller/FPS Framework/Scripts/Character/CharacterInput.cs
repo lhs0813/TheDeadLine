@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using System;
 
+
 namespace Akila.FPSFramework
 {
     [AddComponentMenu("Akila/FPS Framework/Player/Character Input")]
@@ -13,6 +14,8 @@ namespace Akila.FPSFramework
         public bool toggleCrouch = true;
         public bool toggleLean = false;
         public bool allowTacticalSprining = true;
+       
+        private bool _isLapTopOn = false;
 
         public Action onLeanRight;
         public Action onLeanLeft;
@@ -21,6 +24,8 @@ namespace Akila.FPSFramework
         /// Main input actions class.
         /// </summary>
         public Controls controls;
+
+        
 
         /// <summary>
         /// The target FPS Controller.
@@ -98,6 +103,9 @@ namespace Akila.FPSFramework
         private void Start()
         {
             characterManager = GetComponent<CharacterManager>();
+
+            RotateOnTrigger.onLapTop += InputStop;
+            RotateOnTrigger.offLapTop += InputStart;
         }
 
         protected void Update()
@@ -185,6 +193,17 @@ namespace Akila.FPSFramework
                 crouchInput = false;
         }
 
+        private void InputStop()
+        {
+            _isLapTopOn = true;
+            controls.Player.Disable();
+        }
+
+        private void InputStart()
+        {
+            _isLapTopOn = false;
+            controls.Player.Enable();
+        }
         private void LateUpdate()
         {
             if (leanRightInput && leanLeftInput || sprintInput || tacticalSprintInput)
