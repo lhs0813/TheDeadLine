@@ -11,6 +11,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
     [Header("Zombie Stats")]
     public float health = 100f;
+    public float maxHealth = 100f;
     public float moveSpeed = 2f;
     public float detectionRange = 50f;
     public float attackRange = 2.5f;
@@ -18,6 +19,8 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     protected IZombieState currentState;
     protected UnityEngine.AI.NavMeshAgent agent;
     public UnityEngine.AI.NavMeshAgent Agent => agent;
+    //------0607 김현우 수정 : Damagable 컴포넌트 받아오기.ㄴ
+    Damageable damageable;
 
     protected virtual void Awake()
     {
@@ -39,6 +42,8 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         _anim.SetFloat("walkIndex", _walkIndex);
         _anim.SetFloat("runIndex", _runIndex);
         _anim.SetFloat("attackIndex", _attackIndex);
+
+        damageable = GetComponentInChildren<Damageable>();
     }
 
     public void SetState(IZombieState newState)
@@ -50,7 +55,22 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
     protected virtual void Start()
     {
+        maxHealth = health;
+    }
+
+
+    void OnEnable() //------0607 김현우 수정 : Pooling 대응, 좀비 초기화는 OnEnable에서 수행.
+    {
+        Debug.Log("OnEnable");
+        InitializeZombieState();
+    }
+
+    private void InitializeZombieState()
+    {
+        health = maxHealth;
         SetState(new PatrolState());
+
+        transform.parent.GetComponentInChildren<Damageable>().ResetHealth(this);
     }
 
     protected virtual void Update()

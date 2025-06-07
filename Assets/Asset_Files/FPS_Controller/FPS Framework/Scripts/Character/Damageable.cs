@@ -30,7 +30,7 @@ namespace Akila.FPSFramework
         public Vector3 damageDirection { get; set; }
         public float maxHealth { get; set; }
         public IDamageableGroup[] groups { get; set; }
-        private bool died;
+        public bool died;
         public bool deadConfirmed { get; set; }
 
 
@@ -38,20 +38,30 @@ namespace Akila.FPSFramework
         KillFeed _killFeed;
         public bool isPlayer = false;
 
+        //------0607 김현우 수정 : Identifier 대응.
+        EnemyIdentifier enemyIdentifier; //EnemyPool에서 사용하는 태그 관리 컴포넌트.
+
 
         private void Awake()
         {
-            // 부모에서 ZombieBase를 찾아 health 가져오기
-            ZombieBase zombie = GetComponentInParent<ZombieBase>();
-            if (zombie != null)
+
+
+        }
+
+        //------0607 김현우 수정 : 죽고 다시 로딩될 시, 체력을 재차 초기화함.
+        public void ResetHealth(ZombieBase zombieBase)
+        {
+            if (zombieBase != null)
             {
-                health = zombie.health;
-                maxHealth = zombie.health;
+                health = zombieBase.health;
+                maxHealth = zombieBase.health;
             }
             else
             {
                 maxHealth = health;
             }
+
+            died = false;
         }
 
         private void Start()
@@ -77,7 +87,13 @@ namespace Akila.FPSFramework
                 }
             }
 
-            if(type == HealthType.Other)
+            //--------0607 김현우 수정 : EnemyIdentifier 대응.
+            if (type == HealthType.NPC)
+            {
+                enemyIdentifier = GetComponentInParent<EnemyIdentifier>();
+            }
+
+            if (type == HealthType.Other)
             {
                 if (ragdoll || Actor) Debug.LogWarning($"{this} has humanoid components and it's type is Other please change type to Humanoid to avoid errors.");
             }
@@ -154,27 +170,35 @@ namespace Akila.FPSFramework
 
         private void Die()
         {
+            //---------0607 김현우 수정 : EnemyIdentifier 대응.
             if (!isActive) return;
 
-            if(type == HealthType.Player)
+
+            if (type == HealthType.Player)
             {
                 if (Actor.respawnable) Actor.deaths++;
+                if (damageSource) DeathCamera.Instance?.Enable(gameObject, damageSource);
             }
-
-            if (destoryOnDeath && !destroyRoot) Destroy(gameObject, destroyDelay);
-            if (destoryOnDeath && destroyRoot) Destroy(gameObject.transform.root.gameObject, destroyDelay);
-            if (!died) Respwan();
 
             if (ragdoll) ragdoll.Enable(damageDirection);
+            if (deathEffect) Instantiate(deathEffect, transform.position, transform.rotation);
 
-            if (deathEffect)
+
+            // 풀로 반환: EnemyIdentifier에서 타입을 꺼내서 ReturnToPool 호출
+            if (enemyIdentifier != null)
             {
-                GameObject effect = Instantiate(deathEffect, transform.position, transform.rotation);
-                effect.SetActive(true);
+                Debug.Log($"{enemyIdentifier} 반환.");
+                EnemyPoolManager.Instance.ReturnToPool(enemyIdentifier.Type, enemyIdentifier.gameObject);
+            }
+            else
+            {
+                // 풀용 오브젝트가 아니면 원래대로 Destroy
+                if (destoryOnDeath && !destroyRoot)
+                    Destroy(gameObject, destroyDelay);
+                else if (destoryOnDeath && destroyRoot)
+                    Destroy(transform.parent.gameObject, destroyDelay);
             }
 
-            if (damageSource && type == HealthType.Player) DeathCamera.Instance?.Enable(gameObject, damageSource);
-            
             died = true;
         }
 

@@ -105,7 +105,7 @@ public static class SpawnedGunBuilder
     public static async Task<GameObject> GetRandomGunPrefab(int stageIndex)
     {
         WeaponGrade grade = RollGrade(stageIndex);
-        string label = $"WeaponProp_{grade}";
+        string label = $"Pickable_Gun_{grade}";
 
         List<GameObject> loadedPrefabs = new();
         var handle = Addressables.LoadAssetsAsync<GameObject>(label, null);

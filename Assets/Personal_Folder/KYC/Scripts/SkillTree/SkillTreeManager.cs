@@ -15,7 +15,6 @@ public class SkillTreeManager : MonoBehaviour
     public int availablePoints = 0;
     public TextMeshProUGUI pointsText;
     public TextMeshProUGUI pointsText2;
-    public PlayerStats playerStats;
     public List<SkillNode> allSkills;
     private float _resetKeyTime = 0f;
     public int resetTicket = 1; // (초기값 원하는 대로)
@@ -62,7 +61,7 @@ public class SkillTreeManager : MonoBehaviour
         if (!skill.ArePrerequisitesMet())
             return false;
 
-        skill.Unlock(playerStats);
+        skill.Unlock();
         availablePoints -= skill.requiredPoints;
         OnPointChanged?.Invoke(availablePoints);
         return true;
@@ -71,18 +70,21 @@ public class SkillTreeManager : MonoBehaviour
 
     public void ResetAllSkills()
     {
+        SkillEffectHandler.Instance.ResetAllEffects(); // ✅ 전역 수치도 초기화
+
         int refundedPoints = 0;
         foreach (var skill in allSkills)
         {
             if (skill.IsUnlocked)
             {
                 refundedPoints += skill.requiredPoints;
-                skill.Reset(playerStats);
+                skill.Reset(); // SkillEffectHandler에서 RemoveEffectById 호출됨
             }
         }
         availablePoints += refundedPoints;
         OnPointChanged?.Invoke(availablePoints);
     }
+
 
 
     private void Update()

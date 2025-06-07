@@ -11,6 +11,7 @@ public class HordeSpawner : MonoBehaviour
 
     public void TrySpawn(int mapIndex)
     {
+        Debug.Log("스폰 시도");
         int spawnCount = MapGenCalculator.GetCreatureSpawnCountRangePerRoom(mapIndex).GetRandom(new DunGen.RandomStream());
 
         List<Vector3> validPositions = new List<Vector3>();
