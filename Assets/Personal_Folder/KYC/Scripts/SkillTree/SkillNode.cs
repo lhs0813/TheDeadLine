@@ -25,7 +25,6 @@ public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public bool IsUnlocked { get; private set; }
 
-    public ISkillEffect effect;
 
     private void Start()
     {
@@ -43,22 +42,20 @@ public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         }
     }
 
-    public void Unlock(PlayerStats stats)
+    public void Unlock()
     {
-        if (IsUnlocked)
-            return;
+        if (IsUnlocked) return;
 
         IsUnlocked = true;
-        effect?.Apply(stats);
+        SkillEffectHandler.Instance.ApplyEffectById(skillId);
         UpdateVisual();
     }
 
-    public void Reset(PlayerStats stats)
+    public void Reset()
     {
-        if (!IsUnlocked)
-            return;
+        if (!IsUnlocked) return;
 
-        effect?.Remove(stats);
+        SkillEffectHandler.Instance.RemoveEffectById(skillId);
         IsUnlocked = false;
         UpdateVisual();
     }
