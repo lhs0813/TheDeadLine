@@ -1,9 +1,12 @@
 using System;
+using System.Threading.Tasks;
 using DunGen;
 using UnityEngine;
 
 public class GamePlayManager : MonoBehaviour
 {
+    public int currentMapIndex = 0;
+
     public static GamePlayManager instance;
     public RuntimeDungeon runtimeDungeon;
     public TrainController trainController;
@@ -15,6 +18,7 @@ public class GamePlayManager : MonoBehaviour
     private bool isCombatting; //전투중
     [SerializeField] private float waitingDuration = 20f; // 열차 대기 시간
     [SerializeField] private float combatDuration = 180f; //전투시간. 
+    [SerializeField] 
 
     //Actions.
     public Action OnStationArriveAction;
@@ -38,30 +42,40 @@ public class GamePlayManager : MonoBehaviour
         newMapReady = false;
 
         //선로에서 시작.
-        GoWaitingState();
+        await GoWaitingState();
 
         //첫 맵 로딩.
-        await MapGenerationManager.Instance.LoadMap(1);
+        //await MapGenerationManager.Instance.LoadMap(currentMapIndex);
 
 
     }
 
     private void ChangeIsMapReady(DungeonGenerator generator)
     {
-        newMapReady = true; //맵 생성 완료. true.
+        newMapReady = true; // 맵 생성 완료
+
+        // 배열을 변수에 담지 않고 바로 순회
+        foreach (var spawner in FindObjectsByType<GunSpawner>(FindObjectsSortMode.None))
+            spawner.InitializeGunProp(currentMapIndex);
     }
 
 
 
 
-    private void GoWaitingState()
+
+    public async Task GoWaitingState()
     {
+        //상태변화 시작
         isWaiting = true;
         newMapReady = false;
 
         nextWaitingEndtime = Timer + waitingDuration;
 
         trainController.MoveToWaitingRail();
+
+        //다음맵 로딩 시작
+        currentMapIndex++; 
+        await MapGenerationManager.Instance.LoadMap(currentMapIndex);
     }
 
     private void GoStageEnteringState()
