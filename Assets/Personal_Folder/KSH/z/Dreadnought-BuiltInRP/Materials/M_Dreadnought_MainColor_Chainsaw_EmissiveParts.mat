@@ -8,20 +8,21 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Dreadnought_MainColor_Chainsaw_EmissiveParts
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: 4800000, guid: 71a090e9b5b488349913abe716bb7bc6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _USE_POINT_FILTER_ON
+  m_InvalidKeywords:
   - _ADD_PRECOMPUTED_VELOCITY
   - _EMISSION
-  m_InvalidKeywords: []
+  - _USE_AMBIENT_OVERRIDE_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap:
     MotionVector: User
-    RenderType: Opaque
   disabledShaderPasses:
   - TransparentBackface
   m_LockedProperties: 
@@ -92,15 +93,20 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
+    m_Ints:
+    - _ColorBitDepth: 64
+    - _ResolutionLimit: 200
+    - _SnapsPerUnit: 500
     m_Floats:
     - _AddPrecomputedVelocity: 1
+    - _AffineTextureStrength: 1
     - _AlphaClip: 0
     - _AlphaCutoff: 0.5
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 0
     - _AlphaSrcBlend: 1
     - _AlphaToMask: 0
+    - _AmbientLight: 0.02
     - _Blend: 0
     - _BlendMode: 0
     - _BlendModePreserveSpecular: 1
@@ -109,6 +115,7 @@ Material:
     - _ChainSaw_Speed: 5
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
+    - _ColorBitDepthOffset: 0
     - _Cull: 2
     - _CullMode: 0
     - _CullModeForward: 0
@@ -156,6 +163,9 @@ Material:
     - _TransparentCullMode: 2
     - _TransparentSortPriority: 0
     - _TransparentZWrite: 1
+    - _USE_AMBIENT_OVERRIDE: 1
+    - _USE_DITHERING: 0
+    - _USE_POINT_FILTER: 1
     - _UseShadowThreshold: 0
     - _WorkflowMode: 1
     - _ZTestDepthEqualForOpaque: 3
