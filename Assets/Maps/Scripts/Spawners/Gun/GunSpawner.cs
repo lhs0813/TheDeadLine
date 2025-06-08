@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
@@ -14,7 +15,9 @@ public class GunSpawner : MonoBehaviour
         GameObject prefab = await SpawnedGunBuilder.GetRandomGunPrefab(stageIndex);
         if (prefab != null)
         {
-            Instantiate(prefab, transform.position, Quaternion.identity);
+            Instantiate(prefab, transform);
         }
     }
+
+
 }

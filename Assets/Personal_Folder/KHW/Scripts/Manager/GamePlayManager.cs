@@ -71,7 +71,11 @@ public class GamePlayManager : MonoBehaviour
 
         nextWaitingEndtime = Timer + waitingDuration;
 
+        //대기 레일로 보내기.
         trainController.MoveToWaitingRail();
+
+        //생성된 적 제거.
+        EnemyPoolManager.Instance.ReturnAllEnemiesToPool();
 
         //다음맵 로딩 시작
         currentMapIndex++; 
