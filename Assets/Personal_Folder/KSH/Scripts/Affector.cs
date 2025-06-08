@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using FIMSpace.FProceduralAnimation;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -46,7 +48,7 @@ public class Affector : MonoBehaviour
     [Space(30)]
 
 
-    List<GameObject> hitted = new();//중복방지start
+    public List<GameObject> hitted = new();//중복방지start
     bool hitFirstIgnoreCheck;
     GameObject hitGameobject;
     Vector3 hitPoint;
@@ -69,11 +71,14 @@ public class Affector : MonoBehaviour
     {
         for (; ; )
         {
+            if(allowRepeat)
+                hitted.Clear();
+
             CheckTarget();
             yield return new WaitForSeconds(checkCycle);
         }
     }
-    private void OnDisable() { Debug.Log(1); StopAllCoroutines(); }
+    private void OnDisable() {StopAllCoroutines(); }
 
 
 
@@ -114,6 +119,8 @@ public class Affector : MonoBehaviour
             else
                 hitPoint = hits[i].point;
 
+
+
             hitNormal = hits[i].normal;
 
 
@@ -137,64 +144,77 @@ public class Affector : MonoBehaviour
         var damageTarget = go.GetComponentInParent<Akila.FPSFramework.Damageable>();
         if (damageTarget)
         {
+            var target = damageTarget.gameObject;
+            var ragdol = damageTarget.GetComponent<RagdollAnimatorDummyReference>();
+            if (ragdol)
+                target = ragdol.ParentComponent.gameObject;
+
+
+
+
+
+            if (damageTarget.died)
+                return;
+
             //팀확인
             if (damageTarget.type == Akila.FPSFramework.HealthType.Player)
                 return;
 
             //중복판별 
-            if (hitted.Contains(go) == true)
+            if (hitted.Contains(target.gameObject) == true)
                 return;
 
             //유닛만 
-            if (hitDamageble ==false)
+            if (hitDamageble == false)
                 return;
 
 
 
-                                                
-
-            damageTarget.Damage(damage, gameObject, false);
 
 
+           if(damage!=0) damageTarget.Damage(damage, gameObject, false);
             if (motionMultifly >= 0)
             {
-                var ani = damageTarget.GetComponentInParent<Animator>();
+                var ani = target.GetComponentInChildren<Animator>();
                 if (ani)
                 {
                     ani.speed *= motionMultifly;
                 }
             }
-
             if (navMultifly >= 0)
             {
-                var nav = damageTarget.GetComponentInParent<NavMeshAgent>();
+                var nav = target.GetComponentInChildren<NavMeshAgent>(); 
                 if (nav)
                 {
                     nav.speed *= navMultifly;
                     nav.angularSpeed *= navMultifly;
                 }
             }
-
             if (sizeMultifly !=Vector3.zero)
             {
-                Vector3 temp = damageTarget.transform.localScale;
+                var ani = target.GetComponent<RagdollAnimator2>();
+                if (ani)
+                {
+                    damageTarget.gameObject.active = false;
+                    ani.enabled = false;
+                }
+
+                Vector3 temp = target.transform.localScale;
                 temp.x *= sizeMultifly.x;
                 temp.y *= sizeMultifly.y;
                 temp.z *= sizeMultifly.z;
-                damageTarget.transform.localScale = temp;
-
+                target.transform.localScale = temp;
             }
-
             if (disableCollider)
             {
-               var v= damageTarget.GetComponentsInChildren<Collider>();
+               var v= target.GetComponentsInChildren<Collider>();
                 for(int i = 0; i < v.Length; i++) 
                     v[i].enabled = false; 
             }
 
 
 
-            CommonAffect(go);
+            CommonAffect(target.gameObject);
         }
 
         //지형충돌
@@ -209,6 +229,8 @@ public class Affector : MonoBehaviour
 
 
 
+
+
             CommonAffect(go);
         }
     }
@@ -216,8 +238,9 @@ public class Affector : MonoBehaviour
     {
         hitGameobject = go;
 
-        if (allowRepeat == false)
-            hitted.Add(go);
+
+        hitted.Add(go);
+
 
         hitCount--;
         if (hitCount == 0)
@@ -297,6 +320,77 @@ public class Affector : MonoBehaviour
 
 /*
  * 
+ *  //Damagebla 판단 
+        var damageTarget = go.GetComponentInParent<Akila.FPSFramework.Damageable>();
+        if (damageTarget)
+        {
+            var target = damageTarget.gameObject;
+
+            var ragdol = damageTarget.GetComponent<RagdollAnimatorDummyReference>();
+            if (ragdol)            
+                target = ragdol.ParentComponent.gameObject;
+            
+
+
+
+            if (damageTarget.died)
+                return;
+
+            //팀확인
+            if (damageTarget.type == Akila.FPSFramework.HealthType.Player)
+                return;
+
+            //중복판별 
+            if (hitted.Contains(target.gameObject) == true)
+                return;
+
+            //유닛만 
+            if (hitDamageble == false)
+                return;
+
+                       
+                                               
+
+
+            damageTarget.Damage(damage, gameObject, false);
+            if (motionMultifly >= 0)
+            {
+                var ani = target.GetComponentInParent<Animator>();
+                if (ani)
+                {
+                    ani.speed *= motionMultifly;
+                }
+            }
+            if (navMultifly >= 0)
+            {
+                var nav = target.GetComponentInParent<NavMeshAgent>(); 
+                if (nav)
+                {
+                    nav.speed *= navMultifly;
+                    nav.angularSpeed *= navMultifly;
+                }
+            }
+            if (sizeMultifly !=Vector3.zero)
+            {
+                Vector3 temp = damageTarget.transform.localScale;
+                temp.x *= sizeMultifly.x;
+                temp.y *= sizeMultifly.y;
+                temp.z *= sizeMultifly.z;
+                damageTarget.transform.localScale = temp;
+
+            }
+            if (disableCollider)
+            {
+               var v= target.GetComponentsInChildren<Collider>();
+                for(int i = 0; i < v.Length; i++) 
+                    v[i].enabled = false; 
+            }
+
+
+
+
+
+            CommonAffect(target.gameObject);
         //    //1회차 or 위치같을때
         //    if (before == transform.position)
         //    {

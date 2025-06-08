@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c29a97481c1df141930d343887b9064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 50
+  damage: 20
   push: 0
   motionMultifly: -1
   navMultifly: -1
@@ -71,6 +71,7 @@ MonoBehaviour:
   efInChiledlocalPositionZero: 0
   hitNext: {fileID: 0}
   efDestroyTime: 10
+  hitted: []
 --- !u!114 &15665906844489685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,8 +86,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   push: 0
-  motionMultifly: 0.3
-  navMultifly: 0.3
+  motionMultifly: 0.1
+  navMultifly: 0.1
   sizeMultifly: {x: 0, y: 0, z: 0}
   disableCollider: 0
   checkTime: 5
@@ -102,12 +103,14 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls: []
-  hitEffect: {fileID: 0}
+  hitEffect: {fileID: 4081213117956142783, guid: da35dc31956d9e9488b87b46e6b18e52,
+    type: 3}
   efDiretionHitNormal: 0
-  efInChiled: 0
-  efInChiledlocalPositionZero: 0
+  efInChiled: 1
+  efInChiledlocalPositionZero: 1
   hitNext: {fileID: 0}
   efDestroyTime: 10
+  hitted: []
 --- !u!1001 &8683055405916617909
 PrefabInstance:
   m_ObjectHideFlags: 0

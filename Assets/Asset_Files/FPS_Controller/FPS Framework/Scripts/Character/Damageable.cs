@@ -30,7 +30,7 @@ namespace Akila.FPSFramework
         public Vector3 damageDirection { get; set; }
         public float maxHealth { get; set; }
         public IDamageableGroup[] groups { get; set; }
-        private bool died;
+        public bool died;
         public bool deadConfirmed { get; set; }
 
 
