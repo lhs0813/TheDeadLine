@@ -37,6 +37,7 @@ Transform:
   - {fileID: 3544636426520592518}
   - {fileID: 416420839598335683}
   - {fileID: 9135214597730396918}
+  - {fileID: 90090253639773933}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0.13, y: -0.108, z: 0.094}
 --- !u!114 &7713092409323699012
@@ -55,6 +56,7 @@ MonoBehaviour:
   openAngle: -20
   rotationSpeed: 50
   skillUI: {fileID: 3598790309347222612}
+  isLapTopOn: 0
 --- !u!65 &7438443166822799853
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -739,7 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2c87d6aa888024c8ecfbfdf5c0722f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillId: 
+  skillId: CRIT_10_200
   prerequisites:
   - {fileID: 8252686435196684727}
   - {fileID: 7031146897032205496}
@@ -2274,7 +2276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2c87d6aa888024c8ecfbfdf5c0722f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillId: 
+  skillId: HEADSHOT_20
   prerequisites: []
   requiredPoints: 3
   skillName: Head Hunter
@@ -3840,12 +3842,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2c87d6aa888024c8ecfbfdf5c0722f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillId: 
+  skillId: Damage_By_Health
   prerequisites:
   - {fileID: 5261988612429152596}
   - {fileID: 468476693973036261}
   requiredPoints: 7
-  skillName: Desperate Strike
+  skillName: Heart of the Berserker
   description: Damage increases as your health decreases
   previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 0
@@ -3999,6 +4001,57 @@ MonoBehaviour:
   iconImage: {fileID: 6300178553306179957}
   lockedSprite: {fileID: 21300000, guid: 7e8a7218604410e409d1c44a16d4e577, type: 3}
   unlockedSprite: {fileID: 21300000, guid: 62edf7bf7ec209143bb34fb8ac0a9f04, type: 3}
+--- !u!1 &6511593489819675940
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 90090253639773933}
+  - component: {fileID: 692236564749076198}
+  m_Layer: 0
+  m_Name: SkillEffectHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &90090253639773933
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6511593489819675940}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.6975994, z: -0, w: 0.71648806}
+  m_LocalPosition: {x: -136.9242, y: -35.525257, z: -0.75916874}
+  m_LocalScale: {x: 3.8461533, y: 3.8461537, z: 3.8461533}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5270473314571552033}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &692236564749076198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6511593489819675940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69cb3b5776585914d85ca4a76305ef49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headshotDamageMultiplier: 1
+  criticalChance: 0
+  criticalMultiplier: 2
+  attackSpeedBonus: 1
+  recoilMultiplier: 1
+  isAmmoInfinite: 0
+  isHeartofBerserkeravailable: 0
 --- !u!1 &6672903873302175692
 GameObject:
   m_ObjectHideFlags: 0
@@ -4443,7 +4496,6 @@ MonoBehaviour:
   availablePoints: 100
   pointsText: {fileID: 1296328634428861048}
   pointsText2: {fileID: 2617986305639653567}
-  playerStats: {fileID: 0}
   allSkills:
   - {fileID: 8252686435196684727}
   - {fileID: 7031146897032205496}
@@ -4601,11 +4653,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2c87d6aa888024c8ecfbfdf5c0722f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillId: 
+  skillId: ATTACKSPEED_50
   prerequisites: []
   requiredPoints: 3
   skillName: Rapid Fire
-  description: Increases weapon fire rate by 15%
+  description: Increases weapon fire rate by 50%
   previewVideo: {fileID: 32900000, guid: e06f75db8ba5ab540a3f4e13f3d4376f, type: 3}
   category: 0
   exclusiveGroupId: 0
@@ -4746,7 +4798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2c87d6aa888024c8ecfbfdf5c0722f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillId: 
+  skillId: INFINITE_AMMO
   prerequisites:
   - {fileID: 4082953984284091959}
   - {fileID: 345076415837767388}
@@ -5040,7 +5092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2c87d6aa888024c8ecfbfdf5c0722f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillId: 
+  skillId: RECOIL_REDUCE_80
   prerequisites:
   - {fileID: 8252686435196684727}
   - {fileID: 7031146897032205496}
