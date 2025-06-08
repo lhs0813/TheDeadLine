@@ -1,12 +1,17 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class TrainWaitStartPoint : MonoBehaviour
 {
-    void OnTriggerEnter(Collider other)
+    private async void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Train Trigger"))
-        {
-            other.GetComponentInParent<TrainController>().MoveToWaitingRail();
-        }
+            await SendWaitState();
     }
+
+    private async Task SendWaitState()
+    { 
+        await GamePlayManager.instance.GoWaitingState();
+    }
+
 }

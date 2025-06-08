@@ -9,6 +9,8 @@ namespace Akila.FPSFramework
     [AddComponentMenu("Akila/FPS Framework/Health System/Damageable")]
     public class Damageable : MonoBehaviour, IDamageable
     {
+        
+
         public HealthType type = HealthType.Other;
         public float health = 100;
         public float destroyDelay;
@@ -218,16 +220,27 @@ namespace Akila.FPSFramework
 
         public void Damage(float amount, GameObject damageSource, bool critical)
         {
+            if (type == HealthType.Player && isPlayer)
+            {
+                float FakeHp = health;
+                FakeHp -= amount;
+                Player_Manager.PlayerHpChange?.Invoke(FakeHp);
+                
+            }
+            
             health -= amount;
+
+
+            
 
             if(_killFeed == null)
             {
                 _killFeed = FindAnyObjectByType<KillFeed>();
             }
-            if(isPlayer == false)
+            if(type == HealthType.NPC)
                 _killFeed.DamageShow(amount, critical);
 
-
+            
 
 
 

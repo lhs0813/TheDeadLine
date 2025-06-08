@@ -67,6 +67,7 @@ public class MapGenerationManager : MonoBehaviour
     /// <param name="mapIndex"></param>
     public async Task LoadMap(int mapIndex)
     {
+        Debug.Log($"Map Generator : {mapIndex}번 맵을 생성.");
         //MapContext 로딩.
         currentMapContext = await MapContextBuilder.BuildAsync(mapIndex);
 
