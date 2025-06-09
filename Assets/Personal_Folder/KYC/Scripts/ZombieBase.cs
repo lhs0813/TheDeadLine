@@ -7,6 +7,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     private int _walkIndex;
     private int _runIndex;
     private int _attackIndex;
+    private int _deathIndex;
     public Animator Animator => _anim;
 
     [Header("Zombie Stats")]
@@ -38,10 +39,12 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         _walkIndex = Random.Range(0, 3);
         _runIndex = Random.Range(0, 3);
         _attackIndex = Random.Range(0, 3);
+        _deathIndex = Random.Range(0, 2);
 
         _anim.SetFloat("walkIndex", _walkIndex);
         _anim.SetFloat("runIndex", _runIndex);
         _anim.SetFloat("attackIndex", _attackIndex);
+        _anim.SetFloat("deathIndex", _deathIndex);
 
         damageable = GetComponentInChildren<Damageable>();
     }
@@ -75,6 +78,11 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
     protected virtual void Update()
     {
+        if (damageable != null && damageable.health <= 0 && !(currentState is DeadState))
+        {
+            Die();
+            return;
+        }
         currentState?.Update();
     }
 
@@ -91,7 +99,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     {
         SetState(new DeadState());
         Debug.Log($"{gameObject.name} 사망");
-        Destroy(gameObject, 2f);
+        agent.enabled = false; // NavMeshAgent 비활성화
     }
 
     public virtual void MoveTowards(Vector3 target)
