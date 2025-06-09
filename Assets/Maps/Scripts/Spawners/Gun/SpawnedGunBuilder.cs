@@ -36,13 +36,13 @@ public static class SpawnedGunBuilder
             // default:
             //     return 0;
             case WeaponGrade.Normal:
-                return 0.25f; // 점점 줄어듦
+                return 0.45f; // 점점 줄어듦
             case WeaponGrade.Rare:
-                return 0.25f;
+                return 0.30f;
             case WeaponGrade.Epic:
                 return 0.25f;
             case WeaponGrade.Legendary:
-                return 0.25f;
+                return 0.1f;
             default:
                 return 0;
         }
