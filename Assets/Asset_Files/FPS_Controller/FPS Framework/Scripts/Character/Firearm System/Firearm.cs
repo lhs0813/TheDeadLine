@@ -1040,7 +1040,7 @@ namespace Akila.FPSFramework
             // Handle damageable objects
             if (damageable != null && damageable.health > 0)
             {
-                float totalDamage = damage * damageMultiplier;
+                float totalDamage = damage * damageMultiplier * Affector.damageMulti;
 
                 bool critical = false;
 
@@ -1049,7 +1049,7 @@ namespace Akila.FPSFramework
 
 
 
-                damageable.Damage(totalDamage, actor.gameObject, critical);
+                damageable.Damage(totalDamage * Affector.damageMulti , actor.gameObject, critical);
 
                 bool shouldHighlight = damageable.health <= damageable.maxHealth * 0.3f;
 

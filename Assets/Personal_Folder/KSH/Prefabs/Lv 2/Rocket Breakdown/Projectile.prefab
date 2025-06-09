@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -4164227173840269039}
   - component: {fileID: 6224284308792870200}
   - component: {fileID: 8671813891641488}
+  - component: {fileID: 8013317330165390653}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -127,7 +128,7 @@ MonoBehaviour:
   allowRepeat: 0
   hitEnrionment: 1
   hitDamageble: 1
-  isRayCast: 0
+  isRayCast: 1
   hitCount: 1
   hitMaxDestroy: 1
   hitFirstIgnore: 0
@@ -143,6 +144,26 @@ MonoBehaviour:
   hitNext: {fileID: 0}
   efDestroyTime: 10
   hitted: []
+--- !u!114 &8013317330165390653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28149362241711113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f41583476af8dba44b8337cb4f7e2516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 20
+  isRepeat: 0
+  num: 0
+  timeRndMax: 0
+  OnTime:
+    m_PersistentCalls:
+      m_Calls: []
+  onDestroy: 1
 --- !u!1 &4533021546677065490
 GameObject:
   m_ObjectHideFlags: 0

@@ -47,6 +47,7 @@ public class Affector : MonoBehaviour
     public float efDestroyTime=10;
     [Space(30)]
 
+    public static float damageMulti=0.5f;
 
     public List<GameObject> hitted = new();//중복방지start
     bool hitFirstIgnoreCheck;
@@ -96,6 +97,9 @@ public class Affector : MonoBehaviour
         for (int i = 0; i < hits.Length; i++)
         {
             if (hits[i].collider == null)
+                continue;
+
+            if (hits[i].collider.isTrigger)
                 continue;
 
             if (hitCount == 0)
@@ -172,7 +176,7 @@ public class Affector : MonoBehaviour
 
 
 
-           if(damage!=0) damageTarget.Damage(damage, gameObject, false);
+           if(damage!=0) damageTarget.Damage(damage * damageMulti, gameObject, false);
             if (motionMultifly >= 0)
             {
                 var ani = target.GetComponentInChildren<Animator>();
