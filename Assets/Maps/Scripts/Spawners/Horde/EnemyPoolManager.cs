@@ -206,6 +206,8 @@ public class EnemyPoolManager : MonoBehaviour
     public void ReturnToPool(EnemyType type, GameObject obj)
     {
         StartCoroutine(CorpseDisappearCoroutine(type, obj));
+
+        obj.transform.position = Vector3.zero;
     }
 
     IEnumerator CorpseDisappearCoroutine(EnemyType type, GameObject obj)
@@ -218,13 +220,17 @@ public class EnemyPoolManager : MonoBehaviour
 
     public void ReturnAllEnemiesToPool()
     {
+        
+
         for (int i = activeEnemies.Count - 1; i >= 0; i--)
         {
+            Debug.Log("생성된 적 반환");
+
             GameObject enemy = activeEnemies[i];
             if (enemy != null)
             {
-                 EnemyType type = enemy.GetComponent<EnemyIdentifier>().Type;
-                 ReturnToPool(type, enemy);
+                EnemyType type = enemy.GetComponent<EnemyIdentifier>().Type;
+                ReturnToPool(type, enemy);
             }
         }
         activeEnemies.Clear();

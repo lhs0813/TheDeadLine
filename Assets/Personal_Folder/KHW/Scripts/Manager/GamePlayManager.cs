@@ -18,7 +18,9 @@ public class GamePlayManager : MonoBehaviour
     private bool isCombatting; //전투중
     [SerializeField] private float waitingDuration = 20f; // 열차 대기 시간
     [SerializeField] private float combatDuration = 180f; //전투시간. 
-    [SerializeField] PlayerHordeTrigger playerHordeTrigger; 
+    [SerializeField] PlayerHordeTrigger playerHordeTrigger;
+    [SerializeField] GamePlayManagementUI gamePlayManagementUI;
+    [SerializeField] BackgroundMusicController bgmController;
 
     //Actions.
     public Action OnStationArriveAction;
@@ -39,6 +41,8 @@ public class GamePlayManager : MonoBehaviour
         trainController = FindAnyObjectByType<TrainController>();
         runtimeDungeon = FindAnyObjectByType<RuntimeDungeon>();
         playerHordeTrigger = FindAnyObjectByType<PlayerHordeTrigger>();
+        gamePlayManagementUI = FindAnyObjectByType<GamePlayManagementUI>();
+        bgmController = GetComponentInChildren<BackgroundMusicController>();
         runtimeDungeon.Generator.OnGenerationComplete += ChangeIsMapReady;
         newMapReady = false;
 
@@ -105,6 +109,8 @@ public class GamePlayManager : MonoBehaviour
 
         trainController.TrainArrive();
 
+        bgmController.PlayRandomCombatMusic();
+
         OnStationArriveAction?.Invoke();
     }
 
@@ -115,6 +121,8 @@ public class GamePlayManager : MonoBehaviour
     {
         isCombatting = false;
         trainController.TrainDepart();
+
+        bgmController.StopCombatMusic();
 
         OnStationDepartAction?.Invoke();
     }
@@ -132,6 +140,8 @@ public class GamePlayManager : MonoBehaviour
         {
             GoCombatEndState();
         }
+
+        gamePlayManagementUI.UpdateGamePlayUI(isCombatting, Timer, newCombatEndTime);
     }
 
 
