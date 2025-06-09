@@ -132,14 +132,27 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     }
     public void DamageTiming()
     {
-        // 플레이어가 null인지 체크
-        var playerObj = GameObject.FindWithTag("Player");
+        // 플레이어 오브젝트 확인
+        GameObject playerObj = GameObject.FindWithTag("Player");
         if (playerObj == null) return;
 
         float distance = Vector3.Distance(transform.position, playerObj.transform.position);
         if (distance <= attackRange)
         {
             Debug.Log("공격 타이밍!");
+
+            // Damageable 컴포넌트 가져오기
+            var damageable = playerObj.GetComponent<Damageable>();
+            if (damageable != null)
+            {
+                float baseDamage = 10f; // 좀비의 기본 공격력
+                damageable.Damage(baseDamage, this.gameObject,false);
+            }
+            else
+            {
+                Debug.LogWarning("플레이어에 Damageable 컴포넌트가 없음");
+            }
         }
     }
+
 }

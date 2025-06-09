@@ -118,7 +118,7 @@ public class TrainController : MonoBehaviour
         isStopping = true;
     }
 
-    void CheckAndAttachPlayer()
+    public bool CheckAndAttachPlayer()
     {
         // Debug.Log("Check and Attack Player");
         // Collider[] hits = Physics.OverlapBox(
@@ -143,7 +143,10 @@ public class TrainController : MonoBehaviour
         if (trainInteriorZone.bounds.Contains(player.transform.position))
         {
             player.transform.SetParent(trainTransform);
+            return true;
         }
+
+        return false;
     }
 
     void DetachPlayer()

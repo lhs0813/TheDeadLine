@@ -6,7 +6,18 @@ public class TrainWaitStartPoint : MonoBehaviour
     private async void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Train Trigger"))
-            await SendWaitState();
+        {
+            TrainController trainController = other.GetComponentInParent<TrainController>();
+            if (trainController.CheckAndAttachPlayer()) //내부에 플레이어 있음.
+            {
+                await SendWaitState();
+            }
+            else //내부에 플레이어 없음.
+            {
+
+            }
+        }
+
     }
 
     private async Task SendWaitState()
