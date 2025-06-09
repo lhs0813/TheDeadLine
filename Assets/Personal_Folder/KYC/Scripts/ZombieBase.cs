@@ -17,6 +17,15 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     public float detectionRange = 50f;
     public float attackRange = 2.5f;
 
+    [Header("Zombie Sounds")]
+    public AudioSource audioSource;
+
+    public AudioClip[] patrolClips;
+    public AudioClip[] chaseClips;
+    public AudioClip[] attackClips;
+    public AudioClip[] deathClips;
+
+
     protected IZombieState currentState;
     protected UnityEngine.AI.NavMeshAgent agent;
     public UnityEngine.AI.NavMeshAgent Agent => agent;
