@@ -81,7 +81,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     {
         health = maxHealth;
         SetState(new PatrolState());
-
+        agent.enabled = true;
         transform.parent.GetComponentInChildren<Damageable>().ResetHealth(this);
     }
 

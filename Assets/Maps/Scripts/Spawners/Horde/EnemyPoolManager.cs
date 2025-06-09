@@ -207,12 +207,13 @@ public class EnemyPoolManager : MonoBehaviour
     {
         StartCoroutine(CorpseDisappearCoroutine(type, obj));
 
-        obj.transform.position = Vector3.zero;
     }
 
     IEnumerator CorpseDisappearCoroutine(EnemyType type, GameObject obj)
     {
         yield return new WaitForSeconds(5f);
+        
+        obj.transform.position = Vector3.zero;
         currentCounts[type] = Mathf.Max(0, currentCounts[type] - 1);
         enemyPools[type].Release(obj);
         activeEnemies.Remove(obj);
