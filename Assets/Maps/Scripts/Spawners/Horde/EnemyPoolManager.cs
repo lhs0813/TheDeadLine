@@ -94,8 +94,8 @@ public class EnemyPoolManager : MonoBehaviour
     private void InitializeEnemyPoolsObjects()
     {
         // 1) Normal 타입 풀 채우기
-        //int normalWarmCount = MapGenConstants.MaxNormalCreatureCountLimitOnStage / 2;
-        int normalWarmCount = 5;
+        int normalWarmCount = MapGenConstants.MaxNormalCreatureCountLimitOnStage / 2;
+
         var normalPool = enemyPools[EnemyType.Normal];
         for (int i = 0; i < normalWarmCount; i++)
         {
@@ -223,9 +223,8 @@ public class EnemyPoolManager : MonoBehaviour
             GameObject enemy = activeEnemies[i];
             if (enemy != null)
             {
-                // TODO : 적 타입 가져오기
-                // EnemyType type = enemy.GetComponent<EnemyIdentifier>().Type;
-                // ReturnToPool(type, enemy);
+                 EnemyType type = enemy.GetComponent<EnemyIdentifier>().Type;
+                 ReturnToPool(type, enemy);
             }
         }
         activeEnemies.Clear();
