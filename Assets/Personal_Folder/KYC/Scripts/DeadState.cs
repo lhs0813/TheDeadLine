@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class DeadState : IZombieState
 {
@@ -7,7 +8,9 @@ public class DeadState : IZombieState
     {
         this._zombie = zombie;
         Debug.Log($"{zombie.name} 사망 상태 시작");
-        _zombie.Animator.SetTrigger("TriggerDeath");
+        _zombie.Animator.SetTrigger("ToDeath");
+        _zombie.StopMovement();
+        
 
     }
 
