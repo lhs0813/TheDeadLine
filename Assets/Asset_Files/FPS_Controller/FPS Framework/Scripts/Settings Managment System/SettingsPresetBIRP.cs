@@ -1,11 +1,11 @@
-using UnityEngine.Rendering;
+﻿using UnityEngine.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
 namespace Akila.FPSFramework.Examples
 {
 
-    [CreateAssetMenu(fileName = "New Settings Preset BIRP", menuName = "Akila/FPS Framework/Settings System/Settings Preset BIRP")]
+    /*[CreateAssetMenu(fileName = "New Settings Preset BIRP", menuName = "Akila/FPS Framework/Settings System/Settings Preset BIRP")]
     public class SettingsPresetBIRP : SettingsPreset
     {
         public void SetMSAA(int value)
@@ -67,5 +67,5 @@ namespace Akila.FPSFramework.Examples
 
             volume.weight = finalAmount;
         }
-    }
+    }*/
 }
