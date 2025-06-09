@@ -206,6 +206,8 @@ public class EnemyPoolManager : MonoBehaviour
     public void ReturnToPool(EnemyType type, GameObject obj)
     {
         StartCoroutine(CorpseDisappearCoroutine(type, obj));
+
+        obj.transform.position = Vector3.zero;
     }
 
     IEnumerator CorpseDisappearCoroutine(EnemyType type, GameObject obj)
