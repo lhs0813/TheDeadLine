@@ -1049,7 +1049,7 @@ namespace Akila.FPSFramework
 
 
 
-                damageable.Damage(totalDamage , actor.gameObject, critical);
+                damageable.Damage(totalDamage * Affector.damageMulti , actor.gameObject, critical);
 
                 bool shouldHighlight = damageable.health <= damageable.maxHealth * 0.3f;
 
