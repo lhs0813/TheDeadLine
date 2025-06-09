@@ -6,7 +6,7 @@ public static class MapGenConstants
     public const int BaseCreatureCountOnSpawnRoom = 0;
     public const int MinCreatureCountOnSpawnRoomMultiplier = 2; //스폰 최소치 배율. stageIndex = 5라면 방마다 최소 10마리 생성.
     public const int MaxCreatureCountOnSpawnRoomMultiplier = 3; //스폰 최대치 배율. stageIndex = 5라면 방마다 최대 15마리까지 생성.
-    public const int MaxCreatureCountOnSpawnRoom = 3; //한 방에서 생성될 수 있는 적의 최대 수.
+    public const int MaxCreatureCountOnSpawnRoom = 1; //한 방에서 생성될 수 있는 적의 최대 수.
 
 
     ///Global SkillEnforcement Spawns
