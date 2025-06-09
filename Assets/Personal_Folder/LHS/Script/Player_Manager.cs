@@ -24,11 +24,7 @@ public class Player_Manager : MonoBehaviour
         playerHp = 100;
         MaxHealth = playerHp;
 
-        PlayerHpChange.Invoke(100);
-
         PlayerHpChange += hpUpdate;
-
-        
     }
 
     private void hpUpdate(float hp)
