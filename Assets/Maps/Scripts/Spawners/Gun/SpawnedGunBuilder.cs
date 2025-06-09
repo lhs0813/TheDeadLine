@@ -25,14 +25,24 @@ public static class SpawnedGunBuilder
     {
         switch (grade)
         {
+            // case WeaponGrade.Normal:
+            //     return Mathf.Max(100 - stageIndex * 2f, 5); // 점점 줄어듦
+            // case WeaponGrade.Rare:
+            //     return Mathf.Clamp(stageIndex * 1.5f, 5, 40);
+            // case WeaponGrade.Epic:
+            //     return Mathf.Clamp(stageIndex - 10, 0, 30);
+            // case WeaponGrade.Legendary:
+            //     return Mathf.Clamp((stageIndex - 20) * 0.8f, 0, 25);
+            // default:
+            //     return 0;
             case WeaponGrade.Normal:
-                return Mathf.Max(100 - stageIndex * 2f, 5); // 점점 줄어듦
+                return 0.25f; // 점점 줄어듦
             case WeaponGrade.Rare:
-                return Mathf.Clamp(stageIndex * 1.5f, 5, 40);
+                return 0.25f;
             case WeaponGrade.Epic:
-                return Mathf.Clamp(stageIndex - 10, 0, 30);
+                return 0.25f;
             case WeaponGrade.Legendary:
-                return Mathf.Clamp((stageIndex - 20) * 0.8f, 0, 25);
+                return 0.25f;
             default:
                 return 0;
         }
