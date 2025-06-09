@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2006121450857133507}
   - component: {fileID: 7595848759017371013}
   - component: {fileID: 775003722972610097}
-  - component: {fileID: 84788387036793195}
   - component: {fileID: 4199418103532840779}
   m_Layer: 0
   m_Name: Laser Spawn
@@ -48,8 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 1316943470479522437, guid: ded2545c6170e124f814ea83de082ed9, type: 3}
-  num: 5
+  num: 999
   angle: 10
+  delay: 0.5
 --- !u!114 &775003722972610097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,39 +63,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 1316943470479522437, guid: a72f2b4a5f4728a4db6c23415c478fe9, type: 3}
-  num: 5
+  num: 999
   angle: 10
---- !u!114 &84788387036793195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6607509228119206521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f41583476af8dba44b8337cb4f7e2516, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  time: 0.5
-  isRepeat: 1
-  num: 0
-  timeRndMax: 0
-  OnTime:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 775003722972610097}
-        m_TargetAssemblyTypeName: Instance, Assembly-CSharp
-        m_MethodName: Spawn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  delay: 0.5
 --- !u!114 &4199418103532840779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,3 +97,4 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onDestroy: 0
