@@ -27,6 +27,7 @@ public class SkillEffectHandler : MonoBehaviour
     public float attackSpeedBonus = 1f; // 공격속도증가
     public float recoilMultiplier = 1f; // 반동감소
     public bool isAmmoInfinite = false; // 무한 탄약 여부
+    public bool isHeartofBerserkeravailable = false; // Berserker 효과 활성화 여부
     // ... 필요에 따라 추가
 
     // 내부 딕셔너리
@@ -59,6 +60,9 @@ public class SkillEffectHandler : MonoBehaviour
 
         _applyEffects["INFINITE_AMMO"] = () => isAmmoInfinite = true; // 무한 탄약
         _removeEffects["INFINITE_AMMO"] = () => isAmmoInfinite = false; // 무한 탄약 해제
+
+        _applyEffects["HEART_OF_BERSERKER"] = () => isHeartofBerserkeravailable = true; // Berserker 효과 활성화
+        _removeEffects["HEART_OF_BERSERKER"] = () => isHeartofBerserkeravailable = false; // Berserker 효과 비활성화
         // 🎯 여기다 계속 추가 가능
     }
 
@@ -93,6 +97,8 @@ public class SkillEffectHandler : MonoBehaviour
         criticalChance = 0f;
         criticalMultiplier = 1f;
         attackSpeedBonus = 1f;
+        isAmmoInfinite = false;
+        isHeartofBerserkeravailable = false;
         // 필요 수치 모두 원상 복구
         Debug.Log("[SkillEffectHandler] 모든 스킬 효과 초기화됨");
     }
