@@ -19,10 +19,14 @@ public class TrainController : MonoBehaviour
     TrainDoorController trainDoorController;
     PlayerHordeTrigger playerHordeTrigger;
 
+    TrainSoundController trainSoundController;
+
     void Start()
     {
-        trainDoorController = GetComponent<TrainDoorController>();
+        trainDoorController = GetComponentInChildren<TrainDoorController>();
         playerHordeTrigger = FindAnyObjectByType<PlayerHordeTrigger>();
+
+        trainSoundController = GetComponentInChildren<TrainSoundController>();
     }
 
     /// <summary>
@@ -41,10 +45,12 @@ public class TrainController : MonoBehaviour
 
     IEnumerator TrainDepartCoroutine()
     {
-        //trainDoorController.CloseDoor();
+        trainDoorController.CloseDoor();
+        trainSoundController.PlayDoorClose();
+
         yield return new WaitForSeconds(trainDepartDelay); // 문 닫히는 시간보다 길게
 
-
+        trainSoundController.PlayTrainRunning();
         CheckAndAttachPlayer();
         isMoving = true;
     }
@@ -54,9 +60,11 @@ public class TrainController : MonoBehaviour
         isMoving = false;
         isStopping = false;
 
+
         yield return new WaitForSeconds(trainArriveDelay);
         DetachPlayer();
-        //trainDoorController.OpenDoor();
+        trainDoorController.OpenDoor();
+        trainSoundController.PlayDoorOpen();
 
     }
 
@@ -116,6 +124,8 @@ public class TrainController : MonoBehaviour
         transform.position = stageRailStartTransform.position;
 
         isStopping = true;
+
+        trainSoundController.PlayTrainArriving();
     }
 
     public bool CheckAndAttachPlayer()
