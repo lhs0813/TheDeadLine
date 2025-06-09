@@ -35,7 +35,7 @@ public class PlayerHordeTrigger : MonoBehaviour
     }
 
     //TODO : 기차역 출발시 호출해주어야함.
-    public void DeactivatePlayerHordeTrigger(int mapIndex)
+    public void DeactivatePlayerHordeTrigger()
     {
         activated = false;
     }
@@ -52,68 +52,42 @@ public class PlayerHordeTrigger : MonoBehaviour
         }
     }
 
-    // private void TriggerNearbyHordeRooms()
-    // {
-    //     currentValidTargets.Clear();
-
-    //     Collider[] colliders = Physics.OverlapSphere(playerTransform.position, MapGenConstants.MaxCreatureSpawnRadius, LayerMask.GetMask("HordeSpawner"));
-
-    //     foreach (var collider in colliders)
-    //     {
-    //         Vector3 toTrigger = collider.transform.position - playerTransform.position;
-    //         float distance = toTrigger.magnitude;
-
-    //         if (distance < MapGenConstants.MinCreatureSpawnRadius || distance > MapGenConstants.MaxCreatureSpawnRadius)
-    //             continue;
-
-    //         float angle = Vector3.Angle(playerTransform.forward, toTrigger.normalized);
-    //         if (angle > MapGenConstants.EnemyTriggerAngleFromPlayer * 0.5f)
-    //             continue;
-
-    //         if (collider.TryGetComponent(out HordeSpawner spawner))
-    //         {
-    //             spawner.TrySpawn(currentMapIndex);
-    //             currentValidTargets.Add(collider.transform);
-    //         }
-    //     }
-    // }
+    private float currentSectorCenterAngle = 0f;       // 섹터 중앙(월드 Y축 기준)
+    [SerializeField] private float sectorHalfAngle = 70f;  // 절반 시야각
 
     private void TriggerNearbyHordeRooms()
     {
-        Debug.Log("Trigger Near Triggers");
-
         currentValidTargets.Clear();
+        Collider[] colliders = Physics.OverlapSphere(
+            playerTransform.position,
+            MapGenConstants.MaxCreatureSpawnRadius,
+            LayerMask.GetMask("HordeSpawner")
+        );
 
-        Collider[] colliders = Physics.OverlapSphere(playerTransform.position, MapGenConstants.MaxCreatureSpawnRadius, LayerMask.GetMask("HordeSpawner"));
-
-        foreach (var collider in colliders)
+        // 1) 원하는 섹터 각도 기준으로 필터
+        foreach (var col in colliders)
         {
-            Vector3 toTrigger = collider.transform.position - playerTransform.position;
-            float distance = toTrigger.magnitude;
-
-            // ─── [변경 예시] ───
-            // 1) MinCreatureSpawnRadius 검사를 아예 제거하거나, 0으로 완화
-            // if (distance < MapGenConstants.MinCreatureSpawnRadius) 
-            //     continue;
-            //
-            // 2) MaxCreatureSpawnRadius만 체크해서, 
-            //    허용 범위를 넓히고 싶다면 MapGenConstants.MaxCreatureSpawnRadius 값을 늘리거나
-            //    직접 수치(예: 20f)로 바꿔도 됩니다.
-            if (distance > MapGenConstants.MaxCreatureSpawnRadius * 1.5f) // 기존보다 1.5배 먼 거리까지 허용
-                continue;
-            // ──────────────────
-
-            float angle = Vector3.Angle(playerTransform.forward, toTrigger.normalized);
-            if (angle > MapGenConstants.EnemyTriggerAngleFromPlayer * 0.5f)
+            Vector3 dir = (col.transform.position - playerTransform.position).normalized;
+            float angle = Vector3.SignedAngle(playerTransform.forward, dir, Vector3.up);
+            if (Mathf.Abs(Mathf.DeltaAngle(angle, currentSectorCenterAngle)) > sectorHalfAngle)
                 continue;
 
-            if (collider.TryGetComponent(out HordeSpawner spawner))
-            {
-                Debug.Log("스포너 발견");
-                spawner.TrySpawn(currentMapIndex);
-                currentValidTargets.Add(collider.transform);
-            }
+            if (col.TryGetComponent(out HordeSpawner sp))
+                currentValidTargets.Add(col.transform);
         }
+
+        // 2) 한 웨이브당 최대 N개만 랜덤/순차 선택
+        int waveCount = Mathf.Min(5, currentValidTargets.Count);
+        for (int i = 0; i < waveCount; i++)
+        {
+            int idx = Random.Range(0, currentValidTargets.Count);
+            var trg = currentValidTargets[idx];
+            trg.GetComponent<HordeSpawner>().TrySpawn(currentMapIndex);
+            currentValidTargets.RemoveAt(idx);
+        }
+
+        // 3) 다음 웨이브 섹터 회전 (예: 90°씩 시계방향)
+        currentSectorCenterAngle = (currentSectorCenterAngle + 90f) % 360f;
     }
 
 
@@ -147,4 +121,31 @@ public class PlayerHordeTrigger : MonoBehaviour
             Gizmos.DrawLine(center, target.position);
         }
     }
+
+    
+    // private void TriggerNearbyHordeRooms()
+    // {
+    //     currentValidTargets.Clear();
+
+    //     Collider[] colliders = Physics.OverlapSphere(playerTransform.position, MapGenConstants.MaxCreatureSpawnRadius, LayerMask.GetMask("HordeSpawner"));
+
+    //     foreach (var collider in colliders)
+    //     {
+    //         Vector3 toTrigger = collider.transform.position - playerTransform.position;
+    //         float distance = toTrigger.magnitude;
+
+    //         if (distance < MapGenConstants.MinCreatureSpawnRadius || distance > MapGenConstants.MaxCreatureSpawnRadius)
+    //             continue;
+
+    //         float angle = Vector3.Angle(playerTransform.forward, toTrigger.normalized);
+    //         if (angle > MapGenConstants.EnemyTriggerAngleFromPlayer * 0.5f)
+    //             continue;
+
+    //         if (collider.TryGetComponent(out HordeSpawner spawner))
+    //         {
+    //             spawner.TrySpawn(currentMapIndex);
+    //             currentValidTargets.Add(collider.transform);
+    //         }
+    //     }
+    // }
 }

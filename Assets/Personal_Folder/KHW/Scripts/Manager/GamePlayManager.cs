@@ -18,7 +18,7 @@ public class GamePlayManager : MonoBehaviour
     private bool isCombatting; //전투중
     [SerializeField] private float waitingDuration = 20f; // 열차 대기 시간
     [SerializeField] private float combatDuration = 180f; //전투시간. 
-    [SerializeField] 
+    [SerializeField] PlayerHordeTrigger playerHordeTrigger; 
 
     //Actions.
     public Action OnStationArriveAction;
@@ -38,6 +38,7 @@ public class GamePlayManager : MonoBehaviour
     {
         trainController = FindAnyObjectByType<TrainController>();
         runtimeDungeon = FindAnyObjectByType<RuntimeDungeon>();
+        playerHordeTrigger = FindAnyObjectByType<PlayerHordeTrigger>();
         runtimeDungeon.Generator.OnGenerationComplete += ChangeIsMapReady;
         newMapReady = false;
 
@@ -78,8 +79,11 @@ public class GamePlayManager : MonoBehaviour
         EnemyPoolManager.Instance.ReturnAllEnemiesToPool();
 
         //다음맵 로딩 시작
-        currentMapIndex++; 
+        currentMapIndex++;
         await MapGenerationManager.Instance.LoadMap(currentMapIndex);
+
+        playerHordeTrigger.DeactivatePlayerHordeTrigger();
+
     }
 
     private void GoStageEnteringState()
@@ -87,6 +91,8 @@ public class GamePlayManager : MonoBehaviour
         isWaiting = false;
 
         trainController.MoveToStageRail();
+
+        playerHordeTrigger.ActivatePlayerHordeTrigger(currentMapIndex);
     }
 
     /// <summary>
