@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+    using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -36,6 +36,8 @@ public class TrainDoorController : MonoBehaviour
 
     public void CloseDoor()
     {
+        Debug.Log("Close Door");
+
         foreach (var door in trainDoorAnimator)
         {
             door.SetTrigger(DoorCloseTriggerHash);
