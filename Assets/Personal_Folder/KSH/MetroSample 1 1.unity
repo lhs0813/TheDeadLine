@@ -12100,6 +12100,7 @@ MonoBehaviour:
   currentCreatureSpawnRadiusRange:
     Min: 0
     Max: 0
+  sectorHalfAngle: 70
 --- !u!1001 &521337241
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23596,6 +23597,7 @@ MonoBehaviour:
   trainController: {fileID: 0}
   waitingDuration: 3
   combatDuration: 3
+  playerHordeTrigger: {fileID: 0}
 --- !u!1001 &1093385866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27084,7 +27086,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.21666665
+  m_VoxelSize: 0.2
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -45329,74 +45331,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!1001 &5239942762823518696
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2898259982874008127, guid: c2806f3fcdebef0458697eeb6effb744,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2898259982874008127, guid: c2806f3fcdebef0458697eeb6effb744,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2898259982874008127, guid: c2806f3fcdebef0458697eeb6effb744,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2898259982874008127, guid: c2806f3fcdebef0458697eeb6effb744,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2898259982874008127, guid: c2806f3fcdebef0458697eeb6effb744,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2898259982874008127, guid: c2806f3fcdebef0458697eeb6effb744,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2898259982874008127, guid: c2806f3fcdebef0458697eeb6effb744,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2898259982874008127, guid: c2806f3fcdebef0458697eeb6effb744,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2898259982874008127, guid: c2806f3fcdebef0458697eeb6effb744,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2898259982874008127, guid: c2806f3fcdebef0458697eeb6effb744,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8211272962711050566, guid: c2806f3fcdebef0458697eeb6effb744,
-        type: 3}
-      propertyPath: m_Name
-      value: Gun Spawner
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c2806f3fcdebef0458697eeb6effb744, type: 3}
 --- !u!33 &5251960055648466809
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -46039,5 +45973,4 @@ SceneRoots:
   - {fileID: 602282501}
   - {fileID: 1090571280}
   - {fileID: 1769594913}
-  - {fileID: 5239942762823518696}
   - {fileID: 458501571}

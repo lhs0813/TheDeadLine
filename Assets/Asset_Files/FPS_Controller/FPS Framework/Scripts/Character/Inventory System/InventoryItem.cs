@@ -484,9 +484,17 @@ namespace Akila.FPSFramework
 
 
 
+
+            //다시 못줍게하기
             Destroy(newPickupable.GetComponent<Pickable>());
-           if (newPickupable.GetComponent<PickableEffect>()) newPickupable.GetComponent<PickableEffect>().enabled = false;
-            Destroy(newPickupable.gameObject,3);
+            Destroy(newPickupable.gameObject, 3);
+
+            //이펙트 off
+            if (newPickupable.GetComponent<PickableEffect>())
+                newPickupable.GetComponent<PickableEffect>().enabled = false;
+
+            //자연스러운 물리이동
+            newPickupable.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 
 
 
