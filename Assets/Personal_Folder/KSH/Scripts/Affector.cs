@@ -80,7 +80,16 @@ public class Affector : MonoBehaviour
             yield return new WaitForSeconds(checkCycle);
         }
     }
-    private void OnDisable() {StopAllCoroutines(); }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines(); 
+
+        if(inTransform)
+            inTransform.transform.parent = null;
+
+
+    }
 
 
 
@@ -361,9 +370,10 @@ public class Affector : MonoBehaviour
         var nav = hitGameobject.GetComponentInParent<NavMeshAgent>();
         if(nav) nav.enabled = false;
 
-        hitGameobject.transform.parent = transform; 
+        hitGameobject.transform.parent = transform;
+        inTransform = hitGameobject;
     }
-
+    GameObject inTransform;
 
     private void OnDrawGizmos()
     {
