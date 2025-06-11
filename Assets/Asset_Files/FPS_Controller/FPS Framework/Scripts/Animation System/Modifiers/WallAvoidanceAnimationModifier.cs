@@ -1,4 +1,4 @@
-
+﻿
 using UnityEngine;
 
 namespace Akila.FPSFramework.Animation
@@ -24,7 +24,7 @@ namespace Akila.FPSFramework.Animation
         private void Update()
         {
 
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, range, layerMask))
+            /*if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, range, layerMask))
             {
                 targetAnimation.progress = hit.distance / range;
                 targetAnimation.isPlaying = true;
@@ -41,7 +41,7 @@ namespace Akila.FPSFramework.Animation
                 rot = Vector3.zero;
             }
             targetPosition = Vector3.SmoothDamp(targetPosition, pos, ref posVel, targetAnimation.length / globalSpeed);
-            targetRotation = Vector3.SmoothDamp(targetRotation, rot, ref rotVel, targetAnimation.length / globalSpeed); 
+            targetRotation = Vector3.SmoothDamp(targetRotation, rot, ref rotVel, targetAnimation.length / globalSpeed); */
         }
     }
 }
