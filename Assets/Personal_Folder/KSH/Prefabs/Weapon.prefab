@@ -568,10 +568,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 00
+  gunImage: {fileID: 0}
+  grade: {r: 0, g: 0, b: 0, a: 0}
+  OnDropStart:
+    m_PersistentCalls:
+      m_Calls: []
   preset: {fileID: 0}
-  muzzle: {fileID: 5787811183275202065}
+  muzzle: {fileID: 0}
   handLeftWeapon: {fileID: 6300813233931970586}
   handRight: {fileID: 3345873633023311758}
+  gradeNum: 0
+  gradeColor:
+  - {r: 0.52156866, g: 0.5254902, b: 0.5254902, a: 0.50980395}
+  - {r: 0, g: 0.53333336, b: 1, a: 0.50980395}
+  - {r: 0.5372549, g: 0, b: 1, a: 0.50980395}
+  - {r: 1, g: 0.68235296, b: 0, a: 0.50980395}
   casingEjectionPort: {fileID: 0}
   chamberingEffects: {fileID: 0}
   events:
@@ -2224,7 +2235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Aiming
-  length: 0.2
+  length: 0.1
   weight: 1
   loop: 0
   autoStop: 0

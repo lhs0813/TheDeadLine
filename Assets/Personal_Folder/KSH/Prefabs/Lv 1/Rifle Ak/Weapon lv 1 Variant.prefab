@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 6243690093803134916}
   - component: {fileID: 8530428242368602445}
   - component: {fileID: 3949558172451431385}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Muzzle Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9844,7 +9844,7 @@ GameObject:
   - component: {fileID: 8243542535439672005}
   - component: {fileID: 7814344965143311005}
   - component: {fileID: 3642210100707939348}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Muzzle Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15257,6 +15257,38 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &6252876562250718591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5651199783824689357}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5651199783824689357
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252876562250718591}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.078, z: 0.649}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4365780595896699544}
+  m_Father: {fileID: 502693801044549204}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6478880056499109077
 GameObject:
   m_ObjectHideFlags: 0
@@ -15268,7 +15300,7 @@ GameObject:
   - component: {fileID: 4365780595896699544}
   - component: {fileID: 2635536555092084123}
   - component: {fileID: 8086390004060837832}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15284,13 +15316,13 @@ Transform:
   m_GameObject: {fileID: 6478880056499109077}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.069, y: -0.098, z: 1.128}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8002209332544528077}
   - {fileID: 6243690093803134916}
-  m_Father: {fileID: 6616917499310467955}
+  m_Father: {fileID: 5651199783824689357}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2635536555092084123
 MonoBehaviour:
@@ -15371,6 +15403,7 @@ Transform:
   - {fileID: 1879625220248437036}
   - {fileID: 2484220556627740315}
   - {fileID: 7829908480661123561}
+  - {fileID: 5651199783824689357}
   m_Father: {fileID: 4168993097499219321}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7554173524225568107
@@ -15469,7 +15502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2464155355480009115}
   - component: {fileID: 8104783020042986659}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15917,6 +15950,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2582711531730015946, guid: 0b3c6a8fe24e8854a8510761bb4199b9,
         type: 3}
+      propertyPath: muzzle
+      value: 
+      objectReference: {fileID: 5651199783824689357}
+    - target: {fileID: 2582711531730015946, guid: 0b3c6a8fe24e8854a8510761bb4199b9,
+        type: 3}
       propertyPath: preset
       value: 
       objectReference: {fileID: 11400000, guid: ce9ad1886f0cf9549b2b8cfc604f8eee,
@@ -15985,10 +16023,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3640513054676912662, guid: 0b3c6a8fe24e8854a8510761bb4199b9,
-        type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 4365780595896699544}
     - targetCorrespondingSourceObject: {fileID: 5803606237748196380, guid: 0b3c6a8fe24e8854a8510761bb4199b9,
         type: 3}
       insertIndex: -1
@@ -15998,12 +16032,6 @@ PrefabInstance:
 --- !u!4 &4168993097499219321 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5803606237748196380, guid: 0b3c6a8fe24e8854a8510761bb4199b9,
-    type: 3}
-  m_PrefabInstance: {fileID: 7589040625791000933}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6616917499310467955 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3640513054676912662, guid: 0b3c6a8fe24e8854a8510761bb4199b9,
     type: 3}
   m_PrefabInstance: {fileID: 7589040625791000933}
   m_PrefabAsset: {fileID: 0}
