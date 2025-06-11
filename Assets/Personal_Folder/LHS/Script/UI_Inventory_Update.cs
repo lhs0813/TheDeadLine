@@ -56,7 +56,7 @@ public class UI_Inventory_Update : MonoBehaviour
                 Firearm firearm = pocket[i].GetComponent<Firearm>();
                 gunImage.enabled = true;
                 gunBackground.enabled = true;
-                gunBackground.color = firearm.grade;
+                gunBackground.color = firearm.GetGradeColor();
                 gunImage.sprite = firearm != null ? firearm.gunImage : null;
             }
             else

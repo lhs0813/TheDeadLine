@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2619483866388809132}
   - component: {fileID: 100458762665313505}
   - component: {fileID: 2964624619229741903}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,14 +27,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123477629358385058}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.069, y: -0.072, z: 0.84}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6075422424572806719}
   - {fileID: 5536224089200380711}
-  m_Father: {fileID: 9127319549212822521}
+  m_Father: {fileID: 8166416970138941975}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2619483866388809132
 MonoBehaviour:
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 5536224089200380711}
   - component: {fileID: 8899105749645560387}
   - component: {fileID: 5372221783389563834}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Muzzle Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 0
+  scalingMode: 1
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -4958,6 +4958,38 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &2459597506297587221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8166416970138941975}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8166416970138941975
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2459597506297587221}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0007, y: -0.00046, z: 0.00628}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7609328865657865678}
+  m_Father: {fileID: 864722861353751097}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2993328711932965678
 GameObject:
   m_ObjectHideFlags: 0
@@ -4968,7 +5000,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1009467662859656300}
   - component: {fileID: 5335327711016209061}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5066,7 +5098,7 @@ GameObject:
   - component: {fileID: 7715430210477490320}
   - component: {fileID: 722074747330206247}
   - component: {fileID: 5854297572892933783}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Muzzle Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5164,7 +5196,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 0
+  scalingMode: 1
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -9993,7 +10025,8 @@ Transform:
   m_LocalPosition: {x: -0.00162, y: -0.00875, z: -0.00269}
   m_LocalScale: {x: 2.7374082, y: 2.7374082, z: 2.737412}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8166416970138941975}
   m_Father: {fileID: 2064335896018646515}
   m_LocalEulerAnglesHint: {x: -76.014, y: 12.984, z: 249.312}
 --- !u!33 &3299186052696787643
@@ -10159,7 +10192,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 0
+  scalingMode: 1
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -14920,10 +14953,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3640513054676912662, guid: 73511a8659d132f41ad07d8755027562,
-        type: 3}
-      insertIndex: 0
-      addedObject: {fileID: 7609328865657865678}
     - targetCorrespondingSourceObject: {fileID: 5803606237748196380, guid: 73511a8659d132f41ad07d8755027562,
         type: 3}
       insertIndex: -1
@@ -14933,12 +14962,6 @@ PrefabInstance:
 --- !u!4 &2064335896018646515 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5803606237748196380, guid: 73511a8659d132f41ad07d8755027562,
-    type: 3}
-  m_PrefabInstance: {fileID: 5489733536229327343}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &9127319549212822521 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3640513054676912662, guid: 73511a8659d132f41ad07d8755027562,
     type: 3}
   m_PrefabInstance: {fileID: 5489733536229327343}
   m_PrefabAsset: {fileID: 0}
