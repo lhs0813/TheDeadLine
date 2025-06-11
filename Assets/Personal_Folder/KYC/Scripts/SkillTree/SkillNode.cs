@@ -36,6 +36,7 @@ public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private void OnClick()
     {
         SkillTreeManager manager = FindObjectOfType<SkillTreeManager>();
+       Debug.Log($"스킬 눌림");
         if (manager != null)
         {
             manager.TryUnlockSkill(this);
