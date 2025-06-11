@@ -1,15 +1,16 @@
+using Akila.FPSFramework;
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PickableEffect : MonoBehaviour
 {
-    public int level = 1;
     public List<GameObject> effects;
     public List<Material> material;
 
     void Start()
     {
+        var level = GetComponent<Pickable>().item.GetComponent<Firearm>().gradeNum;
         if (effects[level - 1])
             Instantiate(effects[level - 1], transform);
 

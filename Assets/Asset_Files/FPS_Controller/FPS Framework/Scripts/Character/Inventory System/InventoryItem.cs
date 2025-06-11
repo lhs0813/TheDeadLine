@@ -174,7 +174,8 @@ namespace Akila.FPSFramework
         /// Invoked when the item is dropped.
         /// </summary>
         public Action onDropped;
-        public UnityEngine.Events.UnityEvent OnDropStart;
+        [HideInInspector] public UnityEngine.Events.UnityEvent OnDropStart;
+
 
         /// <summary>
         /// If false, the Drop() function will return after invoking the onDrop event.

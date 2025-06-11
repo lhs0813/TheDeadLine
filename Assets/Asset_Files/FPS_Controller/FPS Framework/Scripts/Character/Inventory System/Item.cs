@@ -14,7 +14,6 @@ namespace Akila.FPSFramework
         [Header("Base")]
         public string Name = "Default";
         public Sprite gunImage;
-        public Color grade;
 
         public bool isActive { get; set; } = true;
     }

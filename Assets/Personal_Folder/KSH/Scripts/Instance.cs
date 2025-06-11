@@ -13,7 +13,10 @@ public class Instance : MonoBehaviour
     {
       StartCoroutine(Spawn());
     }
-
+    public void Spawn2()
+    {
+        StartCoroutine(Spawn());
+    }
 
     IEnumerator  Spawn()
     {
