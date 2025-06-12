@@ -54,6 +54,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1057079315998548996}
     m_Modifications:
+    - target: {fileID: 1903617007751829846, guid: b2069cc68e3077342b306677d979a490,
+        type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 554688468253945892}
+    - target: {fileID: 1903617007751829846, guid: b2069cc68e3077342b306677d979a490,
+        type: 3}
+      propertyPath: ragdollAnim
+      value: 
+      objectReference: {fileID: 5708334479564227348}
     - target: {fileID: 3754193225620991075, guid: b2069cc68e3077342b306677d979a490,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -111,9 +121,44 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5636327568913406868, guid: b2069cc68e3077342b306677d979a490,
         type: 3}
+      propertyPath: handler.HardMatching
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5636327568913406868, guid: b2069cc68e3077342b306677d979a490,
+        type: 3}
+      propertyPath: handler.ApplyPositions
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5636327568913406868, guid: b2069cc68e3077342b306677d979a490,
+        type: 3}
+      propertyPath: handler._EditorCategory
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5636327568913406868, guid: b2069cc68e3077342b306677d979a490,
+        type: 3}
+      propertyPath: handler.DisableMecanimOnSleep
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5636327568913406868, guid: b2069cc68e3077342b306677d979a490,
+        type: 3}
+      propertyPath: handler._EditorMotionCategory
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5636327568913406868, guid: b2069cc68e3077342b306677d979a490,
+        type: 3}
       propertyPath: handler.TargetParentForRagdollDummy
       value: 
       objectReference: {fileID: 1057079315998548996}
+    - target: {fileID: 5636327568913406868, guid: b2069cc68e3077342b306677d979a490,
+        type: 3}
+      propertyPath: handler.MakeAnchorKinematicOnMaxSpring
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6491789054492781455, guid: b2069cc68e3077342b306677d979a490,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -158,3 +203,15 @@ CapsuleCollider:
   m_Height: 0.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.23, z: 0}
+--- !u!114 &5708334479564227348 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5636327568913406868, guid: b2069cc68e3077342b306677d979a490,
+    type: 3}
+  m_PrefabInstance: {fileID: 72147722439317632}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3826303908017334465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 104179351ca7dd24a8f5bd7beecf8d06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
