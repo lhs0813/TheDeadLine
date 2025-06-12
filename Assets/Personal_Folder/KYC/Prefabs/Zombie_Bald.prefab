@@ -1,60 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1270026999695072478
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4004796038365678558}
-  - component: {fileID: 4740853942333459777}
-  m_Layer: 24
-  m_Name: thigh_stretch.r:RagdollCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4004796038365678558
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1270026999695072478}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.12940134, w: 0.9915923}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4408821006558127162}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &4740853942333459777
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1270026999695072478}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.014499611
-  m_Height: 0.057394847
-  m_Direction: 1
-  m_Center: {x: 0.0000015727713, y: 0.027990561, z: -0.00214167}
 --- !u!1 &3253161697849447198
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +92,7 @@ PrefabInstance:
     - target: {fileID: 1011081028431105168, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
         type: 3}
       propertyPath: handler._EditorCategory
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1011081028431105168, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
         type: 3}
@@ -167,7 +112,7 @@ PrefabInstance:
     - target: {fileID: 1011081028431105168, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
         type: 3}
       propertyPath: handler._EditorMotionCategory
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1011081028431105168, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
         type: 3}
@@ -184,6 +129,11 @@ PrefabInstance:
       propertyPath: handler.TargetParentForRagdollDummy
       value: 
       objectReference: {fileID: 6809899853764838706}
+    - target: {fileID: 1011081028431105168, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
+        type: 3}
+      propertyPath: handler.MakeAnchorKinematicOnMaxSpring
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1011081028431105168, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
         type: 3}
       propertyPath: handler.chains.Array.data[0].ChainThicknessMultiplier
@@ -482,11 +432,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4592750390748544625, guid: 1dfe47b5501cc6941b009b3227c4cd0b, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5751476958723679813, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4004796038365678558}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6646423936425622211, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
         type: 3}
@@ -564,12 +510,6 @@ CapsuleCollider:
 --- !u!4 &3369477374637122716 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6646423936425453283, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
-    type: 3}
-  m_PrefabInstance: {fileID: 8286093946568622719}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &4408821006558127162 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5751476958723679813, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
     type: 3}
   m_PrefabInstance: {fileID: 8286093946568622719}
   m_PrefabAsset: {fileID: 0}
