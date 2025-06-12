@@ -10,13 +10,21 @@ namespace Akila.FPSFramework
         public HumanBodyBones bone;
         public float damageMultipler = 1;
 
+        private Rigidbody _rigidbody;
         private IDamageable damageable;
 
         public string uniqueID => throw new System.NotImplementedException();
 
         private void Start()
         {
+            _rigidbody = GetComponent<Rigidbody>();
+            
             damageable = GetComponentInParent<IDamageable>();
+        }
+
+        private void OnEnable()
+        {
+            _rigidbody.isKinematic = true;
         }
 
         public IDamageable GetDamageable()

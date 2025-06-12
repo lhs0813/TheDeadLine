@@ -85,8 +85,11 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
     private void InitializeZombieState() // 0609 이현수 수정, 콜리더 활성화 및 래그돌 Standing
     {
-        //ragdollAnim.RA2Event_SwitchToStand();
+
+        ragdollAnim.RA2Event_SwitchToStand();
         collider.enabled = true;
+        
+
         health = maxHealth;
         SetState(new PatrolState());
         agent.enabled = true;
@@ -118,7 +121,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         Debug.Log($"{gameObject.name} 사망");
         agent.enabled = false; // NavMeshAgent 비활성화
         collider.enabled = false; // 콜리더 비활성화
-        //ragdollAnim.RA2Event_SwitchToFall();
+        ragdollAnim.RA2Event_SwitchToFall();
     }
 
     public virtual void MoveTowards(Vector3 target)
