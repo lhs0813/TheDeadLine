@@ -151,7 +151,8 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2680608918022506420}
   m_Father: {fileID: 4834095278379441666}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3709655907022056827
@@ -217,7 +218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2517562834813184540}
   - component: {fileID: 5806935855697816033}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5104,7 +5105,7 @@ GameObject:
   - component: {fileID: 3385053531087189273}
   - component: {fileID: 534679019738550297}
   - component: {fileID: 3447789679656595565}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5119,14 +5120,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947191648603608194}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.069, y: -0.098, z: 1.044}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6208363915996572582}
   - {fileID: 7767988051228066944}
-  m_Father: {fileID: 923755457936634218}
+  m_Father: {fileID: 2680608918022506420}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3385053531087189273
 MonoBehaviour:
@@ -5275,7 +5276,7 @@ GameObject:
   - component: {fileID: 3398748070757609838}
   - component: {fileID: 9127131718620494513}
   - component: {fileID: 4285761741146248664}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Muzzle Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10051,6 +10052,38 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &2235266449195722728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2680608918022506420}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2680608918022506420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2235266449195722728}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.337, z: 0.909}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 810578015620273525}
+  m_Father: {fileID: 3444097471384796306}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2396328051489010358
 GameObject:
   m_ObjectHideFlags: 0
@@ -10094,7 +10127,7 @@ GameObject:
   - component: {fileID: 7767988051228066944}
   - component: {fileID: 6201826224862502397}
   - component: {fileID: 4869394879302260129}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Muzzle Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14952,22 +14985,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3640513054676912662, guid: 73511a8659d132f41ad07d8755027562,
-        type: 3}
-      insertIndex: 0
-      addedObject: {fileID: 810578015620273525}
     - targetCorrespondingSourceObject: {fileID: 5803606237748196380, guid: 73511a8659d132f41ad07d8755027562,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4834095278379441666}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73511a8659d132f41ad07d8755027562, type: 3}
---- !u!4 &923755457936634218 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3640513054676912662, guid: 73511a8659d132f41ad07d8755027562,
-    type: 3}
-  m_PrefabInstance: {fileID: 4491326758751353724}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7989078956968791904 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5803606237748196380, guid: 73511a8659d132f41ad07d8755027562,

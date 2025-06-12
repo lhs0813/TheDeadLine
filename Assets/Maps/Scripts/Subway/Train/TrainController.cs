@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using Akila.FPSFramework;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -25,7 +25,7 @@ public class TrainController : MonoBehaviour
     {
         trainDoorController = GetComponentInChildren<TrainDoorController>();
         playerHordeTrigger = FindAnyObjectByType<PlayerHordeTrigger>();
-
+        Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
         trainSoundController = GetComponentInChildren<TrainSoundController>();
     }
 

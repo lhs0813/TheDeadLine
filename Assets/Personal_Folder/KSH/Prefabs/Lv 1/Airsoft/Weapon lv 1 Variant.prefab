@@ -26,13 +26,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3734221823250137605}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.19546653, y: -0.58660537, z: -0.73110104, w: -0.2884065}
-  m_LocalPosition: {x: -0.0014089956, y: -0.0024950001, z: -0.00045620702}
-  m_LocalScale: {x: 0.82122266, y: 0.82122225, z: 0.8212238}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_LocalRotation: {x: 0.16498752, y: -0.6006035, z: -0.7358602, w: -0.26563957}
+  m_LocalPosition: {x: -0.001635224, y: -0.0024371466, z: -0.00061025086}
+  m_LocalScale: {x: 0.8212224, y: 0.8212222, z: 0.8212238}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 949209506103392534}
   m_Father: {fileID: 6961728820932458587}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 31.06, y: 36.23, z: 0}
 --- !u!33 &4128057263411213619
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -86,6 +87,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7785898430088927511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 949209506103392534}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &949209506103392534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7785898430088927511}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.00201, z: 0.00931}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 172142783661590068}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3465390607021624391
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -99,6 +131,11 @@ PrefabInstance:
       propertyPath: Name
       value: Airsoft Gun
       objectReference: {fileID: 0}
+    - target: {fileID: 2582711531730015946, guid: 0b3c6a8fe24e8854a8510761bb4199b9,
+        type: 3}
+      propertyPath: muzzle
+      value: 
+      objectReference: {fileID: 949209506103392534}
     - target: {fileID: 2582711531730015946, guid: 0b3c6a8fe24e8854a8510761bb4199b9,
         type: 3}
       propertyPath: preset

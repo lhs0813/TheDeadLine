@@ -1,6 +1,7 @@
 ﻿using Akila.FPSFramework.Animation;
 using Akila.FPSFramework.Internal;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.ParticleSystem;
@@ -19,6 +20,13 @@ namespace Akila.FPSFramework
         public Transform muzzle;
         public GameObject handLeftWeapon;
         public GameObject handRight;
+
+        public int gradeNum;
+        public List<Color> gradeColor;
+        public Color GetGradeColor() { return gradeColor[gradeNum - 1]; }
+
+
+
         [Tooltip("The Transform from which shell casings are ejected.")]
         public Transform casingEjectionPort;
 
@@ -371,7 +379,13 @@ namespace Akila.FPSFramework
             }
 
 
+
+
+
             OnDropStart.AddListener(DropStart);
+
+
+
 
         }
         void DropStart() 

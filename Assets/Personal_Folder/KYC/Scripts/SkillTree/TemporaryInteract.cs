@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Cinemachine;
 using System;
 
 public class RotateOnTrigger : MonoBehaviour
@@ -6,15 +7,24 @@ public class RotateOnTrigger : MonoBehaviour
     public static Action onLapTop;
     public static Action offLapTop;
 
+    public GameObject needToHideUI;
+    public GameObject needToHideUI2;
     public GameObject targetObject;        // 회전시킬 오브젝트
     public float openAngle = -20f;         // 열릴 때 X축 회전 각도
     private float closeAngle = 89.7f;          // 닫힐 때 X축 회전 각도
-    public float rotationSpeed = 50f;      // 회전 속도
+    public float rotationSpeed = 200f;      // 회전 속도
     public GameObject skillUI;
 
     public bool isLapTopOn = false;
 
     private bool isPlayerInside = false;
+
+    [Header("Cinemachine Virtual Cameras")]
+    [SerializeField] private CinemachineVirtualCamera fpsCam;
+    [SerializeField] private CinemachineVirtualCamera laptopCam;
+    [SerializeField] private MonoBehaviour playerControlScript;
+
+
 
     private void Start()
     {
@@ -49,9 +59,20 @@ public class RotateOnTrigger : MonoBehaviour
         isPlayerInside = true;
         skillUI.SetActive(true);
         isLapTopOn = true;
-        Cursor.visible = true;                              // 커서 보이기
+
+        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        needToHideUI.SetActive(false);
+        needToHideUI2.SetActive(false);
+        // 🔄 카메라 전환
+        fpsCam.Priority = 0;
+        laptopCam.Priority = 20;
+
+        // 🎮 플레이어 조작 비활성화
+        playerControlScript.enabled = false;
     }
+
 
     public void LabtopOff()
     {
@@ -60,8 +81,17 @@ public class RotateOnTrigger : MonoBehaviour
         isPlayerInside = false;
         skillUI.SetActive(false);
         isLapTopOn = false;
-        Cursor.visible = false;                             // 커서 숨기기
+
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        // 🔄 카메라 원래대로
+        fpsCam.Priority = 20;
+        laptopCam.Priority = 0;
+        needToHideUI.SetActive(true);
+        needToHideUI2.SetActive(true);
+        // 🎮 플레이어 조작 복구
+        playerControlScript.enabled = true;
     }
 
     /*private void OnTriggerEnter(Collider other)
