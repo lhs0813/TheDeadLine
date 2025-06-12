@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,16 +16,24 @@ namespace Akila.FPSFramework
 
         public string uniqueID => throw new System.NotImplementedException();
 
+        private void Awake()
+        {
+            
+        }
+
         private void Start()
         {
-            _rigidbody = GetComponent<Rigidbody>();
             
             damageable = GetComponentInParent<IDamageable>();
         }
 
-        private void OnEnable()
+        public void KinematicOff(bool _kinematicInfo)
         {
-            _rigidbody.isKinematic = true;
+            if (_rigidbody == null)
+                _rigidbody = GetComponent<Rigidbody>();
+
+            if (_rigidbody != null)
+                _rigidbody.isKinematic = _kinematicInfo;
         }
 
         public IDamageable GetDamageable()
