@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Rendering;
 using UnityEngine;
@@ -15,6 +15,8 @@ namespace Akila.FPSFramework
         public Hitmarker Hitmarker { get; set; }
         public KillFeed KillFeed { get; set; }
 
+        public Canvas _canvas;
+
         private void Awake()
         {
             if (Instance == null)
@@ -26,6 +28,7 @@ namespace Akila.FPSFramework
             HealthDisplay = GetComponentInChildren<HealthDisplay>();
             Hitmarker = GetComponentInChildren<Hitmarker>();
             KillFeed = GetComponentInChildren<KillFeed>();
+
         }
 
         /// <summary>

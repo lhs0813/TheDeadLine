@@ -714,6 +714,8 @@ GameObject:
   - component: {fileID: 8879253364728022829}
   - component: {fileID: 8334550160154205873}
   - component: {fileID: 4524465574000649979}
+  - component: {fileID: 3145162436918366998}
+  - component: {fileID: 2390476429320245150}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -837,7 +839,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 1.8
-  m_Radius: 0.3
+  m_Radius: 0.4
   m_SlopeLimit: 45
   m_StepOffset: 0.7
   m_SkinWidth: 0.08
@@ -1046,6 +1048,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d16a2ae80e48fc43a0b2618dfc3ae08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!208 &3145162436918366998
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705116895852751168}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.4, y: 0.9, z: 0.4}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!114 &2390476429320245150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705116895852751168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31ecf5bd154f7cb46bfcd18b7bc875ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHp: 0
+  MaxHealth: 0
 --- !u!1 &1928016188355849686
 GameObject:
   m_ObjectHideFlags: 0
@@ -1735,7 +1767,7 @@ Transform:
   m_GameObject: {fileID: 7948198662592895553}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
