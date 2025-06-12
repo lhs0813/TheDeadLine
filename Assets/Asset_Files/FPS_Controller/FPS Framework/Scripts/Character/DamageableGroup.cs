@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,13 +11,29 @@ namespace Akila.FPSFramework
         public HumanBodyBones bone;
         public float damageMultipler = 1;
 
+        private Rigidbody _rigidbody;
         private IDamageable damageable;
 
         public string uniqueID => throw new System.NotImplementedException();
 
+        private void Awake()
+        {
+            
+        }
+
         private void Start()
         {
+            
             damageable = GetComponentInParent<IDamageable>();
+        }
+
+        public void KinematicOff(bool _kinematicInfo)
+        {
+            if (_rigidbody == null)
+                _rigidbody = GetComponent<Rigidbody>();
+
+            if (_rigidbody != null)
+                _rigidbody.isKinematic = _kinematicInfo;
         }
 
         public IDamageable GetDamageable()

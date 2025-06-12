@@ -26,6 +26,14 @@ namespace Akila.FPSFramework
 
         public Firearm firearm { get; set; }
 
+        public Canvas _canvas;
+
+        private void Awake()
+        {
+            _canvas = GetComponent<Canvas>();
+            _canvas.worldCamera = Camera.main.transform.GetChild(0).gameObject.GetComponent<Camera>();
+            _canvas.planeDistance = 100f;
+        }
         private void Update()
         {
             if (!firearm)
