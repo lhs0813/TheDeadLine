@@ -260,7 +260,7 @@ namespace Akila.FPSFramework
             //stop if object has ignore component
             if (hit.transform == null) return;
 
-
+            
 
             if (hit.transform.TryGetComponent(out IgnoreHitDetection ignore) || sourcePlayer && hit.transform == sourcePlayer.transform) return;
             onHit?.Invoke(hit.transform.gameObject, ray, hit);
