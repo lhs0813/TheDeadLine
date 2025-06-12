@@ -10,8 +10,8 @@ public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public SkillNode[] prerequisites;
     public int requiredPoints = 1;
 
-    public string skillName;
-    public string description;
+    public string nameKey;
+    public string descriptionKey;
     public VideoClip previewVideo; // 시연 영상
 
     public enum SkillCategory { Attack, Defend, Utility }
@@ -62,7 +62,7 @@ public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        SkillTooltip.Instance.Show(skillName, description, requiredPoints, previewVideo);
+        SkillTooltip.Instance.Show(nameKey, descriptionKey, requiredPoints, previewVideo);
     }
 
     public void OnPointerExit(PointerEventData eventData)
