@@ -11,12 +11,19 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     private int _deathIndex;
     public Animator Animator => _anim;
 
+    public bool isPreSpawn = false;
+
     [Header("Zombie Stats")]
     public float health = 100f;
     public float maxHealth = 100f;
     public float moveSpeed = 2f;
     public float detectionRange = 50f;
     public float attackRange = 2.5f;
+
+    [Header("Zombie Detection Settings")]
+    public float visibleDistance = 15f; // 시야 거리
+    public float fieldOfViewAngle = 120f; // 시야각
+    public float minAttackStartDistance = 3f; // 등 뒤여도 접근하면 추격
 
     [Header("Zombie Collider")]
     public CapsuleCollider collider;
@@ -101,6 +108,12 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     private void InitializeZombieState() // 0609 이현수 수정, 콜리더 활성화 및 래그돌 Standing
     {
 
+        EnemyIdentifier identifier = GetComponent<EnemyIdentifier>();
+        if (identifier != null)
+            isPreSpawn = identifier.isPrespawn;
+        else
+            isPreSpawn = false;
+
         ragdollAnim.RA2Event_SwitchToStand();
         collider.enabled = true;
         Kinematic_Controll(true);
@@ -109,7 +122,6 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         SetState(new PatrolState());
         agent.enabled = true;
         transform.parent.GetComponentInChildren<Damageable>(true).ResetHealth(this);
-
         _anim.speed = 1;
         transform.localScale = scaleOrigin;
         var ragdolDummy = transform.parent.GetComponentInChildren <FIMSpace.FProceduralAnimation.RagdollAnimatorDummyReference >(true);
@@ -206,5 +218,25 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
             }
         }
     }
+    public bool CanSeePlayer(Transform player)
+    {
+        if (player == null) return false;
 
+        Vector3 directionToPlayer = (player.position - transform.position).normalized;
+        float angle = Vector3.Angle(transform.forward, directionToPlayer);
+
+        if (angle <= fieldOfViewAngle * 0.5f)
+        {
+            // 시야각 안에 있음 → Raycast로 장애물 검사
+            Ray ray = new Ray(transform.position + Vector3.up * 1.5f, directionToPlayer);
+            if (Physics.Raycast(ray, out RaycastHit hit, visibleDistance))
+            {
+                if (hit.transform.CompareTag("Player"))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
