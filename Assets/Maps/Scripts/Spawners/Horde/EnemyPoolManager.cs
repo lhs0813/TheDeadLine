@@ -184,18 +184,28 @@ public class EnemyPoolManager : MonoBehaviour
     #endregion
 
     #region Common Logics
-    public GameObject Spawn(EnemyType type, Vector3 pos, Quaternion rot)
+    //0611 김현우 변경 : Spawn 시 Transform의 자식으로 설정. 렌더링 초기화 위함.
+    public GameObject Spawn(EnemyType type, Transform spawnerTransform, bool isPrespawn)
     {
         if (currentCounts[type] >= maxCounts[type])
             return null;
 
-        var obj = enemyPools[type].Get();
-        obj.transform.SetPositionAndRotation(pos, rot);
+        var obj = enemyPools[type].Get(); //적 object 가져오기. Normal형 적의 경우에는 Random 포함된 구조.
+
+        if (obj.TryGetComponent<EnemyIdentifier>(out var id))
+        {
+            id.Type = type; //타입 설정 (pool 전용.)
+            id.isPrespawn = isPrespawn; //선제 스폰 적인지 구분.
+        }
+
+        //위치 설정 후 SetActive.True
+        obj.transform.SetPositionAndRotation(spawnerTransform.position, Quaternion.identity);
+        //obj.transform.SetParent(spawnerTransform);
         obj.SetActive(true);
 
-        // 🔹 여기서 타입 정보를 설정
-        if (obj.TryGetComponent<EnemyIdentifier>(out var id))
-            id.Type = type;
+        // 여기서 타입 정보를 설정
+
+
 
         currentCounts[type]++;
         activeEnemies.Add(obj);
@@ -211,18 +221,21 @@ public class EnemyPoolManager : MonoBehaviour
 
     IEnumerator CorpseDisappearCoroutine(EnemyType type, GameObject obj)
     {
-        yield return new WaitForSeconds(5f);
+        //시체 사라지는 대기시간... 맵 해제 트리거시에도 남아있음. 
+        yield return new WaitForSeconds(corpseDisappearDuration);
         
-        obj.transform.position = Vector3.zero;
-        currentCounts[type] = Mathf.Max(0, currentCounts[type] - 1);
-        enemyPools[type].Release(obj);
-        activeEnemies.Remove(obj);
+        obj.transform.position = Vector3.zero; //위치 초기화.
+        currentCounts[type] = Mathf.Max(0, currentCounts[type] - 1); //타입별 개수 감소.
+        enemyPools[type].Release(obj); //SetActive.False
+        activeEnemies.Remove(obj); //배열에서 제거.
     }
-
+    
     public void ReturnAllEnemiesToPool()
     {
-        
+        //적 사망 반환 코루틴 진행중인 경우 취소.
+        StopAllCoroutines();
 
+        //배열 내 생성되어있는 모든 적들 반환.
         for (int i = activeEnemies.Count - 1; i >= 0; i--)
         {
             Debug.Log("생성된 적 반환");
@@ -234,6 +247,8 @@ public class EnemyPoolManager : MonoBehaviour
                 ReturnToPool(type, enemy);
             }
         }
+
+        //배열 Clear.
         activeEnemies.Clear();
     }
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEngine.AI;
+using UnityEngine;
 
 public class PatrolState : IZombieState
 {
@@ -21,16 +22,30 @@ public class PatrolState : IZombieState
 
     public void Update()
     {
+        // 순찰 목표 도착 시 → 새로운 랜덤 지점 지정
         if (Vector3.Distance(_zombie.transform.position, _patrolTarget) < 1f)
         {
             _patrolTarget = GetRandomPoint();
             _zombie.MoveTowards(_patrolTarget);
         }
-        if (_player != null && _zombie.IsPlayerInRange(_player))
+
+        // ⬇️ 조건: 일반 좀비 (isPreSpawn == false) → 무조건 추격
+        if (!_zombie.isPreSpawn && _player != null)
         {
             _zombie.SetState(new ChaseState());
         }
+
+        // ⬇️ 조건: 프리스폰 좀비 → 시야에 보이거나, 아주 가까우면 추격
+        if (_zombie.isPreSpawn && _player != null)
+        {
+            if (_zombie.CanSeePlayer(_player) ||
+                Vector3.Distance(_zombie.transform.position, _player.position) < _zombie.minAttackStartDistance)
+            {
+                _zombie.SetState(new ChaseState());
+            }
+        }
     }
+
 
     public void Exit() 
     {
@@ -40,7 +55,16 @@ public class PatrolState : IZombieState
     {
         Vector3 origin = _zombie.transform.position;
         Vector2 randomOffset = Random.insideUnitCircle * 5f;
-        return origin + new Vector3(randomOffset.x, 0, randomOffset.y);
+        Vector3 randomPoint = origin + new Vector3(randomOffset.x, 0, randomOffset.y);
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomPoint, out hit, 3f, NavMesh.AllAreas))
+        {
+            return hit.position;
+        }
+
+        // 실패했을 경우 현재 위치로 fallback
+        return origin;
     }
 
 
