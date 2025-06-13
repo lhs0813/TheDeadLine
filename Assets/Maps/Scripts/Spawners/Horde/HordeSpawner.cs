@@ -18,7 +18,7 @@ public class HordeSpawner : MonoBehaviour
 
             GameObject enemy = EnemyPoolManager
                 .Instance
-                .Spawn(type, transform);
+                .Spawn(type, transform, false);
         }
     }
 }
