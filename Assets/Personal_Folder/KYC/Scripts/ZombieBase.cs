@@ -1,4 +1,5 @@
 ﻿using Akila.FPSFramework;
+using FIMSpace.FProceduralAnimation;
 using UnityEngine;
 
 public abstract class ZombieBase : MonoBehaviour, IZombie
@@ -17,6 +18,11 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     public float detectionRange = 50f;
     public float attackRange = 2.5f;
 
+    [Header("Zombie Collider")]
+    public CapsuleCollider collider;
+    public RagdollAnimator2 ragdollAnim;
+
+
     [Header("Zombie Sounds")]
     public AudioSource audioSource;
 
@@ -31,9 +37,15 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     public UnityEngine.AI.NavMeshAgent Agent => agent;
     //------0607 김현우 수정 : Damagable 컴포넌트 받아오기.ㄴ
     Damageable damageable;
+    Vector3 scaleOrigin;
+
+    //0612 이현수 수정 자식 데미저블 그룹 가져오기
+    DamageableGroup[] damageableGroups;
 
     protected virtual void Awake()
     {
+        //0612 이현수 수정 자식 데미저블 그룹 가져오기
+        damageableGroups = GetComponentsInChildren<DamageableGroup>();
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         if (agent == null)
         {
@@ -56,6 +68,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         _anim.SetFloat("deathIndex", _deathIndex);
 
         damageable = GetComponentInChildren<Damageable>();
+        scaleOrigin = transform.localScale;
     }
 
     public void SetState(IZombieState newState)
@@ -77,12 +90,30 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         InitializeZombieState();
     }
 
-    private void InitializeZombieState()
+    void Kinematic_Controll(bool _kinematicInfo)
     {
+        foreach (var group in damageableGroups)
+        {
+            group.KinematicOff(_kinematicInfo); // 혹은 다른 메서드
+        }
+    }
+
+    private void InitializeZombieState() // 0609 이현수 수정, 콜리더 활성화 및 래그돌 Standing
+    {
+
+        ragdollAnim.RA2Event_SwitchToStand();
+        collider.enabled = true;
+        Kinematic_Controll(true);
+
         health = maxHealth;
         SetState(new PatrolState());
         agent.enabled = true;
-        transform.parent.GetComponentInChildren<Damageable>().ResetHealth(this);
+        transform.parent.GetComponentInChildren<Damageable>(true).ResetHealth(this);
+
+        _anim.speed = 1;
+        transform.localScale = scaleOrigin;
+        var ragdolDummy = transform.parent.GetComponentInChildren <FIMSpace.FProceduralAnimation.RagdollAnimatorDummyReference >(true);
+        if (ragdolDummy)ragdolDummy.gameObject.active = true;
     }
 
     protected virtual void Update()
@@ -108,7 +139,11 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     {
         SetState(new DeadState());
         Debug.Log($"{gameObject.name} 사망");
+
         agent.enabled = false; // NavMeshAgent 비활성화
+        collider.enabled = false; // 콜리더 비활성화
+        Kinematic_Controll(false);
+        ragdollAnim.RA2Event_SwitchToFall();
     }
 
     public virtual void MoveTowards(Vector3 target)
