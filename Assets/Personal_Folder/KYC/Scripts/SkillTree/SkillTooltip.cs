@@ -39,24 +39,28 @@ public class SkillTooltip : MonoBehaviour
     }
 
 
-
     public void Show(string nameKey, string descKey, int cost, VideoClip clip)
     {
         panel.SetActive(true);
 
-        // ✅ Localization 적용
         var localizedName = new LocalizedString("SkillTable", nameKey);
         var localizedDesc = new LocalizedString("SkillTable", descKey);
+        var localizedCost = new LocalizedString("NoticeTable", "PointText");
 
         localizedName.StringChanged += value => nameText.text = value;
         localizedDesc.StringChanged += value => descText.text = value;
 
-        pointText.text = $"Need Point: {cost}";
+        localizedCost.Arguments = new object[] { cost };
+        localizedCost.StringChanged += value =>
+        {
+            Debug.Log("[Localized PointText] " + value);
+            pointText.text = value;
+        };
 
         videoPlayer.clip = clip;
         videoPlayer.Prepare();
-        Debug.Log("[VideoPlayer] Prepare() 호출됨");
     }
+
     public void Hide()
     {
         videoPlayer.Stop();

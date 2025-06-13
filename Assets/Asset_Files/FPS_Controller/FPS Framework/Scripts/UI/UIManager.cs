@@ -29,6 +29,10 @@ namespace Akila.FPSFramework
             Hitmarker = GetComponentInChildren<Hitmarker>();
             KillFeed = GetComponentInChildren<KillFeed>();
 
+            _canvas = GetComponent<Canvas>();
+            _canvas.worldCamera = Camera.main.transform.GetChild(0).gameObject.GetComponent<Camera>();
+            _canvas.planeDistance = 100f;
+
         }
 
         /// <summary>
