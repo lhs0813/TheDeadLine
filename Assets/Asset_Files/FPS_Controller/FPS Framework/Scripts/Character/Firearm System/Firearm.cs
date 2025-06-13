@@ -897,7 +897,8 @@ namespace Akila.FPSFramework
             // Decrease remaining ammo count and update spray amount
             if(SkillEffectHandler.Instance.isAmmoInfinite == true)
             {
-
+                if (gradeNum == 4)
+                 remainingAmmoCount--;              
             }
             else
             {
