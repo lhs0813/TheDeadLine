@@ -108,7 +108,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     private void InitializeZombieState() // 0609 이현수 수정, 콜리더 활성화 및 래그돌 Standing
     {
 
-        EnemyIdentifier identifier = GetComponent<EnemyIdentifier>();
+        EnemyIdentifier identifier = GetComponentInParent<EnemyIdentifier>();
         if (identifier != null)
             isPreSpawn = identifier.isPrespawn;
         else
@@ -119,8 +119,9 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         Kinematic_Controll(true);
 
         health = maxHealth;
-        SetState(new PatrolState());
         agent.enabled = true;
+        SetState(new PatrolState());
+
         transform.parent.GetComponentInChildren<Damageable>(true).ResetHealth(this);
         _anim.speed = 1;
         transform.localScale = scaleOrigin;

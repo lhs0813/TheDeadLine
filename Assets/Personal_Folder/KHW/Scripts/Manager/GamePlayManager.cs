@@ -86,7 +86,7 @@ public class GamePlayManager : MonoBehaviour
         currentMapIndex++;
         await MapGenerationManager.Instance.LoadMap(currentMapIndex);
 
-        playerHordeTrigger.DeactivatePlayerHordeTrigger();
+        //playerHordeTrigger.DeactivatePlayerHordeTrigger();
 
     }
 
@@ -96,7 +96,7 @@ public class GamePlayManager : MonoBehaviour
 
         trainController.MoveToStageRail();
 
-        playerHordeTrigger.ActivatePlayerHordeTrigger(currentMapIndex);
+        //playerHordeTrigger.ActivatePlayerHordeTrigger(currentMapIndex);
     }
 
     /// <summary>

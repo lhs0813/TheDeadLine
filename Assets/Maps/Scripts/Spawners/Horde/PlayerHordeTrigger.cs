@@ -72,7 +72,7 @@ public class PlayerHordeTrigger : MonoBehaviour
             if (Mathf.Abs(Mathf.DeltaAngle(angle, currentSectorCenterAngle)) > sectorHalfAngle)
                 continue;
 
-            if (col.TryGetComponent(out HordeSpawner sp))
+            if (col.TryGetComponent(out ChasingHordeSpawner sp))
                 currentValidTargets.Add(col.transform);
         }
 
@@ -82,7 +82,7 @@ public class PlayerHordeTrigger : MonoBehaviour
         {
             int idx = Random.Range(0, currentValidTargets.Count);
             var trg = currentValidTargets[idx];
-            trg.GetComponent<HordeSpawner>().TrySpawn(currentMapIndex);
+            trg.GetComponent<ChasingHordeSpawner>().TrySpawn(currentMapIndex);
             currentValidTargets.RemoveAt(idx);
         }
 
