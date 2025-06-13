@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7009975607187083319}
   - component: {fileID: 2069214092848411918}
   - component: {fileID: 4242686220127484000}
-  - component: {fileID: -68346651487357314}
   m_Layer: 27
   m_Name: ChasingHordeSpawner
   m_TagString: Untagged
@@ -46,11 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9c17ec9b5835548b155b8ae5d5d86f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRadius: 0.3
-  minSpacing: 0.1
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 131072
 --- !u!114 &4242686220127484000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,24 +84,3 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!65 &-68346651487357314
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3442350214898673785}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

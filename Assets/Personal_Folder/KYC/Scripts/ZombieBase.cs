@@ -119,8 +119,9 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         Kinematic_Controll(true);
 
         health = maxHealth;
-        SetState(new PatrolState());
         agent.enabled = true;
+        SetState(new PatrolState());
+
         transform.parent.GetComponentInChildren<Damageable>(true).ResetHealth(this);
         _anim.speed = 1;
         transform.localScale = scaleOrigin;

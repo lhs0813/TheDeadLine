@@ -58,6 +58,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -95,6 +98,7 @@ GameObject:
   - component: {fileID: 1769486638845073939}
   - component: {fileID: 3452475740526606150}
   - component: {fileID: 6778789299803545034}
+  - component: {fileID: 1742969530700939194}
   m_Layer: 0
   m_Name: TicketOffice
   m_TagString: Untagged
@@ -143,6 +147,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -189,3 +196,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.009975, y: 4.0000005, z: 4.000002}
   m_Center: {x: 0.0049865246, y: 0.00000023841855, z: -1.9000502}
+--- !u!208 &1742969530700939194
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5072869306991084536}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.005, y: 2, z: 2}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.0050000004, y: 0, z: -1.9000001}
+  m_TimeToStationary: 0.5

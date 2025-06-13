@@ -19,7 +19,7 @@ public class ChasingHordeSpawnerController : MonoBehaviour
 
     [Header("Cooldown Settings")]
     [Tooltip("한 번 스폰 후 다음 스폰까지 걸리는 시간(초)")]
-    [SerializeField] private float spawnerCooldown = 30f;
+    private float spawnerCooldown = 5f;
     private float nextAllowedSpawnTime = 0f;
     
     void OnEnable()
