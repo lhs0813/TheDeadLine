@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 3253161697849447198}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.0954669, y: 0.48, z: 10.126854}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
+  isPrespawn: 0
 --- !u!1001 &8286093946568622719
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79,6 +80,16 @@ PrefabInstance:
       propertyPath: ragdollAnim
       value: 
       objectReference: {fileID: 9004395896677928687}
+    - target: {fileID: 545884343292423287, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
+        type: 3}
+      propertyPath: visibleDistance
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 545884343292423287, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
+        type: 3}
+      propertyPath: minAttackStartDistance
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1011081028431105168, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
         type: 3}
       propertyPath: handler.HardMatching

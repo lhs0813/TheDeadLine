@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using DunGen;
 using UnityEngine;
 
@@ -13,12 +15,14 @@ public class PreSpawnHordeSpawnerController : MonoBehaviour
     [SerializeField] private bool isAlreadyTriggered;
     //해당 스크립트가 같이 붙어있는 Tile Component.
     [SerializeField] private Tile tileSpawning;
+    [SerializeField] private List<PrespawnedHordeSpawner> spawners;
 
     void Start()
     {
         //초기화 (DungenCharacter, Tile.)
         DungenCharacter character = FindAnyObjectByType<DungenCharacter>();
         tileSpawning = GetComponent<Tile>();
+        spawners = GetComponentsInChildren<PrespawnedHordeSpawner>().ToList();
 
         //OnTileChanged Event는 DungenCharacter 자기자신, 이전 타일, 현재 타일을 줌.
         character.OnTileChanged += ManagePlayerLocation;
@@ -73,10 +77,8 @@ public class PreSpawnHordeSpawnerController : MonoBehaviour
     /// </summary>
     private void SpawnPreSpawnHorde()
     {
-
-
-
-
+        foreach (var sp in spawners)
+            sp.TrySpawn(GamePlayManager.instance.currentMapIndex);
     }
 
     /// <summary>
@@ -84,7 +86,8 @@ public class PreSpawnHordeSpawnerController : MonoBehaviour
     /// </summary>
     private void DespawnPreSpawnHorde()
     {
-
+        foreach (var sp in spawners)
+            sp.DeSpawn();
     }
 
 }
