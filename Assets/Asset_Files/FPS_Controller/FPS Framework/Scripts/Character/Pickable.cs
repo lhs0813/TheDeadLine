@@ -42,7 +42,7 @@ namespace Akila.FPSFramework
 
             if (interactSound != null)
                 source.interactAudio?.PlayOneShot(interactSound);
-            else if(source.defaultInteractAudio)
+            else if (source.defaultInteractAudio)
                 source.interactAudio?.PlayOneShot(source.defaultInteractAudio.audioClip);
 
             switch (type)
@@ -56,7 +56,10 @@ namespace Akila.FPSFramework
                 case PickableType.Interact:
                     InteractWithInteract(source);
                     break;
-                 default:
+                case PickableType.DataChip:
+                    InteractWithDataChip(source);
+                    break;
+                default:
                     Debug.LogWarning($"Unhandled pickable type: {type}", gameObject);
                     break;
             }
@@ -162,11 +165,18 @@ namespace Akila.FPSFramework
                 Debug.LogError("Missing source or inventory reference during collectable interaction.", gameObject);
                 return;
             }
-
-
             GetComponent<RotateOnTrigger>().LabtopOn();
+        }
 
-           
+        public virtual void InteractWithDataChip(InteractionsManager source)
+        {
+            if (source == null || source.Inventory == null)
+            {
+                Debug.LogError("Missing source or inventory reference during collectable interaction.", gameObject);
+                return;
+            }
+
+            GetComponent<DataChip_To_SkillPoint>().SkillPointUp();
         }
 
         [ContextMenu("Setup/Network Components")]
@@ -183,5 +193,6 @@ namespace Akila.FPSFramework
         Item = 0,
         Collectable = 1,
         Interact = 2,
+        DataChip = 3,
     }
 }
