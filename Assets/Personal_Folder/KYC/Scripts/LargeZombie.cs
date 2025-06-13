@@ -3,7 +3,7 @@
     protected override void Start()
     {
         health = 500f;
-        moveSpeed = 3.5f;
+        moveSpeed = 0.15f;
         agent.speed = moveSpeed;  // 추가!
         base.Start();
     }
