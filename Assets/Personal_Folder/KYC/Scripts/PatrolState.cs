@@ -30,6 +30,15 @@ public class PatrolState : IZombieState
         {
             _zombie.SetState(new ChaseState());
         }
+        if (_zombie.isPreSpawn && _player != null)
+        {
+            if (_zombie.CanSeePlayer(_player) ||
+                Vector3.Distance(_zombie.transform.position, _player.position) < _zombie.minAttackStartDistance)
+            {
+                _zombie.SetState(new ChaseState());
+            }
+        }
+
     }
 
     public void Exit() 
