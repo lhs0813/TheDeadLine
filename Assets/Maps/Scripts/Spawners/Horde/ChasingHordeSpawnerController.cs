@@ -15,7 +15,7 @@ public class ChasingHordeSpawnerController : MonoBehaviour
 
     DungenCharacter character;
     Tile spawningTile; //적이 스폰되는, 이 타일.
-    List<HordeSpawner> spawners = new List<HordeSpawner>(); //하위에 존재하는 스포너 리스트.
+    List<ChasingHordeSpawner> spawners = new List<ChasingHordeSpawner>(); //하위에 존재하는 스포너 리스트.
 
     [Header("Cooldown Settings")]
     [Tooltip("한 번 스폰 후 다음 스폰까지 걸리는 시간(초)")]
@@ -26,7 +26,7 @@ public class ChasingHordeSpawnerController : MonoBehaviour
     {
         character = FindAnyObjectByType<DungenCharacter>();
         spawningTile = GetComponent<Tile>();
-        spawners = GetComponentsInChildren<HordeSpawner>().ToList();
+        spawners = GetComponentsInChildren<ChasingHordeSpawner>().ToList();
         spawnerCooldown = 20f;
 
         character.OnTileChanged += ManagePlayerLocation; //플레이어 타일 변경 Event 구독.

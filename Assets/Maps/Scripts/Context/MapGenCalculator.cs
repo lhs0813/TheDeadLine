@@ -4,7 +4,7 @@ using UnityEngine;
 public static class MapGenCalculator
 {
     #region MapContexts
-    public static IntRange GetCreatureSpawnCountRangePerRoom(int stageIndex)
+    public static IntRange GetCreatureSpawnCountRangePerSpawner(int stageIndex)
     {
         int min = stageIndex * MapGenConstants.MinCreatureCountOnSpawnRoomMultiplier;
         int max = stageIndex * MapGenConstants.MaxCreatureCountOnSpawnRoomMultiplier;
