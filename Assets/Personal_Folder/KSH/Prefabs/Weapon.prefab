@@ -229,6 +229,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: 0}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!1 &131483028052270206
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,7 +552,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5787811183275202065}
   - {fileID: 395104232373893061}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -569,12 +569,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 00
   gunImage: {fileID: 0}
-  grade: {r: 0, g: 0, b: 0, a: 0}
   OnDropStart:
     m_PersistentCalls:
       m_Calls: []
   preset: {fileID: 0}
-  muzzle: {fileID: 0}
+  muzzle: {fileID: 5787811183275202065}
   handLeftWeapon: {fileID: 6300813233931970586}
   handRight: {fileID: 3345873633023311758}
   gradeNum: 0
@@ -1567,6 +1566,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: 11.49}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!1 &1575056062210169526
 GameObject:
   m_ObjectHideFlags: 0
@@ -1873,6 +1873,7 @@ MonoBehaviour:
   rotation: {x: 11.1, y: -16.49, z: 28.2}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!114 &5410422339884417841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2347,6 +2348,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: -4}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!114 &7208002053777644291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2783,7 +2785,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5787811183275202065}
-  - component: {fileID: 5975009944774715092}
   m_Layer: 0
   m_Name: Muzzle_1
   m_TagString: Untagged
@@ -2799,28 +2800,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3789783631353144446}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07, y: 0, z: 0.7}
+  m_LocalRotation: {x: 0.19546653, y: -0.58660537, z: -0.73110104, w: -0.2884065}
+  m_LocalPosition: {x: -0.0034963675, y: 0.0042134295, z: 0.004099972}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 395104231899459404}
+  m_Father: {fileID: 7454741056791679302}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5975009944774715092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3789783631353144446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a135ad6b9dd3db1468b9190dae0645dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  updateMode: 0
-  speedMagnitude: 0
-  speedKmPerHour: 0
 --- !u!1 &3827925276174442640
 GameObject:
   m_ObjectHideFlags: 0
@@ -3492,6 +3478,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: 0}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!1 &6289368616857631888
 GameObject:
   m_ObjectHideFlags: 0
@@ -3552,7 +3539,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5787811183275202065}
   m_Father: {fileID: 3167084499280692424}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6382855877712609991
@@ -3883,6 +3871,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: -25}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!1 &7048588125404699066
 GameObject:
   m_ObjectHideFlags: 0
@@ -4639,6 +4628,7 @@ MonoBehaviour:
   rotation: {x: -1.84, y: -33.4, z: 29.36}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!114 &3749813397067756175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4915,6 +4905,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: -15}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!1 &8237240022245826697
 GameObject:
   m_ObjectHideFlags: 0
@@ -5049,6 +5040,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: 15}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!1 &8787577054183724284
 GameObject:
   m_ObjectHideFlags: 0
@@ -5456,6 +5448,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: 25}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!1 &9061081718365000325
 GameObject:
   m_ObjectHideFlags: 0
