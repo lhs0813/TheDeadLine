@@ -4,12 +4,12 @@ Shader "Retro Shaders Pro/Retro Lit"
     {
 		[MainColor] [HDR] _BaseColor("Base Color", Color) = (1, 1, 1, 1)
 		[MainTexture] _BaseMap("Base Texture", 2D) = "white" {}
-		_ResolutionLimit("Resolution Limit (Power of 2)", Integer) = 64
-		_SnapsPerUnit("Snapping Points per Meter", Integer) = 64
+		_ResolutionLimit("Resolution Limit (Power of 2)", Integer) = 500
+		_SnapsPerUnit("Snapping Points per Meter", Integer) = 200
 		_ColorBitDepth("Bit Depth", Integer) = 64
 		_ColorBitDepthOffset("Bit Depth Offset", Range(0.0, 1.0)) = 0.0
 		_AmbientLight("Ambient Light Strength", Range(0.0, 1.0)) = 0.02
-		_AffineTextureStrength("Affine Texture Strength", Range(0.0, 1.0)) = 1.0
+		_AffineTextureStrength("Affine Texture Strength", Range(0.0, 1.0)) = 0.0
 		[Toggle] _USE_POINT_FILTER("Use Point Filtering", Float) = 1
 		[Toggle] _USE_AMBIENT_OVERRIDE("Ambient Light Override", Float) = 1
 		[Toggle] _USE_DITHERING("Use Dithering", Float) = 0
