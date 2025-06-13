@@ -37,6 +37,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     public UnityEngine.AI.NavMeshAgent Agent => agent;
     //------0607 김현우 수정 : Damagable 컴포넌트 받아오기.ㄴ
     Damageable damageable;
+    Vector3 scaleOrigin;
 
     //0612 이현수 수정 자식 데미저블 그룹 가져오기
     DamageableGroup[] damageableGroups;
@@ -67,6 +68,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         _anim.SetFloat("deathIndex", _deathIndex);
 
         damageable = GetComponentInChildren<Damageable>();
+        scaleOrigin = transform.localScale;
     }
 
     public void SetState(IZombieState newState)
@@ -106,7 +108,12 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         health = maxHealth;
         SetState(new PatrolState());
         agent.enabled = true;
-        transform.parent.GetComponentInChildren<Damageable>().ResetHealth(this);
+        transform.parent.GetComponentInChildren<Damageable>(true).ResetHealth(this);
+
+        _anim.speed = 1;
+        transform.localScale = scaleOrigin;
+        var ragdolDummy = transform.parent.GetComponentInChildren <FIMSpace.FProceduralAnimation.RagdollAnimatorDummyReference >(true);
+        if (ragdolDummy)ragdolDummy.gameObject.active = true;
     }
 
     protected virtual void Update()
