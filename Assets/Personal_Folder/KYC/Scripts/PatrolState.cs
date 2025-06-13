@@ -21,15 +21,20 @@ public class PatrolState : IZombieState
 
     public void Update()
     {
+        // 순찰 목표 도착 시 → 새로운 랜덤 지점 지정
         if (Vector3.Distance(_zombie.transform.position, _patrolTarget) < 1f)
         {
             _patrolTarget = GetRandomPoint();
             _zombie.MoveTowards(_patrolTarget);
         }
-        if (_player != null && _zombie.IsPlayerInRange(_player))
+
+        // ⬇️ 조건: 일반 좀비 (isPreSpawn == false) → 무조건 추격
+        if (!_zombie.isPreSpawn && _player != null)
         {
             _zombie.SetState(new ChaseState());
         }
+
+        // ⬇️ 조건: 프리스폰 좀비 → 시야에 보이거나, 아주 가까우면 추격
         if (_zombie.isPreSpawn && _player != null)
         {
             if (_zombie.CanSeePlayer(_player) ||
@@ -38,8 +43,8 @@ public class PatrolState : IZombieState
                 _zombie.SetState(new ChaseState());
             }
         }
-
     }
+
 
     public void Exit() 
     {
