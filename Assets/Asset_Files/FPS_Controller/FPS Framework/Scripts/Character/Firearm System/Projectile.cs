@@ -191,6 +191,7 @@ namespace Akila.FPSFramework
                 //var enemyHit = hits[i].transform.root.transform.GetChild(0).GetComponent<Damageable>();
                 var enemyHit = hits[i].transform.GetComponentInParent<Damageable>();
 
+                if (enemyHit&&enemyHit.type == HealthType.Player) continue;
                 
 
                 if (enemyHit != null)
