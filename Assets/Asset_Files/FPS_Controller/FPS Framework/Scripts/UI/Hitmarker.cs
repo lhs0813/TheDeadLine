@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
@@ -45,7 +45,8 @@ namespace Akila.FPSFramework
         {
             Vector3 scale = new Vector3(minSize, minSize, minSize);
             RectTransform.sizeDelta = Vector3.Lerp(RectTransform.sizeDelta, scale, Time.deltaTime * 30);
-            RectTransform.rotation = Quaternion.Slerp(RectTransform.rotation, Quaternion.identity, Time.deltaTime * 8);
+            RectTransform.localRotation = Quaternion.Slerp(RectTransform.localRotation, Quaternion.identity, Time.deltaTime * 8);
+
 
             if (fadeTimer > 0)
                 fadeTimer -= Time.deltaTime;
@@ -83,12 +84,12 @@ namespace Akila.FPSFramework
         {
             float scale = Random.Range(minSize, maxSize);
 
-            Vector3 rotation = new Vector3(0, 0, Random.Range(-rotaionAmount, rotaionAmount));
+            RectTransform.sizeDelta = new Vector2(scale, scale);
 
-            RectTransform.sizeDelta = new Vector3(scale, scale, scale);
-
-            transform.Rotate(rotation);
+            
+            RectTransform.localRotation = Quaternion.Euler(0, 0, Random.Range(-rotaionAmount, rotaionAmount)); //로컬 로테이션 으로 회전.
         }
+
 
         private void Disable()
         {
