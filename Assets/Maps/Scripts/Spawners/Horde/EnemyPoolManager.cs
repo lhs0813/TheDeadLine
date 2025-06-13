@@ -185,12 +185,18 @@ public class EnemyPoolManager : MonoBehaviour
 
     #region Common Logics
     //0611 김현우 변경 : Spawn 시 Transform의 자식으로 설정. 렌더링 초기화 위함.
-    public GameObject Spawn(EnemyType type, Transform spawnerTransform)
+    public GameObject Spawn(EnemyType type, Transform spawnerTransform, bool isPrespawn)
     {
         if (currentCounts[type] >= maxCounts[type])
             return null;
 
         var obj = enemyPools[type].Get(); //적 object 가져오기. Normal형 적의 경우에는 Random 포함된 구조.
+
+        if (obj.TryGetComponent<EnemyIdentifier>(out var id))
+        {
+            id.Type = type; //타입 설정 (pool 전용.)
+            id.isPrespawn = isPrespawn; //선제 스폰 적인지 구분.
+        }
 
         //위치 설정 후 SetActive.True
         obj.transform.SetPositionAndRotation(spawnerTransform.position, Quaternion.identity);
@@ -198,8 +204,8 @@ public class EnemyPoolManager : MonoBehaviour
         obj.SetActive(true);
 
         // 여기서 타입 정보를 설정
-        if (obj.TryGetComponent<EnemyIdentifier>(out var id))
-            id.Type = type;
+
+
 
         currentCounts[type]++;
         activeEnemies.Add(obj);

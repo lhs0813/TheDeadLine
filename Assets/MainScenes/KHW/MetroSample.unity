@@ -19061,6 +19061,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 880098905}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &882090726 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5083618561909464445, guid: 31057ebea554a6a498bb5eb2eab107c8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1915723412}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &894258803
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26733,7 +26739,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.2
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -39839,6 +39845,10 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 1024373951}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5083618561909464445, guid: 31057ebea554a6a498bb5eb2eab107c8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1915723422}
     - targetCorrespondingSourceObject: {fileID: 2520800850681961830, guid: 31057ebea554a6a498bb5eb2eab107c8,
         type: 3}
       insertIndex: -1
@@ -39886,7 +39896,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1915723412}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 882090726}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63ecd18cb2e358a44af6540d44fa129a, type: 3}
@@ -39932,6 +39942,18 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1915723422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882090726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6f2c37269921db4aa0dddf94b652f6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1922358517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43992,7 +44014,7 @@ PrefabInstance:
     - target: {fileID: 1235015900650259726, guid: ea72811a6aedcbb49a26143d920154e7,
         type: 3}
       propertyPath: waitingDuration
-      value: 20
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7727236882916227382, guid: ea72811a6aedcbb49a26143d920154e7,
         type: 3}
