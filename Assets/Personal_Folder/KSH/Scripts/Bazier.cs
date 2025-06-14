@@ -21,7 +21,7 @@ public class Bazier : MonoBehaviour
     void Start()
     {
         Physics.Raycast(transform.position, transform.forward, out RaycastHit hit , 99, LayerMask);
-
+        Debug.Log(hit.point);
         Transform start = transform;
         Vector3  end = hit.point;
 
