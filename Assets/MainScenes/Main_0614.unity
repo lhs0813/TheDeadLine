@@ -15,10 +15,10 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
   m_Fog: 0
-  m_FogColor: {r: 0, g: 0, b: 0, a: 1}
-  m_FogMode: 2
-  m_FogDensity: 0.276
-  m_LinearFogStart: 10
+  m_FogColor: {r: 1, g: 0, b: 0, a: 1}
+  m_FogMode: 1
+  m_FogDensity: 0.109
+  m_LinearFogStart: 30
   m_LinearFogEnd: 200
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
@@ -1160,6 +1160,44 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 38882556}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &39593030 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1992146237650678372, guid: 31057ebea554a6a498bb5eb2eab107c8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1915723412}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &39593031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39593030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 3
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 2097152
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_GenerateLinks: 1
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.2
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
 --- !u!1001 &42300402
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39866,6 +39904,10 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 1024373951}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1992146237650678372, guid: 31057ebea554a6a498bb5eb2eab107c8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 39593031}
     - targetCorrespondingSourceObject: {fileID: 5083618561909464445, guid: 31057ebea554a6a498bb5eb2eab107c8,
         type: 3}
       insertIndex: -1
@@ -44035,7 +44077,7 @@ PrefabInstance:
     - target: {fileID: 1235015900650259726, guid: ea72811a6aedcbb49a26143d920154e7,
         type: 3}
       propertyPath: currentMapIndex
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1235015900650259726, guid: ea72811a6aedcbb49a26143d920154e7,
         type: 3}
