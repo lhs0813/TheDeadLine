@@ -16,7 +16,6 @@ public class WeaponOnOff : MonoBehaviour
     [Header("Effect")]
     public ParticleSystem effect;
     List<ParticleSystem> _effects; 
-    List<LineReder> _lines;
     [Space(30)]
 
 
@@ -33,7 +32,6 @@ public class WeaponOnOff : MonoBehaviour
     void Start()
     {
         _effects = GetComponentsInChildren<ParticleSystem>().ToList();
-        _lines = GetComponentsInChildren<LineReder>().ToList();
         firearm = GetComponentInParent<Akila.FPSFramework.Firearm>();
 
         for (int i = 0; i < _effects.Count; i++)
@@ -109,9 +107,6 @@ public class WeaponOnOff : MonoBehaviour
         for (int i = 0; i < _effects.Count; i++)         
             _effects[i].Play(true);
 
-        for (int i = 0; i < _lines.Count; i++)
-            _lines[i].enabled = true;
-
         soundStart.Play(); 
         soundLoop.Play();
     }
@@ -120,8 +115,6 @@ public class WeaponOnOff : MonoBehaviour
         for (int i = 0; i < _effects.Count; i++)        
             _effects[i].Stop(true, ParticleSystemStopBehavior.StopEmitting);
 
-        for (int i = 0; i < _lines.Count; i++)
-            _lines[i].enabled = false;
 
         soundEnd.Play();
         soundLoop.Stop();
