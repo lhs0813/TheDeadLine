@@ -171,6 +171,12 @@ namespace Akila.FPSFramework
             UIManager.Instance?.HealthDisplay?.UpdateCard(health, Actor.actorName, true);
         }
 
+
+        private IEnumerator DelayedLoad()
+        {
+            yield return new WaitForSeconds(3f); // 3초 대기
+            SceneManager.LoadScene("Main Menu");
+        }
         private void Die()
         {
             //---------0607 김현우 수정 : EnemyIdentifier 대응.
@@ -182,7 +188,7 @@ namespace Akila.FPSFramework
                 if (Actor.respawnable) Actor.deaths++;
                 if (damageSource) DeathCamera.Instance?.Enable(gameObject, damageSource);
 
-                SceneManager.LoadScene("Main Menu");
+                StartCoroutine(DelayedLoad());
             }
 
             if (ragdoll) ragdoll.Enable(damageDirection);
