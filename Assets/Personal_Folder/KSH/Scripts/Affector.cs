@@ -200,6 +200,16 @@ public class Affector : MonoBehaviour
                 damageTarget.Damage(value, gameObject, critical);
             }
 
+                UIManager uiManager = UIManager.Instance;
+
+
+            bool shouldHighlight = damageTarget.health <= damageTarget.maxHealth * 0.3f;
+            if (uiManager != null)
+            {
+                Hitmarker hitmarker = uiManager.Hitmarker;
+                hitmarker?.Show(shouldHighlight);
+            }
+            
 
 
 
