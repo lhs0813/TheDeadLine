@@ -175,6 +175,8 @@ namespace Akila.FPSFramework
         private IEnumerator DelayedLoad()
         {
             yield return new WaitForSeconds(3f); // 3초 대기
+            Cursor.lockState = CursorLockMode.None;  // 마우스 잠금 해제
+            Cursor.visible = true;                   // 마우스 커서 보이게
             SceneManager.LoadScene("Main Menu");
         }
         private void Die()
