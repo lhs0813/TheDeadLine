@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -25,7 +25,7 @@ namespace Akila.FPSFramework
 
             foreach (Resolution res in Screen.resolutions)
             {
-                if (res.width >= 800 && res.height >= 600 && res.refreshRateRatio.value >= GetRefreshRate())
+                if (res.width >= 1920 && res.height >= 1080 && res.refreshRateRatio.value >= GetRefreshRate())
                 {
                     resolutions.Add(res);
                 }
