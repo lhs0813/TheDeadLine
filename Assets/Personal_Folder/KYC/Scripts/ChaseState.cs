@@ -1,16 +1,24 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class ChaseState : IZombieState
 {
     private ZombieBase _zombie;
     private Transform _player;
     private float _nextSoundTime = 0f;
+    private Coroutine _checkRoutine;
+    private bool _isChecking = false;
     public void Enter(ZombieBase zombie)
     {
         this._zombie = zombie;
-        _player = GameObject.FindWithTag("Player")?.transform;
+        _player = _zombie.Player;
         _zombie.Animator.SetTrigger("ToChase"); // Blend Tree 상태 전이 트리거
         _zombie.Agent.speed = _zombie.moveSpeed; // 또는 원하는 값 (예: 4f)
+        if (!_isChecking && _player != null)
+        {
+            _checkRoutine = _zombie.StartCoroutine(CheckPlayerDistance());
+            _isChecking = true;
+        }
         PlayRandomSound(_zombie.chaseClips);
     }
 
@@ -21,24 +29,46 @@ public class ChaseState : IZombieState
             _zombie.SetState(new PatrolState());
             return;
         }
+        _zombie.Agent.SetDestination(_player.position); // 플레이어를 향해 이동
 
-        _zombie.MoveTowards(_player.position);
-
-        float distance = Vector3.Distance(_zombie.transform.position, _player.position);
-
-        if (distance < _zombie.attackRange)
-        {
-            _zombie.SetState(new AttackState());
-        }
-        else if (distance > _zombie.detectionRange * 1.5f)
-        {
-            _zombie.SetState(new PatrolState()); 
-        }
     }
 
     public void Exit()
     {
-        _zombie.Agent.speed /= 35f;    }
+        if (_checkRoutine != null)
+            _zombie.StopCoroutine(_checkRoutine);
+
+        _isChecking = false;
+    }
+    private IEnumerator CheckPlayerDistance()
+    {
+        WaitForSeconds wait = new WaitForSeconds(0.3f);
+        while (true)
+        {
+            if (_player == null)
+            {
+                yield return null;
+                _zombie.SetState(new PatrolState());
+                yield break;
+            }
+
+            float distance = Vector3.Distance(_zombie.transform.position, _player.position);
+            if (distance < _zombie.attackRange)
+            {
+                yield return null;
+                _zombie.SetState(new AttackState());
+                yield break;
+            }
+            else if (distance > _zombie.detectionRange * 1.5f)
+            {
+                yield return null;
+                _zombie.SetState(new PatrolState());
+                yield break;
+            }
+
+            yield return wait;
+        }
+    }
     private void PlayRandomSound(AudioClip[] clips, bool loop = true)
     {
         if (Time.time < _nextSoundTime) return;

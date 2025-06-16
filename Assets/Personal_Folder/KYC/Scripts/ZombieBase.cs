@@ -10,7 +10,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     private int _attackIndex;
     private int _deathIndex;
     public Animator Animator => _anim;
-
+    public Transform Player { get; private set; }
     public bool isPreSpawn = false;
 
     [Header("Zombie Stats")]
@@ -51,6 +51,9 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
     protected virtual void Awake()
     {
+        GameObject playerObj = GameObject.FindWithTag("Player");
+        if (playerObj != null)
+            Player = playerObj.transform;
         //0612 이현수 수정 자식 데미저블 그룹 가져오기
         damageableGroups = GetComponentsInChildren<DamageableGroup>();
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -210,7 +213,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
             var damageable = playerObj.GetComponent<Damageable>();
             if (damageable != null)
             {
-                float baseDamage = 10f; // 좀비의 기본 공격력
+                float baseDamage = 10f * SkillEffectHandler.Instance.damageReduction; // 좀비의 기본 공격력
                 damageable.Damage(baseDamage, this.gameObject,false);
             }
             else
