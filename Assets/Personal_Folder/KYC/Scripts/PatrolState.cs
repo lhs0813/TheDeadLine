@@ -1,44 +1,69 @@
 ﻿using UnityEngine.AI;
 using UnityEngine;
+using System.Collections;
 
 public class PatrolState : IZombieState
 {
     private ZombieBase _zombie;
-    private Vector3 _patrolTarget;
     private Transform _player;
     private float _nextSoundTime = 0f;
+    private Coroutine _checkRoutine;
+    private bool _isChecking = false;
+
     public void Enter(ZombieBase zombie)
     {
         this._zombie = zombie;
         _zombie.Animator.SetTrigger("ToPatrol"); // Blend Tree 상태 전이 트리거
         PlayRandomSound(_zombie.patrolClips);
-        GameObject playerObj = GameObject.FindWithTag("Player");
-        if (playerObj != null)
-            _player = playerObj.transform;
+        _player = _zombie.Player;
+        if (_player != null)
+        {
+            _checkRoutine = _zombie.StartCoroutine(CheckPlayer());
+            _isChecking = true;
+        }
+
     }
 
     public void Update()
     {
-        // ⬇️ 조건: 일반 좀비 (isPreSpawn == false) → 무조건 추격
-        if (!_zombie.isPreSpawn && _player != null)
-        {
-            _zombie.SetState(new ChaseState());
-        }
 
-        // ⬇️ 조건: 프리스폰 좀비 → 시야에 보이거나, 아주 가까우면 추격
-        if (_zombie.isPreSpawn && _player != null)
+    }
+    private IEnumerator CheckPlayer()
+    {
+        WaitForSeconds wait = new WaitForSeconds(0.3f);
+        while (true)
         {
+            if (_player == null)
+            {
+                yield return null;
+                _zombie.SetState(new PatrolState());
+                yield break;
+            }
+
+            if (!_zombie.isPreSpawn)
+            {
+                yield return null;
+                _zombie.SetState(new ChaseState());
+                yield break;
+            }
+
             if (_zombie.CanSeePlayer(_player) ||
                 Vector3.Distance(_zombie.transform.position, _player.position) < _zombie.minAttackStartDistance)
             {
+                yield return null;
                 _zombie.SetState(new ChaseState());
+                yield break;
             }
+
+            yield return wait;
         }
     }
 
-
     public void Exit() 
     {
+                if (_checkRoutine != null)
+            _zombie.StopCoroutine(_checkRoutine);
+        _isChecking = false;
     }
 
     private void PlayRandomSound(AudioClip[] clips, bool loop = true)
