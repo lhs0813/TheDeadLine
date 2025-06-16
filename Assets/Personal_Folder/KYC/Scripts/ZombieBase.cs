@@ -62,17 +62,6 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         {
             agent.speed = moveSpeed;
         }
-        _anim = GetComponent<Animator>();
-
-        _walkIndex = Random.Range(0, 3);
-        _runIndex = Random.Range(0, 3);
-        _attackIndex = Random.Range(0, 3);
-        _deathIndex = Random.Range(0, 2);
-
-        _anim.SetFloat("walkIndex", _walkIndex);
-        _anim.SetFloat("runIndex", _runIndex);
-        _anim.SetFloat("attackIndex", _attackIndex);
-        _anim.SetFloat("deathIndex", _deathIndex);
 
         damageable = GetComponentInChildren<Damageable>();
         scaleOrigin = transform.localScale;
@@ -107,6 +96,17 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
     private void InitializeZombieState() // 0609 이현수 수정, 콜리더 활성화 및 래그돌 Standing
     {
+        _anim = GetComponent<Animator>();
+
+        _walkIndex = Random.Range(0, 4);
+        _runIndex = Random.Range(0, 3);
+        _attackIndex = Random.Range(0, 3);
+        _deathIndex = Random.Range(0, 2);
+
+        _anim.SetFloat("walkIndex", _walkIndex);
+        _anim.SetFloat("runIndex", _runIndex);
+        _anim.SetFloat("attackIndex", _attackIndex);
+        _anim.SetFloat("deathIndex", _deathIndex);
 
         EnemyIdentifier identifier = GetComponentInParent<EnemyIdentifier>();
         if (identifier != null)
