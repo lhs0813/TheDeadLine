@@ -10,7 +10,7 @@ public class ChaseState : IZombieState
         this._zombie = zombie;
         _player = GameObject.FindWithTag("Player")?.transform;
         _zombie.Animator.SetTrigger("ToChase"); // Blend Tree 상태 전이 트리거
-        _zombie.Agent.speed *= 35f; // 또는 원하는 값 (예: 4f)
+        _zombie.Agent.speed = _zombie.moveSpeed; // 또는 원하는 값 (예: 4f)
         PlayRandomSound(_zombie.chaseClips);
     }
 
@@ -38,8 +38,7 @@ public class ChaseState : IZombieState
 
     public void Exit()
     {
-        _zombie.Agent.speed /= 35f;
-    }
+        _zombie.Agent.speed /= 35f;    }
     private void PlayRandomSound(AudioClip[] clips, bool loop = true)
     {
         if (Time.time < _nextSoundTime) return;

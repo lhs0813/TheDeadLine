@@ -11,9 +11,6 @@ public class PatrolState : IZombieState
     {
         this._zombie = zombie;
         _zombie.Animator.SetTrigger("ToPatrol"); // Blend Tree 상태 전이 트리거
-        _patrolTarget = GetRandomPoint(); 
-        zombie.MoveTowards(_patrolTarget);
-        _zombie.Agent.speed = _zombie.moveSpeed;
         PlayRandomSound(_zombie.patrolClips);
         GameObject playerObj = GameObject.FindWithTag("Player");
         if (playerObj != null)
@@ -22,13 +19,6 @@ public class PatrolState : IZombieState
 
     public void Update()
     {
-        // 순찰 목표 도착 시 → 새로운 랜덤 지점 지정
-        if (Vector3.Distance(_zombie.transform.position, _patrolTarget) < 1f)
-        {
-            _patrolTarget = GetRandomPoint();
-            _zombie.MoveTowards(_patrolTarget);
-        }
-
         // ⬇️ 조건: 일반 좀비 (isPreSpawn == false) → 무조건 추격
         if (!_zombie.isPreSpawn && _player != null)
         {
@@ -50,23 +40,6 @@ public class PatrolState : IZombieState
     public void Exit() 
     {
     }
-
-    private Vector3 GetRandomPoint()
-    {
-        Vector3 origin = _zombie.transform.position;
-        Vector2 randomOffset = Random.insideUnitCircle * 5f;
-        Vector3 randomPoint = origin + new Vector3(randomOffset.x, 0, randomOffset.y);
-
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(randomPoint, out hit, 3f, NavMesh.AllAreas))
-        {
-            return hit.position;
-        }
-
-        // 실패했을 경우 현재 위치로 fallback
-        return origin;
-    }
-
 
     private void PlayRandomSound(AudioClip[] clips, bool loop = true)
     {
