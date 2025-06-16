@@ -23,7 +23,8 @@ public class DeadState : IZombieState
                 var damageable = playerObj.GetComponent<Damageable>();
                 if (damageable != null)
                 {
-                    damageable.health += 1;
+                    if(damageable.health < damageable.playerMaxHealth)
+                        damageable.health += 1;
                     Player_Manager.PlayerHpChange?.Invoke(damageable.health);
                 }
             }

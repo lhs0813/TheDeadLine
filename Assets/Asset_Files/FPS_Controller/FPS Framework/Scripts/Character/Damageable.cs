@@ -16,7 +16,10 @@ namespace Akila.FPSFramework
         private float invincibilityEndTime = 0f;
 
         public HealthType type = HealthType.Other;
+
         public float health = 100;
+        public float playerMaxHealth;
+
         public float destroyDelay;
         [Range(0, 1)] public float damageCameraShake = 0.3f;
 
@@ -80,6 +83,9 @@ namespace Akila.FPSFramework
             if (type == HealthType.Player)
             {
                 if (Actor && Actor.characterManager != null) DeathCamera.Instance?.Disable();
+                playerMaxHealth = health; // 플레이어의 최대 체력을 100 으로 초기화, 만약 기본 체력이 50이면 최대체력도 50일거임; - 이현수;
+                
+                
 
                 groups = GetComponentsInChildren<IDamageableGroup>();
 
@@ -130,6 +136,15 @@ namespace Akila.FPSFramework
                 isInvincible = false;
                 Debug.Log("⏱️ 무적 종료됨");
             }
+
+            /*if (SkillEffectHandler.Instance.최대체력 버튼 == true){
+                if (playerMaxHealth == 200)
+                    return;
+                playerMaxHealth = 200;
+                Player_Manager.PlayerMaxHpChange?.Invoke(playerMaxHealth);
+                Player_Manager.PlayerHpChange?.Invoke(health);
+            }*/
+
         }
 
         private void UpdateSystem()
@@ -180,7 +195,7 @@ namespace Akila.FPSFramework
         }
 
 
-        private IEnumerator DelayedLoad()
+        private IEnumerator DelayedLoad() // 사망시 메인메뉴 씬으로 돌아가는 시스템 - 이현수
         {
             yield return new WaitForSeconds(3f); // 3초 대기
             Cursor.lockState = CursorLockMode.None;  // 마우스 잠금 해제
