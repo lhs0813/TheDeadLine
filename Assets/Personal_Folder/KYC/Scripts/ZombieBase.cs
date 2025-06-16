@@ -46,6 +46,9 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     Damageable damageable;
     Vector3 scaleOrigin;
 
+    //------0616 김현우 수정 : identifier에 어그로 변수 추가.
+    EnemyIdentifier identifier;
+
     //0612 이현수 수정 자식 데미저블 그룹 가져오기
     DamageableGroup[] damageableGroups;
 
@@ -67,6 +70,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         }
 
         damageable = GetComponentInChildren<Damageable>();
+        identifier = GetComponentInParent<EnemyIdentifier>();
         scaleOrigin = transform.localScale;
     }
 
@@ -111,7 +115,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         _anim.SetFloat("attackIndex", _attackIndex);
         _anim.SetFloat("deathIndex", _deathIndex);
 
-        EnemyIdentifier identifier = GetComponentInParent<EnemyIdentifier>();
+
         if (identifier != null)
             isPreSpawn = identifier.isPrespawn;
         else
@@ -149,6 +153,12 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         {
             Die();
         }
+    }
+
+    //0616 김현우 수정 : 추적시작시 패턴 추가.
+    public void SetNotBeDespawned() //추적을 시작한 적은 죽을때까지 강제회수되지 않음.
+    {
+        identifier.wasTrackingPlayer = true;
     }
 
     protected virtual void Die()
