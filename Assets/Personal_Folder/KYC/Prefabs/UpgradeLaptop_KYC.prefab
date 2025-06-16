@@ -690,7 +690,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47.55
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1054,7 +1054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2c87d6aa888024c8ecfbfdf5c0722f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillId: 
+  skillId: ABSORB_HEALTH
   prerequisites:
   - {fileID: 6015323914605905678}
   - {fileID: 1711019912914741005}
@@ -1276,7 +1276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2c87d6aa888024c8ecfbfdf5c0722f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillId: 
+  skillId: STATION_INVINCIBLE_ONCE
   prerequisites:
   - {fileID: 7471672324625106634}
   - {fileID: 7108257025967857724}
@@ -1925,7 +1925,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47.55
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3759,7 +3759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2c87d6aa888024c8ecfbfdf5c0722f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillId: 
+  skillId: EVASION_20
   prerequisites: []
   requiredPoints: 3
   nameKey: SKILL_PHANTOMSTEP_NAME
@@ -3969,6 +3969,10 @@ MonoBehaviour:
   recoilMultiplier: 1
   isAmmoInfinite: 0
   isHeartofBerserkeravailable: 0
+  damageReduction: 1
+  evasionChance: 0
+  isInvinciblePerStation: 0
+  absorbHeatlh: 0
 --- !u!1 &4130973713320310794
 GameObject:
   m_ObjectHideFlags: 0
@@ -4347,7 +4351,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38
+  m_fontSize: 25.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4887,7 +4891,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47.55
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5493,7 +5497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2c87d6aa888024c8ecfbfdf5c0722f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillId: 
+  skillId: DAMAGE_REDUCTION_20
   prerequisites: []
   requiredPoints: 3
   nameKey: SKILL_IRONSKIN_NAME
@@ -6159,7 +6163,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.95
+  m_fontSize: 22.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
