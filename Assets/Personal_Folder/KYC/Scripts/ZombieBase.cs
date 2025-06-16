@@ -223,8 +223,17 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
             var damageable = playerObj.GetComponent<Damageable>();
             if (damageable != null)
             {
-                float baseDamage = 10f * SkillEffectHandler.Instance.damageReduction; // 좀비의 기본 공격력
-                damageable.Damage(baseDamage, this.gameObject,false);
+                float evasionChance = SkillEffectHandler.Instance.evasionChance;
+                float roll = Random.value; // 0.0f ~ 1.0f 사이 랜덤값
+
+                if (roll < evasionChance)
+                {
+                    Debug.Log("⚡ 회피 성공! 데미지를 받지 않음");
+                    return; // 회피 성공 시 데미지 무시
+                }
+
+                float baseDamage = 10f * SkillEffectHandler.Instance.damageReduction; // 데미지 감소 적용
+                damageable.Damage(baseDamage, this.gameObject, false);
             }
             else
             {
