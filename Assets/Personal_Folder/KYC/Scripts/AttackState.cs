@@ -10,7 +10,7 @@ public class AttackState : IZombieState
     public void Enter(ZombieBase zombie)
     {
         _zombie = zombie;
-        _player = GameObject.FindWithTag("Player")?.transform;
+        _player = _zombie.Player;
         if (_player == null)
         {
             _zombie.SetState(new PatrolState());
