@@ -10,7 +10,10 @@ namespace Akila.FPSFramework
     [AddComponentMenu("Akila/FPS Framework/Health System/Damageable")]
     public class Damageable : MonoBehaviour, IDamageable
     {
-        
+        [Header("Skills Settings")]
+        private bool hasUsedInvincibilityInThisStation = false;
+        private bool isInvincible = false;
+        private float invincibilityEndTime = 0f;
 
         public HealthType type = HealthType.Other;
         public float health = 100;
@@ -121,6 +124,11 @@ namespace Akila.FPSFramework
                 }
 
                 previousHealth = health;
+            }
+            if (isInvincible && Time.time >= invincibilityEndTime)
+            {
+                isInvincible = false;
+                Debug.Log("⏱️ 무적 종료됨");
             }
         }
 
@@ -233,12 +241,29 @@ namespace Akila.FPSFramework
         {
             if (type == HealthType.Player && isPlayer)
             {
-                float FakeHp = health;
-                FakeHp -= amount;
-                Player_Manager.PlayerHpChange?.Invoke(FakeHp);
-                
+                float predictedHp = health - amount;
+
+                // 스킬이 적용 중이고, 체력이 20 이하로 떨어지며, 아직 해당 역에서 한 번도 발동되지 않은 경우
+                if (SkillEffectHandler.Instance.isInvinciblePerStation &&
+                    predictedHp <= 19 && !hasUsedInvincibilityInThisStation)
+                {
+                    Debug.Log("🛡️ 무적 발동됨");
+                    isInvincible = true;
+                    invincibilityEndTime = Time.time + 3f;
+                    hasUsedInvincibilityInThisStation = true;
+                    return; // 데미지 무시
+                }
+
+                // 무적 상태면 데미지 무시
+                if (isInvincible)
+                {
+                    Debug.Log("💥 데미지 무시됨 (무적 중)");
+                    return;
+                }
+
+                Player_Manager.PlayerHpChange?.Invoke(predictedHp); // 가상 체력 UI 처리
             }
-            
+
             health -= amount;
 
 
@@ -251,12 +276,7 @@ namespace Akila.FPSFramework
             if(type == HealthType.NPC)
                 _killFeed.DamageShow(amount, critical);
 
-            
-
-
-
-
-
+        
 
             /*KillTag newTag = Instantiate(Tag, tagsHolder);
             newTag.message.color = headshot && newTag.updateImageColors ? headshotColor : newTag.message.color;
@@ -266,6 +286,10 @@ namespace Akila.FPSFramework
 
 
             this.damageSource = damageSource;
+        }
+        public void ResetInvincibilityFlagPerStation()
+        {
+            hasUsedInvincibilityInThisStation = false;
         }
 
         public bool isActive { get; set; } = true;
@@ -279,4 +303,5 @@ namespace Akila.FPSFramework
         NPC = 1,
         Other = 2
     }
+
 }
