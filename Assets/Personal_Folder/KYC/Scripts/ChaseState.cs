@@ -14,6 +14,7 @@ public class ChaseState : IZombieState
         _player = _zombie.Player;
         _zombie.Animator.SetTrigger("ToChase"); // Blend Tree 상태 전이 트리거
         _zombie.Agent.speed = _zombie.moveSpeed; // 또는 원하는 값 (예: 4f)
+        _zombie.SetNotBeDespawned(); //시스템에 의해 회수되지 않도록 수정.
         if (!_isChecking && _player != null)
         {
             _checkRoutine = _zombie.StartCoroutine(CheckPlayerDistance());

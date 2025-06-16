@@ -15,7 +15,7 @@ public class ChasingHordeSpawner : MonoBehaviour
 
             GameObject enemy = EnemyPoolManager
                 .Instance
-                .Spawn(type, transform, false); //prespawn이 아니므로, false.
+                .Spawn(type, transform.position, transform.rotation, false); //prespawn이 아니므로, false.
         }
     }
 }
