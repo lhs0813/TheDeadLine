@@ -57,12 +57,13 @@ public class TrainController : MonoBehaviour
 
     IEnumerator TrainArriveCoroutine()
     {
+        DetachPlayer();
         isMoving = false;
         isStopping = false;
 
-
+        //yield return null;
         yield return new WaitForSeconds(trainArriveDelay);
-        DetachPlayer();
+
         trainDoorController.OpenDoor();
         trainSoundController.PlayDoorOpen();
 
@@ -130,25 +131,6 @@ public class TrainController : MonoBehaviour
 
     public bool CheckAndAttachPlayer()
     {
-        // Debug.Log("Check and Attack Player");
-        // Collider[] hits = Physics.OverlapBox(
-        //     trainInteriorZone.bounds.center,
-        //     trainInteriorZone.bounds.extents,
-        //     trainInteriorZone.transform.rotation
-        //     //LayerMask.GetMask("Player") // 플레이어 전용 레이어 사용 권장
-        // );
-
-        // foreach (var hit in hits)
-        // {
-        //     Debug.Log(hit.name);
-
-        //     if (hit.CompareTag("Player"))
-        //     {
-        //         hit.transform.SetParent(trainTransform);
-        //         Debug.Log("✅ Player attached to train.");
-        //     }
-        // }
-
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (trainInteriorZone.bounds.Contains(player.transform.position))
         {
