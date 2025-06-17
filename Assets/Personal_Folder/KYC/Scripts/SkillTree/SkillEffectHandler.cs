@@ -32,6 +32,7 @@ public class SkillEffectHandler : MonoBehaviour
     public float evasionChance = 0f; // 회피 확률 (예: 0.1f는 10% 확률로 회피)
     public bool isInvinciblePerStation = false; // 이 스킬이 적용 중인지 여부
     public bool absorbHeatlh = false; // 체력 흡수 여부
+    public bool maxHealthIncrease = false; // 최대 체력 증가 여부
     // ... 필요에 따라 추가
 
     // 내부 딕셔너리
@@ -79,6 +80,9 @@ public class SkillEffectHandler : MonoBehaviour
 
         _applyEffects["ABSORB_HEALTH"] = () => absorbHeatlh = true; // 체력 흡수 활성화
         _removeEffects["ABSORB_HEALTH"] = () => absorbHeatlh = false; // 체력 흡수 비활성화
+
+        _applyEffects["MAX_HEALTH_INCREASE"] = () => maxHealthIncrease = true; // 최대 체력 증가 활성화
+        _removeEffects["MAX_HEALTH_INCREASE"] = () => maxHealthIncrease = false; // 최대 체력 증가 비활성화
         // 🎯 여기다 계속 추가 가능
     }
 
@@ -118,7 +122,8 @@ public class SkillEffectHandler : MonoBehaviour
         damageReduction = 1f;
         evasionChance = 0f;
         isInvinciblePerStation = false;
-        absorbHeatlh = false; 
+        absorbHeatlh = false;
+        maxHealthIncrease = false;
         // 필요 수치 모두 원상 복구
         Debug.Log("[SkillEffectHandler] 모든 스킬 효과 초기화됨");
     }
