@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using DunGen;
 using UnityEngine;
@@ -127,7 +127,7 @@ public class GamePlayManager : MonoBehaviour
         OnStationDepartAction?.Invoke();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Timer += Time.deltaTime;
 
