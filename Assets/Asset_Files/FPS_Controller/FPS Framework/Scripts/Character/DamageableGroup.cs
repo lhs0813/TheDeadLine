@@ -75,7 +75,18 @@ namespace Akila.FPSFramework
                     Debug.Log($"🔥 Desperate Strike 적용됨! 현재 HP: {currentHp}, 배수: x{extraMultiplier}");
                 }
             }
-
+            if (SkillEffectHandler.Instance.isFullHpDamageBoost)
+            {
+                var player = GameObject.FindWithTag("Player");
+                if (player != null && player.TryGetComponent(out IDamageable playerDamageable))
+                {
+                    if (Mathf.Approximately(playerDamageable.health, playerDamageable.playerMaxHealth))
+                    {
+                        multiplier *= SkillEffectHandler.Instance.fullHpDamageMultiplier;
+                        Debug.Log($"🧠 체력 풀! x{SkillEffectHandler.Instance.fullHpDamageMultiplier} 배 데미지 증가");
+                    }
+                }
+            }
             return multiplier;
         }
 

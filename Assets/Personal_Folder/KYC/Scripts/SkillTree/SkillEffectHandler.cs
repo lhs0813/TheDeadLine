@@ -33,6 +33,9 @@ public class SkillEffectHandler : MonoBehaviour
     public bool isInvinciblePerStation = false; // 이 스킬이 적용 중인지 여부
     public bool absorbHeatlh = false; // 체력 흡수 여부
     public bool maxHealthIncrease = false; // 최대 체력 증가 여부
+    public bool isFullHpDamageBoost = false; // 체력 풀일 때 데미지 증가 여부
+    public float fullHpDamageMultiplier = 1.3f; // 30% 증가
+
     // ... 필요에 따라 추가
 
     // 내부 딕셔너리
@@ -83,6 +86,19 @@ public class SkillEffectHandler : MonoBehaviour
 
         _applyEffects["MAX_HEALTH_INCREASE"] = () => maxHealthIncrease = true; // 최대 체력 증가 활성화
         _removeEffects["MAX_HEALTH_INCREASE"] = () => maxHealthIncrease = false; // 최대 체력 증가 비활성화
+
+        _applyEffects["FULLHP_DAMAGE_30"] = () =>
+        {
+            isFullHpDamageBoost = true;
+            fullHpDamageMultiplier = 1.3f;
+        };
+
+        _removeEffects["FULLHP_DAMAGE_30"] = () =>
+        {
+            isFullHpDamageBoost = false;
+            fullHpDamageMultiplier = 1f;
+        };
+
         // 🎯 여기다 계속 추가 가능
     }
 
