@@ -85,9 +85,6 @@ public class GamePlayManager : MonoBehaviour
         //다음맵 로딩 시작
         currentMapIndex++;
         await MapGenerationManager.Instance.LoadMap(currentMapIndex);
-
-        //playerHordeTrigger.DeactivatePlayerHordeTrigger();
-
     }
 
     private void GoStageEnteringState()
@@ -143,7 +140,7 @@ public class GamePlayManager : MonoBehaviour
 
         gamePlayManagementUI.UpdateGamePlayUI(isCombatting, Timer, newCombatEndTime);
     }
-
-
-
 }
+
+
+
