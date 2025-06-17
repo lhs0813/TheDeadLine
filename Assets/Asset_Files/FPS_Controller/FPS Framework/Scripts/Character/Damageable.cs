@@ -254,6 +254,11 @@ namespace Akila.FPSFramework
 
         public void Damage(float amount, GameObject damageSource, bool critical)
         {
+            //적이 받는 데미지 전체 조정 
+            if (type != HealthType.Player ) 
+                amount *= Affector.damageMulti;
+
+
             if (type == HealthType.Player && isPlayer)
             {
                 float predictedHp = health - amount;

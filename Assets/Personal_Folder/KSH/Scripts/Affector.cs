@@ -186,7 +186,7 @@ public class Affector : MonoBehaviour
 
             if (damage != 0)
             {
-                var value = damage * damageMulti;
+                var value = damage ;
                 var critical=false;
 
                 var damageableGroup = go.GetComponent<DamageableGroup>();
