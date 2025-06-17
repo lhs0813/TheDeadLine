@@ -31,6 +31,7 @@ public class SkillEffectHandler : MonoBehaviour
     public float damageReduction = 1f; // 데미지 감소 배수 (예: 0.8f는 20% 감소)
     public float evasionChance = 0f; // 회피 확률 (예: 0.1f는 10% 확률로 회피)
     public bool isInvinciblePerStation = false; // 이 스킬이 적용 중인지 여부
+    public bool absorbHeatlh = false; // 체력 흡수 여부
     // ... 필요에 따라 추가
 
     // 내부 딕셔너리
@@ -75,6 +76,9 @@ public class SkillEffectHandler : MonoBehaviour
 
         _applyEffects["STATION_INVINCIBLE_ONCE"] = () => isInvinciblePerStation = true;
         _removeEffects["STATION_INVINCIBLE_ONCE"] = () => isInvinciblePerStation = false;
+
+        _applyEffects["ABSORB_HEALTH"] = () => absorbHeatlh = true; // 체력 흡수 활성화
+        _removeEffects["ABSORB_HEALTH"] = () => absorbHeatlh = false; // 체력 흡수 비활성화
         // 🎯 여기다 계속 추가 가능
     }
 
@@ -114,6 +118,7 @@ public class SkillEffectHandler : MonoBehaviour
         damageReduction = 1f;
         evasionChance = 0f;
         isInvinciblePerStation = false;
+        absorbHeatlh = false; 
         // 필요 수치 모두 원상 복구
         Debug.Log("[SkillEffectHandler] 모든 스킬 효과 초기화됨");
     }

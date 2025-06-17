@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Akila.FPSFramework;
 using UnityEngine.AI;
 
 public class DeadState : IZombieState
@@ -12,6 +13,22 @@ public class DeadState : IZombieState
         _zombie.Animator.SetTrigger("ToDeath");
         _zombie.StopMovement();
         PlayRandomSound(_zombie.deathClips, loop: false);
+        if(SkillEffectHandler.Instance.absorbHeatlh)
+        {
+            // 플레이어 오브젝트 확인
+            GameObject playerObj = GameObject.FindWithTag("Player");
+            if (playerObj != null)
+            {
+                // Damageable 컴포넌트 가져오기
+                var damageable = playerObj.GetComponent<Damageable>();
+                if (damageable != null)
+                {
+                    if(damageable.health < damageable.playerMaxHealth)
+                        damageable.health += 1;
+                    Player_Manager.PlayerHpChange?.Invoke(damageable.health);
+                }
+            }
+        }
 
     }
 
