@@ -1,15 +1,12 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class HordeSpawner : MonoBehaviour
+public class ChasingHordeSpawner : MonoBehaviour
 {
-    // 더 이상 spawnRadius, minSpacing, enemyLayer 등은 필요 없겠죠.
     public void TrySpawn(int mapIndex)
     {
-        Debug.Log("스폰 시도");
-
         int spawnCount = MapGenCalculator
-            .GetCreatureSpawnCountRangePerRoom(mapIndex)
+            .GetCreatureSpawnCountRangePerSpawner(mapIndex)
             .GetRandom(new DunGen.RandomStream());
 
         for (int i = 0; i < spawnCount; i++)
@@ -18,7 +15,7 @@ public class HordeSpawner : MonoBehaviour
 
             GameObject enemy = EnemyPoolManager
                 .Instance
-                .Spawn(type, transform, false);
+                .Spawn(type, transform.position, transform.rotation, false); //prespawn이 아니므로, false.
         }
     }
 }

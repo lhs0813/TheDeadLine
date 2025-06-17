@@ -9,7 +9,7 @@ public static class MapContextBuilder
     public static async Task<MapContext> BuildAsync(int mapIndex)
     {
         var flow = await GetDungeonFlowAsync(mapIndex);
-        var enemySpawnCountByRoom = MapGenCalculator.GetCreatureSpawnCountRangePerRoom(mapIndex);
+        var enemySpawnCountByRoom = MapGenCalculator.GetCreatureSpawnCountRangePerSpawner(mapIndex);
         var skillPointItemCountRange = MapGenCalculator.GetSkillPointItemCountRange(mapIndex);
         var gunPropCountRange = MapGenCalculator.GetGunPropCountRange(mapIndex);
         return new MapContext(flow, enemySpawnCountByRoom, skillPointItemCountRange, gunPropCountRange);

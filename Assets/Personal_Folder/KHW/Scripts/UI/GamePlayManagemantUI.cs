@@ -24,7 +24,7 @@ public class GamePlayManagementUI : MonoBehaviour
 
         remainingTimeText.text =
             $"Train Departs In : {t.Minutes:00}:{t.Seconds:00}:{t.Milliseconds:000}";
-        Debug.Log($"전투중 : {isOnCombat}, 남은시간 : {t}");
+        //Debug.Log($"전투중 : {isOnCombat}, 남은시간 : {t}");
     }
 
     

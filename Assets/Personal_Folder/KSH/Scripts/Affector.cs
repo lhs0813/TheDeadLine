@@ -203,7 +203,8 @@ public class Affector : MonoBehaviour
                 UIManager uiManager = UIManager.Instance;
 
 
-            bool shouldHighlight = damageTarget.health <= damageTarget.maxHealth * 0.3f;
+            bool shouldHighlight = damageTarget.health <= 0; // 0616 이현수 0.3 곱 왜한지 몰라서 수정 체력 0이하일 때 킬 효과
+            
             if (uiManager != null)
             {
                 Hitmarker hitmarker = uiManager.Hitmarker;

@@ -94,7 +94,7 @@ public class EnemyPoolManager : MonoBehaviour
     private void InitializeEnemyPoolsObjects()
     {
         // 1) Normal 타입 풀 채우기
-        int normalWarmCount = MapGenConstants.MaxNormalCreatureCountLimitOnStage / 2;
+        int normalWarmCount = MapGenConstants.MaxNormalCreatureCountLimitOnStage;
 
         var normalPool = enemyPools[EnemyType.Normal];
         for (int i = 0; i < normalWarmCount; i++)
@@ -106,7 +106,7 @@ public class EnemyPoolManager : MonoBehaviour
         }
 
         // 2) Big 타입 풀 채우기
-        int bigWarmCount = MapGenConstants.MaxBigCreatureCountLimitOnStage / 2;
+        int bigWarmCount = MapGenConstants.MaxBigCreatureCountLimitOnStage;
         var bigPool = enemyPools[EnemyType.Big];
         for (int i = 0; i < bigWarmCount; i++)
         {
@@ -115,7 +115,7 @@ public class EnemyPoolManager : MonoBehaviour
         }
 
         // 3) Bomb 타입 풀 채우기
-        int bombWarmCount = MapGenConstants.MaxBombCreatureCountLimitOnStage / 2;
+        int bombWarmCount = MapGenConstants.MaxBombCreatureCountLimitOnStage;
         var bombPool = enemyPools[EnemyType.Bomb];
         for (int i = 0; i < bombWarmCount; i++)
         {
@@ -185,7 +185,7 @@ public class EnemyPoolManager : MonoBehaviour
 
     #region Common Logics
     //0611 김현우 변경 : Spawn 시 Transform의 자식으로 설정. 렌더링 초기화 위함.
-    public GameObject Spawn(EnemyType type, Transform spawnerTransform, bool isPrespawn)
+    public GameObject Spawn(EnemyType type, Vector3 pos, Quaternion rot, bool isPrespawn)
     {
         if (currentCounts[type] >= maxCounts[type])
             return null;
@@ -199,7 +199,7 @@ public class EnemyPoolManager : MonoBehaviour
         }
 
         //위치 설정 후 SetActive.True
-        obj.transform.SetPositionAndRotation(spawnerTransform.position, Quaternion.identity);
+        obj.transform.SetPositionAndRotation(pos, rot);
         //obj.transform.SetParent(spawnerTransform);
         obj.SetActive(true);
 

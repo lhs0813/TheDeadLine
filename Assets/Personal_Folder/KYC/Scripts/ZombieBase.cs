@@ -10,7 +10,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     private int _attackIndex;
     private int _deathIndex;
     public Animator Animator => _anim;
-
+    public Transform Player { get; private set; }
     public bool isPreSpawn = false;
 
     [Header("Zombie Stats")]
@@ -46,11 +46,17 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     Damageable damageable;
     Vector3 scaleOrigin;
 
+    //------0616 김현우 수정 : identifier에 어그로 변수 추가.
+    EnemyIdentifier identifier;
+
     //0612 이현수 수정 자식 데미저블 그룹 가져오기
     DamageableGroup[] damageableGroups;
 
     protected virtual void Awake()
     {
+        GameObject playerObj = GameObject.FindWithTag("Player");
+        if (playerObj != null)
+            Player = playerObj.transform;
         //0612 이현수 수정 자식 데미저블 그룹 가져오기
         damageableGroups = GetComponentsInChildren<DamageableGroup>();
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -62,19 +68,9 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         {
             agent.speed = moveSpeed;
         }
-        _anim = GetComponent<Animator>();
-
-        _walkIndex = Random.Range(0, 3);
-        _runIndex = Random.Range(0, 3);
-        _attackIndex = Random.Range(0, 3);
-        _deathIndex = Random.Range(0, 2);
-
-        _anim.SetFloat("walkIndex", _walkIndex);
-        _anim.SetFloat("runIndex", _runIndex);
-        _anim.SetFloat("attackIndex", _attackIndex);
-        _anim.SetFloat("deathIndex", _deathIndex);
 
         damageable = GetComponentInChildren<Damageable>();
+        identifier = GetComponentInParent<EnemyIdentifier>();
         scaleOrigin = transform.localScale;
     }
 
@@ -107,8 +103,19 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
     private void InitializeZombieState() // 0609 이현수 수정, 콜리더 활성화 및 래그돌 Standing
     {
+        _anim = GetComponent<Animator>();
 
-        EnemyIdentifier identifier = GetComponent<EnemyIdentifier>();
+        _walkIndex = Random.Range(0, 4);
+        _runIndex = Random.Range(0, 3);
+        _attackIndex = Random.Range(0, 3);
+        _deathIndex = Random.Range(0, 2);
+
+        _anim.SetFloat("walkIndex", _walkIndex);
+        _anim.SetFloat("runIndex", _runIndex);
+        _anim.SetFloat("attackIndex", _attackIndex);
+        _anim.SetFloat("deathIndex", _deathIndex);
+
+
         if (identifier != null)
             isPreSpawn = identifier.isPrespawn;
         else
@@ -119,8 +126,9 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         Kinematic_Controll(true);
 
         health = maxHealth;
-        SetState(new PatrolState());
         agent.enabled = true;
+        SetState(new PatrolState());
+
         transform.parent.GetComponentInChildren<Damageable>(true).ResetHealth(this);
         _anim.speed = 1;
         transform.localScale = scaleOrigin;
@@ -145,6 +153,12 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         {
             Die();
         }
+    }
+
+    //0616 김현우 수정 : 추적시작시 패턴 추가.
+    public void SetNotBeDespawned() //추적을 시작한 적은 죽을때까지 강제회수되지 않음.
+    {
+        identifier.wasTrackingPlayer = true;
     }
 
     protected virtual void Die()
@@ -209,8 +223,17 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
             var damageable = playerObj.GetComponent<Damageable>();
             if (damageable != null)
             {
-                float baseDamage = 10f; // 좀비의 기본 공격력
-                damageable.Damage(baseDamage, this.gameObject,false);
+                float evasionChance = SkillEffectHandler.Instance.evasionChance;
+                float roll = Random.value; // 0.0f ~ 1.0f 사이 랜덤값
+
+                if (roll < evasionChance)
+                {
+                    Debug.Log("⚡ 회피 성공! 데미지를 받지 않음");
+                    return; // 회피 성공 시 데미지 무시
+                }
+
+                float baseDamage = 10f * SkillEffectHandler.Instance.damageReduction; // 데미지 감소 적용
+                damageable.Damage(baseDamage, this.gameObject, false);
             }
             else
             {

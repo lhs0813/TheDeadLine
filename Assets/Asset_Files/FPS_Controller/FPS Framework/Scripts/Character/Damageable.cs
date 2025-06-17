@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 namespace Akila.FPSFramework
 {
     [AddComponentMenu("Akila/FPS Framework/Health System/Damageable")]
     public class Damageable : MonoBehaviour, IDamageable
     {
-        
+        [Header("Skills Settings")]
+        private bool hasUsedInvincibilityInThisStation = false;
+        private bool isInvincible = false;
+        private float invincibilityEndTime = 0f;
 
         public HealthType type = HealthType.Other;
+
         public float health = 100;
+        public float playerMaxHealth;
+
         public float destroyDelay;
         [Range(0, 1)] public float damageCameraShake = 0.3f;
 
@@ -76,6 +83,9 @@ namespace Akila.FPSFramework
             if (type == HealthType.Player)
             {
                 if (Actor && Actor.characterManager != null) DeathCamera.Instance?.Disable();
+                playerMaxHealth = health; // 플레이어의 최대 체력을 100 으로 초기화, 만약 기본 체력이 50이면 최대체력도 50일거임; - 이현수;
+                
+                
 
                 groups = GetComponentsInChildren<IDamageableGroup>();
 
@@ -121,6 +131,20 @@ namespace Akila.FPSFramework
 
                 previousHealth = health;
             }
+            if (isInvincible && Time.time >= invincibilityEndTime)
+            {
+                isInvincible = false;
+                Debug.Log("⏱️ 무적 종료됨");
+            }
+
+            /*if (SkillEffectHandler.Instance.최대체력 버튼 == true){
+                if (playerMaxHealth == 200)
+                    return;
+                playerMaxHealth = 200;
+                Player_Manager.PlayerMaxHpChange?.Invoke(playerMaxHealth);
+                Player_Manager.PlayerHpChange?.Invoke(health);
+            }*/
+
         }
 
         private void UpdateSystem()
@@ -170,6 +194,14 @@ namespace Akila.FPSFramework
             UIManager.Instance?.HealthDisplay?.UpdateCard(health, Actor.actorName, true);
         }
 
+
+        private IEnumerator DelayedLoad() // 사망시 메인메뉴 씬으로 돌아가는 시스템 - 이현수
+        {
+            yield return new WaitForSeconds(3f); // 3초 대기
+            Cursor.lockState = CursorLockMode.None;  // 마우스 잠금 해제
+            Cursor.visible = true;                   // 마우스 커서 보이게
+            SceneManager.LoadScene("Main Menu");
+        }
         private void Die()
         {
             //---------0607 김현우 수정 : EnemyIdentifier 대응.
@@ -180,6 +212,8 @@ namespace Akila.FPSFramework
             {
                 if (Actor.respawnable) Actor.deaths++;
                 if (damageSource) DeathCamera.Instance?.Enable(gameObject, damageSource);
+
+                StartCoroutine(DelayedLoad());
             }
 
             if (ragdoll) ragdoll.Enable(damageDirection);
@@ -194,11 +228,11 @@ namespace Akila.FPSFramework
             }
             else
             {
-                // 풀용 오브젝트가 아니면 원래대로 Destroy
+                /*// 풀용 오브젝트가 아니면 원래대로 Destroy
                 if (destoryOnDeath && !destroyRoot)
                     Destroy(gameObject, destroyDelay);
                 else if (destoryOnDeath && destroyRoot)
-                    Destroy(transform.parent.gameObject, destroyDelay);
+                    Destroy(transform.parent.gameObject, destroyDelay);*/
             }
 
             died = true;
@@ -222,12 +256,29 @@ namespace Akila.FPSFramework
         {
             if (type == HealthType.Player && isPlayer)
             {
-                float FakeHp = health;
-                FakeHp -= amount;
-                Player_Manager.PlayerHpChange?.Invoke(FakeHp);
-                
+                float predictedHp = health - amount;
+
+                // 스킬이 적용 중이고, 체력이 20 이하로 떨어지며, 아직 해당 역에서 한 번도 발동되지 않은 경우
+                if (SkillEffectHandler.Instance.isInvinciblePerStation &&
+                    predictedHp <= 19 && !hasUsedInvincibilityInThisStation)
+                {
+                    Debug.Log("🛡️ 무적 발동됨");
+                    isInvincible = true;
+                    invincibilityEndTime = Time.time + 3f;
+                    hasUsedInvincibilityInThisStation = true;
+                    return; // 데미지 무시
+                }
+
+                // 무적 상태면 데미지 무시
+                if (isInvincible)
+                {
+                    Debug.Log("💥 데미지 무시됨 (무적 중)");
+                    return;
+                }
+
+                Player_Manager.PlayerHpChange?.Invoke(predictedHp); // 가상 체력 UI 처리
             }
-            
+
             health -= amount;
 
 
@@ -240,12 +291,7 @@ namespace Akila.FPSFramework
             if(type == HealthType.NPC)
                 _killFeed.DamageShow(amount, critical);
 
-            
-
-
-
-
-
+        
 
             /*KillTag newTag = Instantiate(Tag, tagsHolder);
             newTag.message.color = headshot && newTag.updateImageColors ? headshotColor : newTag.message.color;
@@ -255,6 +301,10 @@ namespace Akila.FPSFramework
 
 
             this.damageSource = damageSource;
+        }
+        public void ResetInvincibilityFlagPerStation()
+        {
+            hasUsedInvincibilityInThisStation = false;
         }
 
         public bool isActive { get; set; } = true;
@@ -268,4 +318,5 @@ namespace Akila.FPSFramework
         NPC = 1,
         Other = 2
     }
+
 }
