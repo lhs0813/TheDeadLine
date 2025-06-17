@@ -92,8 +92,6 @@ public class GamePlayManager : MonoBehaviour
         isWaiting = false;
 
         trainController.MoveToStageRail();
-
-        //playerHordeTrigger.ActivatePlayerHordeTrigger(currentMapIndex);
     }
 
     /// <summary>
@@ -108,6 +106,7 @@ public class GamePlayManager : MonoBehaviour
 
         bgmController.PlayRandomCombatMusic();
 
+        Debug.Log("기차가 역에 도착");
         OnStationArriveAction?.Invoke();
     }
 
@@ -117,9 +116,11 @@ public class GamePlayManager : MonoBehaviour
     public void GoCombatEndState()
     {
         isCombatting = false;
+
         trainController.TrainDepart();
 
         bgmController.StopCombatMusic();
+
 
         OnStationDepartAction?.Invoke();
     }
@@ -138,7 +139,7 @@ public class GamePlayManager : MonoBehaviour
             GoCombatEndState();
         }
 
-        gamePlayManagementUI.UpdateGamePlayUI(isCombatting, Timer, newCombatEndTime);
+        gamePlayManagementUI.UpdateRemainingTimeUI(isCombatting, Timer, newCombatEndTime);
     }
 }
 
