@@ -21,9 +21,9 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     public float attackRange = 2.5f;
 
     [Header("Zombie Detection Settings")]
-    public float visibleDistance = 15f; // 시야 거리
-    public float fieldOfViewAngle = 120f; // 시야각
-    public float minAttackStartDistance = 3f; // 등 뒤여도 접근하면 추격
+    public float visibleDistance = 45f; // 시야 거리
+    public float fieldOfViewAngle = 180f; // 시야각
+    public float minAttackStartDistance = 20f; // 등 뒤여도 접근하면 추격
 
     [Header("Zombie Collider")]
     public CapsuleCollider collider;
