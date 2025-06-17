@@ -459,7 +459,7 @@ namespace Akila.FPSFramework
             {
                 if (inventory != null && inventory.items.Count > 0)
                 {
-                    inventory.Switch(inventory.items.Count - 1);
+                    inventory.Switch(inventory.items.Count + 1); // 아이템 스위칭 역방향 -에서 + 로 변경 0617 이현수
                 }
                 else
                 {

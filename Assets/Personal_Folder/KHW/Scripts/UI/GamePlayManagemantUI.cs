@@ -1,16 +1,23 @@
-using System;
+﻿using System;
 using TMPro;
 using UnityEngine;
 
 public class GamePlayManagementUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI remainingTimeText;
+    Animator _anim;
+
+    private void Start()
+    {
+        _anim = GetComponent<Animator>();
+    }
 
     public void UpdateGamePlayUI(bool isOnCombat, float currentTime, float nextTime)
     {
 
         if (!isOnCombat)
         {
+            _anim.SetTrigger("Off");
             remainingTimeText.text = "";
             return;
         }
@@ -23,7 +30,7 @@ public class GamePlayManagementUI : MonoBehaviour
         // t.Minutes, t.Seconds, t.Milliseconds
 
         remainingTimeText.text =
-            $"Train Departs In : {t.Minutes:00}:{t.Seconds:00}:{t.Milliseconds:000}";
+            $"{t.Minutes:00}:{t.Seconds:00}:{t.Milliseconds:000}";
         //Debug.Log($"전투중 : {isOnCombat}, 남은시간 : {t}");
     }
 
