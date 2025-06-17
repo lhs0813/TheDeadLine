@@ -9,15 +9,31 @@ public class GamePlayManagementUI : MonoBehaviour
 
     private void Start()
     {
+        GamePlayManager.instance.OnStationArriveAction += ShowCombatUI;
+        GamePlayManager.instance.OnStationDepartAction += ShowWaitingUI;
         _anim = GetComponent<Animator>();
     }
 
-    public void UpdateGamePlayUI(bool isOnCombat, float currentTime, float nextTime)
+    private void ShowWaitingUI()
+    {
+        //기차 내부 대기를 시작할 때 보여줄 UI 코드.
+        _anim.SetTrigger("Off");
+        //_anim.ResetTrigger("Off");
+    }
+
+    private void ShowCombatUI()
+    {
+            Debug.Log($"출발 남은시간 UI 표출. {gameObject.name}");
+            _anim.SetTrigger("On");
+            //_anim.ResetTrigger("On");            
+    }
+
+    public void UpdateRemainingTimeUI(bool isOnCombat, float currentTime, float nextTime)
     {
 
         if (!isOnCombat)
         {
-            _anim.SetTrigger("Off");
+
             remainingTimeText.text = "";
             return;
         }

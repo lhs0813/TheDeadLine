@@ -117,7 +117,10 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
 
         if (identifier != null)
+        {
             isPreSpawn = identifier.isPrespawn;
+            identifier.wasTrackingPlayer = false;
+        }
         else
             isPreSpawn = false;
 

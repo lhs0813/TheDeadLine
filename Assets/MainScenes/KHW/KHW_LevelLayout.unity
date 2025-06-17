@@ -6782,6 +6782,44 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 232687785}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &236142666 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9153641019142867385, guid: 31057ebea554a6a498bb5eb2eab107c8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1147629493}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &236142671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236142666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 2097152
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.2
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
 --- !u!1001 &237123930
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35445,6 +35483,31 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -18.42775
       objectReference: {fileID: 0}
+    - target: {fileID: 1381267104821544319, guid: 31057ebea554a6a498bb5eb2eab107c8,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381267104821544319, guid: 31057ebea554a6a498bb5eb2eab107c8,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381267104821544319, guid: 31057ebea554a6a498bb5eb2eab107c8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2038359292498577622, guid: 31057ebea554a6a498bb5eb2eab107c8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.5456848
+      objectReference: {fileID: 0}
+    - target: {fileID: 2076985581829696884, guid: 31057ebea554a6a498bb5eb2eab107c8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.557
+      objectReference: {fileID: 0}
     - target: {fileID: 2476681685066703822, guid: 31057ebea554a6a498bb5eb2eab107c8,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -35514,6 +35577,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontSize
       value: 47.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 3413103802239386369, guid: 31057ebea554a6a498bb5eb2eab107c8,
+        type: 3}
+      propertyPath: trainArriveDelay
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3632952836669292125, guid: 31057ebea554a6a498bb5eb2eab107c8,
         type: 3}
@@ -35850,6 +35918,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SubwayTrain
       objectReference: {fileID: 0}
+    - target: {fileID: 9153641019142867385, guid: 31057ebea554a6a498bb5eb2eab107c8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 21
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7404973133264287409, guid: 31057ebea554a6a498bb5eb2eab107c8, type: 3}
@@ -35857,7 +35930,11 @@ PrefabInstance:
     - {fileID: 1225898312587717512, guid: 31057ebea554a6a498bb5eb2eab107c8, type: 3}
     - {fileID: 6649958780677414247, guid: 31057ebea554a6a498bb5eb2eab107c8, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9153641019142867385, guid: 31057ebea554a6a498bb5eb2eab107c8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 236142671}
   m_SourcePrefab: {fileID: 100100000, guid: 31057ebea554a6a498bb5eb2eab107c8, type: 3}
 --- !u!1001 &1152081042
 PrefabInstance:
@@ -39914,6 +39991,8 @@ MonoBehaviour:
   damageReduction: 1
   evasionChance: 0
   isInvinciblePerStation: 0
+  absorbHeatlh: 0
+  maxHealthIncrease: 0
 --- !u!4 &1299964036
 Transform:
   m_ObjectHideFlags: 0
@@ -64584,7 +64663,7 @@ PrefabInstance:
     - target: {fileID: 1235015900650259726, guid: ea72811a6aedcbb49a26143d920154e7,
         type: 3}
       propertyPath: combatDuration
-      value: 180
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1235015900650259726, guid: ea72811a6aedcbb49a26143d920154e7,
         type: 3}
@@ -64610,6 +64689,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1796323701596239739, guid: ea72811a6aedcbb49a26143d920154e7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7727236882916227382, guid: ea72811a6aedcbb49a26143d920154e7,
         type: 3}
@@ -64661,7 +64745,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1796323701596239739, guid: ea72811a6aedcbb49a26143d920154e7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

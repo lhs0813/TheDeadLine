@@ -32,7 +32,17 @@ public class PreSpawnHordeSpawnerController : MonoBehaviour
     {
         if (isAlreadyTriggered) //생성되고, 플레이어가 같은 방까지 들어온 적이 있음.
         {
-            return; //적들이 사라지지 않아도 됨. 반환
+            if (!newTile.IsAdjacentTo(tileSpawning) && newTile != tileSpawning)
+            {
+                //플레이어가 들어온적이 있는데, 플레이어가 두 칸 떨어진 공간까지 이동.
+                DespawnPreSpawnHorde(); //생성된 적들을 제거.
+                isBeingPreSpawned = false; //다시 생성될 수 있음.
+            }
+            else
+            {
+                return; //적들이 사라지지 않아도 됨. 반환           
+            }
+
         }
         else
         {
