@@ -746,7 +746,7 @@ namespace Akila.FPSFramework
                     ""name"": ""Drop"",
                     ""type"": ""Button"",
                     ""id"": ""3c4675d2-dd2d-4568-ba3a-ba9368875b8c"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -818,7 +818,7 @@ namespace Akila.FPSFramework
                 {
                     ""name"": """",
                     ""id"": ""ab03ec2a-7d18-4109-b178-66fa6ebbea9b"",
-                    ""path"": ""<Keyboard>/b"",
+                    ""path"": ""<Keyboard>/g"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -922,7 +922,7 @@ namespace Akila.FPSFramework
                     ""name"": ""Drop"",
                     ""type"": ""Button"",
                     ""id"": ""976afe40-1735-48f9-9609-5d4314a32d72"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -954,7 +954,7 @@ namespace Akila.FPSFramework
                 {
                     ""name"": """",
                     ""id"": ""b9afcb1e-c41c-4fa9-ac7c-d3e194d7b1f4"",
-                    ""path"": ""<Keyboard>/b"",
+                    ""path"": ""<Keyboard>/g"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",

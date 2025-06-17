@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using DunGen;
 using UnityEngine;
@@ -85,9 +85,6 @@ public class GamePlayManager : MonoBehaviour
         //다음맵 로딩 시작
         currentMapIndex++;
         await MapGenerationManager.Instance.LoadMap(currentMapIndex);
-
-        //playerHordeTrigger.DeactivatePlayerHordeTrigger();
-
     }
 
     private void GoStageEnteringState()
@@ -127,7 +124,7 @@ public class GamePlayManager : MonoBehaviour
         OnStationDepartAction?.Invoke();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Timer += Time.deltaTime;
 
@@ -143,7 +140,7 @@ public class GamePlayManager : MonoBehaviour
 
         gamePlayManagementUI.UpdateGamePlayUI(isCombatting, Timer, newCombatEndTime);
     }
-
-
-
 }
+
+
+
