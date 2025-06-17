@@ -137,13 +137,13 @@ namespace Akila.FPSFramework
                 Debug.Log("⏱️ 무적 종료됨");
             }
 
-            /*if (SkillEffectHandler.Instance.최대체력 버튼 == true){
+            if (SkillEffectHandler.Instance.maxHealthIncrease == true){
                 if (playerMaxHealth == 200)
                     return;
                 playerMaxHealth = 200;
                 Player_Manager.PlayerMaxHpChange?.Invoke(playerMaxHealth);
                 Player_Manager.PlayerHpChange?.Invoke(health);
-            }*/
+            }
 
         }
 
