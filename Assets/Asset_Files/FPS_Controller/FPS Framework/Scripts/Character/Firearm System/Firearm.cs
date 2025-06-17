@@ -1059,8 +1059,8 @@ namespace Akila.FPSFramework
 
                 bool critical = false;
 
-                if (damageMultiplier > 2)
-                    critical = true;
+                /*if (damageMultiplier > 2)
+                    critical = true;*/
 
 
 

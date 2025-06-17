@@ -18,7 +18,7 @@ namespace Akila.FPSFramework
         public HealthType type = HealthType.Other;
 
         public float health = 100;
-        public float playerMaxHealth;
+        public float playerMaxHealth { get; set; }
 
         public float destroyDelay;
         [Range(0, 1)] public float damageCameraShake = 0.3f;
@@ -137,7 +137,7 @@ namespace Akila.FPSFramework
                 Debug.Log("⏱️ 무적 종료됨");
             }
 
-            if (SkillEffectHandler.Instance.maxHealthIncrease == true){
+            if (SkillEffectHandler.Instance.maxHealthIncrease == true && (type == HealthType.Player)){
                 if (playerMaxHealth == 200)
                     return;
                 playerMaxHealth = 200;
@@ -272,7 +272,7 @@ namespace Akila.FPSFramework
                 // 무적 상태면 데미지 무시
                 if (isInvincible)
                 {
-                    Debug.Log("💥 데미지 무시됨 (무적 중)");
+                    Debug.Log("💥 데a미지 무시됨 (무적 중)");
                     return;
                 }
 

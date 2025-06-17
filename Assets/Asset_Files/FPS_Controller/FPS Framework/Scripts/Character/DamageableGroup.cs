@@ -56,7 +56,7 @@ namespace Akila.FPSFramework
                 multiplier *= SkillEffectHandler.Instance.headshotDamageMultiplier;
             }
 
-            // 🎯 크리티컬 확률 적용 (모든 부위에 적용)
+            // 🎯 크리티컬 확률 적용 (모든 부위에 적용)a
             if (UnityEngine.Random.value <= SkillEffectHandler.Instance.criticalChance)
             {
                 multiplier *= SkillEffectHandler.Instance.criticalMultiplier;
@@ -70,7 +70,7 @@ namespace Akila.FPSFramework
                 if (player != null && player.TryGetComponent(out IDamageable playerDamageable))
                 {
                     float currentHp = playerDamageable.health;
-                    float extraMultiplier = 1f + (Mathf.Floor((100f - currentHp) / 10f) * 0.1f);
+                    float extraMultiplier = 1f + (Mathf.Floor((playerDamageable.playerMaxHealth - currentHp) / 10f) * 0.1f);
                     multiplier *= extraMultiplier;
                     Debug.Log($"🔥 Desperate Strike 적용됨! 현재 HP: {currentHp}, 배수: x{extraMultiplier}");
                 }
