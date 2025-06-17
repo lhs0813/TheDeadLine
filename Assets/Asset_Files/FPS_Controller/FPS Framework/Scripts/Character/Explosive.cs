@@ -65,7 +65,7 @@ namespace Akila.FPSFramework
 
         float IDamageable.health { get => health; set => health = value; }
         public GameObject damageSource { get; set; }
-
+        public float playerMaxHealth { get; set; }
         public bool isActive { get; set; } = true;
 
         public UnityEvent onDeath { get; }

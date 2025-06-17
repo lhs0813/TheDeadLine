@@ -13,6 +13,9 @@ namespace Akila.FPSFramework
 
         public float health { get; set; }
         public float maxHealth { get; set; }
+
+        public float playerMaxHealth { get; set; } // 플레이어 최대 체력        
+
         public void Damage(float amount, GameObject damageSource, bool critical = false);
 
         public  Vector3 damageDirection { get; set; }

@@ -193,8 +193,8 @@ public class Affector : MonoBehaviour
                 if (damageableGroup)
                     value*=damageableGroup.GetDamageMultipler();
 
-                if (damageableGroup.GetDamageMultipler() > 2)
-                    critical = true;
+                /*if (damageableGroup.GetDamageMultipler() > 2)
+                    critical = true; //  -> 대미지가 2배 이상 뜨면 빨간색이 뜨는 코드?*/
 
 
                 damageTarget.Damage(value, gameObject, critical);
