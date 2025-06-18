@@ -6,7 +6,7 @@ public class NormalZombie : ZombieBase
     protected override void Start()
     {
         health = 100f;
-        moveSpeed = 7f;
+        moveSpeed = 8f;
         agent.speed = moveSpeed;
         base.Start();
     }
