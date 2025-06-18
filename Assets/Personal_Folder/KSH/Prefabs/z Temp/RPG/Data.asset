@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ee099bf388b684a82d6b44291759ae, type: 3}
   m_Name: Data
   m_EditorClassIdentifier: 
-  replacement: {fileID: 6213586124208848989, guid: ff2646a8bb1150b4d8cdc96255ae2ee4,
+  replacement: {fileID: 6213586124208848989, guid: 40c393b321aabad42b4a8a44156854dc,
     type: 3}
   firearmHud: {fileID: 6802205737550449059, guid: 0336a53be1116fe48935ea7a38bfc26e,
     type: 3}
@@ -25,17 +25,17 @@ MonoBehaviour:
   hittableLayers:
     serializedVersion: 2
     m_Bits: 12087
-  projectile: {fileID: 6243325529813695707, guid: 94ff8fac4270e1042bf0c018730f8fe3,
+  projectile: {fileID: 6243325529813695707, guid: 036a76abb6b838549a90b486e72f8a6c,
     type: 3}
   casing: {fileID: 5982293670522764668, guid: 5bfe3002879691849b7a1340ac4b704a, type: 3}
   defaultDecal: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980,
     type: 3}
   decalDirection: 0
-  fireRate: 600
+  fireRate: 60
   muzzleVelocity: 600
   casingVelocity: 5
   impactForce: 15
-  damage: 45
+  damage: 24
   range: 300
   maxAimDeviation: 5
   sprayPattern: {fileID: 11400000, guid: 897a68f121d704e4f8fe89f542c34aab, type: 2}
@@ -54,8 +54,8 @@ MonoBehaviour:
   gamepadVibrationAmountLeft: 1
   gamepadVibrationDuration: 0.1
   ammoType: {fileID: 11400000, guid: 3b4fe24b6064a1945ae19dd8350925f6, type: 2}
-  magazineCapacity: 50
-  reserve: 50
+  magazineCapacity: 300
+  reserve: 300
   canAutomaticallyReload: 1
   reloadMethod: 0
   reloadTime: 1.925
@@ -63,12 +63,12 @@ MonoBehaviour:
   reloadStateName: Reload
   reloadTransitionTime: 0.3
   canCancelReloading: 0
-  cameraRecoil: 3
+  cameraRecoil: 50
   cameraShakeAmount: 0.1
   cameraShakeRoughness: 5
   cameraShakeStartTime: 0.1
   cameraShakeDuration: 0.1
-  horizontalRecoil: 2
+  horizontalRecoil: 10
   verticalRecoil: 0.2
   aimSpeed: 10
   aimFieldOfView: 50
@@ -76,7 +76,7 @@ MonoBehaviour:
   basePlayerSpeed: 1
   aimWalkPlayerSpeed: 0.5
   fireWalkPlayerSpeed: 0.4
-  fireSound: {fileID: 11400000, guid: 5848f126f74c3e44f8fd7175f5ae460d, type: 2}
+  fireSound: {fileID: 11400000, guid: fd60d6e9876f1314980f3cf05023da56, type: 2}
   fireTailSound: {fileID: 11400000, guid: 72df941812d0fa2489ab8d293fc08fc5, type: 2}
   reloadSound: {fileID: 11400000, guid: cd3d8a42beb20e64d90c2402498f37e3, type: 2}
   reloadEmptySound: {fileID: 11400000, guid: cd3d8a42beb20e64d90c2402498f37e3, type: 2}

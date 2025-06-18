@@ -216,6 +216,8 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         // 플레이어 오브젝트 확인
         GameObject playerObj = GameObject.FindWithTag("Player");
         if (playerObj == null) return;
+        if (isBlocked()) { Debug.Log("공격 막힘!"); return; }
+
 
         float distance = Vector3.Distance(transform.position, playerObj.transform.position);
         if (distance <= attackRange)
@@ -261,6 +263,23 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
                 {
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+    bool isBlocked() 
+    {
+        var from = transform.position + Vector3.up/2;
+        var to = FindAnyObjectByType<FirstPersonController>().transform.position + Vector3.up / 2;
+        var hits = Physics.RaycastAll(from, to - from, attackRange);
+
+        for (var i = 0; i < hits.Length; i++) 
+        {
+            var block = hits[i].transform.GetComponent<Blockable>();
+            if (block)
+            {
+                block.Block();
+                return true;
             }
         }
         return false;
