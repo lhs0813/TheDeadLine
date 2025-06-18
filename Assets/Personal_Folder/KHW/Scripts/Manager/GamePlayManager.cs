@@ -25,6 +25,7 @@ public class GamePlayManager : MonoBehaviour
     //Actions.
     public Action OnStationArriveAction;
     public Action OnStationDepartAction;
+    public Action<int> OnMapLoadFinishingAction; //맵 로딩 완료시 매니저에서 한번 더 호출.Arg는 mapIndex.
 
     private void Awake()
     {
@@ -46,13 +47,8 @@ public class GamePlayManager : MonoBehaviour
         runtimeDungeon.Generator.OnGenerationComplete += ChangeIsMapReady;
         newMapReady = false;
 
-        //선로에서 시작.
+        //선로에서 시작. 맵 로딩.
         await GoWaitingState();
-
-        //첫 맵 로딩.
-        //await MapGenerationManager.Instance.LoadMap(currentMapIndex);
-
-
     }
 
     private void ChangeIsMapReady(DungeonGenerator generator)
@@ -62,12 +58,12 @@ public class GamePlayManager : MonoBehaviour
         // 배열을 변수에 담지 않고 바로 순회
         foreach (var spawner in FindObjectsByType<GunSpawner>(FindObjectsSortMode.None))
             spawner.InitializeGunProp(currentMapIndex);
+
+        //맵 로딩 완료시 할 일 Invoke.
+        OnMapLoadFinishingAction?.Invoke(currentMapIndex);
     }
 
-
-
-
-
+    /// 선로구역으로 전송하기.
     public async Task GoWaitingState()
     {
         //상태변화 시작
