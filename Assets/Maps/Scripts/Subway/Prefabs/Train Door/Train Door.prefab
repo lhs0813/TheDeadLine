@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4439005655735790878}
   - component: {fileID: 7332134315960468849}
   - component: {fileID: 5590302348012279532}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Train_Door_01_Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 3913638496019038022}
   - component: {fileID: 4252988215487413788}
   - component: {fileID: 2063046644018322723}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Train_Door_01_Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,8 @@ GameObject:
   - component: {fileID: 5213318035050654233}
   - component: {fileID: 1449452203525166776}
   - component: {fileID: 9022130882327750049}
-  m_Layer: 0
+  - component: {fileID: 2332418935671947108}
+  m_Layer: 21
   m_Name: Train_Door_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,8 +324,24 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.78400946, y: 2.1807895, z: 0.045631528}
+  m_Size: {x: 0.78400993, y: 2.1807895, z: 0.04563141}
   m_Center: {x: -5.495573, y: 1.8283942, z: -1.9350529}
+--- !u!208 &2332418935671947108
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577516864149903300}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.39200002, y: 1.09, z: 0.023000002}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -5.4960003, y: 1.8280001, z: -1.9350001}
+  m_TimeToStationary: 0.5
 --- !u!1 &1687480183521246807
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8101063152800155546}
   - component: {fileID: 6760779284739350910}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Train Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +410,8 @@ GameObject:
   - component: {fileID: 1738973577318101113}
   - component: {fileID: 6522757686613760363}
   - component: {fileID: 1927373931225482614}
-  m_Layer: 0
+  - component: {fileID: 5628128092534353395}
+  m_Layer: 21
   m_Name: Train_Door_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,3 +508,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.78400946, y: 2.1807895, z: 0.045631528}
   m_Center: {x: -5.495573, y: 1.8283942, z: -1.9350529}
+--- !u!208 &5628128092534353395
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7755145835330249454}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.39200002, y: 1.09, z: 0.023000002}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -5.4960003, y: 1.8280001, z: -1.9350001}
+  m_TimeToStationary: 0.5

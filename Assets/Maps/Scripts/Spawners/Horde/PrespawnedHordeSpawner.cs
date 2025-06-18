@@ -12,18 +12,15 @@ public class PrespawnedHordeSpawner : MonoBehaviour
 
     private readonly List<GameObject> preSpawnedEnemies = new List<GameObject>();
 
-    /// <summary>
-    /// 동시 스폰: 미리 지점을 뽑아두고, 각 지점에 한번에 적 생성
-    /// </summary>
-    public void TrySpawn(int mapIndex)
-    {
-        Debug.Log("스폰 시도");
+    private List<Vector3> spawnPoints;
 
+    public void InitializeSpawnPoints()
+    {
         int spawnCount = MapGenCalculator
-            .GetCreatureSpawnCountRangePerSpawner(mapIndex)
+            .GetCreatureSpawnCountRangePerSpawner(GamePlayManager.instance.currentMapIndex)
             .GetRandom(new DunGen.RandomStream());
 
-        var spawnPoints = GetNonOverlappingNavMeshPoints(
+        spawnPoints = GetNonOverlappingNavMeshPoints(
             center: transform.position,
             count: spawnCount,
             radius: spawnRadius,
@@ -35,19 +32,25 @@ public class PrespawnedHordeSpawner : MonoBehaviour
             Debug.LogError("[HordeSpawner] 유효 스폰 포인트를 하나도 찾지 못했습니다!");
             return;
         }
-
-    foreach (var point in spawnPoints)
-    {
-        EnemyType type = HordeSpawnBuilder.RollEnemyType(mapIndex);
-
-        //Transform 설정
-        float randomY = Random.Range(0f, 360f);
-        GameObject enemy = EnemyPoolManager.Instance.Spawn(type, point, Quaternion.Euler(0f, randomY, 0f), true);
-        if (enemy != null)
-        {
-            preSpawnedEnemies.Add(enemy);
-        }
     }
+
+    /// <summary>
+    /// 동시 스폰: 미리 지점을 뽑아두고, 각 지점에 한번에 적 생성
+    /// </summary>
+    public void TrySpawn(int mapIndex)
+    {
+        foreach (var point in spawnPoints)
+        {
+            EnemyType type = HordeSpawnBuilder.RollEnemyType(mapIndex);
+
+            //Transform 설정
+            float randomY = Random.Range(0f, 360f);
+            GameObject enemy = EnemyPoolManager.Instance.Spawn(type, point, Quaternion.Euler(0f, randomY, 0f), true);
+            if (enemy != null)
+            {
+                preSpawnedEnemies.Add(enemy);
+            }
+        }
 
     }
 
