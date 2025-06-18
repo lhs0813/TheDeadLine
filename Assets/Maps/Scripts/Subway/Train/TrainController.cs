@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using Akila.FPSFramework;
+using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.TextCore.Text;
 
 public class TrainController : MonoBehaviour
 {
     [SerializeField] private float trainDepartDelay = 3f; //문닫고, 실제 출발하기까지 걸리는 시간.
     [SerializeField] private float trainArriveDelay = 1f; //열차가 플랫폼에 도착하고, 문이 열리기 시작하는 시간.
+    [SerializeField] private float doorConnectDelay = 1.5f;
     [SerializeField] private float currentSpeed; //현재속도
     [SerializeField] private float trainMaxSpeed; //최고속도
     [SerializeField] private float trainMinSpeed; //최저속도
@@ -17,14 +20,12 @@ public class TrainController : MonoBehaviour
     [SerializeField] private Collider trainInteriorZone; // 플레이어가 안에 있는지 확인할 트리거 콜라이더
     [SerializeField] private Transform trainTransform;
     TrainDoorController trainDoorController;
-    PlayerHordeTrigger playerHordeTrigger;
 
     TrainSoundController trainSoundController;
 
     void Start()
     {
         trainDoorController = GetComponentInChildren<TrainDoorController>();
-        playerHordeTrigger = FindAnyObjectByType<PlayerHordeTrigger>();
         trainSoundController = GetComponentInChildren<TrainSoundController>();
     }
 
@@ -44,6 +45,7 @@ public class TrainController : MonoBehaviour
 
     IEnumerator TrainDepartCoroutine()
     {
+        //TODO : 플레이어 탑승. 적이 아무도 없어야 출발. 
         trainDoorController.CloseDoor();
         trainSoundController.PlayDoorClose();
 
@@ -52,6 +54,8 @@ public class TrainController : MonoBehaviour
         trainSoundController.PlayTrainRunning();
         CheckAndAttachPlayer();
         isMoving = true;
+
+        GetComponent<NavMeshSurface>().RemoveData();
     }
 
     IEnumerator TrainArriveCoroutine()
@@ -65,6 +69,9 @@ public class TrainController : MonoBehaviour
 
         trainDoorController.OpenDoor();
         trainSoundController.PlayDoorOpen();
+
+        yield return new WaitForSeconds(doorConnectDelay);
+        GetComponent<NavMeshSurface>().BuildNavMesh();
 
     }
 
@@ -114,19 +121,67 @@ public class TrainController : MonoBehaviour
         transform.position = waitingRailStartTransform.position;
     }
 
+    [SerializeField] private float arriveDuration = 3f;    // 감속 후 멈출까지 걸릴 시간
+    private Vector3 arriveTarget;
+
     /// <summary>
     /// 맵 로딩 완료 And 운행 시간 종료.
+    /// 즉시 이동 대신 부드러운 감속 이동 시작.
     /// </summary>
     public void MoveToStageRail()
     {
+        //플레이어를 이동.
         Transform stageRailStartTransform = FindAnyObjectByType<StageRailStartPoint>().transform;
 
         transform.position = stageRailStartTransform.position;
 
-        isStopping = true;
+        //목표 위치 저장
+        arriveTarget = FindAnyObjectByType<TrainStopPoint>().transform.position;
 
+        //감속 사운드 (도착 사운드)
         trainSoundController.PlayTrainArriving();
+
+        //기존 Update 속도 제어 사용 중지
+        isMoving = false;
+        isStopping = false;
+
+        //부드러운 감속+도착 코루틴
+        StartCoroutine(ArriveAtTarget(arriveTarget, arriveDuration));
     }
+
+    private IEnumerator ArriveAtTarget(Vector3 target, float duration)
+    {
+        Vector3 startPos = transform.position;
+        float elapsed = 0f;
+
+        // 초기 속도를 현재 실제 속도로 가져오거나, 최고속도로 세팅
+        float startSpeed = currentSpeed = trainMaxSpeed;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+
+            // ease-out 감속: 1 - (1-t)^2
+            float ease = 1f - Mathf.Pow(1f - t, 2f);
+
+            // 위치 보간
+            transform.position = Vector3.Lerp(startPos, target, ease);
+
+            // 속도 피드백 (원하면 사운드 볼륨/피치 등에 쓰세요)
+            currentSpeed = Mathf.Lerp(startSpeed, 0f, ease);
+
+            yield return null;
+        }
+
+        // 정확히 도착
+        transform.position = target;
+        currentSpeed = 0f;
+
+        // 그 다음에 도착 처리 (문 열기, NavMesh 빌드 등)
+        GamePlayManager.instance.GoCombatState();
+    }
+
 
     public bool CheckAndAttachPlayer()
     {

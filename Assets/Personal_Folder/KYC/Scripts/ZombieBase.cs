@@ -1,6 +1,7 @@
 ﻿using Akila.FPSFramework;
 using FIMSpace.FProceduralAnimation;
 using UnityEngine;
+using UnityEngine.AI;
 
 public abstract class ZombieBase : MonoBehaviour, IZombie
 {
@@ -135,8 +136,8 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         transform.parent.GetComponentInChildren<Damageable>(true).ResetHealth(this);
         _anim.speed = 1;
         transform.localScale = scaleOrigin;
-        var ragdolDummy = transform.parent.GetComponentInChildren <FIMSpace.FProceduralAnimation.RagdollAnimatorDummyReference >(true);
-        if (ragdolDummy)ragdolDummy.gameObject.active = true;
+        var ragdolDummy = transform.parent.GetComponentInChildren<FIMSpace.FProceduralAnimation.RagdollAnimatorDummyReference>(true);
+        if (ragdolDummy) ragdolDummy.gameObject.active = true;
     }
 
     protected virtual void Update()
@@ -147,6 +148,23 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
             return;
         }
         currentState?.Update();
+
+        if (agent.isOnOffMeshLink)
+        {
+            OffMeshLinkData data = agent.currentOffMeshLinkData;
+
+            //calculate the final point of the link
+            Vector3 endPos = data.endPos + Vector3.up * agent.baseOffset;
+
+            //Move the agent to the end point
+            agent.transform.position = Vector3.MoveTowards(agent.transform.position, endPos, agent.speed * Time.deltaTime);
+
+            //when the agent reach the end point you should tell it, and the agent will "exit" the link and work normally after that
+            if (agent.transform.position == endPos)
+            {
+                agent.CompleteOffMeshLink();
+            }
+        }
     }
 
     public virtual void TakeDamage(float damage)
@@ -265,4 +283,6 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         }
         return false;
     }
+    
+
 }

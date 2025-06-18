@@ -1,9 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using DunGen;
+using DunGen.Demo;
 using DunGen.Graph;
 using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 /// <summary>
 /// 맵 생성에 필요한 정보를 담는 Container
@@ -33,7 +35,7 @@ public class MapGenerationManager : MonoBehaviour
 
     RuntimeDungeon runtimeDungeon;
 
-    public Action<int> OnMapLoadedAction;
+    public Action OnNavMeshBakeAction;
 
     void Awake()
     {
@@ -44,21 +46,13 @@ public class MapGenerationManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        runtimeDungeon = GetComponent<RuntimeDungeon>();
+        //DontDestroyOnLoad(gameObject);
     }
 
     void Start()
     {
-        runtimeDungeon = GetComponent<RuntimeDungeon>();
         runtimeDungeon.Generator.OnGenerationComplete += BakeNavMeshOnMapLoaded;
-
-    }
-
-
-
-    void OnDestroy()
-    {
-        
     }
 
     /// <summary>
@@ -68,27 +62,43 @@ public class MapGenerationManager : MonoBehaviour
     public async Task LoadMap(int mapIndex)
     {
         Debug.Log($"Map Generator : {mapIndex}번 맵을 생성.");
-        //MapContext 로딩.
-        currentMapContext = await MapContextBuilder.BuildAsync(mapIndex);
 
         //Dungeon Flow 설정.
-        runtimeDungeon.Generator.DungeonFlow = currentMapContext.DungeonFlow;
-        //Dungeon Flow - Global Props 설정.
-        runtimeDungeon.Generator.DungeonFlow.GlobalProps.Add(new DungeonFlow.GlobalPropSettings(MapGenConstants.GunPropIndex, currentMapContext.GunPropCountRange));
-        runtimeDungeon.Generator.DungeonFlow.GlobalProps.Add(new DungeonFlow.GlobalPropSettings(MapGenConstants.SkillPointItemIndex, currentMapContext.SkillPointItemCountRange));
-        //runtimeDungeon.Generator.DungeonFlow.GlobalProps.Add(new DungeonFlow.GlobalPropSettings(MapGenConstants.NormalSpawnerPropIndex), );
+        runtimeDungeon.Generator.DungeonFlow = await GetDungeonFlowAsync(mapIndex);
 
         //맵 생성.
         runtimeDungeon.Generate();
+    }
 
+    private static async Task<DungeonFlow> GetDungeonFlowAsync(int mapIndex)
+    {
+        int ModifiedMapIndex = mapIndex > 10 ? 10 : mapIndex;
 
-        //맵 생성시 트리거할 액션 Invoke.
-        OnMapLoadedAction?.Invoke(mapIndex);
+        string key = $"DF_Station_{ModifiedMapIndex}";
+        var handle = Addressables.LoadAssetAsync<DungeonFlow>(key);
+        var flow = await handle.Task;
+
+        if (flow == null)
+        {
+            Debug.LogError($"DungeonFlow '{key}' 가 없습니다.");
+            return null;
+        }
+        else
+        {
+            Debug.Log($"DungeonFlow '{key}' 를 적용했습니다");
+        }
+
+        // 🔐 안전하게 복사해서 반환
+        return ScriptableObject.Instantiate(flow);
     }
 
     private void BakeNavMeshOnMapLoaded(DungeonGenerator generator)
     {
         generator.Root.GetComponent<NavMeshSurface>().BuildNavMesh();
+
+        //Nav Mesh 베이크 완료 알림.
+        OnNavMeshBakeAction?.Invoke();
     }
+
 
 }
