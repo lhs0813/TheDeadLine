@@ -67,7 +67,7 @@ namespace Akila.FPSFramework
 
         public string GetInteractionName()
         {
-            string info = $"{Name} - {type}";
+            string info = $"{Name}";
             return $"{interactionName} {info}";
         }
 
