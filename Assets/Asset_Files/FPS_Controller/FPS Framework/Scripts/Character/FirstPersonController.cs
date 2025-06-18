@@ -402,6 +402,9 @@ namespace Akila.FPSFramework
         {
             if (controller.isGrounded && Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, controller.height))
             {
+                if (hit.collider.isTrigger)
+                    return false;
+
                 slopeDirection = hit.normal;
                 return Vector3.Angle(slopeDirection, Vector3.up) > controller.slopeLimit;
             }
@@ -415,6 +418,8 @@ namespace Akila.FPSFramework
             RaycastHit slopeHit;
             if (Physics.Raycast(Orientation.position, Vector3.down, out slopeHit, (controller.height / 2) + 0.1f))
             {
+                if(slopeHit.collider.isTrigger)
+                    return Orientation.forward;
                 //get the direction result according to slope normal
                 return Vector3.ProjectOnPlane(Orientation.forward, slopeHit.normal);
             }
