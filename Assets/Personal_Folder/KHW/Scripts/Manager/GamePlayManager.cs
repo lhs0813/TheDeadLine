@@ -1,29 +1,41 @@
 ﻿using System;
+using System.Collections;
 using System.Threading.Tasks;
 using DunGen;
 using UnityEngine;
 
+public enum GameState
+{
+    Waiting,
+    Entering,
+    Combat,
+    Danger,
+    PreDeparting,
+    Departing
+}
+
 public class GamePlayManager : MonoBehaviour
 {
     public int currentMapIndex = 0;
+
+    public GameState currentGameState;
 
     public static GamePlayManager instance;
     public RuntimeDungeon runtimeDungeon;
     public TrainController trainController;
     public static float Timer;
     private float nextWaitingEndtime;
-    private float newCombatEndTime;
+    private float nextNormalCombatEndTime;
     private bool newMapReady; //맵 생성 완료 알림
-    private bool isWaiting; //열차 이동중
-    private bool isCombatting; //전투중
     [SerializeField] private float waitingDuration = 20f; // 열차 대기 시간
-    [SerializeField] private float combatDuration = 180f; //전투시간. 
-    [SerializeField] PlayerHordeTrigger playerHordeTrigger;
+    [SerializeField] private float normalCombatDuration = 180f; //전투시간. 
     [SerializeField] GamePlayManagementUI gamePlayManagementUI;
     [SerializeField] BackgroundMusicController bgmController;
 
     //Actions.
     public Action OnStationArriveAction;
+    public Action OnPreDepartAction;
+    public Action OnDangerAction;
     public Action OnStationDepartAction;
     public Action<int> OnMapLoadFinishingAction; //맵 로딩 완료시 매니저에서 한번 더 호출.Arg는 mapIndex.
 
@@ -41,7 +53,6 @@ public class GamePlayManager : MonoBehaviour
     {
         trainController = FindAnyObjectByType<TrainController>();
         runtimeDungeon = FindAnyObjectByType<RuntimeDungeon>();
-        playerHordeTrigger = FindAnyObjectByType<PlayerHordeTrigger>();
         gamePlayManagementUI = FindAnyObjectByType<GamePlayManagementUI>();
         bgmController = GetComponentInChildren<BackgroundMusicController>();
         runtimeDungeon.Generator.OnGenerationComplete += ChangeIsMapReady;
@@ -67,7 +78,7 @@ public class GamePlayManager : MonoBehaviour
     public async Task GoWaitingState()
     {
         //상태변화 시작
-        isWaiting = true;
+        currentGameState = GameState.Waiting;
         newMapReady = false;
 
         nextWaitingEndtime = Timer + waitingDuration;
@@ -85,7 +96,7 @@ public class GamePlayManager : MonoBehaviour
 
     private void GoStageEnteringState()
     {
-        isWaiting = false;
+        currentGameState = GameState.Entering;
 
         trainController.MoveToStageRail();
     }
@@ -95,8 +106,8 @@ public class GamePlayManager : MonoBehaviour
     /// </summary>
     public void GoCombatState()
     {
-        isCombatting = true;
-        newCombatEndTime = Timer + combatDuration;
+        currentGameState = GameState.Combat;
+        nextNormalCombatEndTime = Timer + normalCombatDuration;
 
         trainController.TrainArrive();
 
@@ -106,17 +117,51 @@ public class GamePlayManager : MonoBehaviour
         OnStationArriveAction?.Invoke();
     }
 
+    public void GoPreDepartingState()
+    {
+        currentGameState = GameState.PreDeparting;
+
+        //플레이어가 진입한 것 까지 확인. 문 닫음.
+        trainController.DoorClose();
+
+        StartCoroutine(PreDepartingCoroutine());
+    }
+
+    public void GoDangerState()
+    {
+        currentGameState = GameState.Danger;
+
+        StartCoroutine(DangerDepartingCoroutine());
+    }
+
+    IEnumerator PreDepartingCoroutine()
+    {
+        // 문 닫고, 내부 적이 전부 사라질 때까지 대기
+        yield return new WaitUntil(() => !trainController.CheckEnemyInside());
+        
+        GoCombatEndState();
+    }
+
+
+    IEnumerator DangerDepartingCoroutine()
+    {
+        // 플레이어가 탑승할 때까지 대기
+        yield return new WaitUntil(() => trainController.CheckPlayerInside());
+
+        GoPreDepartingState();
+    }
+
+
     /// <summary>
     /// 전투시간 종료, 기차 출발준비.
     /// </summary>
     public void GoCombatEndState()
     {
-        isCombatting = false;
+        currentGameState = GameState.Departing;
 
         trainController.TrainDepart();
 
         bgmController.StopCombatMusic();
-
 
         OnStationDepartAction?.Invoke();
     }
@@ -125,17 +170,28 @@ public class GamePlayManager : MonoBehaviour
     {
         Timer += Time.deltaTime;
 
-        if (isWaiting && Timer >= nextWaitingEndtime && newMapReady)
+        if (currentGameState == GameState.Waiting && Timer >= nextWaitingEndtime && newMapReady)
         {
             GoStageEnteringState();
         }
 
-        if (isCombatting && Timer >= newCombatEndTime)
+        if (currentGameState == GameState.Combat && Timer >= nextNormalCombatEndTime)
         {
-            GoCombatEndState();
+            //플레이어가 안에 있으면
+            if (trainController.CheckPlayerInside())
+            {
+                Debug.Log("플레이어가 안에 있음. PreDepart State");
+                //UI는 숨기고, 내부의 적이 다 처리될 때까지 기다림.
+                GoPreDepartingState();
+            }
+            else //플레이어가 도착하지 못함.
+            {
+                Debug.Log("플레이어가 안에 없음. Danger State");
+                GoDangerState();
+            }
         }
 
-        gamePlayManagementUI.UpdateRemainingTimeUI(isCombatting, Timer, newCombatEndTime);
+        gamePlayManagementUI.UpdateRemainingTimeUI(currentGameState == GameState.Combat, Timer, nextNormalCombatEndTime);
     }
 }
 
