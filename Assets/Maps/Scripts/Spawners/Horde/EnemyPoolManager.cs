@@ -213,16 +213,16 @@ public class EnemyPoolManager : MonoBehaviour
     }
 
 
-    public void ReturnToPool(EnemyType type, GameObject obj)
+    public void ReturnToPool(EnemyType type, GameObject obj, float offset)
     {
-        StartCoroutine(CorpseDisappearCoroutine(type, obj));
+        StartCoroutine(CorpseDisappearCoroutine(type, obj, offset));
 
     }
 
-    IEnumerator CorpseDisappearCoroutine(EnemyType type, GameObject obj)
+    IEnumerator CorpseDisappearCoroutine(EnemyType type, GameObject obj, float offset)
     {
         //시체 사라지는 대기시간... 맵 해제 트리거시에도 남아있음. 
-        yield return new WaitForSeconds(corpseDisappearDuration);
+        yield return new WaitForSeconds(offset);
         
         obj.transform.position = Vector3.zero; //위치 초기화.
         currentCounts[type] = Mathf.Max(0, currentCounts[type] - 1); //타입별 개수 감소.
@@ -244,7 +244,7 @@ public class EnemyPoolManager : MonoBehaviour
             if (enemy != null)
             {
                 EnemyType type = enemy.GetComponent<EnemyIdentifier>().Type;
-                ReturnToPool(type, enemy);
+                ReturnToPool(type, enemy, 1f);
             }
         }
 
