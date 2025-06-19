@@ -33,6 +33,12 @@ public class TrainController : MonoBehaviour
 
     public void DoorClose()
     {
+        List<NavMeshLink> links = GetComponentsInChildren<NavMeshLink>().ToList();
+        foreach (var link in links)
+        {
+            link.enabled = false;
+        }
+        
         trainDoorController.CloseDoor();
         trainSoundController.PlayDoorClose();
     }
@@ -52,18 +58,16 @@ public class TrainController : MonoBehaviour
 
     IEnumerator TrainDepartCoroutine()
     {
+
+
+        GetComponent<NavMeshSurface>().RemoveData();
+
         yield return new WaitForSeconds(trainDepartDelay); // 문 닫히는 시간보다 길게
 
         trainSoundController.PlayTrainRunning();
         isMoving = true;
 
-        GetComponent<NavMeshSurface>().RemoveData();
 
-        List<NavMeshLink> links = GetComponentsInChildren<NavMeshLink>().ToList();
-        foreach (var link in links)
-        {
-            link.enabled = false;
-        }
     }
 
     IEnumerator TrainArriveCoroutine()
