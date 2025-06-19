@@ -8,7 +8,7 @@ public class TrainWaitStartPoint : MonoBehaviour
         if (other.CompareTag("Train Trigger"))
         {
             TrainController trainController = other.GetComponentInParent<TrainController>();
-            if (trainController.CheckAndAttachPlayer()) //내부에 플레이어 있음.
+            if (trainController.CheckPlayerInside()) //내부에 플레이어 있음.
             {
                 await SendWaitState();
             }
