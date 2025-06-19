@@ -1,10 +1,20 @@
-using System;
+﻿using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RemainingTimeForInvestigationUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI remainingTimeText;
+
+    public Image departureBack;
+    public Image trainImage;
+    public TextMeshProUGUI departureText;
+    public TextMeshProUGUI departureRemainText;
+
+
+
+
     float remainingTime;
     bool isHidden;
     Animator _anim;
@@ -14,10 +24,20 @@ public class RemainingTimeForInvestigationUI : MonoBehaviour
         isHidden = true;
 
         GamePlayManager.instance.OnStationArriveAction += ShowUI;
+
         // GamePlayManager.instance.OnDangerAction += HideUI;
         // GamePlayManager.instance.OnPreDepartAction += HideUI;
         _anim = GetComponent<Animator>();
     }
+
+    private void ColorChange(Color color)
+    {
+        departureBack.color = color;
+        trainImage.color = color;
+        departureText.color = color;
+        departureRemainText.color = color;
+    }
+
 
     private void HideUI()
     {
@@ -29,6 +49,9 @@ public class RemainingTimeForInvestigationUI : MonoBehaviour
     {
         this.remainingTime = remainingTime;
         isHidden = false;
+
+        ColorChange(Color.green);
+
         _anim.SetTrigger("On");          
     }
 
@@ -65,5 +88,10 @@ public class RemainingTimeForInvestigationUI : MonoBehaviour
         {
             HideUI();
         }
+        if(remainingTime < 60f)
+        {
+            ColorChange(Color.red);
+        }
+
     }
 }
