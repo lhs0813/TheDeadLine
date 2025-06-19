@@ -7,23 +7,23 @@ public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 {
     float alphaThreshold = 0.1f;
     public string skillId;
-    public SkillNode[] prerequisites;
     public int requiredPoints = 1;
 
     public string nameKey;
     public string descriptionKey;
     public VideoClip previewVideo; // 시연 영상
 
-    public enum SkillCategory { Attack, Defend, Utility }
-    public SkillCategory category;
-    public int exclusiveGroupId = -1; // 같은 카테고리 내 그룹
+
+    public int currentLevel = 0;
+    public int maxLevel = 5;
+    public bool IsUnlocked => currentLevel > 0;
 
     public Button button;
     public Image iconImage;
     public Sprite lockedSprite;
     public Sprite unlockedSprite;
 
-    public bool IsUnlocked { get; private set; }
+    public GameObject[] levelDotSets;
 
 
     private void Start()
@@ -39,25 +39,25 @@ public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
        Debug.Log($"스킬 눌림");
         if (manager != null)
         {
-            manager.TryUnlockSkill(this);
+            manager.TryLevelUpSkill(this);
         }
     }
 
-    public void Unlock()
+    public void LevelUp()
     {
-        if (IsUnlocked) return;
+        if (currentLevel >= maxLevel) return;
 
-        IsUnlocked = true;
-        SkillEffectHandler.Instance.ApplyEffectById(skillId);
+        currentLevel++;
+        SkillEffectHandler.Instance.ApplyEffectById(skillId, currentLevel);
         UpdateVisual();
     }
 
     public void Reset()
     {
-        if (!IsUnlocked) return;
+        if (currentLevel == 0) return;
 
         SkillEffectHandler.Instance.RemoveEffectById(skillId);
-        IsUnlocked = false;
+        currentLevel = 0;
         UpdateVisual();
     }
     public void OnPointerEnter(PointerEventData eventData)
@@ -69,27 +69,19 @@ public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         SkillTooltip.Instance.Hide();
     }
-    public bool ArePrerequisitesMet()
-    {
-        if (prerequisites == null || prerequisites.Length == 0)
-            return true;
-
-        foreach (var node in prerequisites)
-        {
-            if (node != null && node.IsUnlocked)
-                return true;
-        }
-        return false;
-    }
-
-
     private void UpdateVisual()
     {
-        if (iconImage == null) return;
+        if (iconImage != null)
+            iconImage.sprite = IsUnlocked ? unlockedSprite : lockedSprite;
 
-        if (IsUnlocked)
-            iconImage.sprite = unlockedSprite;
-        else
-            iconImage.sprite = lockedSprite;
+        // 점 세트 처리
+        if (levelDotSets != null)
+        {
+            for (int i = 0; i < levelDotSets.Length; i++)
+            {
+                if (levelDotSets[i] != null)
+                    levelDotSets[i].SetActive(i == currentLevel);
+            }
+        }
     }
 }

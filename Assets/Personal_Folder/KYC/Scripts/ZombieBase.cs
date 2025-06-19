@@ -15,6 +15,10 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     public bool isPreSpawn = false;
 
     [Header("Zombie Stats")]
+    protected virtual float DefaultHealth => 100f;
+    protected virtual float DefaultMaxHealth => 100f;
+
+
     public float health = 100f;
     public float maxHealth = 100f;
     public float moveSpeed = 2f;
@@ -55,6 +59,9 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
     protected virtual void Awake()
     {
+        health = DefaultHealth;
+        maxHealth = DefaultMaxHealth;
+
         GameObject playerObj = GameObject.FindWithTag("Player");
         if (playerObj != null)
             Player = playerObj.transform;
