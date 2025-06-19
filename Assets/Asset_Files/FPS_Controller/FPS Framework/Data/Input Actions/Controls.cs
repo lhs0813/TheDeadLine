@@ -703,7 +703,7 @@ namespace Akila.FPSFramework
                     ""id"": ""1308fd97-3400-4607-b420-e1260d7bdee6"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=5,y=5)"",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Look"",
                     ""isComposite"": false,

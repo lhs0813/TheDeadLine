@@ -22,7 +22,7 @@ public class TrainWaitStartPoint : MonoBehaviour
 
     private async Task SendWaitState()
     { 
-        await GamePlayManager.instance.GoWaitingState();
+        //await GamePlayManager.instance.GoWaitingState();
     }
 
 }

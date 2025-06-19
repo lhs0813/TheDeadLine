@@ -33,10 +33,10 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField] BackgroundMusicController bgmController;
 
     //Actions.
-    public Action OnStationArriveAction;
+    public Action<float> OnStationArriveAction; //arg : predepart까지의 남은 시간.
     public Action OnPreDepartAction;
     public Action OnDangerAction;
-    public Action OnStationDepartAction;
+    public Action<float> OnStationDepartAction;
     public Action<int> OnMapLoadFinishingAction; //맵 로딩 완료시 매니저에서 한번 더 호출.Arg는 mapIndex.
 
     private void Awake()
@@ -49,7 +49,7 @@ public class GamePlayManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    async void Start()
+    void Start()
     {
         trainController = FindAnyObjectByType<TrainController>();
         runtimeDungeon = FindAnyObjectByType<RuntimeDungeon>();
@@ -59,7 +59,7 @@ public class GamePlayManager : MonoBehaviour
         newMapReady = false;
 
         //선로에서 시작. 맵 로딩.
-        await GoWaitingState();
+        GoWaitingState();
     }
 
     private void ChangeIsMapReady(DungeonGenerator generator)
@@ -75,7 +75,7 @@ public class GamePlayManager : MonoBehaviour
     }
 
     /// 선로구역으로 전송하기.
-    public async Task GoWaitingState()
+    public async void GoWaitingState()
     {
         //상태변화 시작
         currentGameState = GameState.Waiting;
@@ -92,6 +92,8 @@ public class GamePlayManager : MonoBehaviour
         //다음맵 로딩 시작
         currentMapIndex++;
         await MapGenerationManager.Instance.LoadMap(currentMapIndex);
+
+        OnStationDepartAction?.Invoke(waitingDuration);
     }
 
     private void GoStageEnteringState()
@@ -114,7 +116,7 @@ public class GamePlayManager : MonoBehaviour
         bgmController.PlayRandomCombatMusic();
 
         Debug.Log("기차가 역에 도착");
-        OnStationArriveAction?.Invoke();
+        OnStationArriveAction?.Invoke(normalCombatDuration);
     }
 
     public void GoPreDepartingState()
@@ -124,12 +126,16 @@ public class GamePlayManager : MonoBehaviour
         //플레이어가 진입한 것 까지 확인. 문 닫음.
         trainController.DoorClose();
 
+        OnPreDepartAction?.Invoke();
+
         StartCoroutine(PreDepartingCoroutine());
     }
 
     public void GoDangerState()
     {
         currentGameState = GameState.Danger;
+
+        OnDangerAction?.Invoke();
 
         StartCoroutine(DangerDepartingCoroutine());
     }
@@ -163,7 +169,7 @@ public class GamePlayManager : MonoBehaviour
 
         bgmController.StopCombatMusic();
 
-        OnStationDepartAction?.Invoke();
+
     }
 
     private void FixedUpdate()
@@ -190,8 +196,6 @@ public class GamePlayManager : MonoBehaviour
                 GoDangerState();
             }
         }
-
-        gamePlayManagementUI.UpdateRemainingTimeUI(currentGameState == GameState.Combat, Timer, nextNormalCombatEndTime);
     }
 }
 
