@@ -270,6 +270,13 @@ namespace Akila.FPSFramework
             if (type != HealthType.Player ) 
                 amount *= Affector.damageMulti;
 
+            //방패판정 
+            if (type == HealthType.Player)
+            {
+                if (isBlocked(damageSource))
+                    return;
+            }
+
 
             if (type == HealthType.Player && isPlayer)
             {
@@ -327,7 +334,30 @@ namespace Akila.FPSFramework
         public bool isActive { get; set; } = true;
 
         public UnityEvent onDeath => OnDeath;
+
+        
+      
+
+        bool isBlocked(GameObject _from)
+        {
+            var from = _from.transform.position + Vector3.up / 2;
+            var to = transform.position + Vector3.up / 2;
+            var hits = Physics.RaycastAll(from, to - from, 3);
+
+            for (var i = 0; i < hits.Length; i++)
+            {
+                var block = hits[i].transform.GetComponent<Blockable>();
+                if (block)
+                {
+                    block.Block();
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
+
 
     public enum HealthType
     {
