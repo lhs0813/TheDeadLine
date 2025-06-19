@@ -1,12 +1,17 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Akila.FPSFramework;
+using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.TextCore.Text;
 
 public class TrainController : MonoBehaviour
 {
     [SerializeField] private float trainDepartDelay = 3f; //문닫고, 실제 출발하기까지 걸리는 시간.
     [SerializeField] private float trainArriveDelay = 1f; //열차가 플랫폼에 도착하고, 문이 열리기 시작하는 시간.
+    [SerializeField] private float doorConnectDelay = 1.5f;
     [SerializeField] private float currentSpeed; //현재속도
     [SerializeField] private float trainMaxSpeed; //최고속도
     [SerializeField] private float trainMinSpeed; //최저속도
@@ -17,15 +22,25 @@ public class TrainController : MonoBehaviour
     [SerializeField] private Collider trainInteriorZone; // 플레이어가 안에 있는지 확인할 트리거 콜라이더
     [SerializeField] private Transform trainTransform;
     TrainDoorController trainDoorController;
-    PlayerHordeTrigger playerHordeTrigger;
 
     TrainSoundController trainSoundController;
 
     void Start()
     {
         trainDoorController = GetComponentInChildren<TrainDoorController>();
-        playerHordeTrigger = FindAnyObjectByType<PlayerHordeTrigger>();
         trainSoundController = GetComponentInChildren<TrainSoundController>();
+    }
+
+    public void DoorClose()
+    {
+        List<NavMeshLink> links = GetComponentsInChildren<NavMeshLink>().ToList();
+        foreach (var link in links)
+        {
+            link.enabled = false;
+        }
+        
+        trainDoorController.CloseDoor();
+        trainSoundController.PlayDoorClose();
     }
 
     /// <summary>
@@ -34,7 +49,6 @@ public class TrainController : MonoBehaviour
     public void TrainDepart()
     {
         StartCoroutine(TrainDepartCoroutine());
-
     }
 
     public void TrainArrive()
@@ -44,14 +58,16 @@ public class TrainController : MonoBehaviour
 
     IEnumerator TrainDepartCoroutine()
     {
-        trainDoorController.CloseDoor();
-        trainSoundController.PlayDoorClose();
+
+
+        GetComponent<NavMeshSurface>().RemoveData();
 
         yield return new WaitForSeconds(trainDepartDelay); // 문 닫히는 시간보다 길게
 
         trainSoundController.PlayTrainRunning();
-        CheckAndAttachPlayer();
         isMoving = true;
+
+
     }
 
     IEnumerator TrainArriveCoroutine()
@@ -66,6 +82,14 @@ public class TrainController : MonoBehaviour
         trainDoorController.OpenDoor();
         trainSoundController.PlayDoorOpen();
 
+        yield return new WaitForSeconds(doorConnectDelay);
+        GetComponent<NavMeshSurface>().BuildNavMesh();
+
+        List<NavMeshLink> links = GetComponentsInChildren<NavMeshLink>().ToList();
+        foreach (var link in links)
+        {
+            link.enabled = true;
+        }
     }
 
     void Update()
@@ -114,24 +138,80 @@ public class TrainController : MonoBehaviour
         transform.position = waitingRailStartTransform.position;
     }
 
+    [SerializeField] private float arriveDuration = 3f;    // 감속 후 멈출까지 걸릴 시간
+    private Vector3 arriveTarget;
+
     /// <summary>
     /// 맵 로딩 완료 And 운행 시간 종료.
+    /// 즉시 이동 대신 부드러운 감속 이동 시작.
     /// </summary>
     public void MoveToStageRail()
     {
+        //플레이어를 이동.
         Transform stageRailStartTransform = FindAnyObjectByType<StageRailStartPoint>().transform;
 
         transform.position = stageRailStartTransform.position;
 
-        isStopping = true;
+        //목표 위치 저장
+        arriveTarget = FindAnyObjectByType<TrainStopPoint>().transform.position;
 
+        //감속 사운드 (도착 사운드)
         trainSoundController.PlayTrainArriving();
+
+        //기존 Update 속도 제어 사용 중지
+        isMoving = false;
+        isStopping = false;
+
+        //부드러운 감속+도착 코루틴
+        StartCoroutine(ArriveAtTarget(arriveTarget, arriveDuration));
     }
 
-    public bool CheckAndAttachPlayer()
+    private IEnumerator ArriveAtTarget(Vector3 target, float duration)
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (trainInteriorZone.bounds.Contains(player.transform.position))
+        Vector3 startPos = transform.position;
+        float elapsed = 0f;
+
+        // 초기 속도를 현재 실제 속도로 가져오거나, 최고속도로 세팅
+        float startSpeed = currentSpeed = trainMaxSpeed;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+
+            // ease-out 감속: 1 - (1-t)^2
+            float ease = 1f - Mathf.Pow(1f - t, 2f);
+
+            // 위치 보간
+            transform.position = Vector3.Lerp(startPos, target, ease);
+
+            // 속도 피드백 (원하면 사운드 볼륨/피치 등에 쓰세요)
+            currentSpeed = Mathf.Lerp(startSpeed, 0f, ease);
+
+            yield return null;
+        }
+
+        // 정확히 도착
+        transform.position = target;
+        currentSpeed = 0f;
+
+        // 그 다음에 도착 처리 (문 열기, NavMesh 빌드 등)
+        GamePlayManager.instance.GoCombatState();
+    }
+
+    public bool CheckPlayerInside()
+    {
+        // 1) 내부 존의 AABB와 회전을 이용해 겹치는 콜라이더 전부 수집
+        var b = trainInteriorZone.bounds;
+        Collider[] hits = Physics.OverlapBox(
+            b.center,
+            b.extents,
+            trainInteriorZone.transform.rotation
+        );
+
+        // 3) 플레이어 체크
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (b.Contains(player.transform.position))
         {
             player.transform.SetParent(trainTransform);
             return true;
@@ -139,6 +219,31 @@ public class TrainController : MonoBehaviour
 
         return false;
     }
+
+
+    public bool CheckEnemyInside()
+    {
+        // 1) 내부 존의 AABB와 회전을 이용해 겹치는 콜라이더 전부 수집
+        var b = trainInteriorZone.bounds;
+        Collider[] hits = Physics.OverlapBox(
+            b.center,
+            b.extents,
+            trainInteriorZone.transform.rotation
+        );
+
+        foreach (var col in hits)
+        {
+            if (col.GetComponentInParent<EnemyIdentifier>() != null)
+            {
+                Debug.Log("내부에 적 있음.");
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
 
     void DetachPlayer()
     {

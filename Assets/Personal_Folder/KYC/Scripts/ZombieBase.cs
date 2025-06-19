@@ -1,6 +1,7 @@
 ﻿using Akila.FPSFramework;
 using FIMSpace.FProceduralAnimation;
 using UnityEngine;
+using UnityEngine.AI;
 
 public abstract class ZombieBase : MonoBehaviour, IZombie
 {
@@ -14,6 +15,10 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     public bool isPreSpawn = false;
 
     [Header("Zombie Stats")]
+    protected virtual float DefaultHealth => 100f;
+    protected virtual float DefaultMaxHealth => 100f;
+
+
     public float health = 100f;
     public float maxHealth = 100f;
     public float moveSpeed = 2f;
@@ -21,9 +26,9 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     public float attackRange = 2.5f;
 
     [Header("Zombie Detection Settings")]
-    public float visibleDistance = 15f; // 시야 거리
-    public float fieldOfViewAngle = 120f; // 시야각
-    public float minAttackStartDistance = 3f; // 등 뒤여도 접근하면 추격
+    public float visibleDistance = 45f; // 시야 거리
+    public float fieldOfViewAngle = 180f; // 시야각
+    public float minAttackStartDistance = 20f; // 등 뒤여도 접근하면 추격
 
     [Header("Zombie Collider")]
     public CapsuleCollider collider;
@@ -54,6 +59,9 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
     protected virtual void Awake()
     {
+        health = DefaultHealth;
+        maxHealth = DefaultMaxHealth;
+
         GameObject playerObj = GameObject.FindWithTag("Player");
         if (playerObj != null)
             Player = playerObj.transform;
@@ -135,8 +143,8 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         transform.parent.GetComponentInChildren<Damageable>(true).ResetHealth(this);
         _anim.speed = 1;
         transform.localScale = scaleOrigin;
-        var ragdolDummy = transform.parent.GetComponentInChildren <FIMSpace.FProceduralAnimation.RagdollAnimatorDummyReference >(true);
-        if (ragdolDummy)ragdolDummy.gameObject.active = true;
+        var ragdolDummy = transform.parent.GetComponentInChildren<FIMSpace.FProceduralAnimation.RagdollAnimatorDummyReference>(true);
+        if (ragdolDummy) ragdolDummy.gameObject.active = true;
     }
 
     protected virtual void Update()
@@ -147,6 +155,23 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
             return;
         }
         currentState?.Update();
+
+        if (agent.isOnOffMeshLink)
+        {
+            OffMeshLinkData data = agent.currentOffMeshLinkData;
+
+            //calculate the final point of the link
+            Vector3 endPos = data.endPos + Vector3.up * agent.baseOffset;
+
+            //Move the agent to the end point
+            agent.transform.position = Vector3.MoveTowards(agent.transform.position, endPos, agent.speed * Time.deltaTime);
+
+            //when the agent reach the end point you should tell it, and the agent will "exit" the link and work normally after that
+            if (agent.transform.position == endPos)
+            {
+                agent.CompleteOffMeshLink();
+            }
+        }
     }
 
     public virtual void TakeDamage(float damage)
@@ -216,8 +241,6 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         // 플레이어 오브젝트 확인
         GameObject playerObj = GameObject.FindWithTag("Player");
         if (playerObj == null) return;
-        if (isBlocked()) { Debug.Log("공격 막힘!"); return; }
-
 
         float distance = Vector3.Distance(transform.position, playerObj.transform.position);
         if (distance <= attackRange)
@@ -267,21 +290,6 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         }
         return false;
     }
-    bool isBlocked() 
-    {
-        var from = transform.position + Vector3.up/2;
-        var to = FindAnyObjectByType<FirstPersonController>().transform.position + Vector3.up / 2;
-        var hits = Physics.RaycastAll(from, to - from, attackRange);
+    
 
-        for (var i = 0; i < hits.Length; i++) 
-        {
-            var block = hits[i].transform.GetComponent<Blockable>();
-            if (block)
-            {
-                block.Block();
-                return true;
-            }
-        }
-        return false;
-    }
 }

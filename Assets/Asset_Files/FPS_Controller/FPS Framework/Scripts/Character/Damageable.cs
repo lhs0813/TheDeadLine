@@ -54,6 +54,7 @@ namespace Akila.FPSFramework
         private void Awake()
         {
 
+            playerMaxHealth = 100 + SkillEffectHandler.Instance.maxHealthIncreaseAmount;
 
         }
 
@@ -137,13 +138,24 @@ namespace Akila.FPSFramework
                 Debug.Log("⏱️ 무적 종료됨");
             }
 
-            if (SkillEffectHandler.Instance.maxHealthIncrease == true && (type == HealthType.Player)){
-                if (playerMaxHealth == 200)
-                    return;
-                playerMaxHealth = 200;
-                Player_Manager.PlayerMaxHpChange?.Invoke(playerMaxHealth);
-                Player_Manager.PlayerHpChange?.Invoke(health);
+            if (SkillEffectHandler.Instance.maxHealthIncrease && type == HealthType.Player)
+            {
+                int newMax = 100 + Mathf.RoundToInt(SkillEffectHandler.Instance.maxHealthIncreaseAmount);
+
+                if (playerMaxHealth != newMax)
+                {
+                    playerMaxHealth = newMax;
+
+                    // 체력 최대치 변경 → 현재 체력이 최대치를 넘지 않도록 정리
+                    if (health > playerMaxHealth)
+                        health = playerMaxHealth;
+
+                    Player_Manager.PlayerMaxHpChange?.Invoke(playerMaxHealth);
+                    Player_Manager.PlayerHpChange?.Invoke(health);
+                    Debug.Log($"❤️ 최대 체력 증가됨: {playerMaxHealth}");
+                }
             }
+
 
         }
 

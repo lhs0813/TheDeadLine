@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 2
   isPrespawn: 0
+  wasTrackingPlayer: 0
 --- !u!1001 &4282362090679365701
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55,6 +56,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2537193533367110458}
     m_Modifications:
+    - target: {fileID: 555214930123368533, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      propertyPath: m_AutoTraverseOffMeshLink
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4089635070565836704, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
         type: 3}
       propertyPath: handler.ApplyPositions
@@ -97,9 +103,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5704286264748806086, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
         type: 3}
-      propertyPath: minAttackStartDistance
-      value: 15
+      propertyPath: fieldOfViewAngle
+      value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 5704286264748806086, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      propertyPath: minAttackStartDistance
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7851250638628943420, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 69bfa612b9a6db542af25ce725c20e76, type: 2}
     - target: {fileID: 7851250638638286266, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
         type: 3}
       propertyPath: m_Name

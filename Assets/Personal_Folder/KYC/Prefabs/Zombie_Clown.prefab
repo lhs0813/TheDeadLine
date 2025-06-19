@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   isPrespawn: 0
+  wasTrackingPlayer: 0
 --- !u!1001 &2983679224785577793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -107,13 +108,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2810118188691177246, guid: 6826e71f859158548905b1ce7994a6e1,
         type: 3}
+      propertyPath: fieldOfViewAngle
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 2810118188691177246, guid: 6826e71f859158548905b1ce7994a6e1,
+        type: 3}
       propertyPath: minAttackStartDistance
-      value: 15
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4244840799421534967, guid: 6826e71f859158548905b1ce7994a6e1,
+        type: 3}
+      propertyPath: m_Acceleration
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4244840799421534967, guid: 6826e71f859158548905b1ce7994a6e1,
         type: 3}
       propertyPath: m_StoppingDistance
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4244840799421534967, guid: 6826e71f859158548905b1ce7994a6e1,
+        type: 3}
+      propertyPath: m_AutoTraverseOffMeshLink
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4327754921767040264, guid: 6826e71f859158548905b1ce7994a6e1,
         type: 3}
@@ -213,6 +229,11 @@ PrefabInstance:
     - target: {fileID: 7096381757446341518, guid: 6826e71f859158548905b1ce7994a6e1,
         type: 3}
       propertyPath: handler._EditorCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7096381757446341518, guid: 6826e71f859158548905b1ce7994a6e1,
+        type: 3}
+      propertyPath: handler._EditorMainCategory
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7096381757446341518, guid: 6826e71f859158548905b1ce7994a6e1,
@@ -228,7 +249,7 @@ PrefabInstance:
     - target: {fileID: 7096381757446341518, guid: 6826e71f859158548905b1ce7994a6e1,
         type: 3}
       propertyPath: handler._Editor_ChainCategory
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7096381757446341518, guid: 6826e71f859158548905b1ce7994a6e1,
         type: 3}

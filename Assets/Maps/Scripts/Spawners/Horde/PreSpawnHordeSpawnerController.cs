@@ -26,10 +26,23 @@ public class PreSpawnHordeSpawnerController : MonoBehaviour
 
         //OnTileChanged Event는 DungenCharacter 자기자신, 이전 타일, 현재 타일을 줌.
         character.OnTileChanged += ManagePlayerLocation;
+        MapGenerationManager.Instance.OnNavMeshBakeAction += InitializeSpawners;
+    }
+
+    public void InitializeSpawners()
+    {
+        // 1) 파괴된(=null) 스포너만 걸러내기
+        spawners.RemoveAll(s => s == null);
+
+        // 2) 남은 스포너만 초기화
+        foreach (var sp in spawners)
+            sp.InitializeSpawnPoints();
     }
 
     private void ManagePlayerLocation(DungenCharacter character, Tile previousTile, Tile newTile)
     {
+        if (newTile == null) return;
+
         if (isAlreadyTriggered) //생성되고, 플레이어가 같은 방까지 들어온 적이 있음.
         {
             if (!newTile.IsAdjacentTo(tileSpawning) && newTile != tileSpawning)

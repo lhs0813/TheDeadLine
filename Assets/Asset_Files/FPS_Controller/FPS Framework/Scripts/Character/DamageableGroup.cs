@@ -63,16 +63,22 @@ namespace Akila.FPSFramework
                 Debug.Log("💥 크리티컬 데미지 발동!");
             }
 
-            // 💢 Desperate Strike 효과 적용 (플레이어 체력 기반 추가 배수)
+            // 💢 Berserker Strike 효과 적용 (플레이어 체력 기반 추가 배수)
             if (SkillEffectHandler.Instance.isHeartofBerserkeravailable)
             {
-                var player = GameObject.FindWithTag("Player"); // 플레이어 찾기
+                var player = GameObject.FindWithTag("Player");
                 if (player != null && player.TryGetComponent(out IDamageable playerDamageable))
                 {
-                    float currentHp = playerDamageable.health;
-                    float extraMultiplier = 1f + (Mathf.Floor((playerDamageable.playerMaxHealth - currentHp) / 10f) * 0.1f);
-                    multiplier *= extraMultiplier;
-                    Debug.Log($"🔥 Desperate Strike 적용됨! 현재 HP: {currentHp}, 배수: x{extraMultiplier}");
+                    float maxHp = playerDamageable.playerMaxHealth;
+                    float curHp = playerDamageable.health;
+                    float missingPercent = Mathf.Clamp01((maxHp - curHp) / maxHp); // 0~1
+
+                    int chunkCount = Mathf.FloorToInt(missingPercent * 10f); // 10% 단위
+                    float bonus = SkillEffectHandler.Instance.berserkerDamageMultiplier * chunkCount;
+
+                    multiplier *= 1f + bonus;
+
+                    Debug.Log($"🔥 Heart of Berserker: {chunkCount * 10}% HP 손실 → +{bonus * 100f}% 데미지");
                 }
             }
             if (SkillEffectHandler.Instance.isFullHpDamageBoost)
@@ -80,10 +86,11 @@ namespace Akila.FPSFramework
                 var player = GameObject.FindWithTag("Player");
                 if (player != null && player.TryGetComponent(out IDamageable playerDamageable))
                 {
-                    if (Mathf.Approximately(playerDamageable.health, playerDamageable.playerMaxHealth))
+                    float ratio = playerDamageable.health / playerDamageable.playerMaxHealth;
+                    if (ratio >= 0.8f)
                     {
                         multiplier *= SkillEffectHandler.Instance.fullHpDamageMultiplier;
-                        Debug.Log($"🧠 체력 풀! x{SkillEffectHandler.Instance.fullHpDamageMultiplier} 배 데미지 증가");
+                        Debug.Log($"🧠 체력 {ratio:P0}! x{SkillEffectHandler.Instance.fullHpDamageMultiplier} 배 데미지 증가");
                     }
                 }
             }

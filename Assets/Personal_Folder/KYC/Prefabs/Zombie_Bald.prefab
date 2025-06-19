@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   isPrespawn: 0
+  wasTrackingPlayer: 0
 --- !u!1001 &8286093946568622719
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -88,7 +89,7 @@ PrefabInstance:
     - target: {fileID: 545884343292423287, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
         type: 3}
       propertyPath: minAttackStartDistance
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1011081028431105168, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
         type: 3}
@@ -222,8 +223,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1541128776801603759, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
         type: 3}
+      propertyPath: m_Acceleration
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1541128776801603759, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
+        type: 3}
       propertyPath: m_StoppingDistance
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1541128776801603759, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
+        type: 3}
+      propertyPath: m_AutoTraverseOffMeshLink
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1833956921309130536, guid: 1dfe47b5501cc6941b009b3227c4cd0b,
         type: 3}

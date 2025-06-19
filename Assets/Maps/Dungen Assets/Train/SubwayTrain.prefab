@@ -348,12 +348,12 @@ Light:
   m_GameObject: {fileID: 825736134973280871}
   m_Enabled: 1
   serializedVersion: 11
-  m_Type: 3
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 8
-  m_Range: 15
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
+  m_Type: 0
+  m_Color: {r: 0.95649654, g: 0.9716981, b: 0.5821022, a: 0.62352943}
+  m_Intensity: 1
+  m_Range: 5
+  m_SpotAngle: 114.78909
+  m_InnerSpotAngle: 114.78909
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -389,7 +389,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 3, y: 1}
   m_BounceIntensity: 2
@@ -845,12 +845,12 @@ Light:
   m_GameObject: {fileID: 1408504975254680325}
   m_Enabled: 1
   serializedVersion: 11
-  m_Type: 3
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 8
-  m_Range: 15
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
+  m_Type: 0
+  m_Color: {r: 0.95649654, g: 0.9716981, b: 0.5821022, a: 0.62352943}
+  m_Intensity: 1
+  m_Range: 5
+  m_SpotAngle: 114.78909
+  m_InnerSpotAngle: 114.78909
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -886,7 +886,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 3, y: 1}
   m_BounceIntensity: 2
@@ -2549,6 +2549,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5381368541700339316}
   - component: {fileID: 3413103802239386369}
+  - component: {fileID: 762839650881033790}
   m_Layer: 0
   m_Name: SubwayTrain
   m_TagString: Untagged
@@ -2592,6 +2593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trainDepartDelay: 3
   trainArriveDelay: 1
+  doorConnectDelay: 1.5
   currentSpeed: 0
   trainMaxSpeed: 35
   trainMinSpeed: 15
@@ -2600,6 +2602,39 @@ MonoBehaviour:
   isStopping: 0
   trainInteriorZone: {fileID: 4270911557378161770}
   trainTransform: {fileID: 8684371318970443501}
+  arriveDuration: 6
+--- !u!114 &762839650881033790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8652353670060591659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 1
+  m_Size: {x: 17.100645, y: 10, z: 8.8091955}
+  m_Center: {x: 0.049809456, y: 2, z: -0.24405813}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 2097152
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.06666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
 --- !u!1 &8720531454895194694
 GameObject:
   m_ObjectHideFlags: 0
@@ -2642,12 +2677,12 @@ Light:
   m_GameObject: {fileID: 8720531454895194694}
   m_Enabled: 1
   serializedVersion: 11
-  m_Type: 3
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 8
-  m_Range: 15
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
+  m_Type: 0
+  m_Color: {r: 0.95649654, g: 0.9716981, b: 0.5821022, a: 0.62352943}
+  m_Intensity: 1
+  m_Range: 5
+  m_SpotAngle: 114.78909
+  m_InnerSpotAngle: 114.78909
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -2683,7 +2718,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 3, y: 1}
   m_BounceIntensity: 2
@@ -2988,8 +3023,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 16.418749, y: 0.1, z: 3.0000017}
-  m_Center: {x: -0.0012960447, y: 0.19, z: -0.0000004768373}
+  m_Size: {x: 16.418749, y: 0.57203615, z: 3.6231217}
+  m_Center: {x: -0.0012960434, y: 0.42601806, z: -0.841161}
 --- !u!1001 &207798671320628433
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3056,8 +3091,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1687480183521246807, guid: a746cfe9a2df48e4ea0b9fbac52c283d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6459648250556290039}
   m_SourcePrefab: {fileID: 100100000, guid: a746cfe9a2df48e4ea0b9fbac52c283d, type: 3}
+--- !u!1 &1551803995831812742 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1687480183521246807, guid: a746cfe9a2df48e4ea0b9fbac52c283d,
+    type: 3}
+  m_PrefabInstance: {fileID: 207798671320628433}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6459648250556290039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551803995831812742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 1
+  m_AgentTypeID: 0
+  m_StartPoint: {x: -5.15, y: 0.7, z: -2.5}
+  m_EndPoint: {x: -5.15, y: 0.7000122, z: -1}
+  m_StartTransform: {fileID: 0}
+  m_EndTransform: {fileID: 0}
+  m_Activated: 1
+  m_Width: 0.5
+  m_CostModifier: 1
+  m_IsOverridingCost: 0
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 1
+  m_Area: 0
 --- !u!4 &8254814229320039243 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8101063152800155546, guid: a746cfe9a2df48e4ea0b9fbac52c283d,
@@ -3461,7 +3531,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1687480183521246807, guid: a746cfe9a2df48e4ea0b9fbac52c283d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9205537532551114708}
   m_SourcePrefab: {fileID: 100100000, guid: a746cfe9a2df48e4ea0b9fbac52c283d, type: 3}
 --- !u!4 &4082315005778067097 stripped
 Transform:
@@ -3469,6 +3543,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5245437761490336003}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6890696077881001812 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1687480183521246807, guid: a746cfe9a2df48e4ea0b9fbac52c283d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5245437761490336003}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9205537532551114708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6890696077881001812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 1
+  m_AgentTypeID: 0
+  m_StartPoint: {x: -5.15, y: 0.7, z: -2.5}
+  m_EndPoint: {x: -5.1500506, y: 0.7000122, z: -1}
+  m_StartTransform: {fileID: 0}
+  m_EndTransform: {fileID: 0}
+  m_Activated: 1
+  m_Width: 0.5
+  m_CostModifier: 1
+  m_IsOverridingCost: 0
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 1
+  m_Area: 0
 --- !u!1001 &5453435097063159875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4087,6 +4192,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1791389453235123050, guid: 1d207f61e3c2a884a8f10d8353927393,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 32.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 1806220550468570684, guid: 1d207f61e3c2a884a8f10d8353927393,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 47.55
+      objectReference: {fileID: 0}
     - target: {fileID: 1864483248062425055, guid: 1d207f61e3c2a884a8f10d8353927393,
         type: 3}
       propertyPath: m_Layer
@@ -4247,6 +4362,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5062044728024076788, guid: 1d207f61e3c2a884a8f10d8353927393,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 47.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 5555270079719432603, guid: 1d207f61e3c2a884a8f10d8353927393,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 47.55
+      objectReference: {fileID: 0}
     - target: {fileID: 5733299024474371182, guid: 1d207f61e3c2a884a8f10d8353927393,
         type: 3}
       propertyPath: m_Layer
@@ -4256,6 +4381,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022722983267290504, guid: 1d207f61e3c2a884a8f10d8353927393,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 6022722983267290504, guid: 1d207f61e3c2a884a8f10d8353927393,
         type: 3}
@@ -4484,7 +4614,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1687480183521246807, guid: a746cfe9a2df48e4ea0b9fbac52c283d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1028811535679938103}
   m_SourcePrefab: {fileID: 100100000, guid: a746cfe9a2df48e4ea0b9fbac52c283d, type: 3}
 --- !u!4 &9058659355705720 stripped
 Transform:
@@ -4492,3 +4626,34 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8092102979997468386}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7433136759433230517 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1687480183521246807, guid: a746cfe9a2df48e4ea0b9fbac52c283d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8092102979997468386}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1028811535679938103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7433136759433230517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 1
+  m_AgentTypeID: 0
+  m_StartPoint: {x: -5.15, y: 0.7, z: -2.5}
+  m_EndPoint: {x: -5.15, y: 0.7000122, z: -1}
+  m_StartTransform: {fileID: 0}
+  m_EndTransform: {fileID: 0}
+  m_Activated: 1
+  m_Width: 0.5
+  m_CostModifier: 1
+  m_IsOverridingCost: 0
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 1
+  m_Area: 0
