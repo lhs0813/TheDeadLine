@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Akila.FPSFramework;
 using Unity.AI.Navigation;
 using UnityEngine;
@@ -29,13 +31,24 @@ public class TrainController : MonoBehaviour
         trainSoundController = GetComponentInChildren<TrainSoundController>();
     }
 
+    public void DoorClose()
+    {
+        List<NavMeshLink> links = GetComponentsInChildren<NavMeshLink>().ToList();
+        foreach (var link in links)
+        {
+            link.enabled = false;
+        }
+        
+        trainDoorController.CloseDoor();
+        trainSoundController.PlayDoorClose();
+    }
+
     /// <summary>
     /// GameManager -> 스테이지 시간 종료. 
     /// </summary>
     public void TrainDepart()
     {
         StartCoroutine(TrainDepartCoroutine());
-
     }
 
     public void TrainArrive()
@@ -45,17 +58,16 @@ public class TrainController : MonoBehaviour
 
     IEnumerator TrainDepartCoroutine()
     {
-        //TODO : 플레이어 탑승. 적이 아무도 없어야 출발. 
-        trainDoorController.CloseDoor();
-        trainSoundController.PlayDoorClose();
+
+
+        GetComponent<NavMeshSurface>().RemoveData();
 
         yield return new WaitForSeconds(trainDepartDelay); // 문 닫히는 시간보다 길게
 
         trainSoundController.PlayTrainRunning();
-        CheckAndAttachPlayer();
         isMoving = true;
 
-        GetComponent<NavMeshSurface>().RemoveData();
+
     }
 
     IEnumerator TrainArriveCoroutine()
@@ -73,6 +85,11 @@ public class TrainController : MonoBehaviour
         yield return new WaitForSeconds(doorConnectDelay);
         GetComponent<NavMeshSurface>().BuildNavMesh();
 
+        List<NavMeshLink> links = GetComponentsInChildren<NavMeshLink>().ToList();
+        foreach (var link in links)
+        {
+            link.enabled = true;
+        }
     }
 
     void Update()
@@ -182,11 +199,19 @@ public class TrainController : MonoBehaviour
         GamePlayManager.instance.GoCombatState();
     }
 
-
-    public bool CheckAndAttachPlayer()
+    public bool CheckPlayerInside()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (trainInteriorZone.bounds.Contains(player.transform.position))
+        // 1) 내부 존의 AABB와 회전을 이용해 겹치는 콜라이더 전부 수집
+        var b = trainInteriorZone.bounds;
+        Collider[] hits = Physics.OverlapBox(
+            b.center,
+            b.extents,
+            trainInteriorZone.transform.rotation
+        );
+
+        // 3) 플레이어 체크
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (b.Contains(player.transform.position))
         {
             player.transform.SetParent(trainTransform);
             return true;
@@ -194,6 +219,31 @@ public class TrainController : MonoBehaviour
 
         return false;
     }
+
+
+    public bool CheckEnemyInside()
+    {
+        // 1) 내부 존의 AABB와 회전을 이용해 겹치는 콜라이더 전부 수집
+        var b = trainInteriorZone.bounds;
+        Collider[] hits = Physics.OverlapBox(
+            b.center,
+            b.extents,
+            trainInteriorZone.transform.rotation
+        );
+
+        foreach (var col in hits)
+        {
+            if (col.GetComponentInParent<EnemyIdentifier>() != null)
+            {
+                Debug.Log("내부에 적 있음.");
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
 
     void DetachPlayer()
     {
