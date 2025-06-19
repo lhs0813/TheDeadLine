@@ -14,6 +14,7 @@ public class RemainingTimeForInvestigationUI : MonoBehaviour
 
 
 
+    private bool _hasColorChanged = false;
 
     float remainingTime;
     bool isHidden;
@@ -51,6 +52,7 @@ public class RemainingTimeForInvestigationUI : MonoBehaviour
         isHidden = false;
 
         ColorChange(Color.green);
+        _hasColorChanged = false;
 
         _anim.SetTrigger("On");          
     }
@@ -83,15 +85,19 @@ public class RemainingTimeForInvestigationUI : MonoBehaviour
             remainingTimeText.text =
             $"{t.Minutes:00}:{t.Seconds:00}:{t.Milliseconds:000}";
             //Debug.Log($"전투중 : {isOnCombat}, 남은시간 : {t}");
+
+            if (remainingTime < 60f && !_hasColorChanged)
+            {
+                ColorChange(new Color(1f, 0.35f, 0f)); // 오렌지 색
+                _hasColorChanged = true;
+            }
         }
         else if (!isHidden && remainingTime <= 0f)
         {
             HideUI();
         }
-        if(remainingTime < 60f)
-        {
-            ColorChange(Color.red);
-        }
+
+        
 
     }
 }
