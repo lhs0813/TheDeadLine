@@ -15,6 +15,8 @@ public class UI_Inventory_Update : MonoBehaviour
 
     private Image[] _inventorySlots;
 
+    public float originalScale;
+    public float upscale;
 
     private void Awake()
     {
@@ -73,17 +75,17 @@ public class UI_Inventory_Update : MonoBehaviour
             {
                 if (pocket[i].activeSelf)
                 {
-                    _inventorySlots[i].transform.localScale = new Vector3(0.8f, 0.8f, 0.8f); // 활성화된 무기 강조
+                    _inventorySlots[i].transform.localScale = new Vector3(upscale, upscale, upscale); // 활성화된 무기 강조
                 }
                 else
                 {
-                    _inventorySlots[i].transform.localScale = new Vector3(0.7f, 0.7f, 0.7f); // 비활성화된 무기
+                    _inventorySlots[i].transform.localScale = new Vector3(originalScale, originalScale, originalScale); // 비활성화된 무기
                 }
             }
             else
             {
                 // pocket[i]가 없을 경우에도 스케일을 초기화
-                _inventorySlots[i].transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+                _inventorySlots[i].transform.localScale = new Vector3(originalScale, originalScale, originalScale);
             }
         }
 

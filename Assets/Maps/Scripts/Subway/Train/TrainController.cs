@@ -22,7 +22,6 @@ public class TrainController : MonoBehaviour
     [SerializeField] private Collider trainInteriorZone; // 플레이어가 안에 있는지 확인할 트리거 콜라이더
     [SerializeField] private Transform trainTransform;
     TrainDoorController trainDoorController;
-
     TrainSoundController trainSoundController;
 
     void Start()
@@ -38,7 +37,7 @@ public class TrainController : MonoBehaviour
         {
             link.enabled = false;
         }
-        
+
         trainDoorController.CloseDoor();
         trainSoundController.PlayDoorClose();
     }
@@ -58,8 +57,6 @@ public class TrainController : MonoBehaviour
 
     IEnumerator TrainDepartCoroutine()
     {
-
-
         GetComponent<NavMeshSurface>().RemoveData();
 
         yield return new WaitForSeconds(trainDepartDelay); // 문 닫히는 시간보다 길게
@@ -67,7 +64,18 @@ public class TrainController : MonoBehaviour
         trainSoundController.PlayTrainRunning();
         isMoving = true;
 
+        // <-- schedule the arrival-rail move 5 seconds later (for example)
+        if (CheckPlayerInside())
+        {
+            StartCoroutine(DelayedStageRail(5f));            
+        }
 
+    }
+
+    IEnumerator DelayedStageRail(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GamePlayManager.instance.GoWaitingState();
     }
 
     IEnumerator TrainArriveCoroutine()
@@ -228,20 +236,27 @@ public class TrainController : MonoBehaviour
         Collider[] hits = Physics.OverlapBox(
             b.center,
             b.extents,
-            trainInteriorZone.transform.rotation
+            trainInteriorZone.transform.rotation,
+            LayerMask.GetMask("Monster")
         );
+
+        bool isEnemyInside = false;
+        int enemyInsideCount = 0;
 
         foreach (var col in hits)
         {
-            if (col.GetComponentInParent<EnemyIdentifier>() != null)
-            {
-                Debug.Log("내부에 적 있음.");
-                return true;
-            }
+            EnemyIdentifier id;
 
+            if ((id = col.GetComponentInParent<EnemyIdentifier>()) != null)
+            {
+                id.transform.SetParent(trainTransform);
+                isEnemyInside = true;
+                enemyInsideCount++;
+            }
         }
 
-        return false;
+        Debug.Log($"내부의 적 수 : {enemyInsideCount}");
+        return isEnemyInside;
     }
 
 

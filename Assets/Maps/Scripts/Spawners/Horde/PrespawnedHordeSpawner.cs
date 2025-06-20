@@ -115,11 +115,8 @@ public class PrespawnedHordeSpawner : MonoBehaviour
                 }
                 else if (id != null && !id.wasTrackingPlayer) //추적을 하지는 않았음. 
                 {
-                    EnemyPoolManager.Instance.ReturnToPool(id.Type, enemy);
+                    EnemyPoolManager.Instance.ReturnToPool(id.Type, enemy, 0f);
                 }
-
-                else
-                    Destroy(enemy);
             }
         }
         preSpawnedEnemies.Clear();

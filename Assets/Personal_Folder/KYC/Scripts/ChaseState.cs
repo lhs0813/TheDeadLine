@@ -7,6 +7,7 @@ public class ChaseState : IZombieState
     private Transform _player;
     private float _nextSoundTime = 0f;
     private Coroutine _checkRoutine;
+    private Coroutine _chaseRoutine;          // 새로 추가
     private bool _isChecking = false;
     public void Enter(ZombieBase zombie)
     {
@@ -21,6 +22,9 @@ public class ChaseState : IZombieState
             _isChecking = true;
         }
         PlayRandomSound(_zombie.chaseClips);
+
+        //매 0.2초마다 경로 업데이트
+        _chaseRoutine = _zombie.StartCoroutine(ChaseRoutine());
     }
 
     public void Update()
@@ -30,14 +34,27 @@ public class ChaseState : IZombieState
             _zombie.SetState(new PatrolState());
             return;
         }
-        _zombie.Agent.SetDestination(_player.position); // 플레이어를 향해 이동
+    }
 
+    private IEnumerator ChaseRoutine()
+    {
+        var wait = new WaitForSeconds(0.4f);
+        while (true)
+        {
+            if (_player == null) yield break;
+            _zombie.Agent.SetDestination(_player.position);
+            yield return wait;
+        }
     }
 
     public void Exit()
     {
         if (_checkRoutine != null)
             _zombie.StopCoroutine(_checkRoutine);
+
+        if (_chaseRoutine != null)
+            _zombie.StopCoroutine(_chaseRoutine);
+
 
         _isChecking = false;
     }
