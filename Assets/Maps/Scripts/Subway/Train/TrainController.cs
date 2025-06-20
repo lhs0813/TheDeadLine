@@ -236,20 +236,27 @@ public class TrainController : MonoBehaviour
         Collider[] hits = Physics.OverlapBox(
             b.center,
             b.extents,
-            trainInteriorZone.transform.rotation
+            trainInteriorZone.transform.rotation,
+            LayerMask.GetMask("Monster")
         );
+
+        bool isEnemyInside = false;
+        int enemyInsideCount = 0;
 
         foreach (var col in hits)
         {
-            if (col.GetComponentInParent<EnemyIdentifier>() != null)
-            {
-                Debug.Log("내부에 적 있음.");
-                return true;
-            }
+            EnemyIdentifier id;
 
+            if ((id = col.GetComponentInParent<EnemyIdentifier>()) != null)
+            {
+                id.transform.SetParent(trainTransform);
+                isEnemyInside = true;
+                enemyInsideCount++;
+            }
         }
 
-        return false;
+        Debug.Log($"내부의 적 수 : {enemyInsideCount}");
+        return isEnemyInside;
     }
 
 
