@@ -39,6 +39,12 @@ public class GamePlayManager : MonoBehaviour
     public Action<float> OnStationDepartAction;
     public Action<int> OnMapLoadFinishingAction; //맵 로딩 완료시 매니저에서 한번 더 호출.Arg는 mapIndex.
 
+
+
+    bool isLeverActivated = false;
+    public Action OnElectricityOnAction; //퓨즈 작동시 전력 공급 액션.
+    public Action OnElectricityOffAction; //전투 시작시 전력 차단 액션.
+
     private void Awake()
     {
         if (instance == null)
@@ -116,6 +122,8 @@ public class GamePlayManager : MonoBehaviour
         bgmController.PlayRandomCombatMusic();
 
         Debug.Log("기차가 역에 도착");
+        isLeverActivated = false;
+        OnElectricityOffAction?.Invoke();
         OnStationArriveAction?.Invoke(normalCombatDuration);
     }
 
@@ -168,8 +176,12 @@ public class GamePlayManager : MonoBehaviour
         trainController.TrainDepart();
 
         bgmController.StopCombatMusic();
+    }
 
-
+    public void FuseActivated()
+    {
+        isLeverActivated = true;
+        OnElectricityOnAction?.Invoke();
     }
 
     private void FixedUpdate()
