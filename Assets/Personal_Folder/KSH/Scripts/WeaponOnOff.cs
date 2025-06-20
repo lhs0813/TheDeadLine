@@ -109,8 +109,8 @@ public class WeaponOnOff : MonoBehaviour
         for (int i = 0; i < _effects.Count; i++)         
             _effects[i].Play(true);
 
-        soundStart?.Play(); 
-        soundLoop?.Play();
+       if(soundStart)soundStart.Play(); 
+        if(soundLoop)soundLoop.Play();
         OnStart.Invoke();
     }
     public void SkillStop()
@@ -119,8 +119,8 @@ public class WeaponOnOff : MonoBehaviour
             _effects[i].Stop(true, ParticleSystemStopBehavior.StopEmitting);
 
 
-        soundEnd?.Play();
-        soundLoop?.Stop();
+        if (soundEnd) soundEnd.Play();
+        if (soundLoop) soundLoop.Stop();
         OnEnd.Invoke();
     }   
 }

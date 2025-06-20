@@ -11,4 +11,6 @@ public class Rotate : MonoBehaviour
     {
         transform.Rotate(0, 0, 1 * val * Time.deltaTime);
     }
+
+    public void Add(float _val) { val = _val; }
 }
