@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 //
 public class WeaponOnOff : MonoBehaviour
 {
     [Header("Skill")]
-
-   public  bool isUsing;
+    public bool isUsing;
+    public UnityEvent OnStart;
+    public UnityEvent OnEnd;
     [Space(30)]
 
 
@@ -107,8 +109,9 @@ public class WeaponOnOff : MonoBehaviour
         for (int i = 0; i < _effects.Count; i++)         
             _effects[i].Play(true);
 
-        soundStart.Play(); 
-        soundLoop.Play();
+        soundStart?.Play(); 
+        soundLoop?.Play();
+        OnStart.Invoke();
     }
     public void SkillStop()
     {
@@ -116,8 +119,9 @@ public class WeaponOnOff : MonoBehaviour
             _effects[i].Stop(true, ParticleSystemStopBehavior.StopEmitting);
 
 
-        soundEnd.Play();
-        soundLoop.Stop();
+        soundEnd?.Play();
+        soundLoop?.Stop();
+        OnEnd.Invoke();
     }   
 }
 
