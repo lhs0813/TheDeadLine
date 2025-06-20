@@ -42,7 +42,8 @@ public class GamePlayManager : MonoBehaviour
 
 
     bool isLeverActivated = false;
-    public Action OnLeverActivatedAction;
+    public Action OnElectricityOnAction; //퓨즈 작동시 전력 공급 액션.
+    public Action OnElectricityOffAction; //전투 시작시 전력 차단 액션.
 
     private void Awake()
     {
@@ -121,6 +122,8 @@ public class GamePlayManager : MonoBehaviour
         bgmController.PlayRandomCombatMusic();
 
         Debug.Log("기차가 역에 도착");
+        isLeverActivated = false;
+        OnElectricityOffAction?.Invoke();
         OnStationArriveAction?.Invoke(normalCombatDuration);
     }
 
@@ -178,7 +181,7 @@ public class GamePlayManager : MonoBehaviour
     public void FuseActivated()
     {
         isLeverActivated = true;
-        OnLeverActivatedAction?.Invoke();
+        OnElectricityOnAction?.Invoke();
     }
 
     private void FixedUpdate()

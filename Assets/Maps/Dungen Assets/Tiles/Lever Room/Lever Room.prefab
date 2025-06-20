@@ -802,6 +802,7 @@ GameObject:
   - component: {fileID: 6010129745477852111}
   - component: {fileID: 5971060189735378453}
   - component: {fileID: 3209822217494789893}
+  - component: {fileID: 5979636711792932423}
   m_Layer: 0
   m_Name: FuseBox02
   m_TagString: Untagged
@@ -937,7 +938,31 @@ MonoBehaviour:
   interactionName: Interact
   OnInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5979636711792932423}
+        m_TargetAssemblyTypeName: FuseBoxController, Assembly-CSharp
+        m_MethodName: OnFuseActivated
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5979636711792932423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5926263512871286421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94193da6a774a0140851c233dd5c7b45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6475253569896241298
 GameObject:
   m_ObjectHideFlags: 0

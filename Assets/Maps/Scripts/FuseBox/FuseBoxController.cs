@@ -1,10 +1,16 @@
-using Akila.FPSFramework;
 using UnityEngine;
 
 public class FuseBoxController : MonoBehaviour
 {
+    bool isAlreadyActivated = false;
+
     public void OnFuseActivated()
     {
-        GamePlayManager.instance.FuseActivated();
+        if (!isAlreadyActivated)
+        {
+            isAlreadyActivated = true;
+            GamePlayManager.instance.FuseActivated();
+        }
+
     }
 }
