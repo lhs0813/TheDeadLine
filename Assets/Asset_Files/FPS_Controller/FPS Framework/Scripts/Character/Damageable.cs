@@ -51,13 +51,6 @@ namespace Akila.FPSFramework
         EnemyIdentifier enemyIdentifier; //EnemyPool에서 사용하는 태그 관리 컴포넌트.
 
 
-        private void Awake()
-        {
-
-            playerMaxHealth = 100 + SkillEffectHandler.Instance.maxHealthIncreaseAmount;
-
-        }
-
         //------0607 김현우 수정 : 죽고 다시 로딩될 시, 체력을 재차 초기화함.
         public void ResetHealth(ZombieBase zombieBase)
         {
@@ -85,8 +78,8 @@ namespace Akila.FPSFramework
             {
                 if (Actor && Actor.characterManager != null) DeathCamera.Instance?.Disable();
                 playerMaxHealth = health; // 플레이어의 최대 체력을 100 으로 초기화, 만약 기본 체력이 50이면 최대체력도 50일거임; - 이현수;
-                
-                
+
+
 
                 groups = GetComponentsInChildren<IDamageableGroup>();
 
@@ -110,6 +103,8 @@ namespace Akila.FPSFramework
             {
                 if (ragdoll || Actor) Debug.LogWarning($"{this} has humanoid components and it's type is Other please change type to Humanoid to avoid errors.");
             }
+            
+            playerMaxHealth = 100 + SkillEffectHandler.Instance.maxHealthIncreaseAmount;
         }
 
         public bool allowDamageScreen { get; set; } = true;

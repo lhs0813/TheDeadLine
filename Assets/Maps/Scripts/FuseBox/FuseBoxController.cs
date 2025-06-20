@@ -1,16 +1,12 @@
+using Akila.FPSFramework;
 using UnityEngine;
 
 public class FuseBoxController : MonoBehaviour
 {
-    bool isAlreadyActivated = false;
-
     public void OnFuseActivated()
     {
-        if (!isAlreadyActivated)
-        {
-            isAlreadyActivated = true;
-            GamePlayManager.instance.FuseActivated();
-        }
-
+        GamePlayManager.instance.FuseActivated();
+        FindAnyObjectByType<UI_Electricity_Info>().GetComponent<Animator>().SetTrigger("On");
+        Destroy(gameObject);
     }
 }
