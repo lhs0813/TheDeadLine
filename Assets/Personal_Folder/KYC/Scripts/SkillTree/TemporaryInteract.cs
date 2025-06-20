@@ -1,23 +1,30 @@
 ﻿using UnityEngine;
 using Cinemachine;
 using System;
+using Akila.FPSFramework;
 
 public class RotateOnTrigger : MonoBehaviour
 {
+    [Header("Laptop Actions")]
     public static Action onLapTop;
     public static Action offLapTop;
+
+    [Header("Gameobject References")]
 
     public GameObject needToHideUI;
     public GameObject needToHideUI2;
     public GameObject targetObject;        // 회전시킬 오브젝트
+    public GameObject skillUIWithElectricity; //전력 공급이 있을 때의 화면
+    public GameObject skillUIWithNoElectricity; //전력 공급이 없을 때의 화면
+
+    [Header("Laptop Variables")]
     public float openAngle = -20f;         // 열릴 때 X축 회전 각도
     private float closeAngle = 89.7f;          // 닫힐 때 X축 회전 각도
     public float rotationSpeed = 200f;      // 회전 속도
-    public GameObject skillUI;
 
     public bool isLapTopOn = false;
-
     private bool isPlayerInside = false;
+    private bool electricityCharged = true;
 
     [Header("Cinemachine Virtual Cameras")]
     [SerializeField] private CinemachineVirtualCamera fpsCam;
@@ -25,10 +32,19 @@ public class RotateOnTrigger : MonoBehaviour
     [SerializeField] private MonoBehaviour playerControlScript;
 
 
+    // 0620 김현우 수정 : 전력공급 여부에 따라서, 열릴 시 로딩하는 캔버스를 결정하도록 함.
 
     private void Start()
     {
-        skillUI.SetActive(false);
+        //TODO : 시작 위치에 따라 다름.
+        skillUIWithElectricity.SetActive(true);
+        skillUIWithNoElectricity.SetActive(false);
+
+        //Action 구독.
+        GamePlayManager.instance.OnElectricityOnAction += ActivateLaptop; //전력 공급시 스킬 UI를 로딩할 수 있도록.
+        GamePlayManager.instance.OnElectricityOffAction += DeactivateLaptop; //전력 끊길 시 스킬 UI를 대체하도록.
+        GamePlayManager.instance.OnStationDepartAction += SetLaptopNotUsable;
+        GamePlayManager.instance.OnStationArriveAction += SetLaptopUsable;
     }
     void Update()
     {
@@ -52,12 +68,44 @@ public class RotateOnTrigger : MonoBehaviour
         targetObject.transform.rotation = Quaternion.Euler(newRotation);
     }
 
+    private void ActivateLaptop()
+    {
+        electricityCharged = true;
+    }
+
+    private void DeactivateLaptop()
+    {
+        electricityCharged = false;
+    }
+
+    private void SetLaptopNotUsable(float f) //노트북과의 상호작용을 차단.
+    {
+        GetComponent<Pickable>().enabled = false;
+    }
+
+    private void SetLaptopUsable(float f) //노트북과의 상호작용을 허용.
+    {
+        GetComponent<Pickable>().enabled = true;
+    }
+
     public void LabtopOn()
     {
+        ///노트북 열릴 시의 Input 비활성화 로직들 수행.
         onLapTop?.Invoke();
 
         isPlayerInside = true;
-        skillUI.SetActive(true);
+
+        if (electricityCharged)
+        {
+            skillUIWithElectricity.SetActive(true);
+            skillUIWithNoElectricity.SetActive(false);
+        }
+        else
+        {
+            skillUIWithElectricity.SetActive(false);
+            skillUIWithNoElectricity.SetActive(true);            
+        }
+
         isLapTopOn = true;
 
         Cursor.visible = true;
@@ -79,7 +127,12 @@ public class RotateOnTrigger : MonoBehaviour
         offLapTop?.Invoke();
 
         isPlayerInside = false;
-        skillUI.SetActive(false);
+
+
+        skillUIWithElectricity.SetActive(false);
+        skillUIWithNoElectricity.SetActive(false);
+
+
         isLapTopOn = false;
 
         Cursor.visible = false;
@@ -94,19 +147,11 @@ public class RotateOnTrigger : MonoBehaviour
         playerControlScript.enabled = true;
     }
 
-    /*private void OnTriggerEnter(Collider other)
+    void OnDisable()
     {
-        if (other.CompareTag("Player"))
-        {
-            
-        }
-    }*/
-
-    /*private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            
-        }
-    }*/
+        GamePlayManager.instance.OnElectricityOnAction -= ActivateLaptop;
+        GamePlayManager.instance.OnElectricityOffAction -= DeactivateLaptop; 
+        GamePlayManager.instance.OnStationDepartAction -= SetLaptopNotUsable;
+        GamePlayManager.instance.OnStationArriveAction -= SetLaptopUsable;        
+    }
 }
