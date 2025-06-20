@@ -28,11 +28,17 @@ public class DangerStateUI : MonoBehaviour
     private void ShowUI()
     {
         isHidden = false;
-        _anim.SetTrigger("On");          
+        _anim.SetTrigger("On");
     }
 
     void Update()
     {
 
+    }
+
+    void OnDisable()
+    {
+        GamePlayManager.instance.OnDangerAction -= ShowUI;
+        GamePlayManager.instance.OnPreDepartAction -= HideUI;
     }
 }

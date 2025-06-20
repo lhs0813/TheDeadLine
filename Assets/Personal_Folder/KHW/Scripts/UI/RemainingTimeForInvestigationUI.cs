@@ -29,7 +29,7 @@ public class RemainingTimeForInvestigationUI : MonoBehaviour
     {
         this.remainingTime = remainingTime;
         isHidden = false;
-        _anim.SetTrigger("On");          
+        _anim.SetTrigger("On");
     }
 
     public void UpdateRemainingTime(bool isOnCombat, float currentTime, float nextTime)
@@ -65,5 +65,10 @@ public class RemainingTimeForInvestigationUI : MonoBehaviour
         {
             HideUI();
         }
+    }
+
+    void OnDisable()
+    {
+        GamePlayManager.instance.OnStationArriveAction -= ShowUI;
     }
 }

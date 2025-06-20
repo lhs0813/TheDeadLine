@@ -39,6 +39,11 @@ public class GamePlayManager : MonoBehaviour
     public Action<float> OnStationDepartAction;
     public Action<int> OnMapLoadFinishingAction; //맵 로딩 완료시 매니저에서 한번 더 호출.Arg는 mapIndex.
 
+
+
+    bool isLeverActivated = false;
+    public Action OnLeverActivatedAction;
+
     private void Awake()
     {
         if (instance == null)
@@ -168,8 +173,12 @@ public class GamePlayManager : MonoBehaviour
         trainController.TrainDepart();
 
         bgmController.StopCombatMusic();
+    }
 
-
+    public void FuseActivated()
+    {
+        isLeverActivated = true;
+        OnLeverActivatedAction?.Invoke();
     }
 
     private void FixedUpdate()

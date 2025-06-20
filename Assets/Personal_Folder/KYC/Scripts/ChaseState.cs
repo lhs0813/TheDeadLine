@@ -23,7 +23,7 @@ public class ChaseState : IZombieState
         }
         PlayRandomSound(_zombie.chaseClips);
 
-        //매 0.2초마다 경로 업데이트
+        //매 0.4초마다 경로 업데이트
         _chaseRoutine = _zombie.StartCoroutine(ChaseRoutine());
     }
 
