@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +7,9 @@ public class DangerStateUI : MonoBehaviour
     float remainingTime;
     bool isHidden;
     Animator _anim;
+
+    public GameObject dangerNotice;
+    Animator _dangerInfoAnim;
 
     private void Start()
     {
@@ -17,6 +20,7 @@ public class DangerStateUI : MonoBehaviour
         GamePlayManager.instance.OnDangerAction += ShowUI;
         GamePlayManager.instance.OnPreDepartAction += HideUI;
         _anim = GetComponent<Animator>();
+        _dangerInfoAnim = dangerNotice.GetComponent<Animator>();
     }
 
     private void HideUI()
@@ -29,16 +33,11 @@ public class DangerStateUI : MonoBehaviour
     {
         isHidden = false;
         _anim.SetTrigger("On");
+        _dangerInfoAnim.SetTrigger("On");
     }
 
     void Update()
     {
 
-    }
-
-    void OnDisable()
-    {
-        GamePlayManager.instance.OnDangerAction -= ShowUI;
-        GamePlayManager.instance.OnPreDepartAction -= HideUI;
     }
 }
