@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.Events;
@@ -381,6 +381,12 @@ namespace Akila.FPSFramework
             _Camera.SetRotation(cameraRotation, !globalOrientation);
 
             prevCamRotation = _Camera.rotation;
+        }
+
+        public void SetRotationAngles(float x, float y)
+        {
+            xRotation = x;
+            yRotation = y;
         }
 
         private Quaternion prevCamRotation;
