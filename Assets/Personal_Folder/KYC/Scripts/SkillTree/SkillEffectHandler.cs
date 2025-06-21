@@ -35,7 +35,7 @@ public class SkillEffectHandler : MonoBehaviour
     public bool absorbHeatlh = false; // 체력 흡수 여부
     public float absorbHeatlhAmount = 1f;
     public bool maxHealthIncrease = false; // 최대 체력 증가 여부
-    public float maxHealthIncreaseAmount = 0f; // 최대 체력 증가량 (예: 50 체력 증가)
+    public float maxHealthIncreaseAmount = 50f; // 최대 체력 증가량 (예: 50 체력 증가)
     public bool isFullHpDamageBoost = false; // 체력 풀일 때 데미지 증가 여부
     public float fullHpDamageMultiplier = 1.0f; 
 

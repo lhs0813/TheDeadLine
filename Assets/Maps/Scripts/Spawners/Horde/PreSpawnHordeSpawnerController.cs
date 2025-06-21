@@ -16,30 +16,17 @@ public class PreSpawnHordeSpawnerController : MonoBehaviour
     //해당 스크립트가 같이 붙어있는 Tile Component.
     [SerializeField] private Tile tileSpawning;
     [SerializeField] private List<PrespawnedHordeSpawner> spawners;
-    [SerializeField] private int mapIndex;
-    [SerializeField] private bool danger;
-    DungenCharacter character;
 
     void Start()
     {
         //초기화 (DungenCharacter, Tile.)
-        character = FindAnyObjectByType<DungenCharacter>();
+        DungenCharacter character = FindAnyObjectByType<DungenCharacter>();
         tileSpawning = GetComponent<Tile>();
         spawners = GetComponentsInChildren<PrespawnedHordeSpawner>().ToList();
 
         //OnTileChanged Event는 DungenCharacter 자기자신, 이전 타일, 현재 타일을 줌.
         character.OnTileChanged += ManagePlayerLocation;
         MapGenerationManager.Instance.OnNavMeshBakeAction += InitializeSpawners;
-        GamePlayManager.instance.OnDangerAction += ChangeToDangerState;
-
-        mapIndex = GamePlayManager.instance.currentMapIndex;
-        danger = false;
-    }
-
-    private void ChangeToDangerState()
-    {
-        isAlreadyTriggered = false;
-        danger = true;
     }
 
     public void InitializeSpawners()
@@ -114,7 +101,7 @@ public class PreSpawnHordeSpawnerController : MonoBehaviour
     private void SpawnPreSpawnHorde()
     {
         foreach (var sp in spawners)
-            sp.TrySpawn(GamePlayManager.instance.currentMapIndex, danger);
+            sp.TrySpawn(GamePlayManager.instance.currentMapIndex);
     }
 
     /// <summary>
@@ -126,10 +113,4 @@ public class PreSpawnHordeSpawnerController : MonoBehaviour
             sp.DeSpawn();
     }
 
-    void OnDestroy()
-    {
-        character.OnTileChanged -= ManagePlayerLocation;
-        MapGenerationManager.Instance.OnNavMeshBakeAction -= InitializeSpawners;
-        GamePlayManager.instance.OnDangerAction -= ChangeToDangerState;        
-    }
 }

@@ -21,31 +21,20 @@ public class ChasingHordeSpawnerController : MonoBehaviour
     [Tooltip("한 번 스폰 후 다음 스폰까지 걸리는 시간(초)")]
     private float spawnerCooldown = 5f;
     private float nextAllowedSpawnTime = 0f;
-    [SerializeField] int spawnCount;
-    [SerializeField] bool danger;
-
+    
     void OnEnable()
     {
         character = FindAnyObjectByType<DungenCharacter>();
         spawningTile = GetComponent<Tile>();
         spawners = GetComponentsInChildren<ChasingHordeSpawner>().ToList();
         spawnerCooldown = 20f;
-        spawnCount = GamePlayManager.instance.currentMapIndex;
+
         character.OnTileChanged += ManagePlayerLocation; //플레이어 타일 변경 Event 구독.
-        GamePlayManager.instance.OnDangerAction += ChangeDangerState;
-
-        danger = false;
-    }
-
-    private void ChangeDangerState()
-    {
-        danger = true;
     }
 
     void OnDisable()
     {
         character.OnTileChanged -= ManagePlayerLocation; //플레이어 타일 변경 Event 구독 해제.
-        GamePlayManager.instance.OnDangerAction -= ChangeDangerState;
     }
 
     /// <summary>
@@ -90,7 +79,6 @@ public class ChasingHordeSpawnerController : MonoBehaviour
     private void ActivateHordeSpawner()
     {
         foreach (var sp in spawners)
-            sp.TrySpawn(spawnCount, danger);
+            sp.TrySpawn(GamePlayManager.instance.currentMapIndex);
     }
-
 }

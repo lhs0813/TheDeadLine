@@ -36,7 +36,7 @@ public class Player_Hp_UI : MonoBehaviour
 
     void MaxHpUiUpdate(float maxHp)
     {
-        HpUis[0].text =  "/ " + maxHp.ToString("F0");
+        HpUis[0].text = maxHp.ToString("F0"); // 1번은 NowHealth , 0번은 토탈 헬스~
         _maxHp = maxHp;
         
     }

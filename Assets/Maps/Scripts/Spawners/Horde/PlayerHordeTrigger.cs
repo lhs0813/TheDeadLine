@@ -82,7 +82,7 @@ public class PlayerHordeTrigger : MonoBehaviour
         {
             int idx = Random.Range(0, currentValidTargets.Count);
             var trg = currentValidTargets[idx];
-            //trg.GetComponent<ChasingHordeSpawner>().TrySpawn(currentMapIndex);
+            trg.GetComponent<ChasingHordeSpawner>().TrySpawn(currentMapIndex);
             currentValidTargets.RemoveAt(idx);
         }
 
