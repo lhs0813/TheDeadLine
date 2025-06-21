@@ -63,11 +63,10 @@ public class TrainController : MonoBehaviour
         isMoving = true;
 
         // <-- schedule the arrival-rail move 5 seconds later (for example)
-        if (CheckPlayerInside())
-        {
-            Debug.Log("3초 뒤 대기 레일로 이동");
-            StartCoroutine(DelayedStageRail(3f));            
-        }
+
+        Debug.Log("3초 뒤 대기 레일로 이동");
+        StartCoroutine(DelayedStageRail(3f));            
+    
 
     }
 

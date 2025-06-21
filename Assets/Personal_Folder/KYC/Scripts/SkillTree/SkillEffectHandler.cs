@@ -15,7 +15,7 @@ public class SkillEffectHandler : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         RegisterEffects(); // 딕셔너리 구성
     }
