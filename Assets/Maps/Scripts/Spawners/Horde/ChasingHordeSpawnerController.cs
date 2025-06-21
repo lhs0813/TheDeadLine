@@ -45,6 +45,7 @@ public class ChasingHordeSpawnerController : MonoBehaviour
     void OnDisable()
     {
         character.OnTileChanged -= ManagePlayerLocation; //플레이어 타일 변경 Event 구독 해제.
+        GamePlayManager.instance.OnDangerAction -= ChangeDangerState;
     }
 
     /// <summary>
@@ -91,4 +92,5 @@ public class ChasingHordeSpawnerController : MonoBehaviour
         foreach (var sp in spawners)
             sp.TrySpawn(spawnCount, danger);
     }
+
 }
