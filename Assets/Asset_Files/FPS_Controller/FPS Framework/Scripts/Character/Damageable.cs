@@ -261,6 +261,18 @@ namespace Akila.FPSFramework
 
         public void Damage(float amount, GameObject damageSource, bool critical)
         {
+            //적이 받는 데미지 전체 조정 
+            if (type != HealthType.Player)
+                amount *= Affector.damageMulti;
+
+            //방패판정 
+            if (type == HealthType.Player)
+            {
+                if (isBlocked(damageSource))
+                    return;
+            }
+
+
             if (type == HealthType.Player && isPlayer)
             {
                 float predictedHp = health - amount;
@@ -315,6 +327,51 @@ namespace Akila.FPSFramework
         }
 
         public bool isActive { get; set; } = true;
+        
+
+        bool isBlocked(GameObject _from)
+        {
+            var from = _from.transform.position; from.y = 0;
+            var to = transform.position; to.y = 0;
+            var dir = to - from; dir.Normalize();
+            var fwd = GetComponentInChildren<Pinger>().transform.forward; fwd.y = 0;
+
+
+            if (Vector3.Angle(fwd, dir) > 120)
+            {
+                var block = transform.GetComponentInChildren<Blockable>();
+                if (block)
+                {
+                    block.Block();
+                    return true;
+                }
+            }
+            return false;
+
+            //System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
+
+
+            //for (var i = 0; i < hits.Length; i++)
+            //{
+            //    var block = hits[i].transform.GetComponent<Blockable>();
+            //    if (block)
+            //    {
+            //        block.Block();
+            //       // return true;
+            //    }
+
+
+            //   var dam = hits[i].transform.GetComponentInParent<Damageable>();
+            //    if(dam)
+            //    {
+            //        //return false;
+            //    }
+            //}
+            //return false;
+        }
+
+
+
 
         public UnityEvent onDeath => OnDeath;
     }
