@@ -38,6 +38,9 @@ public class WeaponOnOff : MonoBehaviour
 
         for (int i = 0; i < _effects.Count; i++)
             _effects[i].Stop(true, ParticleSystemStopBehavior.StopEmitting);
+
+
+        firearm.onFire += FireSound;
     }
 
     private void OnEnable()
@@ -123,6 +126,11 @@ public class WeaponOnOff : MonoBehaviour
         if (soundLoop) soundLoop.Stop();
         OnEnd.Invoke();
     }   
+
+    void FireSound(Vector3 a,Quaternion b,Vector3 z)
+    {
+        soundStart.Play();
+    }
 }
 
 /*
