@@ -62,6 +62,10 @@ namespace Akila.FPSFramework
                 case PickableType.FuseBox:
                     InteractWithFuseBox(source);
                     break;
+                case PickableType.ReCharge:
+                    InteractWithRecharge(source);
+                    break;
+
                 default:
                     Debug.LogWarning($"Unhandled pickable type: {type}", gameObject);
                     break;
@@ -200,6 +204,22 @@ namespace Akila.FPSFramework
             FPSFrameworkEditor.InvokeConvertMethod("ConvertPickable", this, new object[] { this });
 #endif
         }
+
+        public virtual void InteractWithRecharge(InteractionsManager source)
+        {
+            if (source == null || source.Inventory == null)
+            {
+                Debug.LogError("Missing source or inventory reference during collectable interaction.", gameObject);
+                return;
+            }
+
+            GetComponent<Animator>().SetTrigger("Charge");
+            Player_Hand.Instance.Charge();
+            transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+            
+
+        }
+
     }
 
     public enum PickableType
@@ -208,6 +228,8 @@ namespace Akila.FPSFramework
         Collectable = 1,
         Interact = 2,
         DataChip = 3,
-        FuseBox = 4
+        FuseBox = 4,
+        ReCharge = 5,
+
     }
 }
