@@ -13,7 +13,7 @@ public class PrespawnedHordeSpawner : MonoBehaviour
     private readonly List<GameObject> preSpawnedEnemies = new List<GameObject>();
 
     private List<Vector3> spawnPoints;
-    int dangerSpawnCountMultiplier = 3;
+    int dangerSpawnCountMultiplier = 2;
 
     public void InitializeSpawnPoints()
     {

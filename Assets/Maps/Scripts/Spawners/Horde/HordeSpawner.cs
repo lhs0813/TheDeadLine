@@ -11,7 +11,7 @@ public class ChasingHordeSpawner : MonoBehaviour
 
         if (danger)
         {
-            spawnCount *= 3;
+            spawnCount *= 2;
         }
 
         for (int i = 0; i < spawnCount; i++)
