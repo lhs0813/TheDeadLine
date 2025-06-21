@@ -16,7 +16,7 @@ public class PreSpawnHordeSpawnerController : MonoBehaviour
     //해당 스크립트가 같이 붙어있는 Tile Component.
     [SerializeField] private Tile tileSpawning;
     [SerializeField] private List<PrespawnedHordeSpawner> spawners;
-    [SerializeField] private int spawnCount;
+    [SerializeField] private int mapIndex;
     [SerializeField] private bool danger;
     DungenCharacter character;
 
@@ -32,7 +32,7 @@ public class PreSpawnHordeSpawnerController : MonoBehaviour
         MapGenerationManager.Instance.OnNavMeshBakeAction += InitializeSpawners;
         GamePlayManager.instance.OnDangerAction += ChangeToDangerState;
 
-        spawnCount = GamePlayManager.instance.currentMapIndex;
+        mapIndex = GamePlayManager.instance.currentMapIndex;
         danger = false;
     }
 
@@ -40,7 +40,6 @@ public class PreSpawnHordeSpawnerController : MonoBehaviour
     {
         isAlreadyTriggered = false;
         danger = true;
-        spawnCount *= 3;
     }
 
     public void InitializeSpawners()
@@ -115,7 +114,7 @@ public class PreSpawnHordeSpawnerController : MonoBehaviour
     private void SpawnPreSpawnHorde()
     {
         foreach (var sp in spawners)
-            sp.TrySpawn(GamePlayManager.instance.currentMapIndex, !danger);
+            sp.TrySpawn(GamePlayManager.instance.currentMapIndex, danger);
     }
 
     /// <summary>

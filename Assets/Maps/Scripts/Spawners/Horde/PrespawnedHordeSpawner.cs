@@ -13,6 +13,7 @@ public class PrespawnedHordeSpawner : MonoBehaviour
     private readonly List<GameObject> preSpawnedEnemies = new List<GameObject>();
 
     private List<Vector3> spawnPoints;
+    int dangerSpawnCountMultiplier = 3;
 
     public void InitializeSpawnPoints()
     {
@@ -41,15 +42,26 @@ public class PrespawnedHordeSpawner : MonoBehaviour
     {
         foreach (var point in spawnPoints)
         {
-            EnemyType type = HordeSpawnBuilder.RollEnemyType(mapIndex);
+            int it = 1;
 
-            //Transform 설정
-            float randomY = Random.Range(0f, 360f);
-            GameObject enemy = EnemyPoolManager.Instance.Spawn(type, point, Quaternion.Euler(0f, randomY, 0f), track);
-            if (enemy != null)
+            if (track) // == danger
             {
-                preSpawnedEnemies.Add(enemy);
+                it = dangerSpawnCountMultiplier;
             }
+
+            for (int i = 0; i < it; i++)
+            {
+                EnemyType type = HordeSpawnBuilder.RollEnemyType(mapIndex);
+
+                //Transform 설정
+                float randomY = Random.Range(0f, 360f);
+                GameObject enemy = EnemyPoolManager.Instance.Spawn(type, point, Quaternion.Euler(0f, randomY, 0f), !track);
+                if (enemy != null)
+                {
+                    preSpawnedEnemies.Add(enemy);
+                }                
+            }
+
         }
 
     }

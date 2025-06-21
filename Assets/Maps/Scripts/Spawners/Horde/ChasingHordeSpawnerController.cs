@@ -22,6 +22,7 @@ public class ChasingHordeSpawnerController : MonoBehaviour
     private float spawnerCooldown = 5f;
     private float nextAllowedSpawnTime = 0f;
     [SerializeField] int spawnCount;
+    [SerializeField] bool danger;
 
     void OnEnable()
     {
@@ -32,11 +33,13 @@ public class ChasingHordeSpawnerController : MonoBehaviour
         spawnCount = GamePlayManager.instance.currentMapIndex;
         character.OnTileChanged += ManagePlayerLocation; //플레이어 타일 변경 Event 구독.
         GamePlayManager.instance.OnDangerAction += ChangeDangerState;
+
+        danger = false;
     }
 
     private void ChangeDangerState()
     {
-        spawnCount *= 3;
+        danger = true;
     }
 
     void OnDisable()
@@ -86,6 +89,6 @@ public class ChasingHordeSpawnerController : MonoBehaviour
     private void ActivateHordeSpawner()
     {
         foreach (var sp in spawners)
-            sp.TrySpawn(spawnCount);
+            sp.TrySpawn(spawnCount, danger);
     }
 }

@@ -3,11 +3,16 @@ using UnityEngine.AI;
 
 public class ChasingHordeSpawner : MonoBehaviour
 {
-    public void TrySpawn(int mapIndex)
+    public void TrySpawn(int mapIndex, bool danger)
     {
         int spawnCount = MapGenCalculator
             .GetCreatureSpawnCountRangePerSpawner(mapIndex)
             .GetRandom(new DunGen.RandomStream());
+
+        if (danger)
+        {
+            spawnCount *= 3;
+        }
 
         for (int i = 0; i < spawnCount; i++)
             {
