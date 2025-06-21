@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.AI;
 
 public class ChaseState : IZombieState
 {
@@ -36,16 +37,39 @@ public class ChaseState : IZombieState
         }
     }
 
-    private IEnumerator ChaseRoutine()
+private IEnumerator ChaseRoutine()
+{
+    var wait = new WaitForSeconds(0.4f);
+    while (true)
     {
-        var wait = new WaitForSeconds(0.4f);
-        while (true)
+        if (_player == null)
+            yield break;
+
+        var agent = _zombie.Agent;
+        // 1) If the agent isn’t on the NavMesh, try to sample & warp it
+        if (!agent.isOnNavMesh)
         {
-            if (_player == null) yield break;
-            _zombie.Agent.SetDestination(_player.position);
-            yield return wait;
+            NavMeshHit hit;
+            // look within, say, 2 units of its current position
+            if (NavMesh.SamplePosition(agent.transform.position, out hit, 2f, NavMesh.AllAreas))
+            {
+                agent.Warp(hit.position);
+            }
+            else
+            {
+                // couldn’t find NavMesh nearby — bail out until next tick
+                yield return wait;
+                continue;
+            }
         }
+
+        // 2) Now safe to set a new destination
+        agent.SetDestination(_player.position);
+
+        yield return wait;
     }
+}
+
 
     public void Exit()
     {
