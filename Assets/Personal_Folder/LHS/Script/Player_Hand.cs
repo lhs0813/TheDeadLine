@@ -6,7 +6,9 @@ public class Player_Hand : MonoBehaviour
 {
     public static Player_Hand Instance { get; private set; }
     public Animator _playerHandAnim;
-    ParticleSystem _spark;
+
+    public GameObject inventory;
+    public GameObject interactableHud;
 
     private GameObject _player;
     private GameObject _playerCamera;
@@ -70,6 +72,10 @@ public class Player_Hand : MonoBehaviour
 
     IEnumerator CameraLock()
     {
+        inventory.gameObject.SetActive(false);
+        interactableHud.gameObject.SetActive(false);
+
+
         yield return new WaitForSeconds(0.3f);
         _playerDamagable.health = _playerDamagable.playerMaxHealth;
 
@@ -86,6 +92,9 @@ public class Player_Hand : MonoBehaviour
 
             _fpc.SetRotationAngles(NormalizeAngle(camEuler.x), NormalizeAngle(camEuler.y));
         }
+
+        inventory.gameObject.SetActive(true);
+        interactableHud.gameObject.SetActive(true);
     }
 
 }
