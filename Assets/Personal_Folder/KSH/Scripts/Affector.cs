@@ -41,6 +41,7 @@ public class Affector : MonoBehaviour
 
     [Header("HitEffect")]
     public GameObject hitEffect;
+    public bool efPosThis;
     public bool efDiretionHitNormal;
     public bool efInChiled;
     public bool efInChiledlocalPositionZero;
@@ -315,14 +316,19 @@ public class Affector : MonoBehaviour
         if (hitEffect)
         {
             GameObject v = null;
+            var pos = hitPoint;
+            if (efPosThis)
+                pos = transform.position;
+
+
             if (efDiretionHitNormal)
             {
-                v = Instantiate(hitEffect, hitPoint, Quaternion.LookRotation(hitNormal));
+                v = Instantiate(hitEffect, pos, Quaternion.LookRotation(hitNormal));
                 v.transform.up = hitNormal;
             }
             else
             {
-                v = Instantiate(hitEffect, hitPoint, transform.rotation);
+                v = Instantiate(hitEffect, pos, transform.rotation);
             }
 
 
