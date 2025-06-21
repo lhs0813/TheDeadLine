@@ -37,7 +37,7 @@ public class PrespawnedHordeSpawner : MonoBehaviour
     /// <summary>
     /// 동시 스폰: 미리 지점을 뽑아두고, 각 지점에 한번에 적 생성
     /// </summary>
-    public void TrySpawn(int mapIndex)
+    public void TrySpawn(int mapIndex, bool track)
     {
         foreach (var point in spawnPoints)
         {
@@ -45,7 +45,7 @@ public class PrespawnedHordeSpawner : MonoBehaviour
 
             //Transform 설정
             float randomY = Random.Range(0f, 360f);
-            GameObject enemy = EnemyPoolManager.Instance.Spawn(type, point, Quaternion.Euler(0f, randomY, 0f), true);
+            GameObject enemy = EnemyPoolManager.Instance.Spawn(type, point, Quaternion.Euler(0f, randomY, 0f), track);
             if (enemy != null)
             {
                 preSpawnedEnemies.Add(enemy);

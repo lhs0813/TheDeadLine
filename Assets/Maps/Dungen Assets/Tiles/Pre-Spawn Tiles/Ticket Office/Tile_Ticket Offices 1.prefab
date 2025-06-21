@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 6068949716943516914}
   - component: {fileID: 8656245510103619820}
   - component: {fileID: 7606906782004971156}
+  - component: {fileID: 8508519567458991103}
   m_Layer: 0
   m_Name: Tile_Ticket Offices 1
   m_TagString: Untagged
@@ -163,6 +164,20 @@ MonoBehaviour:
   isAlreadyTriggered: 0
   tileSpawning: {fileID: 0}
   spawners: []
+  spawnCount: 0
+  danger: 0
+--- !u!114 &8508519567458991103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551163890100832548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0e41965a4740945a30b3a93f64b3fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1639754312649316856
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +270,7 @@ Transform:
   m_GameObject: {fileID: 1944633887868610916}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.000011, y: -2.8439937, z: 21.999983}
+  m_LocalPosition: {x: 4.0022297, y: -2.843987, z: 22.00003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -410,7 +425,7 @@ Transform:
   m_GameObject: {fileID: 3559388961774335912}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.00000058114523}
-  m_LocalPosition: {x: 4.0000033, y: -2.8439932, z: -5.999949}
+  m_LocalPosition: {x: 3.9999998, y: -2.8439937, z: -5.999996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5358,17 +5373,17 @@ PrefabInstance:
     - target: {fileID: 3690470213104129321, guid: eed883c271f6f8e41a6f0d0e21d3ef09,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000008103138
+      value: -0.0022296936
       objectReference: {fileID: 0}
     - target: {fileID: 3690470213104129321, guid: eed883c271f6f8e41a6f0d0e21d3ef09,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.8439436
+      value: 4.843937
       objectReference: {fileID: 0}
     - target: {fileID: 3690470213104129321, guid: eed883c271f6f8e41a6f0d0e21d3ef09,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.099901
+      value: -4.0909443
       objectReference: {fileID: 0}
     - target: {fileID: 3690470213104129321, guid: eed883c271f6f8e41a6f0d0e21d3ef09,
         type: 3}
@@ -5439,6 +5454,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PreHordeSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842682529709325743, guid: f70831be2d90d5c44a5e672b6cbc4782,
+        type: 3}
+      propertyPath: spawnRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842682529709325743, guid: f70831be2d90d5c44a5e672b6cbc4782,
+        type: 3}
+      propertyPath: minSpawnDistance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7009975607187083319, guid: f70831be2d90d5c44a5e672b6cbc4782,
         type: 3}
@@ -5586,17 +5611,17 @@ PrefabInstance:
     - target: {fileID: 3690470213104129321, guid: eed883c271f6f8e41a6f0d0e21d3ef09,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000008103138
+      value: 0.0000045025095
       objectReference: {fileID: 0}
     - target: {fileID: 3690470213104129321, guid: eed883c271f6f8e41a6f0d0e21d3ef09,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.8439436
+      value: 4.843943
       objectReference: {fileID: 0}
     - target: {fileID: 3690470213104129321, guid: eed883c271f6f8e41a6f0d0e21d3ef09,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.099901
+      value: -4.078952
       objectReference: {fileID: 0}
     - target: {fileID: 3690470213104129321, guid: eed883c271f6f8e41a6f0d0e21d3ef09,
         type: 3}
@@ -6396,6 +6421,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PreHordeSpawner_3
       objectReference: {fileID: 0}
+    - target: {fileID: 4842682529709325743, guid: f70831be2d90d5c44a5e672b6cbc4782,
+        type: 3}
+      propertyPath: spawnRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842682529709325743, guid: f70831be2d90d5c44a5e672b6cbc4782,
+        type: 3}
+      propertyPath: minSpawnDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7009975607187083319, guid: f70831be2d90d5c44a5e672b6cbc4782,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6469,6 +6504,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PreHordeSpawner_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842682529709325743, guid: f70831be2d90d5c44a5e672b6cbc4782,
+        type: 3}
+      propertyPath: spawnRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842682529709325743, guid: f70831be2d90d5c44a5e672b6cbc4782,
+        type: 3}
+      propertyPath: minSpawnDistance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7009975607187083319, guid: f70831be2d90d5c44a5e672b6cbc4782,
         type: 3}
@@ -7936,6 +7981,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7036348116845080579, guid: 1d1cc018875dc574fbaa2c4e6ae62838,
+        type: 3}
+      propertyPath: m_Type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036348116845080579, guid: 1d1cc018875dc574fbaa2c4e6ae62838,
+        type: 3}
+      propertyPath: m_Range
+      value: 12.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036348116845080579, guid: 1d1cc018875dc574fbaa2c4e6ae62838,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036348116845080579, guid: 1d1cc018875dc574fbaa2c4e6ae62838,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.7892704
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036348116845080579, guid: 1d1cc018875dc574fbaa2c4e6ae62838,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.06132078
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036348116845080579, guid: 1d1cc018875dc574fbaa2c4e6ae62838,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 7.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036348116845080579, guid: 1d1cc018875dc574fbaa2c4e6ae62838,
+        type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036348116845080579, guid: 1d1cc018875dc574fbaa2c4e6ae62838,
+        type: 3}
+      propertyPath: m_BounceIntensity
+      value: 6.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8936,6 +9021,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PreHordeSpawner_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842682529709325743, guid: f70831be2d90d5c44a5e672b6cbc4782,
+        type: 3}
+      propertyPath: spawnRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842682529709325743, guid: f70831be2d90d5c44a5e672b6cbc4782,
+        type: 3}
+      propertyPath: minSpawnDistance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7009975607187083319, guid: f70831be2d90d5c44a5e672b6cbc4782,
         type: 3}
@@ -12224,6 +12319,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7036348116845080579, guid: 1d1cc018875dc574fbaa2c4e6ae62838,
+        type: 3}
+      propertyPath: m_Type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036348116845080579, guid: 1d1cc018875dc574fbaa2c4e6ae62838,
+        type: 3}
+      propertyPath: m_Range
+      value: 11.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036348116845080579, guid: 1d1cc018875dc574fbaa2c4e6ae62838,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036348116845080579, guid: 1d1cc018875dc574fbaa2c4e6ae62838,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036348116845080579, guid: 1d1cc018875dc574fbaa2c4e6ae62838,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036348116845080579, guid: 1d1cc018875dc574fbaa2c4e6ae62838,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 5.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036348116845080579, guid: 1d1cc018875dc574fbaa2c4e6ae62838,
+        type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036348116845080579, guid: 1d1cc018875dc574fbaa2c4e6ae62838,
+        type: 3}
+      propertyPath: m_BounceIntensity
+      value: 5.76
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14158,6 +14293,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PreHordeSpawner_6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842682529709325743, guid: f70831be2d90d5c44a5e672b6cbc4782,
+        type: 3}
+      propertyPath: spawnRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842682529709325743, guid: f70831be2d90d5c44a5e672b6cbc4782,
+        type: 3}
+      propertyPath: minSpawnDistance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7009975607187083319, guid: f70831be2d90d5c44a5e672b6cbc4782,
         type: 3}
@@ -18212,6 +18357,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PreHordeSpawner_1
       objectReference: {fileID: 0}
+    - target: {fileID: 4842682529709325743, guid: f70831be2d90d5c44a5e672b6cbc4782,
+        type: 3}
+      propertyPath: spawnRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842682529709325743, guid: f70831be2d90d5c44a5e672b6cbc4782,
+        type: 3}
+      propertyPath: minSpawnDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7009975607187083319, guid: f70831be2d90d5c44a5e672b6cbc4782,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19273,6 +19428,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PreHordeSpawner_5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842682529709325743, guid: f70831be2d90d5c44a5e672b6cbc4782,
+        type: 3}
+      propertyPath: spawnRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842682529709325743, guid: f70831be2d90d5c44a5e672b6cbc4782,
+        type: 3}
+      propertyPath: minSpawnDistance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7009975607187083319, guid: f70831be2d90d5c44a5e672b6cbc4782,
         type: 3}
