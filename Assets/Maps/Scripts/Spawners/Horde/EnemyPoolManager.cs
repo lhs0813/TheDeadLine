@@ -37,7 +37,7 @@ public class EnemyPoolManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     private async void Start()
