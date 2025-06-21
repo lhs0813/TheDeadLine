@@ -44,7 +44,7 @@ public class MapUIController : MonoBehaviour
     {
         return state switch
         {
-            GameState.PreDeparting or GameState.Departing => "Next Station",
+            GameState.PreDeparting or GameState.Departing or GameState.Danger => "Next Station",
             GameState.Waiting => "Train Going",
             GameState.Entering => "Arriving at",
             GameState.Combat => "Current Station",
@@ -58,7 +58,7 @@ public class MapUIController : MonoBehaviour
 
         // 🔁 상태가 "Next Station"일 경우, 다음 역을 중심에 표시
         GameState state = GamePlayManager.instance.currentGameState;
-        int centerIndex = (state == GameState.PreDeparting || state == GameState.Departing)
+        int centerIndex = (state == GameState.PreDeparting || state == GameState.Departing || state == GameState.Danger)
             ? index + 1
             : index;
 
