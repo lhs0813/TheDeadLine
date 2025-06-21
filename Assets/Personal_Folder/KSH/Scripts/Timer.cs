@@ -16,6 +16,9 @@ public class Timer : MonoBehaviour
 
     void OnEnable()    
     {        
+        if(onDestroy)
+            OnTime.AddListener(DestroyThis);
+
         StartCoroutine(Act());    
     }
     void OnDisable()    {        StopAllCoroutines();    }
@@ -29,8 +32,6 @@ public class Timer : MonoBehaviour
             {
                 yield return new WaitForSeconds(GetTime());
                 OnTime.Invoke();
-                if (onDestroy) Destroy(gameObject);
-
 
                 num_count++;
                 if (num_count == num) break;
@@ -40,7 +41,6 @@ public class Timer : MonoBehaviour
         {
             yield return new WaitForSeconds(GetTime());
             OnTime.Invoke();
-            if (onDestroy) Destroy(gameObject);
         }
     }
 

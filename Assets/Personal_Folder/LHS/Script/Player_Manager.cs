@@ -23,7 +23,7 @@ public class Player_Manager : MonoBehaviour
         PlayerHpChange += hpUpdate;
         PlayerMaxHpChange += MaxhpUpdate;
     }
-
+    
     private void hpUpdate(float hp)
     {
         playerHp = hp;

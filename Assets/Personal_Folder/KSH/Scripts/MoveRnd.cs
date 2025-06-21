@@ -8,7 +8,6 @@ public class MoveRnd : MonoBehaviour
     public float Speed = 5;
     public float RandomMoveRadius = 1;
     public float RandomMoveSpeedScale = 3;
-    public float randomTime = 10;
 
     Vector3 startPosition;
     Vector3 oldPos;
@@ -19,7 +18,7 @@ public class MoveRnd : MonoBehaviour
     {
         startPosition = transform.position;
         oldPos = startPosition;
-        randomTimeOffset = Random.insideUnitSphere * randomTime;
+        randomTimeOffset = Random.insideUnitSphere * 10;
     }
 
 
@@ -33,11 +32,11 @@ public class MoveRnd : MonoBehaviour
         Vector3 randomOffset = GetRadiusRandomVector() * RandomMoveRadius;
         if (RandomMoveRadius > 0)
         {
-            //if (target != null)
-            //{
-            //    var fade = Vector3.Distance(transform.position, target.transform.position) / Vector3.Distance(startPosition, target.transform.position);
-            //    //randomOffset *= fade;
-            //}
+            if (target != null)
+            {
+                var fade = Vector3.Distance(transform.position, target.transform.position) / Vector3.Distance(startPosition, target.transform.position);
+                //randomOffset *= fade;
+            }
         }
 
 

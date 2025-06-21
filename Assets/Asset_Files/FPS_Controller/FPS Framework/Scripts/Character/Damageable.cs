@@ -4,8 +4,6 @@ using UnityEngine.Events;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
-using static Unity.Collections.AllocatorManager;
 
 namespace Akila.FPSFramework
 {
@@ -105,8 +103,8 @@ namespace Akila.FPSFramework
             {
                 if (ragdoll || Actor) Debug.LogWarning($"{this} has humanoid components and it's type is Other please change type to Humanoid to avoid errors.");
             }
-
-            playerMaxHealth = 100 + SkillEffectHandler.Instance.maxHealthIncreaseAmount;
+            if(SkillEffectHandler.Instance.maxHealthIncrease)
+                playerMaxHealth = 100 + SkillEffectHandler.Instance.maxHealthIncreaseAmount;
         }
 
         public bool allowDamageScreen { get; set; } = true;
@@ -176,14 +174,14 @@ namespace Akila.FPSFramework
             if (!allowDamageScreen) return;
 
             if (type != HealthType.Player) return;
-
-            if (Actor == null)
+            
+            if(Actor == null)
             {
                 Debug.LogError("Couldn't find Actor on Damageable", gameObject);
                 return;
             }
 
-            if (Actor.characterManager == null)
+            if(Actor.characterManager == null)
             {
                 Debug.LogError("Couldn't find CharacterManager on Damagable.", gameObject);
                 return;
@@ -207,8 +205,8 @@ namespace Akila.FPSFramework
         private IEnumerator DelayedLoad() // 사망시 메인메뉴 씬으로 돌아가는 시스템 - 이현수
         {
             yield return new WaitForSeconds(3f); // 3초 대기
-            UnityEngine. Cursor.lockState = CursorLockMode.None;  // 마우스 잠금 해제
-            UnityEngine.Cursor.visible = true;                   // 마우스 커서 보이게
+            Cursor.lockState = CursorLockMode.None;  // 마우스 잠금 해제
+            Cursor.visible = true;                   // 마우스 커서 보이게
             SceneManager.LoadScene("Main Menu");
         }
         private void Die()
@@ -263,18 +261,6 @@ namespace Akila.FPSFramework
 
         public void Damage(float amount, GameObject damageSource, bool critical)
         {
-            //적이 받는 데미지 전체 조정 
-            if (type != HealthType.Player)
-                amount *= Affector.damageMulti;
-
-            //방패판정 
-            if (type == HealthType.Player)
-            {
-                if (isBlocked(damageSource))
-                    return;
-            }
-
-
             if (type == HealthType.Player && isPlayer)
             {
                 float predictedHp = health - amount;
@@ -303,16 +289,16 @@ namespace Akila.FPSFramework
             health -= amount;
 
 
+            
 
-
-            if (_killFeed == null)
+            if(_killFeed == null)
             {
                 _killFeed = FindAnyObjectByType<KillFeed>();
             }
-            if (type == HealthType.NPC)
+            if(type == HealthType.NPC)
                 _killFeed.DamageShow(amount, critical);
 
-
+        
 
             /*KillTag newTag = Instantiate(Tag, tagsHolder);
             newTag.message.color = headshot && newTag.updateImageColors ? headshotColor : newTag.message.color;
@@ -331,53 +317,7 @@ namespace Akila.FPSFramework
         public bool isActive { get; set; } = true;
 
         public UnityEvent onDeath => OnDeath;
-
-
-
-
-        bool isBlocked(GameObject _from)
-        {
-            var from = _from.transform.position ; from.y = 0;
-            var to = transform.position ; to.y = 0;
-            var dir = to - from; dir.Normalize();
-            var fwd = GetComponentInChildren<Pinger>().transform.forward; fwd.y = 0;
-
-
-            if (Vector3.Angle(fwd, dir) > 120)
-            {
-                var block = transform.GetComponentInChildren<Blockable>();
-                if (block)
-                {
-                    block.Block();
-                    return true;
-                }
-            }
-            return false;
-
-            //System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
-
-
-            //for (var i = 0; i < hits.Length; i++)
-            //{
-            //    var block = hits[i].transform.GetComponent<Blockable>();
-            //    if (block)
-            //    {
-            //        block.Block();
-            //       // return true;
-            //    }
-
-
-            //   var dam = hits[i].transform.GetComponentInParent<Damageable>();
-            //    if(dam)
-            //    {
-            //        //return false;
-            //    }
-            //}
-            //return false;
-        }
-
     }
-
 
     public enum HealthType
     {
