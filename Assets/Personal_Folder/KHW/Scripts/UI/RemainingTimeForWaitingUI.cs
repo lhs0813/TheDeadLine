@@ -30,7 +30,7 @@ public class RemainingTimeForWaitingUI : MonoBehaviour
     {
         this.remainingTime = remainingTime;
         isHidden = false;
-        _anim.SetTrigger("On");          
+        _anim.SetTrigger("On");
     }
 
     public void UpdateRemainingTime(bool isOnCombat, float currentTime, float nextTime)
@@ -66,5 +66,10 @@ public class RemainingTimeForWaitingUI : MonoBehaviour
         {
             HideUI();
         }
+    }
+
+    void OnDisable()
+    {
+        GamePlayManager.instance.OnStationDepartAction += ShowUI;
     }
 }

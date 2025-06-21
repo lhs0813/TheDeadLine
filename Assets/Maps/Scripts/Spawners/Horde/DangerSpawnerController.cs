@@ -14,7 +14,7 @@ public class DangerSpawnerController : MonoBehaviour
     void Start()
     {
         GamePlayManager.instance.OnDangerAction += ActivateDangerSpawner;
-        GamePlayManager.instance.OnPreDepartAction += DeactivateDangerSpawner; 
+        GamePlayManager.instance.OnPreDepartAction += DeactivateDangerSpawner;
         spawners = GetComponentsInChildren<DangerSpawner>().ToList();
     }
 
@@ -46,4 +46,11 @@ public class DangerSpawnerController : MonoBehaviour
         foreach (var sp in spawners)
             sp.TrySpawn(GamePlayManager.instance.currentMapIndex);
     }
+
+    void OnDisable()
+    {
+        GamePlayManager.instance.OnDangerAction -= ActivateDangerSpawner;
+        GamePlayManager.instance.OnPreDepartAction -= DeactivateDangerSpawner;  
+    }
+
 }

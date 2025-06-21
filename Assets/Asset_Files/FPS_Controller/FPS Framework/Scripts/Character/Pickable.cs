@@ -59,6 +59,9 @@ namespace Akila.FPSFramework
                 case PickableType.DataChip:
                     InteractWithDataChip(source);
                     break;
+                case PickableType.FuseBox:
+                    InteractWithFuseBox(source);
+                    break;
                 default:
                     Debug.LogWarning($"Unhandled pickable type: {type}", gameObject);
                     break;
@@ -179,6 +182,17 @@ namespace Akila.FPSFramework
             GetComponent<DataChip_To_SkillPoint>().SkillPointUp();
         }
 
+        public virtual void InteractWithFuseBox(InteractionsManager source)
+        {
+            if (source == null || source.Inventory == null)
+            {
+                Debug.LogError("Missing source or inventory reference during collectable interaction.", gameObject);
+                return;
+            }
+
+            GetComponent<FuseBoxController>().OnFuseActivated();
+        }
+
         [ContextMenu("Setup/Network Components")]
         private void SetupNetworkComponents()
         {
@@ -194,5 +208,6 @@ namespace Akila.FPSFramework
         Collectable = 1,
         Interact = 2,
         DataChip = 3,
+        FuseBox = 4
     }
 }
