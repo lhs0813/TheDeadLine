@@ -365,8 +365,13 @@ namespace Akila.FPSFramework
             }
         }
 
+        
+
         protected virtual void UpdateCameraRotation()
         {
+            if (Player_Hand.Instance._isCharging)
+                return;
+
             if (prevCamRotation != _Camera.rotation) OnCameraRotationUpdated();
 
             yRotation += CharacterInput.lookInput.x;

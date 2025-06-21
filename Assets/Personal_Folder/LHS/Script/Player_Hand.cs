@@ -12,7 +12,7 @@ public class Player_Hand : MonoBehaviour
 
     private GameObject _player;
     private GameObject _playerCamera;
-    private bool _isCharging = false;
+    public bool _isCharging = false;
     private FirstPersonController _fpc;
     private Damageable _playerDamagable;
 
@@ -50,8 +50,10 @@ public class Player_Hand : MonoBehaviour
         _targetPosition = _Charge_Position.transform.position;
         _moveTimer = 0f;
 
-        StartCoroutine(CameraLock());
         _isCharging = true;
+
+        StartCoroutine(CameraLock());
+        
     }
 
     private void Update()
@@ -61,8 +63,6 @@ public class Player_Hand : MonoBehaviour
             _playerCamera.transform.rotation = Quaternion.Euler(0, 90, 0);
             _player.transform.position = _Charge_Position.transform.position;
         }
-
-
     }
 
     private float NormalizeAngle(float angle)
@@ -76,7 +76,7 @@ public class Player_Hand : MonoBehaviour
         interactableHud.gameObject.SetActive(false);
 
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.4f);
         _playerDamagable.health = _playerDamagable.playerMaxHealth;
 
         Player_Manager.PlayerMaxHpChange?.Invoke(_playerDamagable.playerMaxHealth);
