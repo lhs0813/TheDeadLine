@@ -41,6 +41,7 @@ public class Affector : MonoBehaviour
 
     [Header("HitEffect")]
     public GameObject hitEffect;
+    public bool efPosThis;
     public bool efDiretionHitNormal;
     public bool efInChiled;
     public bool efInChiledlocalPositionZero;
@@ -81,14 +82,15 @@ public class Affector : MonoBehaviour
         }
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
-        StopAllCoroutines(); 
-
-        if(inTransform)
-            inTransform.transform.parent = null;
+        StopAllCoroutines();
 
 
+        for (int i = 0; i < inTransform.Count; ++i)
+        { 
+            inTransform[i].transform.parent = null;
+        }
     }
 
 
@@ -96,10 +98,8 @@ public class Affector : MonoBehaviour
     public void CheckTarget()
     {
         RaycastHit[] hits = null;
-        if (isRayCast)
-            hits = Physics.RaycastAll(before, transform.forward, Vector3.Distance(before, transform.position));
-        else
-            hits = Physics.SphereCastAll(before, transform.localScale.x / 2, transform.forward, Vector3.Distance(before, transform.position));
+        if (isRayCast)hits = Physics.RaycastAll(before, transform.forward, Vector3.Distance(before, transform.position));
+        else hits = Physics.SphereCastAll(before, transform.localScale.x / 2, transform.forward, Vector3.Distance(before, transform.position));
 
         System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
 
@@ -161,9 +161,7 @@ public class Affector : MonoBehaviour
             var target = damageTarget.gameObject;
             var ragdol = damageTarget.GetComponent<RagdollAnimatorDummyReference>();
             if (ragdol)
-                target = ragdol.ParentComponent.gameObject;
-
-
+                target = ragdol.ParentComponent.transform.parent.gameObject;
 
 
 
@@ -186,15 +184,12 @@ public class Affector : MonoBehaviour
 
             if (damage != 0)
             {
-                var value = damage * damageMulti;
+                var value = damage ;
                 var critical=false;
 
                 var damageableGroup = go.GetComponent<DamageableGroup>();
                 if (damageableGroup)
                     value*=damageableGroup.GetDamageMultipler();
-
-                /*if (damageableGroup.GetDamageMultipler() > 2)
-                    critical = true; //  -> 대미지가 2배 이상 뜨면 빨간색이 뜨는 코드?*/
 
 
                 damageTarget.Damage(value, gameObject, critical);
@@ -212,6 +207,13 @@ public class Affector : MonoBehaviour
             }
             
 
+
+            if(push!=0)
+            {
+                //var rb = damageTarget.GetComponentInChildren<Rigidbody>();
+                //rb.isKinematic = false;
+                //rb.linearVelocity = transform.forward* push;
+            }
 
 
 
@@ -314,14 +316,19 @@ public class Affector : MonoBehaviour
         if (hitEffect)
         {
             GameObject v = null;
+            var pos = hitPoint;
+            if (efPosThis)
+                pos = transform.position;
+
+
             if (efDiretionHitNormal)
             {
-                v = Instantiate(hitEffect, hitPoint, Quaternion.LookRotation(hitNormal));
+                v = Instantiate(hitEffect, pos, Quaternion.LookRotation(hitNormal));
                 v.transform.up = hitNormal;
             }
             else
             {
-                v = Instantiate(hitEffect, hitPoint, transform.rotation);
+                v = Instantiate(hitEffect, pos, transform.rotation);
             }
 
 
@@ -346,13 +353,13 @@ public class Affector : MonoBehaviour
     public void ThisPosToHitPoint() { transform.position = hitPoint; }
     public void TargetPosToThis()
     {
-        var nav = hitGameobject.GetComponentInParent<NavMeshAgent>();
-        if(nav) nav.enabled = false;
+        //var nav = hitGameobject.GetComponentInParent<NavMeshAgent>();
+        //if(nav) nav.enabled = false;
 
         hitGameobject.transform.parent = transform;
-        inTransform = hitGameobject;
+        inTransform.Add (hitGameobject);
     }
-    GameObject inTransform;
+   List< GameObject >inTransform = new();
 
     private void OnDrawGizmos()
     {

@@ -4,14 +4,12 @@ using System.Linq;
 using Akila.FPSFramework;
 using Unity.AI.Navigation;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.TextCore.Text;
 
 public class TrainController : MonoBehaviour
 {
     [SerializeField] private float trainDepartDelay = 3f; //문닫고, 실제 출발하기까지 걸리는 시간.
     [SerializeField] private float trainArriveDelay = 1f; //열차가 플랫폼에 도착하고, 문이 열리기 시작하는 시간.
-    [SerializeField] private float doorConnectDelay = 1.0f;
+    [SerializeField] private float doorConnectDelay = 1f;
     [SerializeField] private float currentSpeed; //현재속도
     [SerializeField] private float trainMaxSpeed; //최고속도
     [SerializeField] private float trainMinSpeed; //최저속도
@@ -67,7 +65,8 @@ public class TrainController : MonoBehaviour
         // <-- schedule the arrival-rail move 5 seconds later (for example)
         if (CheckPlayerInside())
         {
-            StartCoroutine(DelayedStageRail(5f));            
+            Debug.Log("3초 뒤 대기 레일로 이동");
+            StartCoroutine(DelayedStageRail(3f));            
         }
 
     }
@@ -83,10 +82,10 @@ public class TrainController : MonoBehaviour
         DetachPlayer();
         isMoving = false;
         isStopping = false;
-        GetComponent<NavMeshSurface>().BuildNavMesh();
 
         //yield return null;
         yield return new WaitForSeconds(trainArriveDelay);
+
 
         trainDoorController.OpenDoor();
         trainSoundController.PlayDoorOpen();
@@ -94,12 +93,12 @@ public class TrainController : MonoBehaviour
 
         yield return new WaitForSeconds(doorConnectDelay);
 
-
         List<NavMeshLink> links = GetComponentsInChildren<NavMeshLink>().ToList();
         foreach (var link in links)
         {
             link.enabled = true;
         }
+        GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 
     void Update()
@@ -146,6 +145,8 @@ public class TrainController : MonoBehaviour
         Transform waitingRailStartTransform = FindAnyObjectByType<WaitingRailStartPoint>().transform;
 
         transform.position = waitingRailStartTransform.position;
+
+
     }
 
     [SerializeField] private float arriveDuration = 3f;    // 감속 후 멈출까지 걸릴 시간

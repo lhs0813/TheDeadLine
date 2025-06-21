@@ -103,8 +103,8 @@ namespace Akila.FPSFramework
             {
                 if (ragdoll || Actor) Debug.LogWarning($"{this} has humanoid components and it's type is Other please change type to Humanoid to avoid errors.");
             }
-            
-            playerMaxHealth = 100 + SkillEffectHandler.Instance.maxHealthIncreaseAmount;
+            if(SkillEffectHandler.Instance.maxHealthIncrease)
+                playerMaxHealth = 100 + SkillEffectHandler.Instance.maxHealthIncreaseAmount;
         }
 
         public bool allowDamageScreen { get; set; } = true;
