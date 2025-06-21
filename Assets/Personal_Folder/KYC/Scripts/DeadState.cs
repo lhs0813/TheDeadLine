@@ -24,7 +24,13 @@ public class DeadState : IZombieState
                 if (damageable != null)
                 {
                     if(damageable.health < damageable.playerMaxHealth)
+                    {
                         damageable.health += SkillEffectHandler.Instance.absorbHeatlhAmount;
+                        // 최대 체력을 넘지 않도록 제한
+                        if (damageable.health > damageable.playerMaxHealth)
+                            damageable.health = damageable.playerMaxHealth;
+                    }
+
                     Player_Manager.PlayerHpChange?.Invoke(damageable.health);
                 }
             }
