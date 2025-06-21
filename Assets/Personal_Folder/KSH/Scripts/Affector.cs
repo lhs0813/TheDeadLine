@@ -81,14 +81,15 @@ public class Affector : MonoBehaviour
         }
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
-        StopAllCoroutines(); 
-
-        if(inTransform)
-            inTransform.transform.parent = null;
+        StopAllCoroutines();
 
 
+        for (int i = 0; i < inTransform.Count; ++i)
+        { 
+            inTransform[i].transform.parent = null;
+        }
     }
 
 
@@ -96,10 +97,8 @@ public class Affector : MonoBehaviour
     public void CheckTarget()
     {
         RaycastHit[] hits = null;
-        if (isRayCast)
-            hits = Physics.RaycastAll(before, transform.forward, Vector3.Distance(before, transform.position));
-        else
-            hits = Physics.SphereCastAll(before, transform.localScale.x / 2, transform.forward, Vector3.Distance(before, transform.position));
+        if (isRayCast)hits = Physics.RaycastAll(before, transform.forward, Vector3.Distance(before, transform.position));
+        else hits = Physics.SphereCastAll(before, transform.localScale.x / 2, transform.forward, Vector3.Distance(before, transform.position));
 
         System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
 
@@ -161,9 +160,7 @@ public class Affector : MonoBehaviour
             var target = damageTarget.gameObject;
             var ragdol = damageTarget.GetComponent<RagdollAnimatorDummyReference>();
             if (ragdol)
-                target = ragdol.ParentComponent.gameObject;
-
-
+                target = ragdol.ParentComponent.transform.parent.gameObject;
 
 
 
@@ -193,9 +190,6 @@ public class Affector : MonoBehaviour
                 if (damageableGroup)
                     value*=damageableGroup.GetDamageMultipler();
 
-                /*if (damageableGroup.GetDamageMultipler() > 2)
-                    critical = true; //  -> 대미지가 2배 이상 뜨면 빨간색이 뜨는 코드?*/
-
 
                 damageTarget.Damage(value, gameObject, critical);
             }
@@ -212,6 +206,13 @@ public class Affector : MonoBehaviour
             }
             
 
+
+            if(push!=0)
+            {
+                //var rb = damageTarget.GetComponentInChildren<Rigidbody>();
+                //rb.isKinematic = false;
+                //rb.linearVelocity = transform.forward* push;
+            }
 
 
 
@@ -346,13 +347,13 @@ public class Affector : MonoBehaviour
     public void ThisPosToHitPoint() { transform.position = hitPoint; }
     public void TargetPosToThis()
     {
-        var nav = hitGameobject.GetComponentInParent<NavMeshAgent>();
-        if(nav) nav.enabled = false;
+        //var nav = hitGameobject.GetComponentInParent<NavMeshAgent>();
+        //if(nav) nav.enabled = false;
 
         hitGameobject.transform.parent = transform;
-        inTransform = hitGameobject;
+        inTransform.Add (hitGameobject);
     }
-    GameObject inTransform;
+   List< GameObject >inTransform = new();
 
     private void OnDrawGizmos()
     {
