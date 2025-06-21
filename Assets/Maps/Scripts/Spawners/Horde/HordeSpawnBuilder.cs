@@ -9,7 +9,7 @@ public static class HordeSpawnBuilder
         {
             { EnemyType.Normal, Mathf.Max(100 - stageIndex * 3f, 30f) },
             { EnemyType.Big, Mathf.Clamp(stageIndex * 1.5f, 5f, 30f) },
-            { EnemyType.Bomb, Mathf.Clamp((stageIndex - 5) * 1.2f, 0f, 20f) }
+            { EnemyType.Bomb, Mathf.Clamp((stageIndex - 5) * 1.2f, 5f, 20f) }
         };
     }
 
