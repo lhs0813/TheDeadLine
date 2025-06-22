@@ -62,7 +62,7 @@ public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        SkillTooltip.Instance.Show(nameKey, descriptionKey, requiredPoints, previewVideo);
+        SkillTooltip.Instance.Show(nameKey, descriptionKey, requiredPoints);
     }
 
     public void OnPointerExit(PointerEventData eventData)
