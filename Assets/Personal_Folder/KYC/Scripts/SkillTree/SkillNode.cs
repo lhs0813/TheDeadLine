@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class SkillNode : MonoBehaviour,  IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     float alphaThreshold = 0.1f;
     public string skillId;
@@ -11,38 +11,52 @@ public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public string nameKey;
     public string descriptionKey;
-    public VideoClip previewVideo; // 시연 영상
 
-
+    public GameObject tooltipTextObject;
     public int currentLevel = 0;
     public int maxLevel = 5;
     public bool IsUnlocked => currentLevel > 0;
 
     public Button button;
     public Image iconImage;
-    public Sprite lockedSprite;
-    public Sprite unlockedSprite;
-
     public GameObject[] levelDotSets;
 
 
     private void Start()
     {
         GetComponent<Image>().alphaHitTestMinimumThreshold = alphaThreshold;
-        button.onClick.AddListener(OnClick);
         UpdateVisual();
+        if (tooltipTextObject != null)
+            tooltipTextObject.SetActive(false);
     }
 
-    private void OnClick()
+    private void OnClick(PointerEventData eventData)
     {
         SkillTreeManager manager = FindObjectOfType<SkillTreeManager>();
-       Debug.Log($"스킬 눌림");
+
         if (manager != null)
         {
-            manager.TryLevelUpSkill(this);
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                manager.TryLevelUpSkill(this);
+            }
+            else if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                manager.TryLevelDownSkill(this);
+            }
         }
     }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (tooltipTextObject != null)
+            tooltipTextObject.SetActive(true);
+    }
 
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (tooltipTextObject != null)
+            tooltipTextObject.SetActive(false);
+    }
     public void LevelUp()
     {
         if (currentLevel >= maxLevel) return;
@@ -51,7 +65,10 @@ public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         SkillEffectHandler.Instance.ApplyEffectById(skillId, currentLevel);
         UpdateVisual();
     }
-
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        OnClick(eventData);
+    }
     public void Reset()
     {
         if (currentLevel == 0) return;
@@ -60,20 +77,8 @@ public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         currentLevel = 0;
         UpdateVisual();
     }
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        SkillTooltip.Instance.Show(nameKey, descriptionKey, requiredPoints);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        SkillTooltip.Instance.Hide();
-    }
     private void UpdateVisual()
     {
-        if (iconImage != null)
-            iconImage.sprite = IsUnlocked ? unlockedSprite : lockedSprite;
-
         // 점 세트 처리
         if (levelDotSets != null)
         {
@@ -83,5 +88,13 @@ public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                     levelDotSets[i].SetActive(i == currentLevel);
             }
         }
+    }
+    public void LevelDown()
+    {
+        if (currentLevel <= 0) return;
+
+        currentLevel--;
+        SkillEffectHandler.Instance.ApplyEffectById(skillId, currentLevel);
+        UpdateVisual();
     }
 }
