@@ -26,6 +26,9 @@ public class TrainController : MonoBehaviour
     {
         trainDoorController = GetComponentInChildren<TrainDoorController>();
         trainSoundController = GetComponentInChildren<TrainSoundController>();
+
+        GamePlayManager.instance.OnStationArriveAction += DisableAllLights;
+        ObjectiveManager.instance.OnFindFuseAction += ActivateLight;
     }
 
     public void DoorClose()
@@ -55,19 +58,15 @@ public class TrainController : MonoBehaviour
 
     IEnumerator TrainDepartCoroutine()
     {
-        GetComponent<NavMeshSurface>().RemoveData();
+        GetComponent<NavMeshSurface>().enabled = false;
 
         yield return new WaitForSeconds(trainDepartDelay); // 문 닫히는 시간보다 길게
 
         trainSoundController.PlayTrainRunning();
         isMoving = true;
 
-        // <-- schedule the arrival-rail move 5 seconds later (for example)
-
         Debug.Log("3초 뒤 대기 레일로 이동");
-        StartCoroutine(DelayedStageRail(3f));            
-    
-
+        StartCoroutine(DelayedStageRail(3f));
     }
 
     IEnumerator DelayedStageRail(float delay)
@@ -81,6 +80,7 @@ public class TrainController : MonoBehaviour
         DetachPlayer();
         isMoving = false;
         isStopping = false;
+
 
         //yield return null;
         yield return new WaitForSeconds(trainArriveDelay);
@@ -97,7 +97,9 @@ public class TrainController : MonoBehaviour
         {
             link.enabled = true;
         }
+        GetComponent<NavMeshSurface>().enabled = true;
         GetComponent<NavMeshSurface>().BuildNavMesh();
+
     }
 
     void Update()
@@ -144,8 +146,6 @@ public class TrainController : MonoBehaviour
         Transform waitingRailStartTransform = FindAnyObjectByType<WaitingRailStartPoint>().transform;
 
         transform.position = waitingRailStartTransform.position;
-
-
     }
 
     [SerializeField] private float arriveDuration = 3f;    // 감속 후 멈출까지 걸릴 시간
@@ -174,6 +174,8 @@ public class TrainController : MonoBehaviour
 
         //부드러운 감속+도착 코루틴
         StartCoroutine(ArriveAtTarget(arriveTarget, arriveDuration));
+
+
     }
 
     private IEnumerator ArriveAtTarget(Vector3 target, float duration)
@@ -267,5 +269,28 @@ public class TrainController : MonoBehaviour
         FindAnyObjectByType<CharacterManager>().transform.SetParent(null);
     }
 
+    #region Light Controller.
 
+    [SerializeField] List<Light> trainLights;
+
+    void DisableAllLights(float f)
+    {
+        foreach (var l in trainLights)
+        {
+            l.gameObject.SetActive(false);
+        }
+    }
+
+    void ActivateLight(int count)
+    {
+        trainLights[count].gameObject.SetActive(true);
+    }
+
+    #endregion
+
+    void OnDisable()
+    {
+        GamePlayManager.instance.OnStationArriveAction -= DisableAllLights;
+        ObjectiveManager.instance.OnFindFuseAction -= ActivateLight;
+    }
 }

@@ -38,6 +38,7 @@ public class SkillEffectHandler : MonoBehaviour
     public float maxHealthIncreaseAmount = 0f; // 최대 체력 증가량 (예: 50 체력 증가)
     public bool isFullHpDamageBoost = false; // 체력 풀일 때 데미지 증가 여부
     public float fullHpDamageMultiplier = 1.0f; 
+    public float magazineIncreaseMultiplier = 1f; // 탄창 증가 배수 (예: 1.2f는 20% 증가)
 
     // ... 필요에 따라 추가
 
@@ -138,8 +139,14 @@ public class SkillEffectHandler : MonoBehaviour
             maxHealthIncrease = false; // 최대 체력 증가 비활성화
             maxHealthIncreaseAmount = 0f; // 최대 체력 증가량 초기화
         };
-
-
+        _applyLevelEffects["MAGAZINE_INCREASE"] = (level) =>
+        {
+            magazineIncreaseMultiplier = 1f + 0.2f * level; // 레벨에 따라 탄창 증가 배수 (예: 1.2, 1.4, ...)
+        };
+        _removeEffects["MAGAZINE_INCREASE"] = () =>
+        {
+            magazineIncreaseMultiplier = 1f; // 탄창 증가 배수 초기화
+        };
 
         // 🎯 여기다 계속 추가 가능
     }
@@ -189,6 +196,7 @@ public class SkillEffectHandler : MonoBehaviour
      maxHealthIncreaseAmount = 50f; // 최대 체력 증가량 (예: 50 체력 증가)
      isFullHpDamageBoost = false; // 체력 풀일 때 데미지 증가 여부
      fullHpDamageMultiplier = 1.0f;
+     magazineIncreaseMultiplier = 1f;
     Debug.Log("[SkillEffectHandler] 모든 스킬 효과 초기화됨");
     }
 }

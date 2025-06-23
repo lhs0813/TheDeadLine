@@ -41,9 +41,7 @@ public class GamePlayManager : MonoBehaviour
 
 
 
-    bool isLeverActivated = false;
-    public Action OnElectricityOnAction; //퓨즈 작동시 전력 공급 액션.
-    public Action OnElectricityOffAction; //전투 시작시 전력 차단 액션.
+
 
     private void Awake()
     {
@@ -62,6 +60,7 @@ public class GamePlayManager : MonoBehaviour
         gamePlayManagementUI = FindAnyObjectByType<GamePlayManagementUI>();
         bgmController = GetComponentInChildren<BackgroundMusicController>();
         runtimeDungeon.Generator.OnGenerationComplete += ChangeIsMapReady;
+        ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction += EnableTrainDepartable;
         newMapReady = false;
 
         //선로에서 시작. 맵 로딩.
@@ -79,6 +78,8 @@ public class GamePlayManager : MonoBehaviour
         //맵 로딩 완료시 할 일 Invoke.
         OnMapLoadFinishingAction?.Invoke(currentMapIndex);
     }
+
+    #region GameState Logics
 
     /// 선로구역으로 전송하기.
     public async void GoWaitingState()
@@ -100,6 +101,8 @@ public class GamePlayManager : MonoBehaviour
         await MapGenerationManager.Instance.LoadMap(currentMapIndex);
 
         OnStationDepartAction?.Invoke(waitingDuration);
+
+        DisableTrainDepartable(); //열차 출발 막기. TODO : 시작을 이곳에서 하지 않으면 필요 없음.
     }
 
     private void GoStageEnteringState()
@@ -122,8 +125,6 @@ public class GamePlayManager : MonoBehaviour
         bgmController.PlayRandomCombatMusic();
 
         Debug.Log("기차가 역에 도착");
-        isLeverActivated = false;
-        OnElectricityOffAction?.Invoke();
         OnStationArriveAction?.Invoke(normalCombatDuration);
     }
 
@@ -152,7 +153,7 @@ public class GamePlayManager : MonoBehaviour
     {
         // 문 닫고, 내부 적이 전부 사라질 때까지 대기
         yield return new WaitUntil(() => !trainController.CheckEnemyInside());
-        
+
         GoCombatEndState();
     }
 
@@ -160,7 +161,7 @@ public class GamePlayManager : MonoBehaviour
     IEnumerator DangerDepartingCoroutine()
     {
         // 플레이어가 탑승할 때까지 대기
-        yield return new WaitUntil(() => trainController.CheckPlayerInside());
+        yield return new WaitUntil(() => trainController.CheckPlayerInside() && trainDepartability);
 
         GoPreDepartingState();
     }
@@ -173,16 +174,29 @@ public class GamePlayManager : MonoBehaviour
     {
         currentGameState = GameState.Departing;
 
+        DisableTrainDepartable();
+
         trainController.TrainDepart();
 
         bgmController.StopCombatMusic();
     }
 
-    public void FuseActivated()
+    #endregion
+
+    #region Fuse Logics
+
+    private void DisableTrainDepartable()
     {
-        isLeverActivated = true;
-        OnElectricityOnAction?.Invoke();
+        trainDepartability = false;
     }
+
+    private void EnableTrainDepartable()
+    {
+        trainDepartability = true;
+    }
+    [SerializeField] bool trainDepartability = true;
+
+    #endregion
 
     private void FixedUpdate()
     {
@@ -195,19 +209,25 @@ public class GamePlayManager : MonoBehaviour
 
         if (currentGameState == GameState.Combat && Timer >= nextNormalCombatEndTime)
         {
-            //플레이어가 안에 있으면
-            if (trainController.CheckPlayerInside())
+            //플레이어가 안에 있고, 출발 가능한 상태. 
+            if (trainDepartability && trainController.CheckPlayerInside())
             {
                 Debug.Log("플레이어가 안에 있음. PreDepart State");
                 //UI는 숨기고, 내부의 적이 다 처리될 때까지 기다림.
                 GoPreDepartingState();
             }
-            else //플레이어가 도착하지 못함.
+            else //플레이어가 도착하지 못함. or 출발불가상태.
             {
                 Debug.Log("플레이어가 안에 없음. Danger State");
                 GoDangerState();
             }
         }
+    }
+
+    void OnDisable()
+    {
+        runtimeDungeon.Generator.OnGenerationComplete -= ChangeIsMapReady;
+        ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction -= EnableTrainDepartable;
     }
 }
 
