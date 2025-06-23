@@ -5,9 +5,14 @@
 
     protected override void Start()
     {
-        //health = 500f;
         moveSpeed = 6f;
         agent.speed = moveSpeed;  // 추가!
         base.Start();
+    }
+
+    protected override void OnEnable()
+    {
+        maxHealth = EnemyConstants.big_baseHP + EnemyConstants.big_0ffset * GamePlayManager.instance.currentMapIndex;
+        base.OnEnable();
     }
 }
