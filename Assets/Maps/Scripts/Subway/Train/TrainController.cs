@@ -29,6 +29,7 @@ public class TrainController : MonoBehaviour
 
         GamePlayManager.instance.OnStationArriveAction += DisableAllLights;
         ObjectiveManager.instance.OnFindFuseAction += ActivateLight;
+        ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction += EnableAllLights;
     }
 
     public void DoorClose()
@@ -281,9 +282,21 @@ public class TrainController : MonoBehaviour
         }
     }
 
+    void EnableAllLights()
+    {
+        foreach (var l in trainLights)
+        {
+            l.gameObject.SetActive(true);
+        }        
+    }
+
     void ActivateLight(int count)
     {
-        trainLights[count].gameObject.SetActive(true);
+        if (count >= 1)
+        {
+            trainLights[count - 1].gameObject.SetActive(true);            
+        }
+
     }
 
     #endregion
@@ -292,5 +305,6 @@ public class TrainController : MonoBehaviour
     {
         GamePlayManager.instance.OnStationArriveAction -= DisableAllLights;
         ObjectiveManager.instance.OnFindFuseAction -= ActivateLight;
+        ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction -= EnableAllLights;
     }
 }

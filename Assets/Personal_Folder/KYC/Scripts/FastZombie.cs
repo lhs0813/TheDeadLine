@@ -2,9 +2,19 @@
 {
     protected override void Start()
     {
-        health = 100f;
         moveSpeed = 10.5f;
         agent.speed = moveSpeed;  // 추가!
         base.Start();
+    }
+
+    protected override void OnEnable()
+    {
+        maxHealth = EnemyConstants.fast_baseHP * GamePlayManager.instance.currentMapIndex;
+        base.OnEnable();
+    }
+
+    private void OnDisable()
+    {
+        transform.localPosition = UnityEngine.Vector3.zero;
     }
 }
