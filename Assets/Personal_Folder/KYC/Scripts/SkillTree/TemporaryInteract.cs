@@ -40,9 +40,6 @@ public class RotateOnTrigger : MonoBehaviour
         skillUIWithElectricity.SetActive(true);
         skillUIWithNoElectricity.SetActive(false);
 
-        //Action 구독.
-        GamePlayManager.instance.OnElectricityOnAction += ActivateLaptop; //전력 공급시 스킬 UI를 로딩할 수 있도록.
-        GamePlayManager.instance.OnElectricityOffAction += DeactivateLaptop; //전력 끊길 시 스킬 UI를 대체하도록.
         GamePlayManager.instance.OnStationDepartAction += SetLaptopNotUsable;
         GamePlayManager.instance.OnStationArriveAction += SetLaptopUsable;
     }
@@ -149,8 +146,6 @@ public class RotateOnTrigger : MonoBehaviour
 
     void OnDisable()
     {
-        GamePlayManager.instance.OnElectricityOnAction -= ActivateLaptop;
-        GamePlayManager.instance.OnElectricityOffAction -= DeactivateLaptop; 
         GamePlayManager.instance.OnStationDepartAction -= SetLaptopNotUsable;
         GamePlayManager.instance.OnStationArriveAction -= SetLaptopUsable;        
     }
