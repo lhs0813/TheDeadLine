@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -96,7 +97,6 @@ namespace Akila.FPSFramework
 
         private void Awake()
         {
-            previousPosition = transform.position;
             startPosition = transform.position;
         }
 
@@ -132,6 +132,12 @@ namespace Akila.FPSFramework
 
             if(isActive)
                 Destroy(gameObject, lifeTime);
+
+
+
+
+            previousPosition = source.transform.position;
+            StartCoroutine( Update2());
         }
 
         public float CalculateDamage()
@@ -162,87 +168,101 @@ namespace Akila.FPSFramework
 
         List<GameObject> hitted = new();
         bool isHit = false;
-        private void Update()
+
+        IEnumerator Update2()
         {
-            Ray ray = new Ray(previousPosition, -(previousPosition - transform.position));
-            float distance = Vector3.Distance(transform.position, previousPosition);
 
-            RaycastHit[] hits = Physics.SphereCastAll(ray, hitRadius, distance, hittableLayers);
-
-            Vector3 shootOrigin = startPosition;
-            Vector3 shootDirection = direction;
-
-            Ray ray2 = new Ray(shootOrigin, shootDirection);
-            RaycastHit[] Push = Physics.SphereCastAll(ray2, hitRadius, distance, LayerMask.GetMask("Monster_Ragdoll"));
-
-            foreach (RaycastHit hit in hits)
+            for (; ; )
             {
-                Rigidbody rb = hit.rigidbody;
-                if (rb != null)
+                yield return new WaitForSeconds(0.05f);
+
+
+                Ray ray = new Ray(previousPosition, -(previousPosition - transform.position));
+                float distance = Vector3.Distance(transform.position, previousPosition);
+
+                RaycastHit[] hits = Physics.SphereCastAll(ray, hitRadius, distance, hittableLayers);
+
+
+                System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
+
+
+
+                Vector3 shootOrigin = startPosition;
+                Vector3 shootDirection = direction;
+
+                Ray ray2 = new Ray(shootOrigin, shootDirection);
+                RaycastHit[] Push = Physics.SphereCastAll(ray2, hitRadius, distance, LayerMask.GetMask("Monster_Ragdoll"));
+
+                foreach (RaycastHit hit in hits)
                 {
-                    rb.AddForceAtPosition(shootDirection * force * 5, hit.point, ForceMode.Impulse);
-                }
-            }
-
-
-            for (int i = 0; i < hits.Length; i++)
-            {
-
-                //var enemyHit = hits[i].transform.root.transform.GetChild(0).GetComponent<Damageable>();
-                var enemyHit = hits[i].transform.GetComponentInParent<Damageable>();
-
-                if (enemyHit&&enemyHit.type == HealthType.Player) continue;
-                
-
-                if (enemyHit != null)
-                {
-                    hitted.Add(enemyHit.gameObject);
-                }
-                    
-
-                RaycastHit hit = hits[i];
-                if (hit.point != Vector3.zero && distance != 0)
-                    UpdateHits(ray, hit);
-
-
-                if (isHit && destroyOnImpact)
-                {
-                    Destroy(gameObject);
-                    break;
-                }
-                    
-
-                /*if (destroyOnImpact && hitted != null)
-                {
-                    Destroy(gameObject);
-                    break;
-                }*/
-                
-            }
-
-            if (useAutoScaling)
-            {
-                float distanceFromMainCamera = 1;
-                float scale = 1;
-
-                if (Camera.main != null)
-                {
-                    distanceFromMainCamera = Vector3.Distance(transform.position, Camera.main.transform.position);
-                    scale = (distanceFromMainCamera * scaleMultipler) * (Camera.main.fieldOfView / 360);
+                    Rigidbody rb = hit.rigidbody;
+                    if (rb != null)
+                    {
+                        rb.AddForceAtPosition(shootDirection * force * 5, hit.point, ForceMode.Impulse);
+                    }
                 }
 
-                transform.localScale = Vector3.one * scale;
-                if (trail) trail.widthMultiplier = scale;
-            }
 
-            if (!useAutoScaling)
-            {
-                transform.localScale = Vector3.one * scaleMultipler;
-            }
+                for (int i = 0; i < hits.Length; i++)
+                {
 
-            if (Effects)
-            {
-                Effects.position = transform.position;
+                    //var enemyHit = hits[i].transform.root.transform.GetChild(0).GetComponent<Damageable>();
+                    var enemyHit = hits[i].transform.GetComponentInParent<Damageable>();
+
+                    if (enemyHit && enemyHit.type == HealthType.Player) continue;
+
+
+                    if (enemyHit != null)
+                    {
+                        hitted.Add(enemyHit.gameObject);
+                    }
+
+
+                    RaycastHit hit = hits[i];
+                    if (hit.point != Vector3.zero && distance != 0)
+                        UpdateHits(ray, hit);
+
+
+                    if (isHit && destroyOnImpact)
+                    {
+                        Destroy(gameObject);
+                        break;
+                    }
+
+
+                    /*if (destroyOnImpact && hitted != null)
+                    {
+                        Destroy(gameObject);
+                        break;
+                    }*/
+
+                }
+
+                if (useAutoScaling)
+                {
+                    float distanceFromMainCamera = 1;
+                    float scale = 1;
+
+                    if (Camera.main != null)
+                    {
+                        distanceFromMainCamera = Vector3.Distance(transform.position, Camera.main.transform.position);
+                        scale = (distanceFromMainCamera * scaleMultipler) * (Camera.main.fieldOfView / 360);
+                    }
+
+                    transform.localScale = Vector3.one * scale;
+                    if (trail) trail.widthMultiplier = scale;
+                }
+
+                if (!useAutoScaling)
+                {
+                    transform.localScale = Vector3.one * scaleMultipler;
+                }
+
+                if (Effects)
+                {
+                    Effects.position = transform.position;
+                }
+                previousPosition = transform.position;
             }
         }
 
@@ -253,7 +273,6 @@ namespace Akila.FPSFramework
 
         private void LateUpdate()
         {
-            previousPosition = transform.position;
         }
 
         protected virtual void UpdateHits(Ray ray, RaycastHit hit)
