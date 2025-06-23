@@ -195,8 +195,8 @@ GameObject:
   - component: {fileID: 6948669164573916386}
   - component: {fileID: 7069376008930796085}
   - component: {fileID: 463453710972634799}
-  - component: {fileID: 5113278581688159829}
   - component: {fileID: 7243121968297110479}
+  - component: {fileID: 7096421363708543324}
   m_Layer: 0
   m_Name: Tile_Platform(2 upper)
   m_TagString: Untagged
@@ -224,6 +224,11 @@ Transform:
   - {fileID: 8535452242422311680}
   - {fileID: 1278934037017262753}
   - {fileID: 825152638067596223}
+  - {fileID: 761054972644959597}
+  - {fileID: 8996144351730351798}
+  - {fileID: 5042743075523163980}
+  - {fileID: 2831536452773940610}
+  - {fileID: 1727507032776845303}
   - {fileID: 8367610197077781069}
   - {fileID: 1128530439712125282}
   m_Father: {fileID: 0}
@@ -313,19 +318,6 @@ MonoBehaviour:
   spawners: []
   mapIndex: 0
   danger: 0
---- !u!114 &5113278581688159829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1416991327881374033}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c2d6e19e0cad9648ad1458a0af9658e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnCooldown: 3
 --- !u!114 &7243121968297110479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,6 +330,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0e41965a4740945a30b3a93f64b3fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7096421363708543324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416991327881374033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8157a60a38d7dbd47834efe61152adf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnCount: 0
+  danger: 0
 --- !u!1 &1717258842117863710
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,98 +401,6 @@ MonoBehaviour:
   m_Bidirectional: 1
   m_AutoUpdatePosition: 0
   m_Area: 0
---- !u!1 &2547004654295295110
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7305810613038852257}
-  - component: {fileID: 1725416309176255249}
-  m_Layer: 27
-  m_Name: PreHordeSpawner_Always_1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7305810613038852257
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2547004654295295110}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.94, y: -1.7344776, z: 42.9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 825152638067596223}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1725416309176255249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2547004654295295110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f01ba3d69a24d94688e11d339045ba5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnRadius: 2
-  minSpawnDistance: 0.5
---- !u!1 &2708338073551963679
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1897586839839839297}
-  - component: {fileID: 5015570114153320227}
-  m_Layer: 27
-  m_Name: PreHordeSpawner_Always_2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1897586839839839297
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2708338073551963679}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.58, y: -1.7344776, z: 38.32}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 825152638067596223}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5015570114153320227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2708338073551963679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f01ba3d69a24d94688e11d339045ba5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnRadius: 2
-  minSpawnDistance: 0.5
 --- !u!1 &3111089603968188006
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,52 +531,6 @@ MonoBehaviour:
   hideConditionalObjects: 0
   spawnedBlockerPrefab: {fileID: 0}
   fileVersion: 1
---- !u!1 &3947495653751546902
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8666494159136103512}
-  - component: {fileID: 6501323416637043136}
-  m_Layer: 27
-  m_Name: PreHordeSpawner_Always
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8666494159136103512
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3947495653751546902}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.282999, y: -1.7344776, z: -21.566}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 825152638067596223}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6501323416637043136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3947495653751546902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f01ba3d69a24d94688e11d339045ba5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnRadius: 2
-  minSpawnDistance: 0.5
 --- !u!1 &5052476193710789316
 GameObject:
   m_ObjectHideFlags: 0
@@ -1142,52 +1010,6 @@ Transform:
   - {fileID: 1416877786910942686}
   m_Father: {fileID: 6948669164573916386}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7591862916860611895
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2870613744763565433}
-  - component: {fileID: 408334752062773473}
-  m_Layer: 27
-  m_Name: PreHordeSpawner_Always
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2870613744763565433
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7591862916860611895}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.27, y: -1.7344776, z: 51.97}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 825152638067596223}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &408334752062773473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7591862916860611895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f01ba3d69a24d94688e11d339045ba5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnRadius: 2
-  minSpawnDistance: 0.5
 --- !u!1 &7767739842609795266
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,11 +1139,7 @@ Transform:
   m_LocalPosition: {x: -2.2854075, y: 0.3397723, z: -16.795874}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2870613744763565433}
-  - {fileID: 7305810613038852257}
-  - {fileID: 1897586839839839297}
-  - {fileID: 8666494159136103512}
+  m_Children: []
   m_Father: {fileID: 6948669164573916386}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8505258391796910398
@@ -4114,6 +3932,80 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2100579980470000794}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2130438139612507777
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6948669164573916386}
+    m_Modifications:
+    - target: {fileID: 3442350214898673785, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_Name
+      value: ChasingHordeSpawner_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.688
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.3947053
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.804
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8cb74d6741447f0498887b71245fa81c, type: 3}
+--- !u!4 &8996144351730351798 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2130438139612507777}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2161392580400726075
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4572,6 +4464,80 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9190038019040192744, guid: 0f425cec687202e4b9ba4944203cbd01,
     type: 3}
   m_PrefabInstance: {fileID: 2591744991643060934}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2644461463071385467
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6948669164573916386}
+    m_Modifications:
+    - target: {fileID: 3442350214898673785, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_Name
+      value: ChasingHordeSpawner_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -17.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.2948048
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -37.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8cb74d6741447f0498887b71245fa81c, type: 3}
+--- !u!4 &5042743075523163980 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2644461463071385467}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2661628943362924789
 PrefabInstance:
@@ -7709,6 +7675,80 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8619776817222812585, guid: bcce8e481351d27449474de6ecadb255,
     type: 3}
   m_PrefabInstance: {fileID: 5011555054793305534}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5045101176792751541
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6948669164573916386}
+    m_Modifications:
+    - target: {fileID: 3442350214898673785, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_Name
+      value: ChasingHordeSpawner_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -15.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.2948048
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 36.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8cb74d6741447f0498887b71245fa81c, type: 3}
+--- !u!4 &2831536452773940610 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+    type: 3}
+  m_PrefabInstance: {fileID: 5045101176792751541}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5056958822724682346
 PrefabInstance:
@@ -11364,6 +11404,80 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7762268402506718937}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7766352948061680986
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6948669164573916386}
+    m_Modifications:
+    - target: {fileID: 3442350214898673785, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_Name
+      value: ChasingHordeSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.657
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.3947053
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -13.153
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8cb74d6741447f0498887b71245fa81c, type: 3}
+--- !u!4 &761054972644959597 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7766352948061680986}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7791315540555746614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12144,6 +12258,80 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2738503005209022316, guid: f744f3e5349bbd0448701abffa64baa9,
     type: 3}
   m_PrefabInstance: {fileID: 8458671411465331283}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8552680744767272896
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6948669164573916386}
+    m_Modifications:
+    - target: {fileID: 3442350214898673785, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_Name
+      value: ChasingHordeSpawner_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -17.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.2948048
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 38.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8cb74d6741447f0498887b71245fa81c, type: 3}
+--- !u!4 &1727507032776845303 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7009975607187083319, guid: 8cb74d6741447f0498887b71245fa81c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8552680744767272896}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8587651026281597545
 PrefabInstance:
