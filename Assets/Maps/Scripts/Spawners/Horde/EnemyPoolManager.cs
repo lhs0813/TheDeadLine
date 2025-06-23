@@ -221,14 +221,23 @@ public class EnemyPoolManager : MonoBehaviour
 
     IEnumerator CorpseDisappearCoroutine(EnemyType type, GameObject obj, float offset)
     {
-        //시체 사라지는 대기시간... 맵 해제 트리거시에도 남아있음. 
         yield return new WaitForSeconds(offset);
-        
-        obj.transform.position = Vector3.zero; //위치 초기화.
-        currentCounts[type] = Mathf.Max(0, currentCounts[type] - 1); //타입별 개수 감소.
-        enemyPools[type].Release(obj); //SetActive.False
-        activeEnemies.Remove(obj); //배열에서 제거.
+
+        obj.transform.position = Vector3.zero;
+
+        // 중복 반환 방지: activeEnemies에 아직 있는 경우만 반환
+        if (activeEnemies.Contains(obj))
+        {
+            currentCounts[type] = Mathf.Max(0, currentCounts[type] - 1);
+            enemyPools[type].Release(obj); // SetActive(false) 등 수행
+            activeEnemies.Remove(obj);
+        }
+        else
+        {
+            Debug.LogWarning($"[CorpseDisappear] {obj.name} is already returned to pool.");
+        }
     }
+
     
     public void ReturnAllEnemiesToPool()
     {

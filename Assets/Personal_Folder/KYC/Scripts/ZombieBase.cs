@@ -95,7 +95,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     }
 
 
-    void OnEnable() //------0607 김현우 수정 : Pooling 대응, 좀비 초기화는 OnEnable에서 수행.
+    protected virtual void OnEnable() //------0607 김현우 수정 : Pooling 대응, 좀비 초기화는 OnEnable에서 수행.
     {
         Debug.Log("OnEnable");
         InitializeZombieState();
