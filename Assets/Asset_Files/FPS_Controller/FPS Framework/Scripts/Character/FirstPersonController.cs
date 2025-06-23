@@ -504,6 +504,7 @@ namespace Akila.FPSFramework
             {
                 velocity.y = 0;
             }
+
         }
 
         private Vector3 feetPosition;
