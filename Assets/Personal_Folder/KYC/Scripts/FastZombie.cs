@@ -9,7 +9,7 @@
 
     protected override void OnEnable()
     {
-        maxHealth = EnemyConstants.fast_baseHP * GamePlayManager.instance.currentMapIndex;
+        maxHealth = EnemyConstants.fast_baseHP + EnemyConstants.fast_offset * GamePlayManager.instance.currentMapIndex;
         base.OnEnable();
     }
 
