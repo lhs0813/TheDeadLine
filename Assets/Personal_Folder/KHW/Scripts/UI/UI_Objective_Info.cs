@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UI_Objective_Info : MonoBehaviour
 {
-    TextMeshProUGUI objectiveText; //목표 표출 텍스트.
+    [SerializeField] TextMeshProUGUI objectiveText; //목표 표출 텍스트.
 
     void Start()
     {
@@ -16,12 +16,12 @@ public class UI_Objective_Info : MonoBehaviour
 
     public void ShowFuseFindingObjective(int counter)
     {
-        objectiveText.text = $"Find 3 of the Fuses : {counter} / 3";
+        objectiveText.text = $"퓨즈 찾기 : {counter} / 3";
     }
 
     public void ReturnToTheTrainObjective()
     {
-        objectiveText.text = $"Return To The Train";
+        objectiveText.text = $"열차로 복귀";
     }
 
     public void DisableText()

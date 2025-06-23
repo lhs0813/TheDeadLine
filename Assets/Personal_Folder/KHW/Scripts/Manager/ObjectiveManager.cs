@@ -26,6 +26,7 @@ public class ObjectiveManager : MonoBehaviour
 
         //Action subscribes
         GamePlayManager.instance.OnStationArriveAction += EnableFuseFindingObjective;
+        GamePlayManager.instance.OnPreDepartAction += DisableObjective;
     }
 
     #region Fusefinding

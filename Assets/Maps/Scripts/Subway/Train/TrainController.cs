@@ -26,6 +26,9 @@ public class TrainController : MonoBehaviour
     {
         trainDoorController = GetComponentInChildren<TrainDoorController>();
         trainSoundController = GetComponentInChildren<TrainSoundController>();
+
+        GamePlayManager.instance.OnStationArriveAction += DisableAllLights;
+        ObjectiveManager.instance.OnFindFuseAction += ActivateLight;
     }
 
     public void DoorClose()
@@ -267,8 +270,27 @@ public class TrainController : MonoBehaviour
     }
 
     #region Light Controller.
-    
 
-    
+    [SerializeField] List<Light> trainLights;
+
+    void DisableAllLights(float f)
+    {
+        foreach (var l in trainLights)
+        {
+            l.gameObject.SetActive(false);
+        }
+    }
+
+    void ActivateLight(int count)
+    {
+        trainLights[count].gameObject.SetActive(true);
+    }
+
     #endregion
+
+    void OnDisable()
+    {
+        GamePlayManager.instance.OnStationArriveAction -= DisableAllLights;
+        ObjectiveManager.instance.OnFindFuseAction -= ActivateLight;
+    }
 }

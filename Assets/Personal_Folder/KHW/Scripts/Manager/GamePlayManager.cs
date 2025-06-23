@@ -101,6 +101,8 @@ public class GamePlayManager : MonoBehaviour
         await MapGenerationManager.Instance.LoadMap(currentMapIndex);
 
         OnStationDepartAction?.Invoke(waitingDuration);
+
+        DisableTrainDepartable(); //열차 출발 막기. TODO : 시작을 이곳에서 하지 않으면 필요 없음.
     }
 
     private void GoStageEnteringState()
@@ -159,7 +161,7 @@ public class GamePlayManager : MonoBehaviour
     IEnumerator DangerDepartingCoroutine()
     {
         // 플레이어가 탑승할 때까지 대기
-        yield return new WaitUntil(() => trainController.CheckPlayerInside());
+        yield return new WaitUntil(() => trainController.CheckPlayerInside() && trainDepartability);
 
         GoPreDepartingState();
     }
@@ -192,7 +194,7 @@ public class GamePlayManager : MonoBehaviour
     {
         trainDepartability = true;
     }
-    bool trainDepartability = true;
+    [SerializeField] bool trainDepartability = true;
 
     #endregion
 
