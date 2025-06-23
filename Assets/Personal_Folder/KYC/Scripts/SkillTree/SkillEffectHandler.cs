@@ -50,7 +50,7 @@ public class SkillEffectHandler : MonoBehaviour
     // ✨ 딕셔너리에 등록
     private void RegisterEffects()
     {
-        _applyLevelEffects["HEADSHOT_DAMAGE"] = (level) => headshotDamageMultiplier = 1f + 0.1f * level; // 1.1x ~ 1.5x
+        _applyLevelEffects["HEADSHOT_DAMAGE"] = (level) => headshotDamageMultiplier = 1f + 0.2f * level; // 1.1x ~ 1.5x
         _removeEffects["HEADSHOT_DAMAGE"] = () => headshotDamageMultiplier = 1f;
 
         _applyLevelEffects["CRIT_CHANCE"] = (level) =>
@@ -73,7 +73,7 @@ public class SkillEffectHandler : MonoBehaviour
 
         _applyLevelEffects["RECOIL_REDUCE"] = (level) =>
         {
-            float[] recoilbonus = { 1f, 0.9f, 0.7f, 0.5f, 0.3f, 0.1f };
+            float[] recoilbonus = { 1f, 0.8f, 0.6f, 0.4f, 0.2f, 0.01f };
             recoilMultiplier = recoilbonus[Mathf.Clamp(level, 1, 5)];
         };
         _removeEffects["RECOIL_REDUCE"] = () => recoilMultiplier = 1f;
@@ -82,7 +82,7 @@ public class SkillEffectHandler : MonoBehaviour
 
         _applyLevelEffects["HEART_OF_BERSERKER"] = (level) =>
         {
-            float[] bonusTable = { 0f, 0.03f, 0.05f, 0.07f, 0.09f, 0.15f };
+            float[] bonusTable = { 0f, 0.1f, 0.2f, 0.3f, 0.4f, 0.5f };
             berserkerDamageMultiplier = bonusTable[Mathf.Clamp(level, 1, 5)];
             isHeartofBerserkeravailable = true; // Berserker 효과 활성화
         };
@@ -132,7 +132,7 @@ public class SkillEffectHandler : MonoBehaviour
         _applyLevelEffects["MAX_HEALTH_INCREASE"] = (level) =>
         {
             maxHealthIncrease = true; // 최대 체력 증가 활성화
-            maxHealthIncreaseAmount = 50f + 50f * level; // 레벨에 따라 최대 체력 증가량 증가 (예: 50, 60, 70, ...)
+            maxHealthIncreaseAmount = 50f * level; // 레벨에 따라 최대 체력 증가량 증가 (예: 50, 60, 70, ...)
         };
         _removeEffects["MAX_HEALTH_INCREASE"] = () =>
         {
