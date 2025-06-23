@@ -349,6 +349,11 @@ namespace Akila.FPSFramework
                 remainingAmmoCount = preset.reserve;
                 magazineCapacity = preset.magazineCapacity;
 
+            remainingAmmoCount = Mathf.CeilToInt(SkillEffectHandler.Instance.magazineIncreaseMultiplier * remainingAmmoCount);
+            magazineCapacity = Mathf.CeilToInt(magazineCapacity * SkillEffectHandler.Instance.magazineIncreaseMultiplier);
+
+
+
 
 
             // Validate muzzle and casing ejection port transforms.
