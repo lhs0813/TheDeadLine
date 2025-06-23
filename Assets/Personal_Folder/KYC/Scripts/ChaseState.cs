@@ -45,7 +45,7 @@ public class ChaseState : IZombieState
 
     private IEnumerator ChaseRoutine()
     {
-        var wait = new WaitForSeconds(0.3f); // 반응 개선
+        var wait = new WaitForSeconds(0.1f); // 반응 개선
 
         var agent = _zombie.Agent;
 
@@ -88,18 +88,16 @@ public class ChaseState : IZombieState
                 : _player.position + playerVelocity * predictionTime;
 
             // 추격 로직
-            if (angle < 30f)
+            if (angle < 20f)
             {
                 // 정면
-                agent.speed = 11;
                 agent.SetDestination(distance < 20f ? _player.position : predictedPosition);
 
             }
-            else if (angle < 120f)
+            else if (angle < 240f)
             {
-                agent.speed = 11;
                 // 측면
-                if (distance > 10f)
+                if (distance >= 10f)
                 {
                     Vector3 forward = _player.forward;
                     Vector3 side = Vector3.Cross(Vector3.up, forward).normalized;
@@ -110,7 +108,7 @@ public class ChaseState : IZombieState
 
                     agent.SetDestination(flankTarget);
                 }
-                else if (distance < 2f)
+                else if (distance < 3f)
                 {
                     agent.SetDestination(_player.position);
                 }
@@ -123,7 +121,6 @@ public class ChaseState : IZombieState
             {
                 // 후방
                 Vector3 futurePos = _player.position + _player.forward * 4f;
-                agent.speed = 14;
                 agent.SetDestination(futurePos);
             }
 
