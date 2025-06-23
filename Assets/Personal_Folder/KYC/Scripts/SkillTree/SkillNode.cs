@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-public class SkillNode : MonoBehaviour,  IPointerClickHandler
+public class SkillNode : MonoBehaviour,  IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     float alphaThreshold = 0.1f;
     public string skillId;
@@ -12,7 +12,7 @@ public class SkillNode : MonoBehaviour,  IPointerClickHandler
     public string nameKey;
     public string descriptionKey;
 
-
+    public GameObject tooltipTextObject;
     public int currentLevel = 0;
     public int maxLevel = 5;
     public bool IsUnlocked => currentLevel > 0;
@@ -26,6 +26,8 @@ public class SkillNode : MonoBehaviour,  IPointerClickHandler
     {
         GetComponent<Image>().alphaHitTestMinimumThreshold = alphaThreshold;
         UpdateVisual();
+        if (tooltipTextObject != null)
+            tooltipTextObject.SetActive(false);
     }
 
     private void OnClick(PointerEventData eventData)
@@ -44,7 +46,17 @@ public class SkillNode : MonoBehaviour,  IPointerClickHandler
             }
         }
     }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (tooltipTextObject != null)
+            tooltipTextObject.SetActive(true);
+    }
 
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (tooltipTextObject != null)
+            tooltipTextObject.SetActive(false);
+    }
     public void LevelUp()
     {
         if (currentLevel >= maxLevel) return;
