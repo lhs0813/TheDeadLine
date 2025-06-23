@@ -94,7 +94,7 @@ namespace Akila.FPSFramework
                     }
                 }
             }
-            return multiplier;
+            return multiplier * 1.1f;
         }
 
 

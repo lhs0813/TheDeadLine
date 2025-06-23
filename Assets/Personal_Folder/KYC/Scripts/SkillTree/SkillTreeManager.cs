@@ -23,6 +23,11 @@ public class SkillTreeManager : MonoBehaviour
 
     public RotateOnTrigger laptopTrigger;
 
+    public AudioSource levelUpSounds;
+    public AudioSource levelDownSounds;
+
+
+
 
     private void Start()
     {
@@ -52,6 +57,9 @@ public class SkillTreeManager : MonoBehaviour
         skill.LevelUp();
         availablePoints -= skill.requiredPoints;
         OnPointChanged?.Invoke(availablePoints);
+
+        levelUpSounds.Play();
+
         return true;
     }
 
@@ -122,6 +130,9 @@ public class SkillTreeManager : MonoBehaviour
         skill.LevelDown();
         availablePoints += skill.requiredPoints;
         OnPointChanged?.Invoke(availablePoints);
+
+        levelDownSounds.Play();
+
         return true;
     }
 }
