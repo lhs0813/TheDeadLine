@@ -106,9 +106,7 @@ namespace Akila.FPSFramework
             trail = GetComponentInChildren<TrailRenderer>();
             rb = GetComponent<Rigidbody>();
 
-            
             Vector3 sorceVelocity = useSourceVelocity ? initialVelocity : Vector3.zero;
-
             velocity = (direction) * (speed) + sorceVelocity;
 
             if (isActive)
@@ -127,17 +125,34 @@ namespace Akila.FPSFramework
             if (explosive && source) explosive.damageSource = source.actor.gameObject;
 
             transform.localScale = useAutoScaling ? Vector3.zero : Vector3.one * scaleMultipler;
-
             if (trail) trail.widthMultiplier = useAutoScaling ? 0 : scaleMultipler;
 
-            if(isActive)
+            if (isActive)
                 Destroy(gameObject, lifeTime);
 
 
+            // ✅ 즉시 충돌 검사 추가
+            Collider[] overlapped = Physics.OverlapSphere(transform.position, hitRadius, hittableLayers);
+            foreach (var col in overlapped)
+            {
+                if (col.transform.TryGetComponent(out IgnoreHitDetection ignore)) continue;
+                if (sourcePlayer && col.transform == sourcePlayer.transform) continue;
 
+                // 레이 생성을 위한 임의 Ray 설정
+                Ray dummyRay = new Ray(transform.position - direction * 0.1f, direction);
+                if (col.Raycast(dummyRay, out RaycastHit hit, 1f))
+                {
+                    UpdateHits(dummyRay, hit);
+                    if (destroyOnImpact)
+                    {
+                        Destroy(gameObject);
+                        return; // 이 시점에서 종료
+                    }
+                }
+            }
 
-            previousPosition = source.transform.position;
-            StartCoroutine( Update2());
+            previousPosition = transform.position; // 주의: source.transform.position 아님!
+            StartCoroutine(Update2());
         }
 
         public float CalculateDamage()
@@ -184,8 +199,6 @@ namespace Akila.FPSFramework
 
 
                 System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
-
-
 
                 Vector3 shootOrigin = startPosition;
                 Vector3 shootDirection = direction;

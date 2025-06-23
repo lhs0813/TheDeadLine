@@ -10,6 +10,9 @@ public class TabletController : MonoBehaviour
     public GameObject weaponUI; // 🔫 총 관련 UI 오브젝트 (비활성화/활성화 대상)
     private bool isTabletVisible = false;
 
+    public AudioSource openSounds;
+    public AudioSource closeSounds;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -36,6 +39,7 @@ public class TabletController : MonoBehaviour
         tabletVisual.SetActive(true);              // 🔥 이 오브젝트만 켜고
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
+        openSounds.Play();
         if (weaponUI != null)
             weaponUI.SetActive(false); // 🔫 총 UI 숨기기
     }
@@ -46,6 +50,8 @@ public class TabletController : MonoBehaviour
         tabletVisual.SetActive(false);             // 🔥 이것만 끄고
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        closeSounds.Play();
+
         if (weaponUI != null)
             weaponUI.SetActive(true); // 🔫 총 UI 다시 보이기
     }
