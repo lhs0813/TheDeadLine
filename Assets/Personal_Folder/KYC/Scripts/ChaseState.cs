@@ -61,7 +61,9 @@ public class ChaseState : IZombieState
 
         while (true)
         {
-            if (_player == null || _playerController == null) yield break;
+            if (_player == null || _playerController == null || !agent.isOnNavMesh) yield break;
+
+
 
             if (!agent.isOnNavMesh)
             {

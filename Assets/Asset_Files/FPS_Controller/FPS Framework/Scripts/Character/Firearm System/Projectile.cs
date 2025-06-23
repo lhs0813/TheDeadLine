@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 
@@ -168,7 +169,7 @@ namespace Akila.FPSFramework
             float distance = Vector3.Distance(transform.position, previousPosition);
 
             RaycastHit[] hits = Physics.SphereCastAll(ray, hitRadius, distance, hittableLayers);
-
+           
             Vector3 shootOrigin = startPosition;
             Vector3 shootDirection = direction;
 
@@ -177,6 +178,10 @@ namespace Akila.FPSFramework
 
             foreach (RaycastHit hit in hits)
             {
+
+                Debug.LogWarning(hit.transform.gameObject);
+
+
                 Rigidbody rb = hit.rigidbody;
                 if (rb != null)
                 {

@@ -216,7 +216,8 @@ namespace Akila.FPSFramework
             GetComponent<Animator>().SetTrigger("Charge");
             Player_Hand.Instance.Charge();
             transform.GetChild(0).GetComponent<ParticleSystem>().Play();
-            
+            transform.GetChild(3).GetComponent<AudioSource>().Play();
+            transform.GetChild(4).GetComponent<AudioSource>().Play();
 
         }
 
