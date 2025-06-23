@@ -11,6 +11,8 @@ namespace Akila.FPSFramework
     [RequireComponent(typeof(CharacterController), typeof(CharacterInput))]
     public class FirstPersonController : MonoBehaviour, ICharacterController
     {
+        
+
         [Header("Movement")]
         [Tooltip("The amount of time needed to walk or sprint in full speed.")]
         public float acceleration = 0.1f;
@@ -98,6 +100,7 @@ namespace Akila.FPSFramework
         float ICharacterController.walkSpeed { get => walkSpeed; }
         float ICharacterController.tacticalSprintSpeed { get => tacticalSprintSpeed; }
 
+        public Vector3 Velocity => controller.velocity; // 또는 내부에서 계산된 이동 벡터
         float ICharacterController.sensitivity
         {
             get
@@ -504,6 +507,7 @@ namespace Akila.FPSFramework
             {
                 velocity.y = 0;
             }
+
         }
 
         private Vector3 feetPosition;
