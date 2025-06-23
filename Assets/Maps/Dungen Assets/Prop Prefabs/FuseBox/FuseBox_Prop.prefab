@@ -205,8 +205,8 @@ GameObject:
   - component: {fileID: 4720879047949802804}
   - component: {fileID: 4748042418181104610}
   - component: {fileID: 4738506334207124726}
-  - component: {fileID: 4666205342700196412}
   - component: {fileID: 4716539549151188966}
+  - component: {fileID: 7366659139728075704}
   m_Layer: 15
   m_Name: FuseBox_Prop
   m_TagString: Untagged
@@ -285,28 +285,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &4666205342700196412
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4726428184534761318}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 2f8871dc9484a694eb905443e212547e, type: 3}
-  m_Controller: {fileID: 9100000, guid: 92d3a907d677fec45bbfe455ea1abc97, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!65 &4716539549151188966
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -328,6 +306,45 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.31938267, y: 0.55518544, z: 0.07978651}
   m_Center: {x: -0.00016257167, y: 0.28794998, z: 0.016878076}
+--- !u!114 &7366659139728075704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4726428184534761318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d7fdc2f82e8404a870095acb8edcad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PropGroupID: 41
+  MainPathWeight: 1
+  BranchPathWeight: 5
+  DepthWeightScale:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &4726480413838829676
 GameObject:
   m_ObjectHideFlags: 0

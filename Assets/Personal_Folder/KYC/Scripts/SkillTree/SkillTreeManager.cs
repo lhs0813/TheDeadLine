@@ -76,11 +76,6 @@ public class SkillTreeManager : MonoBehaviour
 
     private void Update()
     {
-        if (laptopTrigger.isLapTopOn)
-            input.UI.Enable();
-        else
-            input.UI.Disable();
-
         if (pointsText != null)
         {
             pointsText.text = $"{availablePoints}";
@@ -119,5 +114,14 @@ public class SkillTreeManager : MonoBehaviour
             Debug.Log("리셋권이 없습니다!");
         }
     }
+    public bool TryLevelDownSkill(SkillNode skill)
+    {
+        if (skill == null || skill.currentLevel <= 0)
+            return false;
 
+        skill.LevelDown();
+        availablePoints += skill.requiredPoints;
+        OnPointChanged?.Invoke(availablePoints);
+        return true;
+    }
 }
