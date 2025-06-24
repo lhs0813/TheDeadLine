@@ -226,16 +226,11 @@ public class EnemyPoolManager : MonoBehaviour
         obj.transform.position = Vector3.zero;
 
         // 중복 반환 방지: activeEnemies에 아직 있는 경우만 반환
-        if (activeEnemies.Contains(obj))
-        {
-            currentCounts[type] = Mathf.Max(0, currentCounts[type] - 1);
-            enemyPools[type].Release(obj); // SetActive(false) 등 수행
-            activeEnemies.Remove(obj);
-        }
-        else
-        {
-            Debug.LogWarning($"[CorpseDisappear] {obj.name} is already returned to pool.");
-        }
+
+        currentCounts[type] = Mathf.Max(0, currentCounts[type] - 1);
+        enemyPools[type].Release(obj); // SetActive(false) 등 수행
+        activeEnemies.Remove(obj);
+
     }
 
     
@@ -253,7 +248,7 @@ public class EnemyPoolManager : MonoBehaviour
             if (enemy != null)
             {
                 EnemyType type = enemy.GetComponent<EnemyIdentifier>().Type;
-                ReturnToPool(type, enemy, 1f);
+                ReturnToPool(type, enemy, 0f);
             }
         }
 
