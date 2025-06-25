@@ -732,7 +732,7 @@ namespace Akila.FPSFramework
                 {
                     ""name"": """",
                     ""id"": ""968f6de8-dcc9-437f-8a67-d26d73e89bdd"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/select"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

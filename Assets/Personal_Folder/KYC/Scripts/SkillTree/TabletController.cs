@@ -1,25 +1,40 @@
 ﻿using Akila.FPSFramework;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class TabletController : MonoBehaviour
 {
-    public static bool isTabletActive = false; //0625 김현우 수정 : inputaction 전역 참조를 위한 사용중 flag. 이름 변경함.
+    public static bool isTabletActive = false;
     public InteractionsManager interactionsManager;
     public CharacterInput input;
-    public GameObject tabletVisual;   // 태블릿 모델 + UI (껐다 켰다 할 대상)
+
+    public GameObject tabletVisual;
     public Transform cameraTransform;
     public float appearDistance = 0.5f;
     public float verticalOffset = -0.2f;
     public Vector3 offsetRotation;
-    public GameObject weaponUI; // 🔫 총 관련 UI 오브젝트 (비활성화/활성화 대상)
-
+    public GameObject weaponUI;
 
     public AudioSource openSounds;
     public AudioSource closeSounds;
 
+    [Header("Virtual Cursor")]
+    public RectTransform cursorImage;
+    public RectTransform canvasRect;
+    [SerializeField] private float gamepadCursorSpeed = 500f;
+
+    [Header("UI Input")]
+    [SerializeField] private GraphicRaycaster raycaster;
+    [SerializeField] private EventSystem eventSystem;
+
+    private Vector2 virtualCursorPos;
+
     void Start()
     {
-        interactionsManager = FindAnyObjectByType<InteractionsManager>(); //InteractionsManager와의 flag설정을 위함.
+        interactionsManager = FindAnyObjectByType<InteractionsManager>();
         input = FindAnyObjectByType<CharacterInput>();
     }
 
@@ -28,13 +43,9 @@ public class TabletController : MonoBehaviour
         if (input.TabletInput)
         {
             if (!isTabletActive)
-            {
                 ShowTablet();
-            }
             else
-            {
                 HideTablet();
-            }
         }
 
         if (isTabletActive)
@@ -42,44 +53,58 @@ public class TabletController : MonoBehaviour
             Vector3 targetPos = cameraTransform.position
                 + cameraTransform.forward * appearDistance
                 + cameraTransform.up * verticalOffset;
+
             tabletVisual.transform.position = targetPos;
             tabletVisual.transform.rotation = Quaternion.LookRotation(cameraTransform.forward) * Quaternion.Euler(offsetRotation);
         }
+
+        if (isTabletActive)
+        {
+            CheckVirtualCursorClick();
+            CheckVirtualCursorHover();   // hover 감지
+        }
+    }
+
+    void LateUpdate()
+    {
+        if (isTabletActive)
+            UpdateVirtualCursor();
     }
 
     void ShowTablet()
     {
         isTabletActive = true;
-        tabletVisual.SetActive(true);              // 🔥 이 오브젝트만 켜고
-
+        tabletVisual.SetActive(true);
         openSounds.Play();
         if (weaponUI != null)
-            weaponUI.SetActive(false); // 🔫 총 UI 숨기기
+            weaponUI.SetActive(false);
 
         EnableCursor();
+        interactionsManager.isActive = false;
 
-        interactionsManager.isActive = false; // 0625 김현우 : 다른 객체와의 상호작용을 불가능하게 변경.
+        // 초기 커서 위치 (중앙)
+        virtualCursorPos = Vector2.zero;
+        cursorImage.localPosition = virtualCursorPos;
+
+        Debug.Log($"Rect size: {canvasRect.rect.size}, lossyScale: {canvasRect.lossyScale}, finalVisible: ({canvasRect.rect.width * canvasRect.lossyScale.x}, {canvasRect.rect.height * canvasRect.lossyScale.y})");
     }
 
     void HideTablet()
     {
         isTabletActive = false;
-        tabletVisual.SetActive(false);             // 🔥 이것만 끄고
-
+        tabletVisual.SetActive(false);
         closeSounds.Play();
-
         if (weaponUI != null)
-            weaponUI.SetActive(true); // 🔫 총 UI 다시 보이기
+            weaponUI.SetActive(true);
 
         DisableCursor();
-
-        interactionsManager.isActive = false; // 0625 김현우 : 다른 객체와의 상호작용을 가능하게 변경.
+        interactionsManager.isActive = false;
     }
 
     void EnableCursor()
     {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void DisableCursor()
@@ -88,8 +113,81 @@ public class TabletController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void ManageCursor()
+    void UpdateVirtualCursor()
     {
+        Vector2 inputDelta = Vector2.zero;
 
+        if (Mouse.current != null)
+            inputDelta += Mouse.current.delta.ReadValue();
+
+        inputDelta += input.controls.Player.Look.ReadValue<Vector2>() * gamepadCursorSpeed * Time.unscaledDeltaTime;
+
+        virtualCursorPos += inputDelta;
+
+        Rect rect = canvasRect.rect;
+        virtualCursorPos.x = Mathf.Clamp(virtualCursorPos.x, rect.xMin, rect.xMax);
+        virtualCursorPos.y = Mathf.Clamp(virtualCursorPos.y, rect.yMin, rect.yMax);
+
+        cursorImage.localPosition = virtualCursorPos;
     }
+
+    void CheckVirtualCursorClick()
+    {
+        bool isClick =
+            (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame) ||
+            (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame); // A 버튼
+
+        if (!isClick) return;
+
+        // 월드 좌표 → 화면 좌표
+        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, cursorImage.position);
+
+        PointerEventData pointerData = new PointerEventData(eventSystem)
+        {
+            position = screenPos
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        raycaster.Raycast(pointerData, results);
+
+        foreach (var result in results)
+        {
+            ExecuteEvents.Execute(result.gameObject, pointerData, ExecuteEvents.pointerClickHandler);
+        }
+    }
+
+    private GameObject lastHovered;
+
+    void CheckVirtualCursorHover()
+    {
+        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, cursorImage.position);
+
+        PointerEventData pointerData = new PointerEventData(eventSystem)
+        {
+            position = screenPos
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        raycaster.Raycast(pointerData, results);
+
+        GameObject currentHovered = results.Count > 0 ? results[0].gameObject : null;
+        Debug.Log($"CurrentHovered = {currentHovered.name}");
+        if (lastHovered != currentHovered)
+        {
+            // pointerExit
+            if (lastHovered != null)
+            {
+                ExecuteEvents.Execute(lastHovered, pointerData, ExecuteEvents.pointerExitHandler);
+            }
+
+            // pointerEnter
+            if (currentHovered != null)
+            {
+                ExecuteEvents.Execute(currentHovered, pointerData, ExecuteEvents.pointerEnterHandler);
+            }
+
+            lastHovered = currentHovered;
+        }
+    }
+
 }
