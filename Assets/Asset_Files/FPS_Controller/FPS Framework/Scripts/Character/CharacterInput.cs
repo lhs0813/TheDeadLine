@@ -13,6 +13,7 @@ namespace Akila.FPSFramework
         public bool toggleAim = false;
         public bool toggleCrouch = true;
         public bool toggleLean = false;
+        public bool toggleTablet = false;
         public bool allowTacticalSprining = true;
        
         private bool _isLapTopOn = false;
@@ -93,6 +94,11 @@ namespace Akila.FPSFramework
         public Vector2 addedLookValue { get; set; }
 
         /// <summary>
+        /// is Tablet Active?
+        /// </summary>
+        public bool TabletInput { get; set; }
+
+        /// <summary>
         /// Using this value to always get sprint input regardless of the player state.
         /// This is used to then filter the input and choose when to use it.
         /// </summary>
@@ -147,6 +153,8 @@ namespace Akila.FPSFramework
 
             //Jump input
             jumpInput = controls.Player.Jump.triggered;
+
+            TabletInput = controls.Player.UseTablet.triggered;
 
             Vector2 lookInput = new Vector2();
 
@@ -280,6 +288,8 @@ namespace Akila.FPSFramework
                     leanLeftInput = !leanLeftInput;
                 }
             };
+
+
         }
 
         /// <summary>
