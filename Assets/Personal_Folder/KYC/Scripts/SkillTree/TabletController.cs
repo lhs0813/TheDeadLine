@@ -118,9 +118,9 @@ public class TabletController : MonoBehaviour
         Vector2 inputDelta = Vector2.zero;
 
         if (Mouse.current != null)
-            inputDelta += Mouse.current.delta.ReadValue();
+            inputDelta += input.lookInput;
 
-        inputDelta += input.controls.Player.Look.ReadValue<Vector2>() * gamepadCursorSpeed * Time.unscaledDeltaTime;
+        inputDelta += input.lookInput * gamepadCursorSpeed * Time.unscaledDeltaTime;
 
         virtualCursorPos += inputDelta;
 
