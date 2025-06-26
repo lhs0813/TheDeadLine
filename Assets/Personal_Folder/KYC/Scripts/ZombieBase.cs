@@ -134,7 +134,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
         ragdollAnim.RA2Event_SwitchToStand();
         collider.enabled = true;
-        Kinematic_Controll(true);
+        //Kinematic_Controll(true);
 
         health = maxHealth;
         agent.enabled = true;
