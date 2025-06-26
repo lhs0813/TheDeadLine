@@ -498,7 +498,13 @@ namespace Akila.FPSFramework
             newPickupable.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 
 
-
+            //투척 공격 
+            var aff = newPickupable.gameObject.AddComponent<Affector>();
+            aff.damage= 1; 
+            aff.hitCount = 2;
+            aff.checkTime = 99;
+            aff.checkCycle = 0.05f;
+            aff.hitEnrionment = false;
 
 
 
