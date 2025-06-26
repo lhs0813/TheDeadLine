@@ -35,7 +35,7 @@ public class Affector : MonoBehaviour
     public bool hitMaxDestroy;
     public bool hitFirstIgnore;
     public bool reflect;
-    public UnityEngine.Events.UnityEvent OnHit;
+    public UnityEngine.Events.UnityEvent OnHit = new();
     [Space(30)]
 
 
@@ -64,7 +64,7 @@ public class Affector : MonoBehaviour
         before = transform.position;
         if (checkTime > 0) StartCoroutine(CheckTime());
         if (checkCycle > 0) StartCoroutine(CheckCycle());
-    } 
+    }
     IEnumerator CheckTime()
     {
         yield return new WaitForSeconds(checkTime);

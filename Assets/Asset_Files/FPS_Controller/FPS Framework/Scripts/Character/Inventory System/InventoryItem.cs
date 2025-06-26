@@ -498,8 +498,12 @@ namespace Akila.FPSFramework
             newPickupable.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 
 
-
-
+           var aff = newPickupable.gameObject.AddComponent<Affector>();
+            aff.checkTime = 99;
+            aff.checkCycle = 0.05f;
+            aff.damage= 1;
+            aff.hitCount = 2;
+            aff.hitEnrionment = false;
 
 
             // Remove the current item from the inventory list if specified.
