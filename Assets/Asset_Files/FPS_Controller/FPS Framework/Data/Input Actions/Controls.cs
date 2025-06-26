@@ -1104,7 +1104,7 @@ namespace Akila.FPSFramework
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""cc1aa663-de79-427a-b783-281381372123"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
