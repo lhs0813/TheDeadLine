@@ -60,10 +60,6 @@ namespace Akila.FPSFramework.UI
             else
             {
                 GoKeyboardMouseMod();
-                // Cursor.visible = true;
-                // Cursor.lockState = CursorLockMode.None;
-
-                // EventSystem.current.SetSelectedGameObject(null);
             }
         }
 
