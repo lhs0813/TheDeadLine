@@ -2,6 +2,7 @@
 using FIMSpace.FProceduralAnimation;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public abstract class ZombieBase : MonoBehaviour, IZombie
 {
@@ -134,7 +135,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
         ragdollAnim.RA2Event_SwitchToStand();
         collider.enabled = true;
-        //Kinematic_Controll(true);
+        Kinematic_Controll(true);
 
         health = maxHealth;
         agent.enabled = true;
@@ -198,6 +199,9 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         collider.enabled = false; // 콜리더 비활성화
         Kinematic_Controll(false);
         ragdollAnim.RA2Event_SwitchToFall();
+
+        
+
     }
 
     public virtual void MoveTowards(Vector3 target)

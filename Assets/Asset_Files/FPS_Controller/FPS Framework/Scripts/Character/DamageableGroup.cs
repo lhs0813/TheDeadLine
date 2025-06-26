@@ -23,7 +23,6 @@ namespace Akila.FPSFramework
 
         private void Start()
         {
-            
             damageable = GetComponentInParent<IDamageable>();
         }
 

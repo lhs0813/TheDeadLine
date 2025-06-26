@@ -211,7 +211,8 @@ namespace Akila.FPSFramework
                     Rigidbody rb = hit.rigidbody;
                     if (rb != null)
                     {
-                        rb.AddForceAtPosition(shootDirection * force * 5, hit.point, ForceMode.Impulse);
+                        Vector3 impulse = shootDirection * force * 5; //source.preset.damage
+                        Ragdoll_Manager.Instance?.ApplyDelayedImpulse(rb, impulse, hit.point);
                     }
                 }
 
