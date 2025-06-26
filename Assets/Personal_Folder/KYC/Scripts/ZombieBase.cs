@@ -19,6 +19,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     protected virtual float DefaultHealth => 100f;
     protected virtual float DefaultMaxHealth => 100f;
 
+    public virtual bool UseRandomSpeed => true;
 
     public float health = 100f;
     public float maxHealth = 100f;

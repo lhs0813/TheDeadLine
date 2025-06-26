@@ -14,12 +14,16 @@ public class ChaseState : IZombieState
     private FirstPersonController _playerController;
 
     Vector3 flankOffset;
-
     float predictionTime;
 
     private float _randomSpeed;
     private int _predictSkill;
     private float _stupidPercent;
+
+    private Vector3 _lastDestination = Vector3.zero;
+    private float _destinationUpdateThreshold = 0.5f;
+
+    private static readonly WaitForSeconds chaseWait = new WaitForSeconds(0.1f);
 
     public void Enter(ZombieBase zombie)
     {
@@ -31,11 +35,23 @@ public class ChaseState : IZombieState
         _zombie.SetNotBeDespawned();
         _playerController = _player.GetComponent<FirstPersonController>();
 
+
         predictionTime = Random.Range(0.2f, 1.2f);
 
-        _randomSpeed = Random.Range(4.0f, 7.0f);
-        _zombie.moveSpeed = _randomSpeed;
-        _zombie.Agent.speed = _randomSpeed;
+        if (_zombie.UseRandomSpeed)
+        {
+            predictionTime = 0.8f;      
+            _randomSpeed = Random.Range(4.0f, 7.0f);
+            _zombie.moveSpeed = _randomSpeed;
+            _zombie.Agent.speed = _randomSpeed;
+        }
+        else
+        {
+            _zombie.Agent.speed = _zombie.moveSpeed;
+        }
+
+
+
 
         if (!_isChecking && _player != null)
         {
@@ -58,7 +74,6 @@ public class ChaseState : IZombieState
 
     private IEnumerator ChaseRoutine()
     {
-        var wait = new WaitForSeconds(0.1f);
         var agent = _zombie.Agent;
 
         agent.speed = _zombie.moveSpeed;
@@ -71,18 +86,19 @@ public class ChaseState : IZombieState
 
         while (true)
         {
-            if (_player == null || _playerController == null || !agent.isOnNavMesh) yield break;
+            if (_player == null || _playerController == null || !agent.isOnNavMesh)
+                yield break;
 
             if (!agent.isOnNavMesh)
             {
                 if (NavMesh.SamplePosition(agent.transform.position, out NavMeshHit hit, 2f, NavMesh.AllAreas))
                 {
                     agent.Warp(hit.position);
-                    yield return null; // 한 프레임 대기
+                    yield return null;
                 }
                 else
                 {
-                    yield return wait;
+                    yield return chaseWait;
                     continue;
                 }
             }
@@ -96,15 +112,11 @@ public class ChaseState : IZombieState
                 ? _player.position
                 : _player.position + playerVelocity * predictionTime;
 
-            if (predictionTime < 0.6f)
-            {
-                SafeSetDestination(_player.position);
-                yield return wait;
-            }
+            Vector3 target;
 
             if (angle < 20f)
             {
-                SafeSetDestination(distance < 20f ? _player.position : predictedPosition);
+                target = (distance < 20f) ? _player.position : predictedPosition;
             }
             else if (angle < 120f)
             {
@@ -115,31 +127,25 @@ public class ChaseState : IZombieState
                     int direction = Vector3.Dot(side, (_zombie.transform.position - _player.position)) > 0 ? 1 : -1;
 
                     flankOffset = side * 5f * direction - forward * 3f;
-                    Vector3 flankTarget = predictedPosition + flankOffset;
-
-                    SafeSetDestination(flankTarget);
+                    target = predictedPosition + flankOffset;
                 }
-                else if (distance < 3f)
+                else if (distance < 10f)
                 {
-                    SafeSetDestination(_player.position);
+                    target = _player.position;
                 }
                 else
                 {
-                    SafeSetDestination(_player.position + flankOffset);
+                    target = _player.position + flankOffset;
                 }
             }
             else
             {
-                Vector3 futurePos = _player.position + _player.forward * 4f;
-                SafeSetDestination(futurePos);
+                target = _player.position + _player.forward * 5f;
             }
 
-            if (agent.isOnNavMesh && !agent.pathPending && agent.remainingDistance < 0.5f)
-            {
-                SafeSetDestination(_player.position);
-            }
+            SafeSetDestination(target);
 
-            yield return wait;
+            yield return chaseWait;
         }
     }
 
@@ -147,9 +153,13 @@ public class ChaseState : IZombieState
     {
         if (_zombie.Agent == null || !_zombie.Agent.isOnNavMesh) return;
 
+        if (Vector3.Distance(target, _lastDestination) < _destinationUpdateThreshold)
+            return;
+
         if (NavMesh.SamplePosition(target, out NavMeshHit hit, 3f, NavMesh.AllAreas))
         {
             _zombie.Agent.SetDestination(hit.position);
+            _lastDestination = hit.position;
         }
         else
         {

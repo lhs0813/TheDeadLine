@@ -18,7 +18,7 @@ public class Ragdoll_Manager : MonoBehaviour
 
     private IEnumerator ApplyImpulseAfterDelay(Rigidbody rb, Vector3 force, Vector3 point)
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
 
         if (rb != null && !rb.isKinematic)
         {
