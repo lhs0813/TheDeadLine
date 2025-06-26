@@ -1001,25 +1001,7 @@ namespace Akila.FPSFramework
                     ""name"": ""Submit"",
                     ""type"": ""Button"",
                     ""id"": ""f413f574-c2b7-4ada-9495-65106d7db431"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Cancel"",
-                    ""type"": ""Button"",
-                    ""id"": ""49c45582-a1e5-4f9a-8826-1a78d176da4a"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Point"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""106970f7-1a90-4abe-9ce1-e9c4fb965064"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -1043,45 +1025,36 @@ namespace Akila.FPSFramework
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""MiddleClick"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""e2b1d1e5-23d5-4fd9-9c3e-f31d298daef4"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""RightClick"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""e1f9993d-bb9c-4a3e-91a3-97d28be028ee"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""TrackedDevicePosition"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""5406ce5a-cf48-447a-b7df-9475cd540cb9"",
-                    ""expectedControlType"": ""Vector3"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""TrackedDeviceOrientation"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""2e31c7a4-04bc-481b-b6fa-a829c2922e6c"",
-                    ""expectedControlType"": ""Quaternion"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""cc1aa663-de79-427a-b783-281381372123"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Save"",
+                    ""type"": ""Button"",
+                    ""id"": ""10bc920a-8c2c-49a8-af61-7060e95f1060"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Next Tab"",
+                    ""type"": ""Button"",
+                    ""id"": ""b96e6247-9e59-4918-91ab-ec82a5bf2531"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Previous Tab"",
+                    ""type"": ""Button"",
+                    ""id"": ""ba1c43a7-83f5-4941-8898-9df93e8c5ece"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1366,50 +1339,6 @@ namespace Akila.FPSFramework
                 },
                 {
                     ""name"": """",
-                    ""id"": ""82627dcc-3b13-4ba9-841d-e4b746d6553e"",
-                    ""path"": ""*/{Cancel}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Cancel"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c52c8e0b-8179-41d3-b8a1-d149033bbe86"",
-                    ""path"": ""<Mouse>/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Point"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e1394cbc-336e-44ce-9ea8-6007ed6193f7"",
-                    ""path"": ""<Pen>/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Point"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5693e57a-238a-46ed-b5ae-e64e6e574302"",
-                    ""path"": ""<Touchscreen>/touch*/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Touch"",
-                    ""action"": ""Point"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""4faf7dc9-b979-4210-aa8c-e808e1ef89f5"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
@@ -1465,50 +1394,6 @@ namespace Akila.FPSFramework
                 },
                 {
                     ""name"": """",
-                    ""id"": ""24066f69-da47-44f3-a07e-0015fb02eb2e"",
-                    ""path"": ""<Mouse>/middleButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""MiddleClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4c191405-5738-4d4b-a523-c6a301dbf754"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""RightClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7236c0d9-6ca3-47cf-a6ee-a97f5b59ea77"",
-                    ""path"": ""<XRController>/devicePosition"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""TrackedDevicePosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""23e01e3a-f935-4948-8d8b-9bcac77714fb"",
-                    ""path"": ""<XRController>/deviceRotation"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""TrackedDeviceOrientation"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""fcc9ae79-5d15-4a59-87b7-a5eefa2964a7"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
@@ -1526,6 +1411,72 @@ namespace Akila.FPSFramework
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7f2b6b0e-a7cc-488b-aa99-2d43b986d3b9"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3b206344-c818-4fbe-8b18-5a1dd404bf02"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""32f1d979-53cb-42ff-b66b-6b5a81839c70"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Next Tab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2b64283d-fe4e-4cfe-b245-d60de4c95c98"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Next Tab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""07ca3584-fe15-403a-acf0-ca29a86d07c7"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Previous Tab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3b9f558-c99f-453b-860c-8fb029919280"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Previous Tab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1637,15 +1588,12 @@ namespace Akila.FPSFramework
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
             m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
-            m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
-            m_UI_Point = m_UI.FindAction("Point", throwIfNotFound: true);
             m_UI_Click = m_UI.FindAction("Click", throwIfNotFound: true);
             m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
-            m_UI_MiddleClick = m_UI.FindAction("MiddleClick", throwIfNotFound: true);
-            m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
-            m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
-            m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
             m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
+            m_UI_Save = m_UI.FindAction("Save", throwIfNotFound: true);
+            m_UI_NextTab = m_UI.FindAction("Next Tab", throwIfNotFound: true);
+            m_UI_PreviousTab = m_UI.FindAction("Previous Tab", throwIfNotFound: true);
         }
 
         ~@Controls()
@@ -2338,15 +2286,12 @@ namespace Akila.FPSFramework
         private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
         private readonly InputAction m_UI_Navigate;
         private readonly InputAction m_UI_Submit;
-        private readonly InputAction m_UI_Cancel;
-        private readonly InputAction m_UI_Point;
         private readonly InputAction m_UI_Click;
         private readonly InputAction m_UI_ScrollWheel;
-        private readonly InputAction m_UI_MiddleClick;
-        private readonly InputAction m_UI_RightClick;
-        private readonly InputAction m_UI_TrackedDevicePosition;
-        private readonly InputAction m_UI_TrackedDeviceOrientation;
         private readonly InputAction m_UI_Pause;
+        private readonly InputAction m_UI_Save;
+        private readonly InputAction m_UI_NextTab;
+        private readonly InputAction m_UI_PreviousTab;
         /// <summary>
         /// Provides access to input actions defined in input action map "UI".
         /// </summary>
@@ -2367,14 +2312,6 @@ namespace Akila.FPSFramework
             /// </summary>
             public InputAction @Submit => m_Wrapper.m_UI_Submit;
             /// <summary>
-            /// Provides access to the underlying input action "UI/Cancel".
-            /// </summary>
-            public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
-            /// <summary>
-            /// Provides access to the underlying input action "UI/Point".
-            /// </summary>
-            public InputAction @Point => m_Wrapper.m_UI_Point;
-            /// <summary>
             /// Provides access to the underlying input action "UI/Click".
             /// </summary>
             public InputAction @Click => m_Wrapper.m_UI_Click;
@@ -2383,25 +2320,21 @@ namespace Akila.FPSFramework
             /// </summary>
             public InputAction @ScrollWheel => m_Wrapper.m_UI_ScrollWheel;
             /// <summary>
-            /// Provides access to the underlying input action "UI/MiddleClick".
-            /// </summary>
-            public InputAction @MiddleClick => m_Wrapper.m_UI_MiddleClick;
-            /// <summary>
-            /// Provides access to the underlying input action "UI/RightClick".
-            /// </summary>
-            public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
-            /// <summary>
-            /// Provides access to the underlying input action "UI/TrackedDevicePosition".
-            /// </summary>
-            public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
-            /// <summary>
-            /// Provides access to the underlying input action "UI/TrackedDeviceOrientation".
-            /// </summary>
-            public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
-            /// <summary>
             /// Provides access to the underlying input action "UI/Pause".
             /// </summary>
             public InputAction @Pause => m_Wrapper.m_UI_Pause;
+            /// <summary>
+            /// Provides access to the underlying input action "UI/Save".
+            /// </summary>
+            public InputAction @Save => m_Wrapper.m_UI_Save;
+            /// <summary>
+            /// Provides access to the underlying input action "UI/NextTab".
+            /// </summary>
+            public InputAction @NextTab => m_Wrapper.m_UI_NextTab;
+            /// <summary>
+            /// Provides access to the underlying input action "UI/PreviousTab".
+            /// </summary>
+            public InputAction @PreviousTab => m_Wrapper.m_UI_PreviousTab;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -2434,33 +2367,24 @@ namespace Akila.FPSFramework
                 @Submit.started += instance.OnSubmit;
                 @Submit.performed += instance.OnSubmit;
                 @Submit.canceled += instance.OnSubmit;
-                @Cancel.started += instance.OnCancel;
-                @Cancel.performed += instance.OnCancel;
-                @Cancel.canceled += instance.OnCancel;
-                @Point.started += instance.OnPoint;
-                @Point.performed += instance.OnPoint;
-                @Point.canceled += instance.OnPoint;
                 @Click.started += instance.OnClick;
                 @Click.performed += instance.OnClick;
                 @Click.canceled += instance.OnClick;
                 @ScrollWheel.started += instance.OnScrollWheel;
                 @ScrollWheel.performed += instance.OnScrollWheel;
                 @ScrollWheel.canceled += instance.OnScrollWheel;
-                @MiddleClick.started += instance.OnMiddleClick;
-                @MiddleClick.performed += instance.OnMiddleClick;
-                @MiddleClick.canceled += instance.OnMiddleClick;
-                @RightClick.started += instance.OnRightClick;
-                @RightClick.performed += instance.OnRightClick;
-                @RightClick.canceled += instance.OnRightClick;
-                @TrackedDevicePosition.started += instance.OnTrackedDevicePosition;
-                @TrackedDevicePosition.performed += instance.OnTrackedDevicePosition;
-                @TrackedDevicePosition.canceled += instance.OnTrackedDevicePosition;
-                @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
-                @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
-                @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @Save.started += instance.OnSave;
+                @Save.performed += instance.OnSave;
+                @Save.canceled += instance.OnSave;
+                @NextTab.started += instance.OnNextTab;
+                @NextTab.performed += instance.OnNextTab;
+                @NextTab.canceled += instance.OnNextTab;
+                @PreviousTab.started += instance.OnPreviousTab;
+                @PreviousTab.performed += instance.OnPreviousTab;
+                @PreviousTab.canceled += instance.OnPreviousTab;
             }
 
             /// <summary>
@@ -2478,33 +2402,24 @@ namespace Akila.FPSFramework
                 @Submit.started -= instance.OnSubmit;
                 @Submit.performed -= instance.OnSubmit;
                 @Submit.canceled -= instance.OnSubmit;
-                @Cancel.started -= instance.OnCancel;
-                @Cancel.performed -= instance.OnCancel;
-                @Cancel.canceled -= instance.OnCancel;
-                @Point.started -= instance.OnPoint;
-                @Point.performed -= instance.OnPoint;
-                @Point.canceled -= instance.OnPoint;
                 @Click.started -= instance.OnClick;
                 @Click.performed -= instance.OnClick;
                 @Click.canceled -= instance.OnClick;
                 @ScrollWheel.started -= instance.OnScrollWheel;
                 @ScrollWheel.performed -= instance.OnScrollWheel;
                 @ScrollWheel.canceled -= instance.OnScrollWheel;
-                @MiddleClick.started -= instance.OnMiddleClick;
-                @MiddleClick.performed -= instance.OnMiddleClick;
-                @MiddleClick.canceled -= instance.OnMiddleClick;
-                @RightClick.started -= instance.OnRightClick;
-                @RightClick.performed -= instance.OnRightClick;
-                @RightClick.canceled -= instance.OnRightClick;
-                @TrackedDevicePosition.started -= instance.OnTrackedDevicePosition;
-                @TrackedDevicePosition.performed -= instance.OnTrackedDevicePosition;
-                @TrackedDevicePosition.canceled -= instance.OnTrackedDevicePosition;
-                @TrackedDeviceOrientation.started -= instance.OnTrackedDeviceOrientation;
-                @TrackedDeviceOrientation.performed -= instance.OnTrackedDeviceOrientation;
-                @TrackedDeviceOrientation.canceled -= instance.OnTrackedDeviceOrientation;
                 @Pause.started -= instance.OnPause;
                 @Pause.performed -= instance.OnPause;
                 @Pause.canceled -= instance.OnPause;
+                @Save.started -= instance.OnSave;
+                @Save.performed -= instance.OnSave;
+                @Save.canceled -= instance.OnSave;
+                @NextTab.started -= instance.OnNextTab;
+                @NextTab.performed -= instance.OnNextTab;
+                @NextTab.canceled -= instance.OnNextTab;
+                @PreviousTab.started -= instance.OnPreviousTab;
+                @PreviousTab.performed -= instance.OnPreviousTab;
+                @PreviousTab.canceled -= instance.OnPreviousTab;
             }
 
             /// <summary>
@@ -2873,20 +2788,6 @@ namespace Akila.FPSFramework
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnSubmit(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "Cancel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnCancel(InputAction.CallbackContext context);
-            /// <summary>
-            /// Method invoked when associated input action "Point" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnPoint(InputAction.CallbackContext context);
-            /// <summary>
             /// Method invoked when associated input action "Click" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -2901,40 +2802,33 @@ namespace Akila.FPSFramework
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnScrollWheel(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "MiddleClick" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnMiddleClick(InputAction.CallbackContext context);
-            /// <summary>
-            /// Method invoked when associated input action "RightClick" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnRightClick(InputAction.CallbackContext context);
-            /// <summary>
-            /// Method invoked when associated input action "TrackedDevicePosition" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnTrackedDevicePosition(InputAction.CallbackContext context);
-            /// <summary>
-            /// Method invoked when associated input action "TrackedDeviceOrientation" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
-            /// <summary>
             /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnPause(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Save" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnSave(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Next Tab" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnNextTab(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Previous Tab" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnPreviousTab(InputAction.CallbackContext context);
         }
     }
 }

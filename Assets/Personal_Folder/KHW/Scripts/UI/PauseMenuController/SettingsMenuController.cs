@@ -1,0 +1,127 @@
+using System.Collections;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+
+namespace Akila.FPSFramework.UI
+{
+    [RequireComponent(typeof(CanvasGroup))]
+    public class SettingsMenuController : MonoBehaviour
+    {
+        [Header("Fade Settings")]
+        [Tooltip("Settings Menu 페이드 인/아웃에 걸리는 시간 (초)")]
+        public float settingsMenuActivateTime = 0.4f;
+
+        private Controls _controls;
+        private CanvasGroup _canvasGroup;
+        private bool _isOpen;
+
+        public UnityEvent OnClose;
+
+        // 외부에서 PauseMenuController가 넘겨줌
+        private PauseMenuController _pauseMenuController;
+
+        public bool IsOpen => _isOpen;
+
+        public GameObject firstUIObj;
+
+        void Start()
+        {
+            // CanvasGroup 초기 세팅
+            _canvasGroup = GetComponent<CanvasGroup>();
+            _canvasGroup.alpha = 0f;
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
+            _isOpen = false;
+        }
+
+        /// <summary>
+        /// PauseMenu에서 인스턴스와 자기 참조를 넘겨 호출
+        /// </summary>
+        public void Setup(Controls sharedControls, PauseMenuController pauseBy)
+        {
+            _controls = sharedControls;
+            _pauseMenuController = pauseBy;
+
+            // Pause 액션을 Settings 닫기로 바인딩
+            _controls.UI.Pause.performed += OnPausePerformed;
+            //_controls.UI.NextTab.performed += 
+        }
+
+        void OnDisable()
+        {
+            if (_controls != null)
+                _controls.UI.Pause.performed -= OnPausePerformed;
+        }
+
+        private void OnPausePerformed(InputAction.CallbackContext ctx)
+        {
+            // 설정창 열려 있을 때만 닫는다
+            if (_isOpen)
+                HideSettingsMenu();
+        }
+
+        /// <summary>
+        /// Pause 메뉴가 열려 있을 때만 호출
+        /// </summary>
+        public void ShowSettingsMenu()
+        {
+            if (!_pauseMenuController.IsOpened || _isOpen) return;
+
+            StartCoroutine(ShowSettingsCoroutine());
+        }
+
+        /// <summary>
+        /// 페이드 인 후 _isOpen=true
+        /// </summary>
+        private IEnumerator ShowSettingsCoroutine()
+        {
+            _isOpen = true;
+
+            _canvasGroup.interactable = true;
+            _canvasGroup.blocksRaycasts = true;
+
+            float elapsed = 0f;
+            while (elapsed < settingsMenuActivateTime)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                _canvasGroup.alpha = Mathf.Lerp(0f, 1f, elapsed / settingsMenuActivateTime);
+                yield return null;
+            }
+            _canvasGroup.alpha = 1f;
+
+            EventSystem.current.SetSelectedGameObject(firstUIObj);
+        }
+
+        /// <summary>
+        /// 설정창 닫기
+        /// </summary>
+        public void HideSettingsMenu()
+        {
+            if (!_isOpen) return;
+            StartCoroutine(HideSettingsCoroutine());
+        }
+
+        private IEnumerator HideSettingsCoroutine()
+        {
+            OnClose?.Invoke();
+
+            float start = _canvasGroup.alpha;
+            float elapsed = 0f;
+            while (elapsed < settingsMenuActivateTime)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                _canvasGroup.alpha = Mathf.Lerp(start, 0f, elapsed / settingsMenuActivateTime);
+                yield return null;
+            }
+            _canvasGroup.alpha = 0f;
+
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
+            _isOpen = false;
+
+            _pauseMenuController.ShowPauseUIOnly();
+        }
+    }
+}
