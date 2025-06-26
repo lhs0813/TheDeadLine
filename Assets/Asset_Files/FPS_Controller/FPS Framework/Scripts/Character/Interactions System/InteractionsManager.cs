@@ -74,6 +74,10 @@ namespace Akila.FPSFramework
             }
         }
 
+        /// <summary>
+        /// 가장 가까운 IInteractable 인터페이스 반환.
+        /// </summary>
+        /// <returns></returns>
         public IInteractable GetInteractable()
         {
             List<IInteractable> interactables = new List<IInteractable>();
@@ -88,7 +92,7 @@ namespace Akila.FPSFramework
             }
 
             IInteractable closestInteractable = null;
-            foreach(IInteractable interactable in interactables)
+            foreach (IInteractable interactable in interactables)
             {
                 Vector3 position = transform.position;
                 Vector3 interactablePosition = interactable.transform.position;
@@ -98,7 +102,7 @@ namespace Akila.FPSFramework
                 {
                     closestInteractable = interactable;
                 }
-                else if(Vector3.Distance(position, interactablePosition) < Vector3.Distance(position, closestInteractable.transform.position))
+                else if (Vector3.Distance(position, interactablePosition) < Vector3.Distance(position, closestInteractable.transform.position))
                 {
                     closestInteractable = interactable;
                 }

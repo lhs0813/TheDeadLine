@@ -299,6 +299,15 @@ namespace Akila.FPSFramework
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Use Tablet"",
+                    ""type"": ""Button"",
+                    ""id"": ""b3c42aed-1ecd-4e8b-80cb-a8903e57176e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -612,33 +621,11 @@ namespace Akila.FPSFramework
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9cefc5eb-20c9-42e7-9b76-bb7c54280599"",
-                    ""path"": ""<Gamepad>/dpad/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Lean Right"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""8f74fa72-2531-4a62-89c6-b1b05d800551"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Lean Left"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""49450b9d-3aca-4fdd-a000-903486746e66"",
-                    ""path"": ""<Gamepad>/dpad/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
                     ""action"": ""Lean Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -706,6 +693,28 @@ namespace Akila.FPSFramework
                     ""processors"": ""ScaleVector2(x=5,y=5)"",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f698616-4526-40bf-a92b-d30d06d04fbd"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Use Tablet"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""968f6de8-dcc9-437f-8a67-d26d73e89bdd"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Use Tablet"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1073,7 +1082,7 @@ namespace Akila.FPSFramework
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""cc1aa663-de79-427a-b783-281381372123"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -1611,6 +1620,7 @@ namespace Akila.FPSFramework
             m_Player_DefaultItem = m_Player.FindAction("DefaultItem", throwIfNotFound: true);
             m_Player_LeanRight = m_Player.FindAction("Lean Right", throwIfNotFound: true);
             m_Player_LeanLeft = m_Player.FindAction("Lean Left", throwIfNotFound: true);
+            m_Player_UseTablet = m_Player.FindAction("Use Tablet", throwIfNotFound: true);
             // Firearm
             m_Firearm = asset.FindActionMap("Firearm", throwIfNotFound: true);
             m_Firearm_Fire = m_Firearm.FindAction("Fire", throwIfNotFound: true);
@@ -1742,6 +1752,7 @@ namespace Akila.FPSFramework
         private readonly InputAction m_Player_DefaultItem;
         private readonly InputAction m_Player_LeanRight;
         private readonly InputAction m_Player_LeanLeft;
+        private readonly InputAction m_Player_UseTablet;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -1846,6 +1857,10 @@ namespace Akila.FPSFramework
             /// </summary>
             public InputAction @LeanLeft => m_Wrapper.m_Player_LeanLeft;
             /// <summary>
+            /// Provides access to the underlying input action "Player/UseTablet".
+            /// </summary>
+            public InputAction @UseTablet => m_Wrapper.m_Player_UseTablet;
+            /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
             public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1940,6 +1955,9 @@ namespace Akila.FPSFramework
                 @LeanLeft.started += instance.OnLeanLeft;
                 @LeanLeft.performed += instance.OnLeanLeft;
                 @LeanLeft.canceled += instance.OnLeanLeft;
+                @UseTablet.started += instance.OnUseTablet;
+                @UseTablet.performed += instance.OnUseTablet;
+                @UseTablet.canceled += instance.OnUseTablet;
             }
 
             /// <summary>
@@ -2020,6 +2038,9 @@ namespace Akila.FPSFramework
                 @LeanLeft.started -= instance.OnLeanLeft;
                 @LeanLeft.performed -= instance.OnLeanLeft;
                 @LeanLeft.canceled -= instance.OnLeanLeft;
+                @UseTablet.started -= instance.OnUseTablet;
+                @UseTablet.performed -= instance.OnUseTablet;
+                @UseTablet.canceled -= instance.OnUseTablet;
             }
 
             /// <summary>
@@ -2750,6 +2771,13 @@ namespace Akila.FPSFramework
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnLeanLeft(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Use Tablet" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnUseTablet(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Firearm" which allows adding and removing callbacks.

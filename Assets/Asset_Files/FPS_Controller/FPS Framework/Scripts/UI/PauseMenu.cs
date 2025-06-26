@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Akila.FPSFramework.UI
 {
@@ -21,6 +24,8 @@ namespace Akila.FPSFramework.UI
 
         private bool _inputBlocked = false;
 
+        private string _currentScheme = "";
+
         /// <summary>
         /// Initializes the Pause Menu.
         /// </summary>
@@ -28,16 +33,40 @@ namespace Akila.FPSFramework.UI
         {
             base.Start();
 
-            // Initialize and enable input controls
             _controls = new Controls();
             _controls.Enable();
 
-            // Ensure the game starts unpaused
             FPSFrameworkCore.IsPaused = false;
 
-            RotateOnTrigger.onLapTop += InputStop;
-            RotateOnTrigger.offLapTop += InputStart;
+            TabletController.onTabletShownAction += InputStop;
+            TabletController.onTabletDisabledAction += InputStart;
+
+            InputSchemeManager.OnSchemeChanged += ApplySchemeBehavior; // ✅
         }
+
+        public GameObject firstButton; // 제일 위 버튼
+
+        void ApplySchemeBehavior(InputSchemeManager.InputScheme scheme)
+        {
+            if (!IsPaused) return;
+
+            Debug.Log(scheme);
+
+            if (scheme == InputSchemeManager.InputScheme.Gamepad)
+            {
+                GoGamePadMod();
+
+            }
+            else
+            {
+                GoKeyboardMouseMod();
+                // Cursor.visible = true;
+                // Cursor.lockState = CursorLockMode.None;
+
+                // EventSystem.current.SetSelectedGameObject(null);
+            }
+        }
+
 
         /// <summary>
         /// Updates the Pause Menu. Listens for pause/unpause input.
@@ -46,13 +75,10 @@ namespace Akila.FPSFramework.UI
         {
             base.Update();
 
-            
-
             if (_controls.UI.Pause.triggered)
             {
                 if (_inputBlocked)
                     return;
-
 
                 if (IsPaused)
                     Unpause();
@@ -60,11 +86,13 @@ namespace Akila.FPSFramework.UI
                     Pause();
             }
 
-            if(IsPaused == false) CloseMenu();
+            if (!IsPaused)
+                CloseMenu();
         }
 
+
         private void InputStop()
-        {
+        { 
             _inputBlocked = true;
             _controls.Disable();
         }
@@ -85,11 +113,8 @@ namespace Akila.FPSFramework.UI
             // Update game state to paused
             FPSFrameworkCore.IsPaused = true;
 
-            // Unlock the cursor and make it visible
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            ApplySchemeBehavior(InputSchemeManager.CurrentScheme);
 
-            // Open the pause menu UI
             OpenMenu();
         }
 
@@ -110,9 +135,43 @@ namespace Akila.FPSFramework.UI
             }
         }
 
+        private void GoGamePadMod()
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+
+            //첫번째 버튼은 활성화.
+            if (firstButton != null)
+            {
+                EventSystem.current.SetSelectedGameObject(null); // 먼저 선택 해제 (중복 방지)
+                EventSystem.current.SetSelectedGameObject(firstButton);
+
+                // 시각적 하이라이트 강제 적용
+                var selectable = firstButton.GetComponent<Selectable>();
+                if (selectable != null)
+                {
+                    selectable.OnSelect(null); // null은 BaseEventData
+                }
+            }
+        }
+
+        private void GoKeyboardMouseMod()
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
         public void LoadScene(string sceneName)
         {
             LoadingScreen.LoadScene(sceneName);
         }
+
+        void OnDisable()
+        {
+            TabletController.onTabletShownAction -= InputStop;
+            TabletController.onTabletDisabledAction -= InputStart;
+            InputSchemeManager.OnSchemeChanged -= ApplySchemeBehavior; // ✅
+        }
+
     }
 }
