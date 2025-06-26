@@ -2889,6 +2889,7 @@ GameObject:
   - component: {fileID: 7594654665673016081}
   - component: {fileID: 3162695250576475374}
   - component: {fileID: 4694114269775128889}
+  - component: {fileID: 1385368612473906616}
   m_Layer: 24
   m_Name: mixamorig:LeftLeg
   m_TagString: Untagged
@@ -3078,6 +3079,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bone: 0
   damageMultipler: 1
+--- !u!114 &1385368612473906616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4290006014038668665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a854272f4ea4d449a953a3e196770aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decalVFX: {fileID: 733209293663125264, guid: fcd27e9b64f619746991b41c831fd719, type: 3}
+  lifeTime: 60
 --- !u!1 &4391009119688660623
 GameObject:
   m_ObjectHideFlags: 0
@@ -4202,7 +4217,6 @@ GameObject:
   - component: {fileID: 6689751671884596216}
   - component: {fileID: 4263658887701025972}
   - component: {fileID: 5641592795895210739}
-  - component: {fileID: 767476636524181090}
   m_Layer: 23
   m_Name: Zombie_Normal_5
   m_TagString: Untagged
@@ -5745,39 +5759,12 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 17
   m_Height: 200
   m_Direction: 1
   m_Center: {x: 0, y: 92, z: 0}
---- !u!54 &767476636524181090
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6247323643475385250}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &6483085090126940559
 GameObject:
   m_ObjectHideFlags: 0

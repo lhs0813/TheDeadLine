@@ -9,9 +9,6 @@ public class SkillNode : MonoBehaviour,  IPointerClickHandler, IPointerEnterHand
     public string skillId;
     public int requiredPoints = 1;
 
-    public string nameKey;
-    public string descriptionKey;
-
     public GameObject tooltipTextObject;
     public int currentLevel = 0;
     public int maxLevel = 5;

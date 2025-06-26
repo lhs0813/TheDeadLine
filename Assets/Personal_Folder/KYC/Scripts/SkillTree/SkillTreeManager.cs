@@ -18,17 +18,22 @@ public class SkillTreeManager : MonoBehaviour
     public List<SkillNode> allSkills;
     private float _resetKeyTime = 0f;
     public int resetTicket = 1; // (초기값 원하는 대로)
-
+    public ActiveSkillEffectsUI activeSkillEffectsUI; // 👈 추가
     public event Action<int> OnPointChanged;
 
     public RotateOnTrigger laptopTrigger;
+
+    public AudioSource levelUpSounds;
+    public AudioSource levelDownSounds;
+
+
 
 
     private void Start()
     {
         input = new Controls();
         OnPointChanged?.Invoke(availablePoints);
-
+        OnPointChanged += (points) => activeSkillEffectsUI.RefreshSkillEffectsUI();
         input.UI.Pause.performed += ctx =>
         {
             if (laptopTrigger.isLapTopOn)
@@ -52,6 +57,9 @@ public class SkillTreeManager : MonoBehaviour
         skill.LevelUp();
         availablePoints -= skill.requiredPoints;
         OnPointChanged?.Invoke(availablePoints);
+
+        levelUpSounds.Play();
+
         return true;
     }
 
@@ -122,6 +130,9 @@ public class SkillTreeManager : MonoBehaviour
         skill.LevelDown();
         availablePoints += skill.requiredPoints;
         OnPointChanged?.Invoke(availablePoints);
+
+        levelDownSounds.Play();
+
         return true;
     }
 }

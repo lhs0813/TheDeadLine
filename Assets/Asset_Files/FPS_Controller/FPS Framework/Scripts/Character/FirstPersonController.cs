@@ -375,6 +375,10 @@ namespace Akila.FPSFramework
             if (Player_Hand.Instance._isCharging)
                 return;
 
+            //Tablet 사용중 화면 회전 없음.
+            if (TabletController.isTabletActive)
+                return;
+
             if (prevCamRotation != _Camera.rotation) OnCameraRotationUpdated();
 
             yRotation += CharacterInput.lookInput.x;
