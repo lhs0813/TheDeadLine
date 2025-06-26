@@ -139,13 +139,26 @@ namespace Akila.FPSFramework.UI
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+
+            //첫번째 버튼은 활성화.
             if (firstButton != null)
+            {
+                EventSystem.current.SetSelectedGameObject(null); // 먼저 선택 해제 (중복 방지)
                 EventSystem.current.SetSelectedGameObject(firstButton);
+
+                // 시각적 하이라이트 강제 적용
+                var selectable = firstButton.GetComponent<Selectable>();
+                if (selectable != null)
+                {
+                    selectable.OnSelect(null); // null은 BaseEventData
+                }
+            }
         }
 
         private void GoKeyboardMouseMod()
         {
-
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
 
         public void LoadScene(string sceneName)
