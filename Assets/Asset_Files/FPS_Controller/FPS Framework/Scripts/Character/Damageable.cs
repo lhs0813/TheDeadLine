@@ -272,6 +272,9 @@ namespace Akila.FPSFramework
                     return;
             }
 
+            if(amount > 10000)
+            amount = 9999;
+
 
             if (type == HealthType.Player && isPlayer)
             {

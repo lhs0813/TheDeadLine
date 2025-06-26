@@ -18,7 +18,6 @@ public class SkillTreeManager : MonoBehaviour
     public List<SkillNode> allSkills;
     private float _resetKeyTime = 0f;
     public int resetTicket = 1; // (초기값 원하는 대로)
-    public ActiveSkillEffectsUI activeSkillEffectsUI; // 👈 추가
     public event Action<int> OnPointChanged;
 
     public RotateOnTrigger laptopTrigger;
@@ -33,7 +32,6 @@ public class SkillTreeManager : MonoBehaviour
     {
         input = new Controls();
         OnPointChanged?.Invoke(availablePoints);
-        OnPointChanged += (points) => activeSkillEffectsUI.RefreshSkillEffectsUI();
         input.UI.Pause.performed += ctx =>
         {
             if (laptopTrigger.isLapTopOn)
@@ -59,7 +57,8 @@ public class SkillTreeManager : MonoBehaviour
         OnPointChanged?.Invoke(availablePoints);
 
         levelUpSounds.Play();
-
+        // 🟡 설명 텍스트도 갱신
+        skill.UpdateTooltipText();
         return true;
     }
 
@@ -132,7 +131,8 @@ public class SkillTreeManager : MonoBehaviour
         OnPointChanged?.Invoke(availablePoints);
 
         levelDownSounds.Play();
-
+        // 🟡 설명 텍스트도 갱신
+        skill.UpdateTooltipText();
         return true;
     }
 }
