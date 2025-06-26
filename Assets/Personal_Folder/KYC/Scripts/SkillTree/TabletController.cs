@@ -4,12 +4,16 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
 
 public class TabletController : MonoBehaviour
 {
     public static bool isTabletActive = false;
+    public static Action onTabletShownAction;
+    public static Action onTabletDisabledAction;
     public InteractionsManager interactionsManager;
     public CharacterInput input;
+    public Controls _control;
 
     public GameObject tabletVisual;
     public Transform cameraTransform;
@@ -36,17 +40,22 @@ public class TabletController : MonoBehaviour
     {
         interactionsManager = FindAnyObjectByType<InteractionsManager>();
         input = FindAnyObjectByType<CharacterInput>();
+        _control = new Controls();
     }
 
     void Update()
     {
-        if (input.TabletInput)
+        if (!FPSFrameworkCore.IsPaused)
         {
-            if (!isTabletActive)
-                ShowTablet();
-            else
-                HideTablet();
+            if (input.TabletInput)
+                {
+                    if (!isTabletActive)
+                        ShowTablet();
+                    else
+                        HideTablet();
+                }            
         }
+
 
         if (isTabletActive)
         {
@@ -56,6 +65,12 @@ public class TabletController : MonoBehaviour
 
             tabletVisual.transform.position = targetPos;
             tabletVisual.transform.rotation = Quaternion.LookRotation(cameraTransform.forward) * Quaternion.Euler(offsetRotation);
+
+            
+            if (_control.UI.Pause.triggered)
+            {
+                HideTablet();
+            }
         }
 
         if (isTabletActive)
@@ -73,6 +88,11 @@ public class TabletController : MonoBehaviour
 
     void ShowTablet()
     {
+        //Activate ESC Control.
+        _control.Enable();
+
+        onTabletShownAction?.Invoke();
+
         isTabletActive = true;
         tabletVisual.SetActive(true);
         openSounds.Play();
@@ -91,6 +111,11 @@ public class TabletController : MonoBehaviour
 
     void HideTablet()
     {
+        //Deactivate ESC Control.
+        _control.Disable();
+
+        onTabletDisabledAction?.Invoke();
+
         isTabletActive = false;
         tabletVisual.SetActive(false);
         closeSounds.Play();
@@ -98,7 +123,7 @@ public class TabletController : MonoBehaviour
             weaponUI.SetActive(true);
 
         DisableCursor();
-        interactionsManager.isActive = false;
+        interactionsManager.isActive = true;
     }
 
     void EnableCursor()
@@ -133,9 +158,12 @@ public class TabletController : MonoBehaviour
 
     void CheckVirtualCursorClick()
     {
-        bool isClick =
-            (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame) ||
-            (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame); // A 버튼
+        bool isClick = _control.Firearm.Fire.triggered;
+            //itemInput.Controls.Firearm.Fire.triggered;
+            // (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame) ||
+            // (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame); // A 버튼
+
+            //
 
         if (!isClick) return;
 
@@ -171,7 +199,6 @@ public class TabletController : MonoBehaviour
         raycaster.Raycast(pointerData, results);
 
         GameObject currentHovered = results.Count > 0 ? results[0].gameObject : null;
-        Debug.Log($"CurrentHovered = {currentHovered.name}");
         if (lastHovered != currentHovered)
         {
             // pointerExit
