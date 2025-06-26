@@ -13,6 +13,18 @@ public class ChaseState : IZombieState
     private bool _isChecking = false;
     private FirstPersonController _playerController;
 
+    Vector3 flankOffset;
+    float predictionTime;
+
+    private float _randomSpeed;
+    private int _predictSkill;
+    private float _stupidPercent;
+
+    private Vector3 _lastDestination = Vector3.zero;
+    private float _destinationUpdateThreshold = 0.5f;
+
+    private static readonly WaitForSeconds chaseWait = new WaitForSeconds(0.1f);
+
     public void Enter(ZombieBase zombie)
     {
         _zombie = zombie;
@@ -22,6 +34,23 @@ public class ChaseState : IZombieState
         _zombie.Agent.speed = _zombie.moveSpeed;
         _zombie.SetNotBeDespawned();
         _playerController = _player.GetComponent<FirstPersonController>();
+
+
+        predictionTime = Random.Range(0.2f, 1.2f);
+
+        if (_zombie.UseRandomSpeed)
+        {
+            predictionTime = 0.8f;      
+            _randomSpeed = Random.Range(4.0f, 7.0f);
+            _zombie.moveSpeed = _randomSpeed;
+            _zombie.Agent.speed = _randomSpeed;
+        }
+        else
+        {
+            _zombie.Agent.speed = _zombie.moveSpeed;
+        }
+
+
 
 
         if (!_isChecking && _player != null)
@@ -45,35 +74,31 @@ public class ChaseState : IZombieState
 
     private IEnumerator ChaseRoutine()
     {
-        var wait = new WaitForSeconds(0.1f); // 반응 개선
-
         var agent = _zombie.Agent;
 
-        // NavMeshAgent 성능 향상 설정
         agent.speed = _zombie.moveSpeed;
         agent.acceleration = 25f;
         agent.angularSpeed = 720f;
         agent.updateRotation = true;
         agent.updatePosition = true;
 
-        // 루트모션이 AI 이동에 방해될 경우 비활성화 필요
         _zombie.Animator.applyRootMotion = false;
 
         while (true)
         {
-            if (_player == null || _playerController == null || !agent.isOnNavMesh) yield break;
-
-
+            if (_player == null || _playerController == null || !agent.isOnNavMesh)
+                yield break;
 
             if (!agent.isOnNavMesh)
             {
                 if (NavMesh.SamplePosition(agent.transform.position, out NavMeshHit hit, 2f, NavMesh.AllAreas))
                 {
                     agent.Warp(hit.position);
+                    yield return null;
                 }
                 else
                 {
-                    yield return wait;
+                    yield return chaseWait;
                     continue;
                 }
             }
@@ -82,62 +107,65 @@ public class ChaseState : IZombieState
             float angle = Vector3.Angle(_player.forward, toZombie);
             float distance = Vector3.Distance(_zombie.transform.position, _player.position);
 
-            // 예측 위치 계산 (속도 없으면 현재 위치 그대로)
             Vector3 playerVelocity = _playerController.Velocity;
-            float predictionTime = 0.8f;
             Vector3 predictedPosition = (playerVelocity.magnitude < 1f)
                 ? _player.position
                 : _player.position + playerVelocity * predictionTime;
 
-            // 추격 로직
+            Vector3 target;
+
             if (angle < 20f)
             {
-                // 정면
-                agent.SetDestination(distance < 20f ? _player.position : predictedPosition);
-
+                target = (distance < 20f) ? _player.position : predictedPosition;
             }
-            else if (angle < 240f)
+            else if (angle < 120f)
             {
-                // 측면
                 if (distance >= 10f)
                 {
                     Vector3 forward = _player.forward;
                     Vector3 side = Vector3.Cross(Vector3.up, forward).normalized;
                     int direction = Vector3.Dot(side, (_zombie.transform.position - _player.position)) > 0 ? 1 : -1;
 
-                    Vector3 flankOffset = side * 5f * direction - forward * 3f;
-                    Vector3 flankTarget = predictedPosition + flankOffset;
-
-                    agent.SetDestination(flankTarget);
+                    flankOffset = side * 5f * direction - forward * 3f;
+                    target = predictedPosition + flankOffset;
                 }
-                else if (distance < 3f)
+                else if (distance < 10f)
                 {
-                    agent.SetDestination(_player.position);
+                    target = _player.position;
                 }
                 else
                 {
-                    agent.SetDestination(predictedPosition);
+                    target = _player.position + flankOffset;
                 }
             }
             else
             {
-                // 후방
-                Vector3 futurePos = _player.position + _player.forward * 4f;
-                agent.SetDestination(futurePos);
+                target = _player.position + _player.forward * 5f;
             }
 
-            // 좀비가 목적지에 도달했는데 멈췄을 때 재지정
-            if (!agent.pathPending && agent.remainingDistance < 0.5f)
-            {
-                agent.SetDestination(_player.position);
-            }
+            SafeSetDestination(target);
 
-            yield return wait;
+            yield return chaseWait;
         }
     }
 
+    private void SafeSetDestination(Vector3 target)
+    {
+        if (_zombie.Agent == null || !_zombie.Agent.isOnNavMesh) return;
 
+        if (Vector3.Distance(target, _lastDestination) < _destinationUpdateThreshold)
+            return;
 
+        if (NavMesh.SamplePosition(target, out NavMeshHit hit, 3f, NavMesh.AllAreas))
+        {
+            _zombie.Agent.SetDestination(hit.position);
+            _lastDestination = hit.position;
+        }
+        else
+        {
+            Debug.LogWarning($"{_zombie.name} - NavMesh에서 유효한 목적지를 찾지 못함: {target}");
+        }
+    }
 
     public void Exit()
     {
