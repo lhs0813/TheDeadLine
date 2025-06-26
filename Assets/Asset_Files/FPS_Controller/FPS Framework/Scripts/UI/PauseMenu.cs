@@ -40,9 +40,6 @@ namespace Akila.FPSFramework.UI
             // Ensure the game starts unpaused
             FPSFrameworkCore.IsPaused = false;
 
-            // RotateOnTrigger.onLapTop += InputStop;
-            // RotateOnTrigger.offLapTop += InputStart;
-
             TabletController.onTabletShownAction += InputStop;
             TabletController.onTabletDisabledAction += InputStart;
         }
@@ -113,13 +110,17 @@ namespace Akila.FPSFramework.UI
         {
             base.Update();
 
-            string newScheme = GetControlScheme();
-            if (newScheme != _currentScheme)
+            if (IsPaused)
             {
-                Debug.Log(newScheme);
-                _currentScheme = newScheme;
-                ApplySchemeBehavior(_currentScheme);
+                string newScheme = GetControlScheme();
+                if (newScheme != _currentScheme)
+                {
+                    Debug.Log(newScheme);
+                    _currentScheme = newScheme;
+                    ApplySchemeBehavior(_currentScheme);
+                }               
             }
+
 
             //Menu Entering Control.
             if (_controls.UI.Pause.triggered)
@@ -159,11 +160,6 @@ namespace Akila.FPSFramework.UI
             // Update game state to paused
             FPSFrameworkCore.IsPaused = true;
 
-            // Unlock the cursor and make it visible
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-
-            // Open the pause menu UI
             OpenMenu();
         }
 
