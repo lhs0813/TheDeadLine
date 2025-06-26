@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.Video;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.Tables;
 
 public class SkillNode : MonoBehaviour,  IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -9,13 +12,11 @@ public class SkillNode : MonoBehaviour,  IPointerClickHandler, IPointerEnterHand
     public string skillId;
     public int requiredPoints = 1;
 
-    public string nameKey;
-    public string descriptionKey;
-
     public GameObject tooltipTextObject;
     public int currentLevel = 0;
     public int maxLevel = 5;
     public bool IsUnlocked => currentLevel > 0;
+    public TextMeshProUGUI tooltipTMP;
 
     public Button button;
     public Image iconImage;
@@ -50,6 +51,11 @@ public class SkillNode : MonoBehaviour,  IPointerClickHandler, IPointerEnterHand
     {
         if (tooltipTextObject != null)
             tooltipTextObject.SetActive(true);
+        if (tooltipTextObject != null)
+        {
+            tooltipTextObject.SetActive(true);
+            UpdateTooltipText(); // ← 텍스트 갱신
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -97,4 +103,20 @@ public class SkillNode : MonoBehaviour,  IPointerClickHandler, IPointerEnterHand
         SkillEffectHandler.Instance.ApplyEffectById(skillId, currentLevel);
         UpdateVisual();
     }
+    public void UpdateTooltipText()
+    {
+        if (tooltipTMP == null) return;
+
+        string key = $"SKILL_DESC_{skillId}_{currentLevel}";
+        TableReference table = "SkillTable"; // ← 여기!
+
+        LocalizationSettings.StringDatabase
+            .GetLocalizedStringAsync(table, key)
+            .Completed += handle =>
+            {
+                tooltipTMP.text = handle.Result;
+            };
+    }
+
+
 }

@@ -55,14 +55,6 @@ namespace Akila.FPSFramework
             {
                 multiplier *= SkillEffectHandler.Instance.headshotDamageMultiplier;
             }
-
-            // 🎯 크리티컬 확률 적용 (모든 부위에 적용)a
-            if (UnityEngine.Random.value <= SkillEffectHandler.Instance.criticalChance)
-            {
-                multiplier *= SkillEffectHandler.Instance.criticalMultiplier;
-                Debug.Log("💥 크리티컬 데미지 발동!");
-            }
-
             // 💢 Berserker Strike 효과 적용 (플레이어 체력 기반 추가 배수)
             if (SkillEffectHandler.Instance.isHeartofBerserkeravailable)
             {
