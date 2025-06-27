@@ -12,6 +12,9 @@ namespace Akila.FPSFramework
     [RequireComponent(typeof(Rigidbody))]
     public class Explosive : MonoBehaviour, IDamageable, IOnHit
     {
+        Damageable _damageable;
+
+
         [Header("Base")]
         [HideInInspector] public ExplosionType type = ExplosionType.RayTracking;
         [HideInInspector] public LayerMask layerMask = -1;
@@ -77,6 +80,7 @@ namespace Akila.FPSFramework
 
         private void Start()
         {
+            _damageable = GetComponent<Damageable>();
             maxHealth = health;
             if (exlopeAfterDelay) Explode(delay);
             
@@ -267,14 +271,14 @@ namespace Akila.FPSFramework
 
                     damageable.damageDirection = (damageable.transform.position - transform.position).normalized * force;
 
-                    /*if (damageable.transform.gameObject.layer == LayerMask.NameToLayer("Monster_Ragdoll"))
+                    if (damageable.transform.gameObject.layer == LayerMask.NameToLayer("Monster_Ragdoll"))
                     {
                         finalDamage = damageable.maxHealth;
                     }
                     else
-                    {*/
-                        //finalDamage = damage;
-                    //}
+                    {
+                        finalDamage = damage;
+                    }
 
                     damageable.Damage(finalDamage, damageSource?.gameObject);
 
@@ -381,6 +385,11 @@ namespace Akila.FPSFramework
             if(!damageable) return;
 
             health -= amount;
+            if (_damageable != null)
+            {
+                _damageable.health -= amount;
+            }
+
             this.damageSource = damageSource;
         }
 

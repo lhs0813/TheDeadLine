@@ -151,7 +151,12 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         transform.parent.GetComponentInChildren<Damageable>(true).ResetHealth(this);
 
         if (isBombZombie)
-            GetComponent<Explosive>().health = 100;
+        {
+            Explosive _explosive = GetComponent<Explosive>();
+            _explosive.health = 100;
+            _explosive.exploded = false;
+        }
+            
 
         _anim.speed = 1;
         transform.localScale = scaleOrigin;
