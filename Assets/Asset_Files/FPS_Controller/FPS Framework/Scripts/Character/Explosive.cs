@@ -15,8 +15,8 @@ namespace Akila.FPSFramework
         [Header("Base")]
         [HideInInspector] public ExplosionType type = ExplosionType.RayTracking;
         [HideInInspector] public LayerMask layerMask = -1;
-        [HideInInspector] public float deathRadius = 10;
-        [HideInInspector] public float damageRadius = 20;
+        public float deathRadius = 10;
+        public float damageRadius = 20;
         [HideInInspector] public float damage = 150;
         [HideInInspector] public float force = 7;
         [HideInInspector] public float delay = 5;
@@ -257,16 +257,28 @@ namespace Akila.FPSFramework
                     IDamageable damageable = obj.SearchFor<IDamageable>();
 
                     float distanceFromDamageable = Vector3.Distance(origin, obj.position);
-                    float damageMultiplier = Mathf.Lerp(1, 0, distanceFromDamageable / damageRadius);
+                    //float damageMultiplier = Mathf.Lerp(1, 0, distanceFromDamageable / damageRadius);
 
-                    finalDamage *= damageMultiplier;
+                    //finalDamage *= damageMultiplier;
 
-                    if (kill) finalDamage = damageable.maxHealth;
+                    //if (kill) finalDamage = damageable.maxHealth;
                     
+
+
                     damageable.damageDirection = (damageable.transform.position - transform.position).normalized * force;
 
-                    damageable.Damage(finalDamage, damageSource.gameObject);
-                    damageable.damageDirection = dir * force;
+                    /*if (damageable.transform.gameObject.layer == LayerMask.NameToLayer("Monster_Ragdoll"))
+                    {
+                        finalDamage = damageable.maxHealth;
+                    }
+                    else
+                    {*/
+                        //finalDamage = damage;
+                    //}
+
+                    damageable.Damage(finalDamage, damageSource?.gameObject);
+
+                    //damageable.damageDirection = dir * force;
 
                 }
             }
