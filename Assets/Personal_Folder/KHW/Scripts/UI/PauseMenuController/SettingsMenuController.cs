@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -24,7 +25,9 @@ namespace Akila.FPSFramework.UI
 
         public bool IsOpen => _isOpen;
 
+        [Header("Manage Setting Executions")]
         public GameObject firstUIObj;
+        public SettingApplier mainSettingApplier; //Save & Apply의 그것을 할당.
 
         void Start()
         {
@@ -46,7 +49,15 @@ namespace Akila.FPSFramework.UI
 
             // Pause 액션을 Settings 닫기로 바인딩
             _controls.UI.Pause.performed += OnPausePerformed;
-            //_controls.UI.NextTab.performed += 
+            _controls.UI.Save.performed += ExecuteSave;
+            _controls.UI.ReturnToPreviousMenu.performed += OnPausePerformed;
+        }
+
+        private void ExecuteSave(InputAction.CallbackContext context)
+        {
+            mainSettingApplier.ApplyAll();
+
+            HideSettingsMenu();
         }
 
         void OnDisable()

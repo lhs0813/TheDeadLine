@@ -76,6 +76,8 @@ namespace Akila.FPSFramework.UI
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+
+            EventSystem.current.SetSelectedGameObject(null); // 먼저 선택 해제 (중복 방지)
         }
 
 
@@ -142,6 +144,8 @@ namespace Akila.FPSFramework.UI
             }
             canvasGroup.alpha = 1f;
 
+            ApplySchemeBehavior(InputSchemeManager.CurrentScheme);
+
             OnPauseMenuActivatedAction?.Invoke();
         }
 
@@ -206,7 +210,6 @@ namespace Akila.FPSFramework.UI
             // 언스케일드 페이드 인 코루틴 호출하거나 즉시
             canvasGroup.alpha = 1f;
         }
-
 
     }
     

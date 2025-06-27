@@ -1043,18 +1043,9 @@ namespace Akila.FPSFramework
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Next Tab"",
+                    ""name"": ""Return To Previous Menu"",
                     ""type"": ""Button"",
-                    ""id"": ""b96e6247-9e59-4918-91ab-ec82a5bf2531"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Previous Tab"",
-                    ""type"": ""Button"",
-                    ""id"": ""ba1c43a7-83f5-4941-8898-9df93e8c5ece"",
+                    ""id"": ""d4b2b94e-9125-4bdc-8866-3ceaf4975dc4"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1420,7 +1411,7 @@ namespace Akila.FPSFramework
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Save"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1431,52 +1422,41 @@ namespace Akila.FPSFramework
                     ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Gamepad"",
                     ""action"": ""Save"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""32f1d979-53cb-42ff-b66b-6b5a81839c70"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""id"": ""19b72109-0557-462c-88c5-f61435a2f01c"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Next Tab"",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Return To Previous Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2b64283d-fe4e-4cfe-b245-d60de4c95c98"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""id"": ""45e4b48e-97c8-4aac-9bde-305ff6313a9f"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Next Tab"",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Return To Previous Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""07ca3584-fe15-403a-acf0-ca29a86d07c7"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""id"": ""50acd606-9c8b-417b-bfa6-113c7f0b216f"",
+                    ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Previous Tab"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a3b9f558-c99f-453b-860c-8fb029919280"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Previous Tab"",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Return To Previous Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1592,8 +1572,7 @@ namespace Akila.FPSFramework
             m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
             m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
             m_UI_Save = m_UI.FindAction("Save", throwIfNotFound: true);
-            m_UI_NextTab = m_UI.FindAction("Next Tab", throwIfNotFound: true);
-            m_UI_PreviousTab = m_UI.FindAction("Previous Tab", throwIfNotFound: true);
+            m_UI_ReturnToPreviousMenu = m_UI.FindAction("Return To Previous Menu", throwIfNotFound: true);
         }
 
         ~@Controls()
@@ -2290,8 +2269,7 @@ namespace Akila.FPSFramework
         private readonly InputAction m_UI_ScrollWheel;
         private readonly InputAction m_UI_Pause;
         private readonly InputAction m_UI_Save;
-        private readonly InputAction m_UI_NextTab;
-        private readonly InputAction m_UI_PreviousTab;
+        private readonly InputAction m_UI_ReturnToPreviousMenu;
         /// <summary>
         /// Provides access to input actions defined in input action map "UI".
         /// </summary>
@@ -2328,13 +2306,9 @@ namespace Akila.FPSFramework
             /// </summary>
             public InputAction @Save => m_Wrapper.m_UI_Save;
             /// <summary>
-            /// Provides access to the underlying input action "UI/NextTab".
+            /// Provides access to the underlying input action "UI/ReturnToPreviousMenu".
             /// </summary>
-            public InputAction @NextTab => m_Wrapper.m_UI_NextTab;
-            /// <summary>
-            /// Provides access to the underlying input action "UI/PreviousTab".
-            /// </summary>
-            public InputAction @PreviousTab => m_Wrapper.m_UI_PreviousTab;
+            public InputAction @ReturnToPreviousMenu => m_Wrapper.m_UI_ReturnToPreviousMenu;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -2379,12 +2353,9 @@ namespace Akila.FPSFramework
                 @Save.started += instance.OnSave;
                 @Save.performed += instance.OnSave;
                 @Save.canceled += instance.OnSave;
-                @NextTab.started += instance.OnNextTab;
-                @NextTab.performed += instance.OnNextTab;
-                @NextTab.canceled += instance.OnNextTab;
-                @PreviousTab.started += instance.OnPreviousTab;
-                @PreviousTab.performed += instance.OnPreviousTab;
-                @PreviousTab.canceled += instance.OnPreviousTab;
+                @ReturnToPreviousMenu.started += instance.OnReturnToPreviousMenu;
+                @ReturnToPreviousMenu.performed += instance.OnReturnToPreviousMenu;
+                @ReturnToPreviousMenu.canceled += instance.OnReturnToPreviousMenu;
             }
 
             /// <summary>
@@ -2414,12 +2385,9 @@ namespace Akila.FPSFramework
                 @Save.started -= instance.OnSave;
                 @Save.performed -= instance.OnSave;
                 @Save.canceled -= instance.OnSave;
-                @NextTab.started -= instance.OnNextTab;
-                @NextTab.performed -= instance.OnNextTab;
-                @NextTab.canceled -= instance.OnNextTab;
-                @PreviousTab.started -= instance.OnPreviousTab;
-                @PreviousTab.performed -= instance.OnPreviousTab;
-                @PreviousTab.canceled -= instance.OnPreviousTab;
+                @ReturnToPreviousMenu.started -= instance.OnReturnToPreviousMenu;
+                @ReturnToPreviousMenu.performed -= instance.OnReturnToPreviousMenu;
+                @ReturnToPreviousMenu.canceled -= instance.OnReturnToPreviousMenu;
             }
 
             /// <summary>
@@ -2816,19 +2784,12 @@ namespace Akila.FPSFramework
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnSave(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "Next Tab" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "Return To Previous Menu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnNextTab(InputAction.CallbackContext context);
-            /// <summary>
-            /// Method invoked when associated input action "Previous Tab" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnPreviousTab(InputAction.CallbackContext context);
+            void OnReturnToPreviousMenu(InputAction.CallbackContext context);
         }
     }
 }

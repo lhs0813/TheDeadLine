@@ -3,12 +3,13 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 namespace Akila.FPSFramework.UI
 {
     [ExecuteAlways]
     [AddComponentMenu("Akila/FPS Framework/UI/Carousel Selector")]
-    public class CarouselSelector : MonoBehaviour
+    public class CarouselSelector : Selectable
     {
         public List<string> options = new List<string>();
         public int value = 0;
@@ -19,56 +20,81 @@ namespace Akila.FPSFramework.UI
         public UnityEvent<int> onValueChange;
 
 
-        private void Start()
+        protected override void OnEnable()
         {
-            
-        }
-
-        private void OnEnable()
-        {
+            base.OnEnable();
             rightButton?.onClick.AddListener(GoRight);
             leftButton?.onClick.AddListener(GoLeft);
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             rightButton?.onClick.RemoveAllListeners();
             leftButton?.onClick.RemoveAllListeners();
         }
 
+        void UpdateLabel()
+        {
+            if (label == null)
+            {
+                Debug.LogError("Label is not set.", gameObject);
+                return;
+            }
+            label.text = options.Count > 0 ? options[value] : "";
+        }
+
+        public override void OnMove(AxisEventData eventData)
+        {
+            base.OnMove(eventData);
+
+            switch (eventData.moveDir)
+            {
+                case MoveDirection.Left:
+                    GoLeft();
+                    eventData.Use();  // 이벤트 소비
+                    break;
+                case MoveDirection.Right:
+                    GoRight();
+                    eventData.Use();
+                    break;
+                // MoveDirection.Up/Down은 필요하면 처리
+            }
+
+            UpdateLabel();
+        }
+
         private void GoRight()
         {
-            value += 1;
-
-            if (value > options.Count - 1) value = 0;
-
+            if (options.Count == 0) return;
+            value = (value + 1) % options.Count;
             onValueChange?.Invoke(value);
+            UpdateLabel();
         }
 
         private void GoLeft()
         {
-            value -= 1;
-
-            if (value < 0) value = options.Count - 1;
-
+            if (options.Count == 0) return;
+            value = (value - 1 + options.Count) % options.Count;
             onValueChange?.Invoke(value);
+            UpdateLabel();
         }
 
         private void Update()
         {
-            if (value < 0) value = options.Count - 1;
-            if (value > options.Count - 1) value = 0;
+            // if (value < 0) value = options.Count - 1;
+            // if (value > options.Count - 1) value = 0;
 
-            value = Mathf.Clamp(value, 0, options.Count - 1);
+            // value = Mathf.Clamp(value, 0, options.Count - 1);
 
-            if(label == null)
-            {
-                Debug.LogError("Label is not set.", gameObject);
-            }
-            else
-            {
-                label.text = options[value];
-            }
+            // if(label == null)
+            // {
+            //     Debug.LogError("Label is not set.", gameObject);
+            // }
+            // else
+            // {
+            //     label.text = options[value];
+            // }
         }
 
         public void AddOptions(string[] options)

@@ -15,6 +15,7 @@ public class InputSchemeManager : MonoBehaviour
     public static event Action<InputScheme> OnSchemeChanged;
 
     private static InputSchemeManager _instance;
+    
 
     private void Awake()
     {
