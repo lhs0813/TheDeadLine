@@ -72,7 +72,8 @@ namespace Akila.FPSFramework
                     Debug.Log($"🔥 Heart of Berserker: {chunkCount * 10}% HP 손실 → +{bonus * 100f}% 데미지");
                 }
             }
-            return multiplier * 1f;
+
+            return multiplier * SkillEffectHandler.Instance.bonusDamegeRate;
         }
 
 

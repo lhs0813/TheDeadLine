@@ -35,7 +35,9 @@ public class SkillEffectHandler : MonoBehaviour
     public bool maxHealthIncrease = false; // 최대 체력 증가 여부
     public float maxHealthIncreaseAmount = 0f; // 최대 체력 증가량 (예: 50 체력 증가)
     public float magazineIncreaseMultiplier = 1f; // 탄창 증가 배수 (예: 1.2f는 20% 증가)
-
+    public float throwHitMore = 0;
+    public float bonusDamegeRate = 1f; // 추가 데미지 비율 (예: 0.1f는 10% 추가 데미지)
+    public float bonusMoveSpeed = 1f; // 이동 속도 증가 배수 (예: 1.2f는 20% 증가)
     // ... 필요에 따라 추가
 
     // 내부 딕셔너리
@@ -87,9 +89,6 @@ public class SkillEffectHandler : MonoBehaviour
         _applyLevelEffects["EVASION"] = (level) => evasionChance = 0f + 0.1f * level; // 20% 회피 확률
         _removeEffects["EVASION"] = () => evasionChance = 0f; // 회피 확률 초기화
 
-        //_applyEffects["STATION_INVINCIBLE_ONCE"] = () => isInvinciblePerStation = true;
-        //_removeEffects["STATION_INVINCIBLE_ONCE"] = () => isInvinciblePerStation = false;
-
         _applyLevelEffects["ABSORB_HEALTH"] = (level) =>
         {
             absorbHeatlh = true; // 체력 흡수 활성화
@@ -119,7 +118,30 @@ public class SkillEffectHandler : MonoBehaviour
         {
             magazineIncreaseMultiplier = 1f; // 탄창 증가 배수 초기화
         };
-
+        _applyLevelEffects["THROW_HIT_MORE"] = (level) =>
+        {
+            throwHitMore = level; // 레벨에 따라 던지기 적중 증가 
+        };
+        _removeEffects["THROW_HIT_MORE"] = () =>
+        {
+            throwHitMore = 0; // 던지기 적중 초기화
+        };
+        _applyLevelEffects["BONUS_DAMAGE_RATE"] = (level) =>
+        {
+            bonusDamegeRate = 1+ 0.1f * level; // 레벨에 따라 추가 데미지 비율 증가 (예: 0.1, 0.2, ...)
+        };
+        _removeEffects["BONUS_DAMAGE_RATE"] = () =>
+        {
+            bonusDamegeRate = 1f; // 추가 데미지 비율 초기화
+        };
+        _applyLevelEffects["BONUS_MOVEMENT_SPEED"] = (level) =>
+        {
+            bonusMoveSpeed = 1f + 0.1f * level; // 레벨에 따라 이동 속도 증가 배수 (예: 1.1, 1.2, ...)
+        };
+        _removeEffects["BONUS_MOVEMENT_SPEED"] = () =>
+        {
+            bonusMoveSpeed = 1f; // 이동 속도 증가 배수 초기화
+        };
         // 🎯 여기다 계속 추가 가능
     }
 
@@ -148,23 +170,5 @@ public class SkillEffectHandler : MonoBehaviour
         {
             Debug.LogWarning($"❗ 제거 실패: {skillId}는 등록되지 않음");
         }
-    }
-    public void ResetAllEffects()
-    {
-     headshotDamageMultiplier = 1f; // 헤드샷 데미지 배수
-     attackSpeedBonus = 1f; // 공격속도증가
-     recoilMultiplier = 1f; // 반동감소
-     isAmmoInfinite = false; // 무한 탄약 여부
-     isHeartofBerserkeravailable = false; // Berserker 효과 활성화 여부
-     berserkerDamageMultiplier = 1.5f; // Berserker 데미지 배수 (예: 1.5f는 50% 증가)
-     damageReduction = 1f; // 데미지 감소 배수 (예: 0.8f는 20% 감소)
-     evasionChance = 0f; // 회피 확률 (예: 0.1f는 10% 확률로 회피)
-     isInvinciblePerStation = false; // 이 스킬이 적용 중인지 여부
-     absorbHeatlh = false; // 체력 흡수 여부
-     absorbHeatlhAmount = 1f;
-     maxHealthIncrease = false; // 최대 체력 증가 여부
-     maxHealthIncreaseAmount = 50f; // 최대 체력 증가량 (예: 50 체력 증가)
-     magazineIncreaseMultiplier = 1f;
-    Debug.Log("[SkillEffectHandler] 모든 스킬 효과 초기화됨");
     }
 }
