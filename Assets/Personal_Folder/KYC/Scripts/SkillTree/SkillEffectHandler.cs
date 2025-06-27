@@ -22,8 +22,6 @@ public class SkillEffectHandler : MonoBehaviour
 
     // 🧠 전역 수치 (외부에서 참조)
     public float headshotDamageMultiplier = 1f; // 헤드샷 데미지 배수
-    public float criticalChance = 0f;      // 10% 확률로
-    public float criticalMultiplier = 2f;  // 두배 데미지
     public float attackSpeedBonus = 1f; // 공격속도증가
     public float recoilMultiplier = 1f; // 반동감소
     public bool isAmmoInfinite = false; // 무한 탄약 여부
@@ -52,17 +50,6 @@ public class SkillEffectHandler : MonoBehaviour
     {
         _applyLevelEffects["HEADSHOT_DAMAGE"] = (level) => headshotDamageMultiplier = 1f + 0.2f * level; // 1.1x ~ 1.5x
         _removeEffects["HEADSHOT_DAMAGE"] = () => headshotDamageMultiplier = 1f;
-
-        _applyLevelEffects["CRIT_CHANCE"] = (level) =>
-        {
-            criticalChance = 0f + 0.1f * level;
-            criticalMultiplier = 2f;
-        };
-        _removeEffects["CRIT_CHANCE"] = () =>
-        {
-            criticalChance = 0f;
-            criticalMultiplier = 2f;
-        };
 
         _applyLevelEffects["ATTACKSPEED"] = (level) =>
         {
@@ -180,8 +167,6 @@ public class SkillEffectHandler : MonoBehaviour
     public void ResetAllEffects()
     {
      headshotDamageMultiplier = 1f; // 헤드샷 데미지 배수
-     criticalChance = 0f;      // 10% 확률로
-     criticalMultiplier = 2f;  // 두배 데미지
      attackSpeedBonus = 1f; // 공격속도증가
      recoilMultiplier = 1f; // 반동감소
      isAmmoInfinite = false; // 무한 탄약 여부
