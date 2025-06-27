@@ -3,10 +3,11 @@
     protected override float DefaultHealth => 500f;
     protected override float DefaultMaxHealth => 500f;
 
+    public override bool UseRandomSpeed => false;
+
     protected override void Start()
     {
-        moveSpeed = 6f;
-        agent.speed = moveSpeed;  // 추가!
+        agent.speed = moveSpeed;
         base.Start();
     }
 
