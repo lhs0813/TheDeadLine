@@ -59,13 +59,8 @@ namespace Akila.FPSFramework
 
             if(interactable != null && isActive)
             {
-                if (interactKeyText) interactKeyText.SetText(controls.Player.Intract.GetBindingDisplayString());
+                if (interactKeyText) interactKeyText.SetText("<sprite name=\"Interact\">");
                 if(interactActionText) interactActionText.SetText(interactable.GetInteractionName());
-
-
-
-                
-
 
                 if (controls.Player.Intract.triggered)
                 {

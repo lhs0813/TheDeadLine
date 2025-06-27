@@ -1,9 +1,12 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 public class UI_Objective_Info : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI objectiveText; //목표 표출 텍스트.
+    [SerializeField] LocalizedString findFuseLocalizedString;
 
     void Start()
     {
@@ -16,12 +19,11 @@ public class UI_Objective_Info : MonoBehaviour
 
     public void ShowFuseFindingObjective(int counter)
     {
-        objectiveText.text = $"퓨즈 찾기 : {counter} / 3";
+        objectiveText.text = LocalizationSettings.StringDatabase.GetLocalizedString("Objective Table", "Objective_Find Fuse") + $" : {counter} / 3";
     }
-
     public void ReturnToTheTrainObjective()
     {
-        objectiveText.text = $"열차로 복귀";
+        objectiveText.text = LocalizationSettings.StringDatabase.GetLocalizedString("Objective Table", "Objective_Return To The Train");
     }
 
     public void DisableText()

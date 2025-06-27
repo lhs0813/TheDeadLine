@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.DualShock;
 
 public class InputSchemeManager : MonoBehaviour
 {
@@ -11,11 +12,21 @@ public class InputSchemeManager : MonoBehaviour
         Gamepad
     }
 
+    public enum GamepadType
+    {
+        None,
+        Xbox,
+        PlayStation,
+        Other
+    }
+
     public static InputScheme CurrentScheme { get; private set; } = InputScheme.Mouse;
+    public static GamepadType CurrentGamepadType { get; private set; } = GamepadType.None;
+
     public static event Action<InputScheme> OnSchemeChanged;
+    public static event Action<GamepadType> OnGamepadTypeChanged;
 
     private static InputSchemeManager _instance;
-    
 
     private void Awake()
     {
@@ -24,20 +35,35 @@ public class InputSchemeManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         _instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
     void Update()
     {
-        InputScheme newScheme = DetectScheme();
-
+        // 1) 스킴 감지
+        var newScheme = DetectScheme();
         if (newScheme != CurrentScheme)
         {
             CurrentScheme = newScheme;
-            Debug.Log($"[InputSchemeManager] Switched to {CurrentScheme}");
             OnSchemeChanged?.Invoke(CurrentScheme);
+        }
+
+        // 2) 만약 Gamepad 모드라면, 패드 종류도 감지
+        if (CurrentScheme == InputScheme.Gamepad)
+        {
+            var newPadType = DetectGamepadType();
+            if (newPadType != CurrentGamepadType)
+            {
+                CurrentGamepadType = newPadType;
+                OnGamepadTypeChanged?.Invoke(CurrentGamepadType);
+            }
+        }
+        else if (CurrentGamepadType != GamepadType.None)
+        {
+            // Gamepad 모드 벗어나면 None 리셋
+            CurrentGamepadType = GamepadType.None;
+            OnGamepadTypeChanged?.Invoke(CurrentGamepadType);
         }
     }
 
@@ -52,9 +78,7 @@ public class InputSchemeManager : MonoBehaviour
         }
 
         if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
-        {
             return InputScheme.Keyboard;
-        }
 
         if (Gamepad.current != null)
         {
@@ -67,5 +91,26 @@ public class InputSchemeManager : MonoBehaviour
         }
 
         return CurrentScheme;
+    }
+
+    private GamepadType DetectGamepadType()
+    {
+        var g = Gamepad.current;
+        if (g == null)
+            return GamepadType.None;
+
+        // DualShock / DualSense 클래스 체크
+        if (g is DualShockGamepad || g is DualSenseGamepadHID)
+            return GamepadType.PlayStation;
+
+        // 그 외엔 대체로 XInput 기반 Xbox 패드
+        var desc = g.description;
+        if (desc.interfaceName != null && desc.interfaceName.Contains("XInput"))
+            return GamepadType.Xbox;
+        if (desc.product != null && desc.product.ToLower().Contains("xbox"))
+            return GamepadType.Xbox;
+
+        // 알 수 없는 패드
+        return GamepadType.Other;
     }
 }

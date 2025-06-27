@@ -99,12 +99,13 @@ public class TabletController : MonoBehaviour
         if (weaponUI != null)
             weaponUI.SetActive(false);
 
-        EnableCursor();
+
         interactionsManager.isActive = false;
 
         // 초기 커서 위치 (중앙)
         virtualCursorPos = Vector2.zero;
         cursorImage.localPosition = virtualCursorPos;
+        EnableCursor();
 
         Debug.Log($"Rect size: {canvasRect.rect.size}, lossyScale: {canvasRect.lossyScale}, finalVisible: ({canvasRect.rect.width * canvasRect.lossyScale.x}, {canvasRect.rect.height * canvasRect.lossyScale.y})");
     }
@@ -122,8 +123,9 @@ public class TabletController : MonoBehaviour
         if (weaponUI != null)
             weaponUI.SetActive(true);
 
-        DisableCursor();
+
         interactionsManager.isActive = true;
+        DisableCursor();
     }
 
     void EnableCursor()

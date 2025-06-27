@@ -113,7 +113,7 @@ namespace Akila.FPSFramework.UI
 
         public void ActivatePauseMenu()
         {
-            if (_isOpen) return;
+            if (_isOpen || TabletController.isTabletActive) return;
             StartCoroutine(ShowPauseMenu());
         }
 

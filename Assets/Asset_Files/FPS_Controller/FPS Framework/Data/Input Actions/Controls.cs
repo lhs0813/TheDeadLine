@@ -717,6 +717,17 @@ namespace Akila.FPSFramework
                     ""action"": ""Use Tablet"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""745aab6d-e8f1-4a32-a9fb-5f557057dc88"",
+                    ""path"": ""<DualShockGamepad>/touchpadButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Use Tablet"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
