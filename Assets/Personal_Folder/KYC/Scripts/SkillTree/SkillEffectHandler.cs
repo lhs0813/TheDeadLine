@@ -34,8 +34,6 @@ public class SkillEffectHandler : MonoBehaviour
     public float absorbHeatlhAmount = 1f;
     public bool maxHealthIncrease = false; // 최대 체력 증가 여부
     public float maxHealthIncreaseAmount = 0f; // 최대 체력 증가량 (예: 50 체력 증가)
-    public bool isFullHpDamageBoost = false; // 체력 풀일 때 데미지 증가 여부
-    public float fullHpDamageMultiplier = 1.0f; 
     public float magazineIncreaseMultiplier = 1f; // 탄창 증가 배수 (예: 1.2f는 20% 증가)
 
     // ... 필요에 따라 추가
@@ -79,19 +77,6 @@ public class SkillEffectHandler : MonoBehaviour
             isHeartofBerserkeravailable = false; // Berserker 효과 비활성화
         };
 
-
-        _applyLevelEffects["FULLHP_DAMAGE"] = (level) =>
-        {
-            isFullHpDamageBoost = true;
-            fullHpDamageMultiplier = 1.0f + 0.2f * level;
-        };
-
-        _removeEffects["FULLHP_DAMAGE"] = () =>
-        {
-            isFullHpDamageBoost = false;
-            fullHpDamageMultiplier = 1f;
-        };
-
         _applyLevelEffects["INFINITE_AMMO"] = (level) => isAmmoInfinite = true; // 무한 탄약
         _removeEffects["INFINITE_AMMO"] = () => isAmmoInfinite = false; // 무한 탄약 해제
 
@@ -119,7 +104,7 @@ public class SkillEffectHandler : MonoBehaviour
         _applyLevelEffects["MAX_HEALTH_INCREASE"] = (level) =>
         {
             maxHealthIncrease = true; // 최대 체력 증가 활성화
-            maxHealthIncreaseAmount = 50f * level; // 레벨에 따라 최대 체력 증가량 증가 (예: 50, 60, 70, ...)
+            maxHealthIncreaseAmount = 50f * level; // 레벨에 따라 최대 체력 증가량 증가
         };
         _removeEffects["MAX_HEALTH_INCREASE"] = () =>
         {
@@ -179,8 +164,6 @@ public class SkillEffectHandler : MonoBehaviour
      absorbHeatlhAmount = 1f;
      maxHealthIncrease = false; // 최대 체력 증가 여부
      maxHealthIncreaseAmount = 50f; // 최대 체력 증가량 (예: 50 체력 증가)
-     isFullHpDamageBoost = false; // 체력 풀일 때 데미지 증가 여부
-     fullHpDamageMultiplier = 1.0f;
      magazineIncreaseMultiplier = 1f;
     Debug.Log("[SkillEffectHandler] 모든 스킬 효과 초기화됨");
     }

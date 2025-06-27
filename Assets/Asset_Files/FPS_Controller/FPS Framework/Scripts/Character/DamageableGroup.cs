@@ -73,20 +73,7 @@ namespace Akila.FPSFramework
                     Debug.Log($"🔥 Heart of Berserker: {chunkCount * 10}% HP 손실 → +{bonus * 100f}% 데미지");
                 }
             }
-            if (SkillEffectHandler.Instance.isFullHpDamageBoost)
-            {
-                var player = GameObject.FindWithTag("Player");
-                if (player != null && player.TryGetComponent(out IDamageable playerDamageable))
-                {
-                    float ratio = playerDamageable.health / playerDamageable.playerMaxHealth;
-                    if (ratio >= 0.8f)
-                    {
-                        multiplier *= SkillEffectHandler.Instance.fullHpDamageMultiplier;
-                        Debug.Log($"🧠 체력 {ratio:P0}! x{SkillEffectHandler.Instance.fullHpDamageMultiplier} 배 데미지 증가");
-                    }
-                }
-            }
-            return multiplier * 1.1f;
+            return multiplier * 1f;
         }
 
 
