@@ -96,5 +96,10 @@ namespace Akila.FPSFramework
 
             LocalizationSettings.SelectedLocale = locales[localeIndex];
         }
+
+        public void SetState(bool _bool)
+        {
+
+        }
     }
 }

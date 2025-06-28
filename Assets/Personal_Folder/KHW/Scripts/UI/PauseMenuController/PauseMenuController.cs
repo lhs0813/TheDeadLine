@@ -127,6 +127,7 @@ namespace Akila.FPSFramework.UI
         {
             // 1) 시간 멈춤
             FPSFrameworkCore.IsPaused = true;
+            AudioListener.pause = true;
             Time.timeScale = 0f;
             _isOpen = true;
 
@@ -170,6 +171,7 @@ namespace Akila.FPSFramework.UI
             FPSFrameworkCore.IsPaused = false;
             Time.timeScale = 1f;
             _isOpen = false;
+            AudioListener.pause = false;
 
             //조작 리셋
             Cursor.visible = false;
