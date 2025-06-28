@@ -11,6 +11,11 @@ namespace Akila.FPSFramework
         public string interactionName = "Interact";
         public UnityEvent OnInteract;
 
+        public object[] GetInteractionArguments()
+        {
+            return null;
+        }
+
         public string GetInteractionName()
         {
             return interactionName;

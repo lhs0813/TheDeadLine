@@ -75,7 +75,7 @@ namespace Akila.FPSFramework
         public string GetInteractionName()
         {
             string info = $"{Name}";
-            return $"{interactionName} {info}";
+            return $"{info}";
         }
 
         public virtual void InteractWithItem(InteractionsManager source)
@@ -221,6 +221,10 @@ namespace Akila.FPSFramework
 
         }
 
+        public object[] GetInteractionArguments()
+        {
+            return null;
+        }
     }
 
     public enum PickableType

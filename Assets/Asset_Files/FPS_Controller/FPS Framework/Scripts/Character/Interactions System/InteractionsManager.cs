@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using System;
 using System.Reflection;
+using UnityEngine.Localization.Components;
 
 namespace Akila.FPSFramework
 {
@@ -50,22 +51,42 @@ namespace Akila.FPSFramework
             interactAudio.Setup(this, defaultInteractAudio);
         }
 
+
+        [Header("Localization")]
+        [SerializeField] private LocalizeStringEvent interactActionLocalizeEvent;
+
         private void Update()
         {
             IInteractable interactable = GetInteractable();
 
-            if(HUDObject)
-            HUDObject.SetActive(isActive && interactable != null);
+            if (HUDObject)
+                HUDObject.SetActive(isActive && interactable != null);
 
-            if(interactable != null && isActive)
+            if (interactable != null && isActive)
             {
-                if (interactKeyText) interactKeyText.SetText(controls.Player.Intract.GetBindingDisplayString());
-                if(interactActionText) interactActionText.SetText(interactable.GetInteractionName());
+                if (interactKeyText) interactKeyText.SetText("<sprite name=\"Interact\">");
+                if (interactActionLocalizeEvent != null)
+                {
+                    // 1) Key 세팅
+                    string key = interactable.GetInteractionName();
+                    interactActionLocalizeEvent.StringReference.TableEntryReference = key;
 
+                    // 2) Arguments 세팅
+                    var args = interactable.GetInteractionArguments();
+                    interactActionLocalizeEvent.StringReference.Arguments = args;
 
-
-                
-
+                    // 3) 즉시 갱신
+                    interactActionLocalizeEvent.RefreshString();
+                }
+                else if (interactActionText != null)
+                {
+                    // fallback: 직접 포매팅
+                    var args = interactable.GetInteractionArguments();
+                    if (args != null && args.Length > 0)
+                        interactActionText.text = string.Format(interactable.GetInteractionName(), args);
+                    else
+                        interactActionText.text = interactable.GetInteractionName();
+                }
 
                 if (controls.Player.Intract.triggered)
                 {

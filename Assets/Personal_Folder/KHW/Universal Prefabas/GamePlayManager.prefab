@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7727236882916227382}
   - component: {fileID: 1235015900650259726}
+  - component: {fileID: 5108315576397871636}
+  - component: {fileID: 6170577206660169501}
   m_Layer: 0
   m_Name: GamePlayManager
   m_TagString: Untagged
@@ -47,13 +49,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentMapIndex: 0
+  currentGameState: 0
   runtimeDungeon: {fileID: 0}
   trainController: {fileID: 0}
-  waitingDuration: 20
-  combatDuration: 100
-  playerHordeTrigger: {fileID: 0}
+  waitingDuration: 15
+  normalCombatDuration: 180
   gamePlayManagementUI: {fileID: 0}
   bgmController: {fileID: 0}
+  trainDepartability: 1
+--- !u!114 &5108315576397871636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315561300523921465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 619f1c194fe19a642ae35139637010bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6170577206660169501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315561300523921465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57df55ea8020d2c4e9bede5321ad77d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2055473870978070216
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,11 +114,11 @@ RectTransform:
   - {fileID: 9072305280468994372}
   m_Father: {fileID: 2942188945865670371}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 700, y: 50}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &920945380082722135
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -140,7 +167,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2942188945865670371}
   - component: {fileID: 8127157662287515575}
-  - component: {fileID: 1796323701596239739}
   m_Layer: 0
   m_Name: GamePlayUI
   m_TagString: Untagged
@@ -191,19 +217,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &1796323701596239739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2075335793692919118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11842001dfde770409b1a5594058b7ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remainingTimeText: {fileID: 869585535326224576}
 --- !u!1 &2846300738678544833
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,7 +426,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: '
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7492bce92008fbf4988854aee08d3368, type: 2}
   m_sharedMaterial: {fileID: -405315435473692670, guid: 7492bce92008fbf4988854aee08d3368,
@@ -441,14 +456,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 32
-  m_HorizontalAlignment: 1
+  m_fontStyle: 33
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -479,7 +494,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -0.7824707, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

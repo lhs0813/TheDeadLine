@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 namespace Akila.FPSFramework
 {
@@ -78,6 +79,27 @@ namespace Akila.FPSFramework
         public void SetWeaponFieldOfView(float value)
         {
             FPSFrameworkCore.WeaponFieldOfView = value;
+        }
+
+        /// <summary>
+        /// 드롭다운 인덱스로 로케일을 선택합니다.
+        /// 0 → 첫 번째 로케일, 1 → 두 번째 로케일, …
+        /// </summary>
+        public void SetLanguage(int localeIndex)
+        {
+            var locales = LocalizationSettings.AvailableLocales.Locales;
+            if (localeIndex < 0 || localeIndex >= locales.Count)
+            {
+                Debug.LogWarning($"Invalid locale index: {localeIndex}");
+                return;
+            }
+
+            LocalizationSettings.SelectedLocale = locales[localeIndex];
+        }
+
+        public void SetState(bool _bool)
+        {
+
         }
     }
 }
