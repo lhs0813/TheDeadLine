@@ -263,7 +263,11 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         GameObject playerObj = GameObject.FindWithTag("Player");
         if (playerObj == null) return;
 
-        float distance = Vector3.Distance(transform.position, playerObj.transform.position);
+        float distance = Vector2.Distance(
+            new Vector2(transform.position.x, transform.position.z),
+            new Vector2(playerObj.transform.position.x, playerObj.transform.position.z));
+
+
         if (distance <= attackRange)
         {
             Debug.Log("공격 타이밍!");

@@ -33,6 +33,8 @@ public class ChaseState : IZombieState
 
         _zombie.Animator.SetTrigger("ToChase");
         _zombie.Agent.speed = _zombie.moveSpeed;
+        _zombie.Agent.stoppingDistance = 2.0f;
+
         _zombie.SetNotBeDespawned();
         _playerController = _player.GetComponent<FirstPersonController>();
 
@@ -94,15 +96,19 @@ public class ChaseState : IZombieState
 
             if (!agent.isOnNavMesh)
             {
-                if (NavMesh.SamplePosition(agent.transform.position, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+                if (NavMesh.SamplePosition(agent.transform.position, out NavMeshHit hit, 3f, NavMesh.AllAreas))
                 {
-                    agent.Warp(hit.position);
-                    yield return null;
+                    _zombie.Agent.SetDestination(hit.position);
+                    _lastDestination = hit.position;
                 }
                 else
                 {
-                    yield return chaseWait;
-                    continue;
+                    // ★ 이때 바로 플레이어 위치를 다시 target으로 사용해 fallback
+                    if (NavMesh.SamplePosition(_player.position, out NavMeshHit fallbackHit, 3f, NavMesh.AllAreas))
+                    {
+                        _zombie.Agent.SetDestination(fallbackHit.position);
+                        _lastDestination = fallbackHit.position;
+                    }
                 }
             }
 
