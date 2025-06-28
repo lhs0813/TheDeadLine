@@ -11,6 +11,7 @@ public class Affector : MonoBehaviour
 {
     [Header("Affect")]
     public float damage;
+    public float damageMax;
     public float push;
     public float motionMultifly=-1; //0 ~ 1 ~ 99999
     public float navMultifly=-1; //0 ~ 1 ~ 99999
@@ -61,7 +62,10 @@ public class Affector : MonoBehaviour
 
     void Start()
     {
+       if(damageMax>0)damage = Random.Range(damage, damageMax);
         before = transform.position;
+
+
         if (checkTime > 0) StartCoroutine(CheckTime());
         if (checkCycle > 0) StartCoroutine(CheckCycle());
     }
@@ -154,6 +158,15 @@ public class Affector : MonoBehaviour
 
     public void CommonEnter(GameObject go)
     {
+        var ex = go.GetComponentInParent<Explosive>();
+        if (ex)
+        {
+            ex.Damage(damage, gameObject, false);
+            return;
+        }
+
+
+
         //Damagebla 판단 
         var damageTarget = go.GetComponentInParent<Damageable>();
         if (damageTarget)
@@ -195,11 +208,10 @@ public class Affector : MonoBehaviour
                 damageTarget.Damage(value, gameObject, critical);
             }
 
-                UIManager uiManager = UIManager.Instance;
 
-
-            bool shouldHighlight = damageTarget.health <= 0; // 0616 이현수 0.3 곱 왜한지 몰라서 수정 체력 0이하일 때 킬 효과
-            
+               
+            UIManager uiManager = UIManager.Instance;
+            bool shouldHighlight = damageTarget.health <= 0; // 0616 이현수 0.3 곱 왜한지 몰라서 수정 체력 0이하일 때 킬 효과            
             if (uiManager != null)
             {
                 Hitmarker hitmarker = uiManager.Hitmarker;
@@ -214,9 +226,6 @@ public class Affector : MonoBehaviour
                 //rb.isKinematic = false;
                 //rb.linearVelocity = transform.forward* push;
             }
-
-
-
             if (motionMultifly >= 0)
             {
                 var ani = target.GetComponentInChildren<Animator>();
