@@ -5,6 +5,12 @@ using UnityEngine.AI;
 
 public class Info : MonoBehaviour
 {
+
+    [Header("Visual")]
+    public List<GameObject> visual;
+    [Space(30)]
+
+
     [Header("Acting")]
     public GameObject next;
     public float endTime = -1;
@@ -26,7 +32,11 @@ public class Info : MonoBehaviour
 
     void Start()
     {
-       if(endTime>=0)
+        if (visual.Count > 0)
+            Instantiate(visual[UnityEngine.Random.Range(0, visual.Count)], transform);
+
+
+        if (endTime>=0)
             Destroy(gameObject, endTime);
 
 
