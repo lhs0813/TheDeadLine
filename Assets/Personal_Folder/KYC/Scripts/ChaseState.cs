@@ -36,6 +36,8 @@ public class ChaseState : IZombieState
         _zombie.SetNotBeDespawned();
         _playerController = _player.GetComponent<FirstPersonController>();
 
+        _zombie.Agent.avoidancePriority = Random.Range(20, 80);
+
 
         predictionTime = Random.Range(0.2f, 1.2f);
 
