@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.InputSystem;
+
 
 
 #if UNITY_EDITOR
@@ -20,6 +22,8 @@ namespace Akila.FPSFramework
         Vector3 force;
         Vector3 torque;
         private bool isDropping = false;
+
+        
         /// <summary>
         /// Represents the firearm component of the item. If the weapon is not a firearm, this will be null.
         /// </summary>
@@ -74,6 +78,13 @@ namespace Akila.FPSFramework
         /// Input system for the character.
         /// </summary>
         public CharacterInput characterInput { get; set; }
+
+        public InputAction item1;
+        public InputAction item2;
+        public InputAction item3;
+
+
+
 
         public GameObject playerObj { get; set; }
 
@@ -238,6 +249,11 @@ namespace Akila.FPSFramework
             characterManager = inventory.characterManager;
             characterInput = inventory.characterManager.characterInput;
 
+            item1 = characterInput.controls.Player.Item1;
+            item2 = characterInput.controls.Player.Item2;
+            item3 = characterInput.controls.Player.Item3;
+
+
             playerObj = character.gameObject;
 
             // Initialize animations if proceduralAnimator exists
@@ -369,12 +385,26 @@ namespace Akila.FPSFramework
             }
         }
 
+        void disableCommand()
+        {
+            item1.Disable();
+            item2.Disable();
+            item3.Disable();
+        }
+
+        void EnableCommand()
+        {
+            item1.Enable();
+            item2.Enable();
+            item3.Enable();
+        }
 
         public IEnumerator DropAnimationDelay(bool removeFromList = true)
         {
             if (isDropping) yield break;
             isDropping = true;
             OnDropStart.Invoke();
+            disableCommand();
 
 
 
@@ -391,6 +421,8 @@ namespace Akila.FPSFramework
             Drop(removeFromList);
 
             isDropping = false;
+
+            EnableCommand();
         }
 
 
