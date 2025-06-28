@@ -3,82 +3,120 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using UnityEngine.Localization.Components;
 
 namespace Akila.FPSFramework.UI
 {
     [ExecuteAlways]
     [AddComponentMenu("Akila/FPS Framework/UI/Carousel Selector")]
-    public class CarouselSelector : MonoBehaviour
+    public class CarouselSelector : Selectable
     {
+        [Header("Options (plain text)")]
         public List<string> options = new List<string>();
         public int value = 0;
 
+        [Header("UI References")]
         public TextMeshProUGUI label;
         public Button rightButton;
         public Button leftButton;
+
+        [Header("Value Changed Event")]
         public UnityEvent<int> onValueChange;
 
 
-        private void Start()
-        {
-            
-        }
+        [Header("Label Localization")]
+        [SerializeField]
+        private LocalizeStringEvent localizeLabelEvent;
+        public bool LocalizationNeeded;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             rightButton?.onClick.AddListener(GoRight);
             leftButton?.onClick.AddListener(GoLeft);
+            // 처음 한 번 레이블에 기본값 표시
+            UpdateLabel();
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             rightButton?.onClick.RemoveAllListeners();
             leftButton?.onClick.RemoveAllListeners();
         }
 
+        public override void OnMove(AxisEventData eventData)
+        {
+            base.OnMove(eventData);
+            if (eventData.moveDir == MoveDirection.Left)
+            {
+                GoLeft();
+                eventData.Use();
+            }
+            else if (eventData.moveDir == MoveDirection.Right)
+            {
+                GoRight();
+                eventData.Use();
+            }
+        }
+
         private void GoRight()
         {
-            value += 1;
-
-            if (value > options.Count - 1) value = 0;
-
+            if (options.Count == 0) return;
+            value = (value + 1) % options.Count;
+            UpdateLabel();
             onValueChange?.Invoke(value);
         }
 
         private void GoLeft()
         {
-            value -= 1;
-
-            if (value < 0) value = options.Count - 1;
-
+            if (options.Count == 0) return;
+            value = (value - 1 + options.Count) % options.Count;
+            UpdateLabel();
             onValueChange?.Invoke(value);
         }
 
-        private void Update()
+        private void UpdateLabel()
         {
-            if (value < 0) value = options.Count - 1;
-            if (value > options.Count - 1) value = 0;
-
-            value = Mathf.Clamp(value, 0, options.Count - 1);
-
-            if(label == null)
+            if(!LocalizationNeeded)
             {
-                Debug.LogError("Label is not set.", gameObject);
-            }
-            else
-            {
+                Debug.Log($"{options[value]}");
                 label.text = options[value];
             }
+
+            if (localizeLabelEvent == null || options.Count == 0) return;
+
+            if (LocalizationNeeded)
+            {
+                localizeLabelEvent.StringReference.TableEntryReference = options[value];
+                Debug.Log($"{options[value]}");
+                
+                localizeLabelEvent.RefreshString();
+            }
         }
 
-        public void AddOptions(string[] options)
+        /// <summary>
+        /// 옵션 리스트를 새로 설정하고 초기값(0)으로 리셋합니다.
+        /// </summary>
+        public void AddOptions(string[] newOptions)
         {
-            this.options.AddRange(options);
+            options.Clear();
+            options.AddRange(newOptions);
+            value = 0;
+            UpdateLabel();
+            onValueChange?.Invoke(value);
         }
 
+        /// <summary>
+        /// 옵션 리스트를 비우고 값도 0으로 리셋합니다.
+        /// </summary>
         public void ClearOptions()
         {
             options.Clear();
+            value = 0;
+            UpdateLabel();
+            onValueChange?.Invoke(value);
         }
     }
 }

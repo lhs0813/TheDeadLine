@@ -1,9 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 
 public class UI_Electricity_Info : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI descriptionText;
+    [SerializeField] LocalizeStringEvent objectiveEvent; 
 
     void Start()
     {
@@ -15,7 +17,11 @@ public class UI_Electricity_Info : MonoBehaviour
     {
         if (count != 0)
         {
-            descriptionText.text = $"{3 - count}개를 더 찾아 열차 활성화";
+            objectiveEvent.StringReference.TableEntryReference = "InteractInfo_Info_Fuse Found";
+            objectiveEvent.StringReference.Arguments = new object[]{ 3 - count };
+            // 2) 즉시 갱신
+            objectiveEvent.RefreshString();
+
             FindAnyObjectByType<UI_Electricity_Info>().GetComponent<Animator>().SetTrigger("On");            
         }
 
@@ -23,7 +29,10 @@ public class UI_Electricity_Info : MonoBehaviour
 
     void ShowFuseFindingEndUI()
     {
-        descriptionText.text = $"열차에 탑승해 출발";
+        objectiveEvent.StringReference.TableEntryReference = "InteractInfo_Info_All Fuse Found";
+
+        objectiveEvent.RefreshString();
+
         FindAnyObjectByType<UI_Electricity_Info>().GetComponent<Animator>().SetTrigger("On");
     }
 

@@ -130,6 +130,11 @@ namespace Akila.FPSFramework
                 targetRotation = Vector3.zero;
             }
         }
+
+        public object[] GetInteractionArguments()
+        {
+            return null;
+        }
     }
 
 }

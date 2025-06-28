@@ -23,5 +23,8 @@ namespace Akila.FPSFramework
         /// </summary>
         /// <returns>A string representing the interaction name or description.</returns>
         string GetInteractionName();
+
+        /// <summary>포맷 플레이스홀더에 넘길 인자 배열 (없으면 null 또는 빈 배열)</summary>
+        object[] GetInteractionArguments();
     }
 }
