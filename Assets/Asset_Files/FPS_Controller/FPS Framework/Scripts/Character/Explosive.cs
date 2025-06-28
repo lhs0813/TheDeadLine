@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System;
 using Akila.FPSFramework.Internal;
+using System.Linq;
 
 namespace Akila.FPSFramework
 {
@@ -148,12 +149,31 @@ namespace Akila.FPSFramework
             exploded = true;
 
             Collider[] nearColliders = Physics.OverlapSphere(transform.position, deathRadius * scale, layerMask);
-            Collider[] farColliders = Physics.OverlapSphere(transform.position, damageRadius * scale, layerMask);
+            Collider[] rawColliders = Physics.OverlapSphere(transform.position, damageRadius * scale, layerMask);
+
+            // ✅ IDamageable 컴포넌트를 기준으로 중복 제거
+            Dictionary<IDamageable, Collider> uniqueColliders = new Dictionary<IDamageable, Collider>();
+
+            foreach (var collider in rawColliders)
+            {
+                // 가장 가까운 부모 중 IDamageable을 가진 Transform 찾기
+                var damageable = collider.GetComponentInParent<Damageable>();
+
+                if (damageable == null)
+                    continue;
+
+                if (!uniqueColliders.ContainsKey(damageable))
+                    uniqueColliders[damageable] = collider;
+            }
+
+            // 중복 제거된 collider 목록 추출
+            Collider[] farColliders = uniqueColliders.Values.ToArray();
+
 
             if (isActive)
                 AddEffects();
 
-            foreach (Collider collider in nearColliders)
+            /*foreach (Collider collider in nearColliders)
             {
                 var dir = -(transform.position - collider.transform.position);
 
@@ -167,7 +187,7 @@ namespace Akila.FPSFramework
                 {
                     ApplyExplosion(collider.transform, transform.position, dir, true);
                 }
-            }
+            }*/
 
             foreach (Collider collider in farColliders)
             {

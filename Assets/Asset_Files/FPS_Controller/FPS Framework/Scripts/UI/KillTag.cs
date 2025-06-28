@@ -34,7 +34,7 @@ namespace Akila.FPSFramework
         private void Update()
         {
             if (type == KillFeedTagType.Counter && timer <= 0) CanvasGroup.alpha = Mathf.Lerp(CanvasGroup.alpha, 0, Time.deltaTime * fadeSpeed);
-            if ((type == KillFeedTagType.Message || type == KillFeedTagType.Image) && CanvasGroup.alpha <= 0.1f && timer <= 0) Destroy(gameObject, 0.2f);
+            if ((type == KillFeedTagType.Message || type == KillFeedTagType.Image) && CanvasGroup.alpha <= 0.1f && timer <= 0) gameObject.SetActive(false);
             if ((type == KillFeedTagType.Message || type == KillFeedTagType.Image) && timer <= 0) CanvasGroup.alpha = Mathf.Lerp(CanvasGroup.alpha, 0, Time.deltaTime * fadeSpeed);
             timer -= Time.deltaTime;
 
@@ -43,9 +43,6 @@ namespace Akila.FPSFramework
 
         public void Show(Actor killer = null, string killed = null, float damage = 0, Color color = default)
         {
-
-            
-
             if (killer)
             {
                 int kills = killer.kills;
@@ -67,6 +64,10 @@ namespace Akila.FPSFramework
             if (animator) animator.Play("Show", 0, 0);
         }
 
+        public float TimerValue()
+        {
+            return timer;
+        }
 
         public enum KillFeedTagType
         {

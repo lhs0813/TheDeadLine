@@ -19,12 +19,36 @@ namespace Akila.FPSFramework
 
         public AudioSource audioSource;
 
+        private List<KillTag> pooledTags = new List<KillTag>();
+        public int maxTagPoolSize = 50;
+
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
 
             Tag.gameObject.SetActive(false);
             skull.gameObject.SetActive(false);
+
+            // 💡 풀링: maxTagPoolSize만큼 미리 생성
+            for (int i = 0; i < maxTagPoolSize; i++)
+            {
+                KillTag tag = Instantiate(Tag, tagsHolder);
+                tag.gameObject.SetActive(false);
+                pooledTags.Add(tag);
+            }
+        }
+
+        private KillTag GetAvailableTag()
+        {
+            foreach (var tag in pooledTags)
+            {
+                if (!tag.gameObject.activeSelf)
+                    return tag;
+            }
+
+            // 모두 사용 중이면 가장 오래된 것(타이머 낮은 순) 재사용
+            pooledTags.Sort((a, b) => a.TimerValue().CompareTo(b.TimerValue()));
+            return pooledTags[0];
         }
 
         public void Show(Actor killer, string killed, bool headshot)
@@ -54,15 +78,12 @@ namespace Akila.FPSFramework
 
         public void DamageShow(float damage, bool critical)
         {
-            KillTag newTag = Instantiate(Tag, tagsHolder);
-            //newTag.message.color = headshot && newTag.updateImageColors ? headshotColor : newTag.message.color;
+            KillTag newTag = GetAvailableTag();
             newTag.gameObject.SetActive(true);
+            newTag.transform.SetAsFirstSibling(); // 🔥 항상 리스트 맨 위에 추가됨
 
-            if(critical == false)
-                newTag.Show(null, null, damage, Color.white);
-            else
-                newTag.Show(null, null, damage, Color.red);
-
+            Color color = critical ? Color.red : Color.white;
+            newTag.Show(null, null, damage, color);
         }
     }
 }
