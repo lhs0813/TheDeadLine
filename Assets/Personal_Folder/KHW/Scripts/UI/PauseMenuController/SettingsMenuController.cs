@@ -132,7 +132,30 @@ namespace Akila.FPSFramework.UI
             _canvasGroup.blocksRaycasts = false;
             _isOpen = false;
 
-            _pauseMenuController.ShowPauseUIOnly();
+            if (_pauseMenuController != null)
+            {
+                _pauseMenuController.ShowPauseUIOnly();
+            } //이전의 pauseMenu 없으면 개방 없음.
+
+        }
+
+        public void SetUpForMainMenu(Controls sharedControls)
+        {
+            _controls = sharedControls;
+
+            // Pause 액션을 Settings 닫기로 바인딩
+            _controls.UI.Pause.performed += OnPausePerformed;
+            _controls.UI.Save.performed += ExecuteSave;
+            _controls.UI.ReturnToPreviousMenu.performed += OnPausePerformed;
+
+            ShowSettingsMenuForMainMenu();
+        }
+        
+        public void ShowSettingsMenuForMainMenu()
+        {
+            StartCoroutine(ShowSettingsCoroutine());
         }
     }
+
+
 }
