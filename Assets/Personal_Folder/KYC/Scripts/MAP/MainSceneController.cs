@@ -34,10 +34,14 @@ public class MainSceneController : MonoBehaviour
     public string openTriggerName = "Open"; // 도어 열기 트리거 이름
     [Tooltip("도어 오픈 애니메이션 재생 대기 시간 (초)")]
     public float doorOpenDuration = 2f;
-
+    [Tooltip("각 UI 요소가 페이드인에 걸리는 시간")]
+    public float uiFadeDuration = 0.5f;
     [Header("UI")]
     public CanvasGroup titleUI;              // 로고 + Start 버튼이 포함된 CanvasGroup
-
+    [Header("Title UI Elements")]
+    public GameObject logoImage;
+    public GameObject[] buttons; // Start, Options, Exit 등
+    public float buttonAppearDelay = 0.2f;
     void Start()
     {
         // 지하철 시작 속도 설정
@@ -47,9 +51,25 @@ public class MainSceneController : MonoBehaviour
         // 타이틀 UI 비활성화
         titleUI.alpha = 0f;
         titleUI.interactable = titleUI.blocksRaycasts = false;
+        // 버튼과 로고는 처음엔 꺼두고 알파도 0으로
+        if (logoImage != null)
+        {
+            var cg = logoImage.GetComponent<CanvasGroup>();
+            if (cg != null) cg.alpha = 0f;
+            logoImage.SetActive(false);
+        }
 
-        // 연출 코루틴 시작
-        StartCoroutine(PlayIntroSequence());
+        foreach (var btn in buttons)
+        {
+            if (btn != null)
+            {
+                var cg = btn.GetComponent<CanvasGroup>();
+                if (cg != null) cg.alpha = 0f;
+                btn.SetActive(false);
+            }
+            // 연출 코루틴 시작
+            StartCoroutine(PlayIntroSequence());
+        }
     }
 
     private IEnumerator PlayIntroSequence()
@@ -81,6 +101,8 @@ public class MainSceneController : MonoBehaviour
         {
             Debug.LogError("SubwayMovement 컴포넌트가 할당되지 않았습니다!");
         }
+
+        yield return new WaitForSeconds(0.5f);
 
         // 3) 도어 열기 트리거
         foreach (var anim in doorAnimators)
@@ -127,7 +149,7 @@ public class MainSceneController : MonoBehaviour
     }
 
     // BGM 페이드인
-    private IEnumerator FadeAudioTo(AudioSource src, float duration, float targetVolume)
+    public IEnumerator FadeAudioTo(AudioSource src, float duration, float targetVolume)
     {
         float startVol = src.volume;
         float elapsed = 0f;
@@ -140,32 +162,56 @@ public class MainSceneController : MonoBehaviour
         src.volume = targetVolume;
     }
 
-    private IEnumerator FadeInTitleUI()
+    public IEnumerator FadeInTitleUI()
     {
+        titleUI.alpha = 1f;
         titleUI.interactable = titleUI.blocksRaycasts = true;
-        float fadeTime = 3f;
+
+        // 1. 로고 페이드 인
+        if (logoImage != null)
+        {
+            CanvasGroup logoCanvas = logoImage.GetComponent<CanvasGroup>();
+            if (logoCanvas != null)
+            {
+                logoCanvas.alpha = 0f;
+                logoImage.SetActive(true);
+                yield return StartCoroutine(FadeCanvasGroup(logoCanvas, 1.1f, 1f));
+            }
+        }
+
+        yield return new WaitForSeconds(0.01f); // 로고가 다 뜬 뒤 약간 기다림
+
+        // 2. 버튼들 하나씩 페이드 인
+        foreach (var btn in buttons)
+        {
+            if (btn != null)
+            {
+                CanvasGroup cg = btn.GetComponent<CanvasGroup>();
+                if (cg != null)
+                {
+                    cg.alpha = 0f;
+                    btn.SetActive(true);
+                    yield return StartCoroutine(FadeCanvasGroup(cg, uiFadeDuration, 1f));
+                    yield return new WaitForSeconds(buttonAppearDelay);
+                }
+            }
+        }
+    }
+    private IEnumerator FadeCanvasGroup(CanvasGroup group, float duration, float targetAlpha)
+    {
+        float startAlpha = group.alpha;
         float elapsed = 0f;
-        while (elapsed < fadeTime)
+
+        while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / fadeTime);
-            float alpha;
-            if (t < 0.5f)
-            {
-                // Ease-in quadratic: first half
-                float u = t / 0.5f;
-                alpha = 0.5f * u * u;
-            }
-            else
-            {
-                // Ease-out quadratic: second half
-                float u = (t - 0.5f) / 0.5f;
-                alpha = 0.5f + (1f - (1f - u) * (1f - u)) * 0.5f;
-            }
-            titleUI.alpha = alpha;
+            group.alpha = Mathf.Lerp(startAlpha, targetAlpha, elapsed / duration);
             yield return null;
         }
-        titleUI.alpha = 1f;
 
+        group.alpha = targetAlpha;
     }
 }
+
+
+
