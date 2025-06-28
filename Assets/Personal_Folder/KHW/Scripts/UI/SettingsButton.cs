@@ -6,6 +6,7 @@ public class SettingsButton : MonoBehaviour
 {
     public void OpenSettingsMenu()
     {
+        FindAnyObjectByType<MainMenuController>().DisableMenu();
         pauseMenu.SetUpForMainMenu(FindAnyObjectByType<MainMenuInput>()._controls);
     }
 

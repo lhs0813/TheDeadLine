@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
 namespace Akila.FPSFramework.UI
 {
@@ -46,11 +47,24 @@ namespace Akila.FPSFramework.UI
         {
             _controls = sharedControls;
             _pauseMenuController = pauseBy;
+            InputSchemeManager.OnSchemeChanged += SetInputMode;
 
             // Pause 액션을 Settings 닫기로 바인딩
             _controls.UI.Pause.performed += OnPausePerformed;
             _controls.UI.Save.performed += ExecuteSave;
             _controls.UI.ReturnToPreviousMenu.performed += OnPausePerformed;
+        }
+
+        private void SetInputMode(InputSchemeManager.InputScheme scheme)
+        {
+            if (scheme == InputSchemeManager.InputScheme.Gamepad)
+            {
+                EventSystem.current.SetSelectedGameObject(firstUIObj);
+            }
+            else if (scheme == InputSchemeManager.InputScheme.Keyboard || scheme == InputSchemeManager.InputScheme.Mouse)
+            {
+                //
+            }
         }
 
         private void ExecuteSave(InputAction.CallbackContext context)
@@ -63,7 +77,13 @@ namespace Akila.FPSFramework.UI
         void OnDisable()
         {
             if (_controls != null)
+            {
                 _controls.UI.Pause.performed -= OnPausePerformed;
+                _controls.UI.Save.performed -= ExecuteSave;
+                _controls.UI.ReturnToPreviousMenu.performed -= OnPausePerformed;
+            }
+
+            InputSchemeManager.OnSchemeChanged -= SetInputMode;
         }
 
         private void OnPausePerformed(InputAction.CallbackContext ctx)
@@ -136,6 +156,10 @@ namespace Akila.FPSFramework.UI
             {
                 _pauseMenuController.ShowPauseUIOnly();
             } //이전의 pauseMenu 없으면 개방 없음.
+            if (FindAnyObjectByType<MainMenuController>() is MainMenuController m)
+            {
+                m.EnableMenu();
+            }
 
         }
 
@@ -150,11 +174,12 @@ namespace Akila.FPSFramework.UI
 
             ShowSettingsMenuForMainMenu();
         }
-        
+
         public void ShowSettingsMenuForMainMenu()
         {
             StartCoroutine(ShowSettingsCoroutine());
         }
+        
     }
 
 
