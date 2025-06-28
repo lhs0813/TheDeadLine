@@ -2,6 +2,7 @@
 using FIMSpace.FProceduralAnimation;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public abstract class ZombieBase : MonoBehaviour, IZombie
 {
@@ -18,6 +19,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     protected virtual float DefaultHealth => 100f;
     protected virtual float DefaultMaxHealth => 100f;
 
+    public virtual bool UseRandomSpeed => true;
 
     public float health = 100f;
     public float maxHealth = 100f;
@@ -198,6 +200,9 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         collider.enabled = false; // 콜리더 비활성화
         Kinematic_Controll(false);
         ragdollAnim.RA2Event_SwitchToFall();
+
+        
+
     }
 
     public virtual void MoveTowards(Vector3 target)

@@ -35805,6 +35805,11 @@ PrefabInstance:
       objectReference: {fileID: 293186961}
     - target: {fileID: 3615805113554094852, guid: 31057ebea554a6a498bb5eb2eab107c8,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3615805113554094852, guid: 31057ebea554a6a498bb5eb2eab107c8,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -35873,11 +35878,6 @@ PrefabInstance:
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 2092620684}
-    - target: {fileID: 5780460416631926676, guid: 31057ebea554a6a498bb5eb2eab107c8,
-        type: 3}
-      propertyPath: weight
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6281810572449992522, guid: 31057ebea554a6a498bb5eb2eab107c8,
         type: 3}
       propertyPath: health
@@ -35969,7 +35969,8 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2397235359248915327, guid: 31057ebea554a6a498bb5eb2eab107c8, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3822254582981897319, guid: 31057ebea554a6a498bb5eb2eab107c8,
         type: 3}
@@ -40009,6 +40010,68 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1298649308}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1299964034
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1299964036}
+  - component: {fileID: 1299964035}
+  m_Layer: 0
+  m_Name: SKill Effect Handler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1299964035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299964034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69cb3b5776585914d85ca4a76305ef49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headshotDamageMultiplier: 1
+  criticalChance: 0
+  criticalMultiplier: 2
+  attackSpeedBonus: 1
+  recoilMultiplier: 1
+  isAmmoInfinite: 0
+  isHeartofBerserkeravailable: 0
+  berserkerDamageMultiplier: 1.5
+  damageReduction: 1
+  evasionChance: 0
+  isInvinciblePerStation: 0
+  absorbHeatlh: 0
+  absorbHeatlhAmount: 1
+  maxHealthIncrease: 0
+  maxHealthIncreaseAmount: 50
+  isFullHpDamageBoost: 0
+  fullHpDamageMultiplier: 1.3
+  magazineIncreaseMultiplier: 1
+--- !u!4 &1299964036
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299964034}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.0468254, y: 10.954664, z: -33.25293}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1301039602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60639,7 +60702,7 @@ MonoBehaviour:
   m_IsGlobal: 1
   priority: 1
   blendDistance: 0
-  weight: 0
+  weight: 0.5
   sharedProfile: {fileID: 11400000, guid: 3d46a78712050ac4cb356194b0867f3b, type: 2}
 --- !u!4 &2019462933
 Transform:
@@ -64671,7 +64734,7 @@ PrefabInstance:
     - target: {fileID: 1235015900650259726, guid: ea72811a6aedcbb49a26143d920154e7,
         type: 3}
       propertyPath: normalCombatDuration
-      value: 180
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1311121944052829860, guid: ea72811a6aedcbb49a26143d920154e7,
         type: 3}
@@ -64773,6 +64836,7 @@ SceneRoots:
   - {fileID: 202822467}
   - {fileID: 602282501}
   - {fileID: 4770412147846073219}
+  - {fileID: 1299964036}
   - {fileID: 2019462933}
   - {fileID: 1147629493}
   - {fileID: 1107632600}

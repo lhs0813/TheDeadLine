@@ -1,8 +1,13 @@
 ﻿public class FastZombie : ZombieBase
 {
+    protected override float DefaultHealth => 100f;
+    protected override float DefaultMaxHealth => 100f;
+
+    public override bool UseRandomSpeed => false;
+
+
     protected override void Start()
     {
-        moveSpeed = 10.5f;
         agent.speed = moveSpeed;  // 추가!
         base.Start();
     }

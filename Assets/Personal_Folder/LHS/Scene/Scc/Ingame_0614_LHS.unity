@@ -35969,7 +35969,8 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2397235359248915327, guid: 31057ebea554a6a498bb5eb2eab107c8, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3822254582981897319, guid: 31057ebea554a6a498bb5eb2eab107c8,
         type: 3}
@@ -48506,6 +48507,50 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1606017344}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1608490405
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1608490407}
+  - component: {fileID: 1608490406}
+  m_Layer: 0
+  m_Name: Ragdoll_Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1608490406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608490405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80c19021ddd399845901678cd7a655fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1608490407
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608490405}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -12.085186, y: -0.5514971, z: -4.355475}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1612072616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64666,7 +64711,7 @@ PrefabInstance:
     - target: {fileID: 1235015900650259726, guid: ea72811a6aedcbb49a26143d920154e7,
         type: 3}
       propertyPath: waitingDuration
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1235015900650259726, guid: ea72811a6aedcbb49a26143d920154e7,
         type: 3}
@@ -64778,3 +64823,4 @@ SceneRoots:
   - {fileID: 1107632600}
   - {fileID: 566137675}
   - {fileID: 1445294847}
+  - {fileID: 1608490407}
