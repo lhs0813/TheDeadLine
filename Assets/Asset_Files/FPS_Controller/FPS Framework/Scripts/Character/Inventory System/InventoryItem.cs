@@ -501,7 +501,7 @@ namespace Akila.FPSFramework
             //투척 공격 
             var aff = newPickupable.gameObject.AddComponent<Affector>();
             aff.damage= 9999; 
-            aff.hitCount = 2;
+            aff.hitCount = 1 + SkillEffectHandler.Instance.throwHitMore;
 
             aff.checkTime = 99;
             aff.checkCycle = 0.05f;
