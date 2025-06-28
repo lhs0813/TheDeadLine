@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using System;
+using Akila.FPSFramework.UI;
 
 
 namespace Akila.FPSFramework
@@ -110,8 +111,10 @@ namespace Akila.FPSFramework
         {
             characterManager = GetComponent<CharacterManager>();
 
-            RotateOnTrigger.onLapTop += InputStop;
-            RotateOnTrigger.offLapTop += InputStart;
+            // RotateOnTrigger.onLapTop += InputStop;
+            // RotateOnTrigger.offLapTop += InputStart;
+
+
         }
 
         protected void Update()
@@ -312,6 +315,9 @@ namespace Akila.FPSFramework
             //Using event logic to allow external disabling of the input.
             //Example: You could set the sprint value from the external class without it resting itself.
             AddInputListner();
+
+            PauseMenuController.OnPauseMenuActivatedAction += InputStop;
+            PauseMenuController.OnPauseMenuDeactivatedAction += InputStart;
         }
 
         private void OnDestroy()
@@ -326,6 +332,9 @@ namespace Akila.FPSFramework
             controls.Player.Disable();
 
             controls.Disable();
+
+            PauseMenuController.OnPauseMenuActivatedAction -= InputStop;
+            PauseMenuController.OnPauseMenuDeactivatedAction -= InputStart;
         }
     }
 }
