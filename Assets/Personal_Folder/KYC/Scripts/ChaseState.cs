@@ -103,12 +103,7 @@ public class ChaseState : IZombieState
                 }
                 else
                 {
-                    // ★ 이때 바로 플레이어 위치를 다시 target으로 사용해 fallback
-                    if (NavMesh.SamplePosition(_player.position, out NavMeshHit fallbackHit, 3f, NavMesh.AllAreas))
-                    {
-                        _zombie.Agent.SetDestination(fallbackHit.position);
-                        _lastDestination = fallbackHit.position;
-                    }
+                    _zombie.Agent.SetDestination(_player.position);
                 }
             }
 
