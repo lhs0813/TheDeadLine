@@ -36,6 +36,7 @@ public class Info : MonoBehaviour
             Instantiate(visual[UnityEngine.Random.Range(0, visual.Count)], transform);
 
 
+
         if (endTime>=0)
             Destroy(gameObject, endTime);
 

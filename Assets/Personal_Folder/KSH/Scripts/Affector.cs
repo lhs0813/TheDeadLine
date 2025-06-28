@@ -11,6 +11,7 @@ public class Affector : MonoBehaviour
 {
     [Header("Affect")]
     public float damage;
+    public float damageMax;
     public float push;
     public float motionMultifly=-1; //0 ~ 1 ~ 99999
     public float navMultifly=-1; //0 ~ 1 ~ 99999
@@ -61,7 +62,10 @@ public class Affector : MonoBehaviour
 
     void Start()
     {
+       if(damageMax>0)damage = Random.Range(damage, damageMax);
         before = transform.position;
+
+
         if (checkTime > 0) StartCoroutine(CheckTime());
         if (checkCycle > 0) StartCoroutine(CheckCycle());
     }
@@ -156,7 +160,11 @@ public class Affector : MonoBehaviour
     {
         var ex = go.GetComponentInParent<Explosive>();
         if (ex)
-            ex.Damage(damage,gameObject,false);
+        {
+            ex.Damage(damage, gameObject, false);
+            return;
+        }
+
 
 
         //Damagebla 판단 
