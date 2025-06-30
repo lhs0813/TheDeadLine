@@ -25,7 +25,7 @@ public class UI_Objective_Info : MonoBehaviour
     }
 
 
-    void ShowFuseFindingObjective(int count)
+    void ShowFuseFindingObjective(int count, int max)
     {
         if (!isActive)
         {
@@ -35,7 +35,7 @@ public class UI_Objective_Info : MonoBehaviour
        
         // 1) 키와 인자 바꾸기
         objectiveEvent.StringReference.TableEntryReference = "Objective_Find Fuse";
-        objectiveEvent.StringReference.Arguments = new object[]{ count };
+        objectiveEvent.StringReference.Arguments = new object[]{ count, max };
         // 2) 즉시 갱신
         objectiveEvent.RefreshString();
     }

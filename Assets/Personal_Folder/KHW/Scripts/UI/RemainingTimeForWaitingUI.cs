@@ -33,18 +33,18 @@ public class RemainingTimeForWaitingUI : MonoBehaviour
         _anim.SetTrigger("On");
     }
 
-    public void UpdateRemainingTime(bool isOnCombat, float currentTime, float nextTime)
-    {
-        float remaining = Mathf.Max(0f, nextTime - currentTime);
+    // public void UpdateRemainingTime(bool isOnCombat, float currentTime, float nextTime)
+    // {
+    //     float remaining = Mathf.Max(0f, nextTime - currentTime);
 
-        // 1) TimeSpan 사용
-        TimeSpan t = TimeSpan.FromSeconds(remaining);
-        // t.Minutes, t.Seconds, t.Milliseconds
+    //     // 1) TimeSpan 사용
+    //     TimeSpan t = TimeSpan.FromSeconds(remaining);
+    //     // t.Minutes, t.Seconds, t.Milliseconds
 
-        remainingTimeText.text =
-            $"{t.Minutes:00}:{t.Seconds:00}:{t.Milliseconds:000}";
-        //Debug.Log($"전투중 : {isOnCombat}, 남은시간 : {t}");
-    }
+    //     remainingTimeText.text =
+    //         $"{t.Minutes:00}:{t.Seconds:00}:{t.Milliseconds:000}";
+    //     //Debug.Log($"전투중 : {isOnCombat}, 남은시간 : {t}");
+    // }
 
     void Update()
     {
@@ -66,6 +66,11 @@ public class RemainingTimeForWaitingUI : MonoBehaviour
         {
             HideUI();
         }
+    }
+
+    public void ControlAcceleration(float accelerationRemainingTime)
+    {
+        this.remainingTime = accelerationRemainingTime;
     }
 
     void OnDisable()
