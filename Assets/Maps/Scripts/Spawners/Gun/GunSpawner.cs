@@ -10,9 +10,9 @@ public class GunSpawner : MonoBehaviour
     /// 총기 프롭을 생성합니다. FindObjectsByType<GunSpawner>() -> Initialize(stageIndex(int)) 로 사용.
     /// </summary> 
     /// <param name="stageIndex"></param>
-    public async void InitializeGunProp(int stageIndex)
+    public void InitializeGunProp(int stageIndex)
     {
-        GameObject prefab = await SpawnedGunBuilder.GetRandomGunPrefab(stageIndex);
+        GameObject prefab = SpawnedGunBuilder.GetRandomGunPrefab(stageIndex);
         if (prefab != null)
         {
             Instantiate(prefab, transform);
