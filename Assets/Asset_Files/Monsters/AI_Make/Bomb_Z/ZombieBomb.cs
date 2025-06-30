@@ -13,7 +13,7 @@ public class ZombieBomb : ZombieBase
         maxHealth = DefaultHealth;
         GetComponent<Explosive>().health = GetComponent<Damageable>().health;
         agent.speed = moveSpeed;
-        
+
         base.Start();
     }
 
@@ -22,5 +22,10 @@ public class ZombieBomb : ZombieBase
         maxHealth = DefaultHealth;
         GetComponent<Explosive>().health = GetComponent<Damageable>().health;
         base.OnEnable();
+    }
+    
+    private void OnDisable()
+    {
+        transform.localPosition = UnityEngine.Vector3.zero;
     }
 }
