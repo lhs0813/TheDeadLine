@@ -114,7 +114,11 @@ public class PreSpawnHordeSpawnerController : MonoBehaviour
     private void SpawnPreSpawnHorde()
     {
         foreach (var sp in spawners)
+        {
+            if(sp.gameObject.activeInHierarchy)
             sp.TrySpawn(GamePlayManager.instance.currentMapIndex, danger);
+        }
+
     }
 
     /// <summary>

@@ -25,7 +25,7 @@ public class RemainingTimeForInvestigationUI : MonoBehaviour
         isHidden = true;
 
         GamePlayManager.instance.OnStationArriveAction += ShowUI;
-
+        GamePlayManager.instance.OnPreDepartAction += HideUI;
         // GamePlayManager.instance.OnDangerAction += HideUI;
         // GamePlayManager.instance.OnPreDepartAction += HideUI;
         _anim = GetComponent<Animator>();
@@ -54,7 +54,7 @@ public class RemainingTimeForInvestigationUI : MonoBehaviour
         ColorChange(Color.green);
         _hasColorChanged = false;
 
-        _anim.SetTrigger("On");          
+        _anim.SetTrigger("On");
     }
 
     public void UpdateRemainingTime(bool isOnCombat, float currentTime, float nextTime)
@@ -97,7 +97,13 @@ public class RemainingTimeForInvestigationUI : MonoBehaviour
             HideUI();
         }
 
-        
 
+
+    }
+
+    void OnDisable()
+    {
+        GamePlayManager.instance.OnStationArriveAction -= ShowUI;
+        GamePlayManager.instance.OnPreDepartAction -= HideUI;
     }
 }

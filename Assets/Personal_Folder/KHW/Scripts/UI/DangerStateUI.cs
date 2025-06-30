@@ -16,24 +16,37 @@ public class DangerStateUI : MonoBehaviour
         isHidden = true;
 
         //GamePlayManager.instance.OnStationDepartAction += ShowUI;
-        //GamePlayManager.instance.OnStationArriveAction += ShowUI;
+        GamePlayManager.instance.OnStationArriveAction += InitializeState;
         GamePlayManager.instance.OnDangerAction += ShowUI;
         GamePlayManager.instance.OnPreDepartAction += HideUI;
         _anim = GetComponent<Animator>();
         _dangerInfoAnim = dangerNotice.GetComponent<Animator>();
     }
 
-    private void HideUI()
+    private void InitializeState(float f)
     {
         isHidden = true;
-        _anim.SetTrigger("Off");
+    }
+
+    private void HideUI()
+    {
+        if (!isHidden)
+        {
+            isHidden = true;
+            _anim.SetTrigger("Off");            
+        }
+
     }
 
     private void ShowUI()
     {
-        isHidden = false;
-        _anim.SetTrigger("On");
-        _dangerInfoAnim.SetTrigger("On");
+        if (isHidden)
+        {
+            isHidden = false;  
+            _anim.SetTrigger("On");
+            _dangerInfoAnim.SetTrigger("On");         
+        }
+
     }
 
     void Update()
