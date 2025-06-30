@@ -606,81 +606,6 @@ Transform:
   - {fileID: 7310966271773187407}
   m_Father: {fileID: 2972890390517024694}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &829061307464597528
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2481718779974266544}
-  - component: {fileID: 7502828713757837805}
-  - component: {fileID: 200317047787464717}
-  m_Layer: 0
-  m_Name: Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2481718779974266544
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 829061307464597528}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.85, y: 0.77, z: 0.77}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6276569052484396967}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 679, y: 53}
-  m_SizeDelta: {x: 500, y: 1000}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &7502828713757837805
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 829061307464597528}
-  m_CullTransparentMesh: 1
---- !u!114 &200317047787464717
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 829061307464597528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8ce974d1173b66f4fba2779d1642be43, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &876434544839348170
 GameObject:
   m_ObjectHideFlags: 0
@@ -2217,6 +2142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ecf5bd154f7cb46bfcd18b7bc875ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 7156142527782341216}
+  inventory: {fileID: 5949840488172601449}
   playerHp: 0
   MaxHealth: 0
 --- !u!1 &1766726690122387639
@@ -2441,7 +2368,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35.5
+  m_fontSize: 25.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3111,6 +3038,7 @@ MonoBehaviour:
   tooltipTextObject: {fileID: 1536999572179330759}
   currentLevel: 0
   maxLevel: 5
+  tooltipTMP: {fileID: 0}
   button: {fileID: 7236552065181944368}
   iconImage: {fileID: 3697630787777527453}
   levelDotSets:
@@ -3704,6 +3632,7 @@ MonoBehaviour:
   tooltipTextObject: {fileID: 3551836264349354197}
   currentLevel: 0
   maxLevel: 5
+  tooltipTMP: {fileID: 0}
   button: {fileID: 8783045384621282724}
   iconImage: {fileID: 3207166191396171950}
   levelDotSets:
@@ -4009,6 +3938,7 @@ MonoBehaviour:
   tooltipTextObject: {fileID: 8096839661054076252}
   currentLevel: 0
   maxLevel: 5
+  tooltipTMP: {fileID: 0}
   button: {fileID: 6427959466672076013}
   iconImage: {fileID: 2174632858545106688}
   levelDotSets:
@@ -4424,6 +4354,7 @@ MonoBehaviour:
   tooltipTextObject: {fileID: 6725559724065427273}
   currentLevel: 0
   maxLevel: 5
+  tooltipTMP: {fileID: 0}
   button: {fileID: 7136100370405474105}
   iconImage: {fileID: 5759036687620752210}
   levelDotSets:
@@ -6030,30 +5961,7 @@ MonoBehaviour:
   availablePoints: 20
   pointsText: {fileID: 1197531117154724719}
   pointsText2: {fileID: 0}
-  allSkills:
-  - {fileID: 5036592248691409738}
-  - {fileID: 8331661588613045465}
-  - {fileID: 0}
-  - {fileID: 6690738548854353143}
-  - {fileID: 3332801350607353237}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 1830311820514298789}
-  - {fileID: 2040654730954554283}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 1362597218391445707}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 8182064805456033929}
-  - {fileID: 0}
-  - {fileID: 0}
   resetTicket: 1
-  activeSkillEffectsUI: {fileID: 6148222580629682666}
   laptopTrigger: {fileID: 0}
   levelUpSounds: {fileID: 3402759253406901364}
   levelDownSounds: {fileID: 6011501224059607928}
@@ -7168,6 +7076,7 @@ MonoBehaviour:
   tooltipTextObject: {fileID: 5747893888795130863}
   currentLevel: 0
   maxLevel: 5
+  tooltipTMP: {fileID: 0}
   button: {fileID: 962769887871894129}
   iconImage: {fileID: 8691807659332259707}
   levelDotSets:
@@ -7611,6 +7520,7 @@ MonoBehaviour:
   tooltipTextObject: {fileID: 5126416894159759991}
   currentLevel: 0
   maxLevel: 5
+  tooltipTMP: {fileID: 0}
   button: {fileID: 3215207813165532554}
   iconImage: {fileID: 5781358249531102457}
   levelDotSets:
@@ -8056,6 +7966,7 @@ MonoBehaviour:
   tooltipTextObject: {fileID: 4425307259879824970}
   currentLevel: 0
   maxLevel: 5
+  tooltipTMP: {fileID: 0}
   button: {fileID: 209417606070459250}
   iconImage: {fileID: 5596858785439114896}
   levelDotSets:
@@ -8276,6 +8187,7 @@ MonoBehaviour:
   tooltipTextObject: {fileID: 2281984879697783171}
   currentLevel: 0
   maxLevel: 5
+  tooltipTMP: {fileID: 0}
   button: {fileID: 6625337432407467954}
   iconImage: {fileID: 3175624918252731666}
   levelDotSets:
@@ -8520,8 +8432,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   headshotDamageMultiplier: 1
-  criticalChance: 0
-  criticalMultiplier: 2
   attackSpeedBonus: 1
   recoilMultiplier: 1
   isAmmoInfinite: 0
@@ -8534,9 +8444,10 @@ MonoBehaviour:
   absorbHeatlhAmount: 1
   maxHealthIncrease: 0
   maxHealthIncreaseAmount: 50
-  isFullHpDamageBoost: 0
-  fullHpDamageMultiplier: 1
   magazineIncreaseMultiplier: 1
+  throwHitMore: 0
+  bonusDamegeRate: 1
+  bonusMoveSpeed: 1
 --- !u!1 &7324788466278292134
 GameObject:
   m_ObjectHideFlags: 0
@@ -8831,8 +8742,6 @@ RectTransform:
   - {fileID: 1268619678397669834}
   - {fileID: 2458827668019478993}
   - {fileID: 2103436819877871659}
-  - {fileID: 2481718779974266544}
-  - {fileID: 1214584559992180954}
   m_Father: {fileID: 639901472536812383}
   m_LocalEulerAnglesHint: {x: 16.132, y: 90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -9320,6 +9229,7 @@ MonoBehaviour:
   interactActionText: {fileID: 2290951321544323472}
   defaultInteractAudio: {fileID: 11400000, guid: 71fa29c9153f9c94eb56a15d19b190c0,
     type: 2}
+  interactActionLocalizeEvent: {fileID: 0}
 --- !u!1 &8096839661054076252
 GameObject:
   m_ObjectHideFlags: 0
@@ -9457,125 +9367,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &8143740829461285814
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1214584559992180954}
-  - component: {fileID: 3629189368916535878}
-  - component: {fileID: 8999991062878633910}
-  - component: {fileID: 6148222580629682666}
-  - component: {fileID: 684409638179660774}
-  m_Layer: 0
-  m_Name: Panel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1214584559992180954
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8143740829461285814}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0.07692151}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6276569052484396967}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 687, y: -29}
-  m_SizeDelta: {x: -1496.6936, y: -329.19995}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &3629189368916535878
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8143740829461285814}
-  m_CullTransparentMesh: 1
---- !u!114 &8999991062878633910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8143740829461285814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!114 &6148222580629682666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8143740829461285814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0fb18859a1a3346b6a3a337a9dd367, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillEffectHandler: {fileID: 8451396215256771971}
-  effectTextPrefab: {fileID: 4114081937528550231, guid: 0ec85c2487263224b8fb02cafaec65c3,
-    type: 3}
-  effectsContainer: {fileID: 1214584559992180954}
---- !u!114 &684409638179660774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8143740829461285814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 20
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
 --- !u!1 &8250701051285052908
 GameObject:
   m_ObjectHideFlags: 0
@@ -9733,7 +9524,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8349323966057638235}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.000000119209275, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.00000005960464, y: -0.0000121593475, z: -0.2999878}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10325,6 +10116,7 @@ MonoBehaviour:
   tooltipTextObject: {fileID: 8675696446757437320}
   currentLevel: 0
   maxLevel: 5
+  tooltipTMP: {fileID: 0}
   button: {fileID: 767789509381941817}
   iconImage: {fileID: 4177552137646229160}
   levelDotSets:
