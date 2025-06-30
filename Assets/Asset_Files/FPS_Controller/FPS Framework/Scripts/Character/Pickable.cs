@@ -65,6 +65,9 @@ namespace Akila.FPSFramework
                 case PickableType.ReCharge:
                     InteractWithRecharge(source);
                     break;
+                case PickableType.AccelerationButton :
+                    InteractWithAccelerationButton(source);
+                    break;
 
                 default:
                     Debug.LogWarning($"Unhandled pickable type: {type}", gameObject);
@@ -221,6 +224,17 @@ namespace Akila.FPSFramework
 
         }
 
+        public virtual void InteractWithAccelerationButton(InteractionsManager source)
+        {
+            if (source == null || source.Inventory == null)
+            {
+                Debug.LogError("Missing source or inventory reference during collectable interaction.", gameObject);
+                return;
+            }
+
+            GetComponent<TrainAccelerationButton>().UseAccelerationButton();          
+        }
+
         public object[] GetInteractionArguments()
         {
             return null;
@@ -235,6 +249,6 @@ namespace Akila.FPSFramework
         DataChip = 3,
         FuseBox = 4,
         ReCharge = 5,
-
+        AccelerationButton = 6
     }
 }
