@@ -37,7 +37,7 @@ public class MapGenerationManager : MonoBehaviour
 
     public Action OnNavMeshBakeAction;
 
-    void Awake()
+    async void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -47,6 +47,9 @@ public class MapGenerationManager : MonoBehaviour
 
         Instance = this;
         runtimeDungeon = GetComponent<RuntimeDungeon>();
+
+        // 1) 무기 프리팹 미리 로드
+        await SpawnedGunBuilder.InitializeAsync();
     }
 
     void Start()

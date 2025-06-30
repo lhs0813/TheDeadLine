@@ -15,13 +15,12 @@ namespace Akila.FPSFramework
 
         private void Awake()
         {
-            RegenrateList();
+
         }
 
         private void Start()
         {
-            dropdown = GetComponent<Dropdown>();
-            carouselSelector = GetComponent<CarouselSelector>();
+            RegenrateList();
         }
 
         [ContextMenu("Regenrate List")]
@@ -35,7 +34,7 @@ namespace Akila.FPSFramework
             List<Resolution> resolutions = Screen.resolutions.ToList();
 
             dropdown?.ClearOptions();
-            carouselSelector?.ClearOptions();
+            //carouselSelector?.ClearOptions();
 
             foreach (Resolution resolution in FPSFrameworkCore.GetResolutions())
             {
@@ -46,7 +45,16 @@ namespace Akila.FPSFramework
             }
 
             dropdown?.AddOptions(dropdownOptions);
-            carouselSelector?.AddOptions(carouselSelectorOptions.ToArray());
+
+            if (carouselSelector != null)
+            {
+                carouselSelector?.AddOptions(carouselSelectorOptions.ToArray());
+            }
+            else
+            {
+                Debug.LogError("No Carousel Selector");
+            }
+
 
             int currentResIndex = 0;
 
