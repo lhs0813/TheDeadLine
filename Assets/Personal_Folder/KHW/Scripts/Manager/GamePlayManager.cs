@@ -37,6 +37,7 @@ public class GamePlayManager : MonoBehaviour
     private bool newMapReady; //맵 생성 완료 알림
     [SerializeField] private float waitingDuration = 20f; // 열차 대기 시간
     [SerializeField] private float normalCombatDuration = 180f; //전투시간. 
+    [SerializeField] private float remainingTimeAfterTrainAcceleration = 5f;
 
     [Header("Actions")]
     public Action<float> OnStationArriveAction; //arg : predepart까지의 남은 시간.
@@ -44,6 +45,7 @@ public class GamePlayManager : MonoBehaviour
     public Action OnDangerAction;
     public Action<float> OnStationDepartAction;
     public Action<int> OnMapLoadFinishingAction; //맵 로딩 완료시 매니저에서 한번 더 호출.Arg는 mapIndex.
+    public Action<float> OnTrainAccelerationAction; //열차를 가속시켰을 때 발동됨.
 
     private void Awake()
     {
@@ -110,23 +112,13 @@ public class GamePlayManager : MonoBehaviour
         DisableTrainDepartable(); //열차 출발 막기. TODO : 시작을 이곳에서 하지 않으면 필요 없음.
     }
 
-    public void AccelerationControl(out bool success)
+    public void AccelerationControl()
     {
-        success = false;
-
         if (currentGameState != GameState.Waiting) return;
 
-        //남은시간 5초 이하인 경우
-        if (nextWaitingEndtime - 5f >= Timer) return;
-        
+        nextWaitingEndtime = Timer + remainingTimeAfterTrainAcceleration;
 
-
-        //열차소리 변경.
-
-        //남은시간 5초.
-
-        //
-
+        OnTrainAccelerationAction?.Invoke(remainingTimeAfterTrainAcceleration);
     }
 
     private static async Task<StageInfo> GetStageInfoAsync(int mapIndex)
@@ -217,9 +209,9 @@ public class GamePlayManager : MonoBehaviour
     {
         Timer += Time.deltaTime;
 
-        if (currentGameState == GameState.Waiting && Timer >= nextWaitingEndtime - 5f)
+        if (currentGameState == GameState.Waiting && Timer >= nextWaitingEndtime - remainingTimeAfterTrainAcceleration)
         {
-            
+            FindAnyObjectByType<TrainAccelerationButton>().DisableAccelerationButton();
         }
 
         if (currentGameState == GameState.Waiting && Timer >= nextWaitingEndtime && newMapReady)

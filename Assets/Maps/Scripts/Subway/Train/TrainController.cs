@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Akila.FPSFramework;
@@ -28,6 +29,7 @@ public class TrainController : MonoBehaviour
         trainSoundController = GetComponentInChildren<TrainSoundController>();
 
         GamePlayManager.instance.OnStationArriveAction += DisableAllLights;
+        GamePlayManager.instance.OnTrainAccelerationAction += TrainAcceleration;
         ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction += EnableAllLights;
     }
 
@@ -271,6 +273,11 @@ public class TrainController : MonoBehaviour
             //other.transform.SetParent(trainTransform);
         }
     }
+
+    public void TrainAcceleration(float f)
+    {
+        trainSoundController.PlayTrainAccelerating();
+    }
     
     #region Light Controller.
 
@@ -297,6 +304,7 @@ public class TrainController : MonoBehaviour
     void OnDisable()
     {
         GamePlayManager.instance.OnStationArriveAction -= DisableAllLights;
+        GamePlayManager.instance.OnTrainAccelerationAction -= TrainAcceleration;
         ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction -= EnableAllLights;
     }
 }

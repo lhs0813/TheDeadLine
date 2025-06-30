@@ -8,11 +8,12 @@ public class TrainSoundController : MonoBehaviour
 {
     private AudioSource trainAudioSource;
 
-    private List<AudioClip> trainDepartingClips   = new List<AudioClip>();
-    private List<AudioClip> trainArrivingClips    = new List<AudioClip>();
-    private List<AudioClip> trainRunningClips     = new List<AudioClip>();
-    private List<AudioClip> doorOpenClips         = new List<AudioClip>();
-    private List<AudioClip> doorCloseClips        = new List<AudioClip>();
+    private List<AudioClip> trainDepartingClips = new List<AudioClip>();
+    private List<AudioClip> trainArrivingClips = new List<AudioClip>();
+    private List<AudioClip> trainRunningClips = new List<AudioClip>();
+    private List<AudioClip> doorOpenClips = new List<AudioClip>();
+    private List<AudioClip> doorCloseClips = new List<AudioClip>();
+    private List<AudioClip> trainAccelerationClips = new List<AudioClip>();
 
     async void Start()
     {
@@ -52,13 +53,17 @@ public class TrainSoundController : MonoBehaviour
         doorCloseClips = allClips
             .Where(c => c.name.ToLower().Contains("doorclose"))
             .ToList();
+
+        trainAccelerationClips = allClips
+            .Where(c => c.name.ToLower().Contains("acceleration"))
+            .ToList();
     }
 
     // 아래는 사용 예시입니다
 
     public void PlayDoorOpen()
     {
-        trainAudioSource.Stop();  
+        trainAudioSource.Stop();
         if (doorOpenClips.Count == 0) return;
         var clip = doorOpenClips[Random.Range(0, doorOpenClips.Count)];
         trainAudioSource.PlayOneShot(clip);
@@ -66,7 +71,7 @@ public class TrainSoundController : MonoBehaviour
 
     public void PlayDoorClose()
     {
-        trainAudioSource.Stop();  
+        trainAudioSource.Stop();
         if (doorCloseClips.Count == 0) return;
         var clip = doorCloseClips[Random.Range(0, doorCloseClips.Count)];
         trainAudioSource.PlayOneShot(clip);
@@ -82,7 +87,7 @@ public class TrainSoundController : MonoBehaviour
 
     public void PlayTrainStopping()
     {
-        
+
         trainAudioSource.loop = false;
         trainAudioSource.Stop();
     }
@@ -99,5 +104,13 @@ public class TrainSoundController : MonoBehaviour
         if (trainArrivingClips.Count == 0) return;
         var clip = trainArrivingClips[Random.Range(0, trainArrivingClips.Count)];
         trainAudioSource.PlayOneShot(clip);
+    }
+
+    public void PlayTrainAccelerating()
+    {
+        if (trainAccelerationClips.Count == 0) return;
+        trainAudioSource.Stop();
+        var clip = trainAccelerationClips[Random.Range(0, trainAccelerationClips.Count)];
+        trainAudioSource.PlayOneShot(clip);        
     }
 }

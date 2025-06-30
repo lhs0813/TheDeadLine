@@ -13,8 +13,23 @@ public class TrainAccelerationButton : MonoBehaviour
         GetComponent<BoxCollider>().enabled = true;
     }
 
-    void DisableAccelerationButton()
+    public void DisableAccelerationButton()
     {
-        GetComponent<BoxCollider>().enabled = false;        
+        GetComponent<BoxCollider>().enabled = false;
+    }
+
+    /// <summary>
+    /// GamePlayManager 활성화 상태를받음.
+    /// </summary>
+    public void UseAccelerationButton()
+    {
+        GamePlayManager.instance.AccelerationControl();
+
+        DisableAccelerationButton();
+    }
+
+    void OnDisable()
+    {
+        GamePlayManager.instance.OnStationDepartAction -= EnableAccelerationButton;
     }
 }
