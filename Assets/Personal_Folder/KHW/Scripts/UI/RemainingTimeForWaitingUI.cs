@@ -14,6 +14,7 @@ public class RemainingTimeForWaitingUI : MonoBehaviour
         isHidden = true;
 
         GamePlayManager.instance.OnStationDepartAction += ShowUI;
+        GamePlayManager.instance.OnTrainAccelerationAction += ControlAcceleration;
         //GamePlayManager.instance.OnStationArriveAction += ShowUI;
         // GamePlayManager.instance.OnDangerAction += HideUI;
         // GamePlayManager.instance.OnPreDepartAction += HideUI;
@@ -71,6 +72,7 @@ public class RemainingTimeForWaitingUI : MonoBehaviour
     public void ControlAcceleration(float accelerationRemainingTime)
     {
         this.remainingTime = accelerationRemainingTime;
+        _anim.SetTrigger("Accelerate");
     }
 
     void OnDisable()
