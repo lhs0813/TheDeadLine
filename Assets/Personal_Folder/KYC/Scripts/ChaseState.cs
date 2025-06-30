@@ -167,7 +167,7 @@ public class ChaseState : IZombieState
         }
         else
         {
-            Debug.LogWarning($"{_zombie.name} - NavMesh에서 유효한 목적지를 찾지 못함: {target}");
+            //Debug.LogWarning($"{_zombie.name} - NavMesh에서 유효한 목적지를 찾지 못함: {target}");
         }
     }
 

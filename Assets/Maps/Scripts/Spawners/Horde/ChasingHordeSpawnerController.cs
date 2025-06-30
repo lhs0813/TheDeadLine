@@ -80,6 +80,7 @@ public class ChasingHordeSpawnerController : MonoBehaviour
         if (Time.time < nextAllowedSpawnTime)
             return;
 
+
         ActivateHordeSpawner();
         nextAllowedSpawnTime = Time.time + spawnerCooldown;
     }
@@ -89,8 +90,13 @@ public class ChasingHordeSpawnerController : MonoBehaviour
     /// </summary>
     private void ActivateHordeSpawner()
     {
+
         foreach (var sp in spawners)
-            sp.TrySpawn(spawnCount, danger);
+        {
+            if (sp.gameObject.activeInHierarchy)
+                        sp.TrySpawn(spawnCount, danger);
+        }
+
     }
 
 }
