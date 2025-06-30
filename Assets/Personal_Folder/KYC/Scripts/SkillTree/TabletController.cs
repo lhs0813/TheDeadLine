@@ -173,21 +173,28 @@ public class TabletController : MonoBehaviour
 
     void CheckVirtualCursorClick()
     {
-        bool isClick = _control.Firearm.Fire.triggered;
-            //itemInput.Controls.Firearm.Fire.triggered;
-            // (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame) ||
-            // (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame); // A 버튼
+        bool isFire  = _control.Firearm.Fire.triggered;
+        bool isAim   = _control.Firearm.Aim.triggered;
 
-            //
+        // if neither just pressed, bail
+        if (!isFire && !isAim) return;
 
-        if (!isClick) return;
+        // world → screen
+        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(
+            Camera.main, 
+            cursorImage.position
+        );
 
-        // 월드 좌표 → 화면 좌표
-        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, cursorImage.position);
-
-        PointerEventData pointerData = new PointerEventData(eventSystem)
+        var pointerData = new PointerEventData(eventSystem)
         {
-            position = screenPos
+            position = screenPos,
+            // choose right button for Aim, left for Fire
+            button   = isAim 
+                    ? PointerEventData.InputButton.Right 
+                    : PointerEventData.InputButton.Left,
+            clickCount = 1,
+            eligibleForClick = true,
+            clickTime = Time.unscaledTime
         };
 
         List<RaycastResult> results = new List<RaycastResult>();
@@ -195,9 +202,15 @@ public class TabletController : MonoBehaviour
 
         foreach (var result in results)
         {
-            ExecuteEvents.Execute(result.gameObject, pointerData, ExecuteEvents.pointerClickHandler);
+            // this will fire IPointerClickHandler.OnPointerClick(evt)
+            ExecuteEvents.Execute(
+                result.gameObject, 
+                pointerData, 
+                ExecuteEvents.pointerClickHandler
+            );
         }
     }
+
 
     private GameObject lastHovered;
 

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -29,43 +30,39 @@ public class PrespawnedHordeSpawner : MonoBehaviour
         );
 
         if (spawnPoints.Count == 0)
-        {
             Debug.LogError("[HordeSpawner] 유효 스폰 포인트를 하나도 찾지 못했습니다!");
-            return;
-        }
     }
 
     /// <summary>
-    /// 동시 스폰: 미리 지점을 뽑아두고, 각 지점에 한번에 적 생성
+    /// 분할 스폰: 한 프레임에 한 마리씩(또는 frameDelayPerSpawn 프레임마다)
     /// </summary>
     public void TrySpawn(int mapIndex, bool track)
     {
+        StartCoroutine(SpawnRoutine(mapIndex, track));
+    }
+
+    private IEnumerator SpawnRoutine(int mapIndex, bool track)
+    {
         foreach (var point in spawnPoints)
         {
-            int it = 1;
-
-            if (track) // == danger
-            {
-                it = dangerSpawnCountMultiplier;
-            }
+            int it = track ? dangerSpawnCountMultiplier : 1;
 
             for (int i = 0; i < it; i++)
             {
-                EnemyType type = HordeSpawnBuilder.RollEnemyType(mapIndex);
-
-                //Transform 설정
+                // 스폰
                 float randomY = Random.Range(0f, 360f);
-                GameObject enemy = EnemyPoolManager.Instance.Spawn(type, point, Quaternion.Euler(0f, randomY, 0f), !track);
+                EnemyType type = HordeSpawnBuilder.RollEnemyType(mapIndex);
+                GameObject enemy = EnemyPoolManager
+                    .Instance
+                    .Spawn(type, point, Quaternion.Euler(0f, randomY, 0f), !track);
+
                 if (enemy != null)
-                {
                     preSpawnedEnemies.Add(enemy);
-                }                
+
+                    yield return null;
             }
-
         }
-
     }
-
 
     /// <summary>
     /// center 기준 반경 내 NavMesh 유효 지점을 뽑되,

@@ -9,22 +9,6 @@ public static class MapGenConstants
     public const int MaxCreatureCountOnSpawnRoom = 4; //한 방에서 생성될 수 있는 적의 최대 수.
 
 
-    ///Global SkillEnforcement Spawns
-    public const int MaxSkillPointItemCountOnStage = 20; //한 스테이지에서 생성될 수 있는 최대 스킬포인트.
-    public const int MaxSkillPointItemCountMultiplier = 2; //stageIndex = 5에서 최대 생성되는 스킬포인트 10개.
-    public const int MinSkillPointItemCountMultiplier = 1; //최소 5개.
-
-    ///
-    public const int MaxGunPropCountMultiplier = 5; //StageIndex = 5에서 생성되는 최대 총기 개수 25개.
-    public const int MinGunPropCountMultiplier = 4; //StageIndex = 4에서 생성되는 최소 총기 개수 20개.
-
-    ///Prop Indice
-    public const int GunPropIndex = 0; //Global Prop 컴포넌트에서 사용하는 총기 프롭의 Index.
-    public const int SkillPointItemIndex = 10;  //Global Prop 컴포넌트에서 사용하는 스킬포인트 아이템의 Index.
-    public const int NormalSpawnerPropIndex = 20;
-    public const int BigSpawnerPropIndex = 21;
-    public const int BombSpawnerPropIndex = 22;
-
     ///Max Enemy Count On a stage
     public const int MaxNormalCreatureCountLimitOnStage = 100; //스테이지 내 일반 적의 수의 리미트.
     public const int BaseMaxNormalCreatureCountOnStage = 80; //하나의 스테이지에 존재할 수 있는 일반 적의 최대 수.
@@ -37,13 +21,5 @@ public static class MapGenConstants
     public const int MaxBombCreatureCountLimitOnStage = 30; //스테이지 내 자폭형 적의 수의 리미트.
     public const int BaseMaxBombCreatureCountOnStage = 10; //하나의 스테이지에 존재할 수 있는 자폭형 적의 최대 수.
     public const int MaxBombCreatureCountOffsetByStage = 2; //스테이지마다 증가하는 존재가능한 자폭형 적의 최대 수.
-
-    ///Enemy Spawn Reference - Constants.
-    public const float MaxCreatureSpawnRadius = 70f;
-    public const float MinCreatureSpawnRadius = 25f;
-    public const float BaseEnemyTriggerCooldown = 10f;
-    public const float EnemyTriggerCooldownOffset = -0.1f;
-    public const float EnemyTriggerCooldownLimit = 5f;
-    public const float EnemyTriggerAngleFromPlayer = 90f;
 
 }

@@ -1100,7 +1100,7 @@ namespace Akila.FPSFramework
             // Apply default or custom decal
             if (defaultDecal != null)
             {
-                Debug.Log($"{hit.transform.gameObject.name}");
+                //Debug.Log($"{hit.transform.gameObject.name}");
                 Vector3 hitPoint = hit.point;
                 Quaternion decalRotation = FPSFrameworkCore.GetFromToRotation(hit, decalDirection);
                 GameObject decalInstance = Instantiate(defaultDecal, hitPoint, decalRotation);

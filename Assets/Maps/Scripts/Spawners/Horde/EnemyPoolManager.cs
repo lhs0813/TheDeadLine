@@ -26,7 +26,6 @@ public class EnemyPoolManager : MonoBehaviour
 
     private GameObject bigCreaturePrefab;
     private GameObject bombCreaturePrefab;
-    [SerializeField] private float corpseDisappearDuration;
 
     private void Awake()
     {
@@ -37,12 +36,11 @@ public class EnemyPoolManager : MonoBehaviour
         }
 
         Instance = this;
-        //DontDestroyOnLoad(gameObject);
     }
 
     private async void Start()
     {
-        InitializeSpawnLimits(1);
+        InitializeSpawnLimits();
         await InitializeEnemyPools();
     }
 
@@ -259,15 +257,19 @@ public class EnemyPoolManager : MonoBehaviour
     private Dictionary<EnemyType, int> currentCounts = new();
     private Dictionary<EnemyType, int> maxCounts = new();
 
-    public void InitializeSpawnLimits(int stageIndex)
+    public void InitializeSpawnLimits()
     {
         currentCounts[EnemyType.Normal] = 0;
         currentCounts[EnemyType.Big] = 0;
         currentCounts[EnemyType.Bomb] = 0;
 
-        maxCounts[EnemyType.Normal] = MapGenCalculator.GetMaxNormalCount(stageIndex);
-        maxCounts[EnemyType.Big] = MapGenCalculator.GetMaxBigCount(stageIndex);
-        maxCounts[EnemyType.Bomb] = MapGenCalculator.GetMaxBombCount(stageIndex);
+        // maxCounts[EnemyType.Normal] = MapGenCalculator.GetMaxNormalCount(stageIndex);
+        // maxCounts[EnemyType.Big] = MapGenCalculator.GetMaxBigCount(stageIndex);
+        // maxCounts[EnemyType.Bomb] = MapGenCalculator.GetMaxBombCount(stageIndex);
+
+        maxCounts[EnemyType.Normal] = MapGenConstants.MaxNormalCreatureCountLimitOnStage;
+        maxCounts[EnemyType.Big] = MapGenConstants.MaxBigCreatureCountLimitOnStage;
+        maxCounts[EnemyType.Bomb] = MapGenConstants.MaxBombCreatureCountLimitOnStage;
     }
     #endregion
 }

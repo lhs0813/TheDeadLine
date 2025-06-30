@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Akila.FPSFramework;
@@ -28,7 +29,7 @@ public class TrainController : MonoBehaviour
         trainSoundController = GetComponentInChildren<TrainSoundController>();
 
         GamePlayManager.instance.OnStationArriveAction += DisableAllLights;
-        ObjectiveManager.instance.OnFindFuseAction += ActivateLight;
+        GamePlayManager.instance.OnTrainAccelerationAction += TrainAcceleration;
         ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction += EnableAllLights;
     }
 
@@ -78,7 +79,7 @@ public class TrainController : MonoBehaviour
 
     IEnumerator TrainArriveCoroutine()
     {
-        DetachPlayer();
+        //DetachPlayer();
         isMoving = false;
         isStopping = false;
 
@@ -234,42 +235,50 @@ public class TrainController : MonoBehaviour
     }
 
 
-    public bool CheckEnemyInside()
+    // public bool CheckEnemyInside()
+    // {
+    //     // 1) 내부 존의 AABB와 회전을 이용해 겹치는 콜라이더 전부 수집
+    //     var b = trainInteriorZone.bounds;
+    //     Collider[] hits = Physics.OverlapBox(
+    //         b.center,
+    //         b.extents,
+    //         trainInteriorZone.transform.rotation,
+    //         LayerMask.GetMask("Monster")
+    //     );
+
+    //     bool isEnemyInside = false;
+    //     int enemyInsideCount = 0;
+
+    //     foreach (var col in hits)
+    //     {
+    //         EnemyIdentifier id;
+
+    //         if ((id = col.GetComponentInParent<EnemyIdentifier>()) != null)
+    //         {
+    //             id.transform.SetParent(trainTransform);
+    //             isEnemyInside = true;
+    //             enemyInsideCount++;
+    //         }
+    //     }
+
+    //     Debug.Log($"내부의 적 수 : {enemyInsideCount}");
+    //     return isEnemyInside;
+    // }
+
+    void OnTriggerEnter(Collider other)
     {
-        // 1) 내부 존의 AABB와 회전을 이용해 겹치는 콜라이더 전부 수집
-        var b = trainInteriorZone.bounds;
-        Collider[] hits = Physics.OverlapBox(
-            b.center,
-            b.extents,
-            trainInteriorZone.transform.rotation,
-            LayerMask.GetMask("Monster")
-        );
-
-        bool isEnemyInside = false;
-        int enemyInsideCount = 0;
-
-        foreach (var col in hits)
+        if (other.CompareTag("Player"))
         {
-            EnemyIdentifier id;
-
-            if ((id = col.GetComponentInParent<EnemyIdentifier>()) != null)
-            {
-                id.transform.SetParent(trainTransform);
-                isEnemyInside = true;
-                enemyInsideCount++;
-            }
+            GamePlayManager.instance.CheckDepart();
+            //other.transform.SetParent(trainTransform);
         }
-
-        Debug.Log($"내부의 적 수 : {enemyInsideCount}");
-        return isEnemyInside;
     }
 
-
-    void DetachPlayer()
+    public void TrainAcceleration(float f)
     {
-        FindAnyObjectByType<CharacterManager>().transform.SetParent(null);
+        trainSoundController.PlayTrainAccelerating();
     }
-
+    
     #region Light Controller.
 
     [SerializeField] List<Light> trainLights;
@@ -290,21 +299,12 @@ public class TrainController : MonoBehaviour
         }        
     }
 
-    void ActivateLight(int count)
-    {
-        if (count >= 1)
-        {
-            trainLights[count - 1].gameObject.SetActive(true);            
-        }
-
-    }
-
     #endregion
 
     void OnDisable()
     {
         GamePlayManager.instance.OnStationArriveAction -= DisableAllLights;
-        ObjectiveManager.instance.OnFindFuseAction -= ActivateLight;
+        GamePlayManager.instance.OnTrainAccelerationAction -= TrainAcceleration;
         ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction -= EnableAllLights;
     }
 }

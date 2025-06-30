@@ -9,7 +9,7 @@ public class DeadState : IZombieState
     public void Enter(ZombieBase zombie)
     {
         this._zombie = zombie;
-        Debug.Log($"{zombie.name} 사망 상태 시작");
+   
         _zombie.Animator.SetTrigger("ToDeath");
         _zombie.StopMovement();
         PlayRandomSound(_zombie.deathClips, loop: false);

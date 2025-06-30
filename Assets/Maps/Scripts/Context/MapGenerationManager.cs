@@ -47,7 +47,6 @@ public class MapGenerationManager : MonoBehaviour
 
         Instance = this;
         runtimeDungeon = GetComponent<RuntimeDungeon>();
-        //DontDestroyOnLoad(gameObject);
     }
 
     void Start()
