@@ -19,6 +19,7 @@ namespace Akila.FPSFramework.UI
         private CanvasGroup _canvasGroup;
         private bool _isOpen;
 
+        public UnityEvent OnOpen;
         public UnityEvent OnClose;
 
         // 외부에서 PauseMenuController가 넘겨줌
@@ -109,6 +110,7 @@ namespace Akila.FPSFramework.UI
         private IEnumerator ShowSettingsCoroutine()
         {
             _isOpen = true;
+            OnOpen?.Invoke();
 
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
