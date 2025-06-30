@@ -137,7 +137,7 @@ public class GamePlayManager : MonoBehaviour
 
         OnPreDepartAction?.Invoke();
 
-        StartCoroutine(PreDepartingCoroutine());
+        GoCombatEndState();
     }
 
     public void GoDangerState()
@@ -145,26 +145,24 @@ public class GamePlayManager : MonoBehaviour
         currentGameState = GameState.Danger;
 
         OnDangerAction?.Invoke();
-
-        StartCoroutine(DangerDepartingCoroutine());
     }
 
-    IEnumerator PreDepartingCoroutine()
-    {
-        // 문 닫고, 내부 적이 전부 사라질 때까지 대기
-        yield return new WaitUntil(() => !trainController.CheckEnemyInside());
+    // IEnumerator PreDepartingCoroutine()
+    // {
+    //     // // 문 닫고, 내부 적이 전부 사라질 때까지 대기
+    //     // yield return new WaitUntil(() => !trainController.CheckEnemyInside());
 
-        GoCombatEndState();
-    }
+    //     // GoCombatEndState();
+    // }
 
 
-    IEnumerator DangerDepartingCoroutine()
-    {
-        // 플레이어가 탑승할 때까지 대기
-        yield return new WaitUntil(() => trainController.CheckPlayerInside() && trainDepartability);
+    // IEnumerator DangerDepartingCoroutine()
+    // {
+    //     // 플레이어가 탑승할 때까지 대기
+    //     yield return new WaitUntil(() => trainController.CheckPlayerInside() && allFuseActivated);
 
-        GoPreDepartingState();
-    }
+    //     GoPreDepartingState();
+    // }
 
 
     /// <summary>
@@ -187,14 +185,14 @@ public class GamePlayManager : MonoBehaviour
 
     private void DisableTrainDepartable()
     {
-        trainDepartability = false;
+        allFuseActivated = false;
     }
 
     private void EnableTrainDepartable()
     {
-        trainDepartability = true;
+        allFuseActivated = true;
     }
-    [SerializeField] bool trainDepartability = true;
+    [SerializeField] bool allFuseActivated = true;
 
     #endregion
 
@@ -209,18 +207,20 @@ public class GamePlayManager : MonoBehaviour
 
         if (currentGameState == GameState.Combat && Timer >= nextNormalCombatEndTime)
         {
-            //플레이어가 안에 있고, 출발 가능한 상태. 
-            if (trainDepartability && trainController.CheckPlayerInside())
-            {
-                Debug.Log("플레이어가 안에 있음. PreDepart State");
-                //UI는 숨기고, 내부의 적이 다 처리될 때까지 기다림.
-                GoPreDepartingState();
-            }
-            else //플레이어가 도착하지 못함. or 출발불가상태.
-            {
-                Debug.Log("플레이어가 안에 없음. Danger State");
-                GoDangerState();
-            }
+            // //플레이어가 안에 있고, 출발 가능한 상태. 
+            // if (allFuseActivated && trainController.CheckPlayerInside())
+            // {
+            //     Debug.Log("플레이어가 안에 있음. PreDepart State");
+            //     //UI는 숨기고, 내부의 적이 다 처리될 때까지 기다림.
+            //     GoPreDepartingState();
+            // }
+            // else //플레이어가 도착하지 못함. or 출발불가상태.
+            // {
+            //     Debug.Log("플레이어가 안에 없음. Danger State");
+            //     GoDangerState();
+            // }
+
+            GoDangerState();
         }
     }
 
@@ -229,6 +229,25 @@ public class GamePlayManager : MonoBehaviour
         runtimeDungeon.Generator.OnGenerationComplete -= ChangeIsMapReady;
         ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction -= EnableTrainDepartable;
     }
+
+    #region Train Control Logics
+
+    /// <summary>
+    /// 플레이어가 탑승할때 조건 확인 후 출발.
+    /// </summary>
+    public void CheckDepart()
+    {
+        if (currentGameState == GameState.Danger || currentGameState == GameState.Combat) //전투중.
+        {
+            //1. 퓨즈 3개되면 즉시 
+            if (allFuseActivated)
+            {
+                GoPreDepartingState();
+            }
+        }
+    }
+
+    #endregion
 }
 
 

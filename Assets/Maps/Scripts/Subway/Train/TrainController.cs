@@ -78,7 +78,7 @@ public class TrainController : MonoBehaviour
 
     IEnumerator TrainArriveCoroutine()
     {
-        DetachPlayer();
+        //DetachPlayer();
         isMoving = false;
         isStopping = false;
 
@@ -262,6 +262,20 @@ public class TrainController : MonoBehaviour
 
         Debug.Log($"내부의 적 수 : {enemyInsideCount}");
         return isEnemyInside;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            GamePlayManager.instance.CheckDepart();
+            //other.transform.SetParent(trainTransform);
+        }
+    }
+
+    public void AttachPlayer()
+    {
+        FindAnyObjectByType<CharacterManager>().transform.SetParent(trainTransform);        
     }
 
 
