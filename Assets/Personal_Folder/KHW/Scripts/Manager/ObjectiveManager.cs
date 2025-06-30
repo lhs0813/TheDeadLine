@@ -32,10 +32,10 @@ public class ObjectiveManager : MonoBehaviour
     #region Fusefinding
 
     int currentFuseCounter;
-    int fuseCounterObjective = 3;
+    int fuseCounterObjective = 1;
 
     public Action OnStartFuseFindingObjectiveAction; //역 도착시 목표 시작을 알리는 액션.
-    public Action<int> OnFindFuseAction; //퓨즈를 찾을 때마다 호출되는 액션.
+    public Action<int, int> OnFindFuseAction; //퓨즈를 찾을 때마다 호출되는 액션.
     public Action OnStartReturnToTheTrainObjectiveAction; //퓨즈를 모두 찾았을 때 복귀를 알리는 액션.
     public Action OnDisableAllObjectiveAction; //열차 출발등, 목표 표시가 필요없을 때 호출되는 액션.
 
@@ -43,7 +43,8 @@ public class ObjectiveManager : MonoBehaviour
     {
         ResetFuseCounter();
 
-        OnFindFuseAction?.Invoke(currentFuseCounter);
+        fuseCounterObjective = GamePlayManager.instance.currentStageInfo.fuseCount;
+        OnFindFuseAction?.Invoke(currentFuseCounter, fuseCounterObjective);
         //UI 활성화 
     }
 
@@ -57,7 +58,7 @@ public class ObjectiveManager : MonoBehaviour
         }
         else
         {
-            OnFindFuseAction?.Invoke(currentFuseCounter); //UI 업데이트.
+            OnFindFuseAction?.Invoke(currentFuseCounter, fuseCounterObjective); //UI 업데이트.
         }
     }
 
