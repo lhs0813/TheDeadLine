@@ -7,6 +7,7 @@ public class PickableEffect : MonoBehaviour
 {
     public List<GameObject> effects;
     public List<Material> material;
+    public GameObject trail;
 
     void Start()
     {
