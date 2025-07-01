@@ -115,6 +115,9 @@ public class ChaseState : IZombieState
 
     private Vector3 CalculateTargetPosition(float angle, float distance, Vector3 predictedPosition)
     {
+        if (distance > 20f)
+            return _player.position;
+
         if (angle < 20f)
         {
             return (distance < 20f) ? _player.position : predictedPosition;

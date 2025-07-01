@@ -21,23 +21,18 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Tunnel_Lighted_Mat
-  m_Shader: {fileID: 4800000, guid: 71a090e9b5b488349913abe716bb7bc6, type: 3}
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _USE_AMBIENT_OVERRIDE
-  - _USE_POINT_FILTER_ON
-  m_InvalidKeywords:
-  - _EMISSION
-  - _NORMALMAP
-  - _SPECGLOSSMAP
   - _SPECULAR_SETUP
-  - _USE_AMBIENT_OVERRIDE_ON
-  m_LightmapFlags: 2
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
@@ -45,11 +40,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: afb2ce23ef66018408e97dfa300605dc, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: a38d3b07557a074468e62116017baa54, type: 3}
+        m_Scale: {x: 1, y: 20}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: b26c5edcdb10fdc45907710c61b9c150, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -69,8 +64,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: afb2ce23ef66018408e97dfa300605dc, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: a38d3b07557a074468e62116017baa54, type: 3}
+        m_Scale: {x: 1, y: 20}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -109,7 +104,7 @@ Material:
     - _AffineTextureStrength: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _AmbientLight: 0.02
+    - _AmbientLight: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
