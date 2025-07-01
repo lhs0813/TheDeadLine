@@ -13,8 +13,9 @@ public class PrefabsControl : MonoBehaviour
 
 
 
-    void Start()
+    void OnEnable()
     {
+        ActiveMeshRender();
         //InstPickables();
         // EraseMeshCollider();
     }
@@ -27,6 +28,16 @@ public class PrefabsControl : MonoBehaviour
             if (Input.GetKeyDown((KeyCode)i))            
                 Debug.Log(i - ((int)KeyCode.Alpha0));            
         }
+    }
+
+    void ActiveMeshRender()
+    {
+        var v = list[0].GetComponentsInChildren<MeshRenderer>(true);
+        for (int i = 0; i < v.Length; i++)
+            v[i].enabled=true;
+
+
+
     }
 
 
