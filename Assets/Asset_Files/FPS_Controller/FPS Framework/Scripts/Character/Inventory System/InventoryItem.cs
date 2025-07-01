@@ -82,7 +82,7 @@ namespace Akila.FPSFramework
         public InputAction item1;
         public InputAction item2;
         public InputAction item3;
-
+        public InputAction Scroll;
 
 
 
@@ -253,6 +253,7 @@ namespace Akila.FPSFramework
             item2 = characterInput.controls.Player.Item2;
             item3 = characterInput.controls.Player.Item3;
 
+            Scroll = characterInput.controls.Player.SwitchItem;
 
             playerObj = character.gameObject;
 
@@ -390,6 +391,7 @@ namespace Akila.FPSFramework
             item1.Disable();
             item2.Disable();
             item3.Disable();
+            Scroll.Disable();
         }
 
         void EnableCommand()
@@ -397,6 +399,7 @@ namespace Akila.FPSFramework
             item1.Enable();
             item2.Enable();
             item3.Enable();
+            Scroll.Enable();
         }
 
         public IEnumerator DropAnimationDelay(bool removeFromList = true)
@@ -413,16 +416,27 @@ namespace Akila.FPSFramework
             Animator _anim = GetComponentInChildren<Animator>();
             _anim.SetTrigger("Throw");
 
+
+
+
+
+
             /*force = Camera.main.transform.forward * inventory.dropForce;
             torque = Camera.main.transform.right * inventory.dropForce * 3;*/
 
             yield return new WaitForSeconds(0.5f);
 
+            Player_Manager.Instance.playerController.walkSpeed *= SkillEffectHandler.Instance.bonusMoveSpeed;
+            Player_Manager.Instance.playerController.sprintSpeed *= SkillEffectHandler.Instance.bonusMoveSpeed;
+
+            // 이 코드는 Player_Manager 내부에서 코루틴을 자기 자신으로 실행
+            Player_Manager.Instance.StartCoroutine(Player_Manager.Instance.SpeedReturn());
+
+
             Drop(removeFromList);
-
             isDropping = false;
-
             EnableCommand();
+
         }
 
 

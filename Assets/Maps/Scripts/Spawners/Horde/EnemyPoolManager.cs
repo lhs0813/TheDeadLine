@@ -10,7 +10,8 @@ public enum EnemyType
 {
     Normal,
     Big,
-    Bomb
+    Bomb,
+    Fast
 }
 
 public class EnemyPoolManager : MonoBehaviour
@@ -26,6 +27,8 @@ public class EnemyPoolManager : MonoBehaviour
 
     private GameObject bigCreaturePrefab;
     private GameObject bombCreaturePrefab;
+    private GameObject fastCreaturePrefab;
+
 
     private void Awake()
     {
@@ -51,6 +54,7 @@ public class EnemyPoolManager : MonoBehaviour
 
         await InitializeBigCreature();
         await InitializeBombCreature();
+        await InitializeFastCreature();
 
         // 1) 풀 생성
         enemyPools[EnemyType.Normal] = new ObjectPool<GameObject>(
@@ -58,7 +62,7 @@ public class EnemyPoolManager : MonoBehaviour
             null,
             ReleaseNormalCreature,
             DestroyNormalCreature,
-            defaultCapacity: MapGenConstants.MaxNormalCreatureCountLimitOnStage / 2,
+            defaultCapacity: MapGenConstants.MaxNormalCreatureCountLimitOnStage,
             maxSize: MapGenConstants.MaxNormalCreatureCountLimitOnStage
         );
 
@@ -67,8 +71,8 @@ public class EnemyPoolManager : MonoBehaviour
             null,
             ReleaseBigCreature,
             DestroyBigCreature,
-            defaultCapacity: MapGenConstants.MaxBigCreatureCountLimitOnStage / 2,
-            maxSize: MapGenConstants.MaxBigCreatureCountLimitOnStage
+            defaultCapacity: MapGenConstants.MaxBigCreatureCountLimitOnStage,
+            maxSize : MapGenConstants.MaxBigCreatureCountLimitOnStage
         );
 
         enemyPools[EnemyType.Bomb] = new ObjectPool<GameObject>(
@@ -76,9 +80,20 @@ public class EnemyPoolManager : MonoBehaviour
             null,
             ReleaseBombCreature,
             DestroyBombCreature,
-            defaultCapacity: MapGenConstants.MaxBombCreatureCountLimitOnStage / 2,
+            defaultCapacity: MapGenConstants.MaxBombCreatureCountLimitOnStage,
             maxSize: MapGenConstants.MaxBombCreatureCountLimitOnStage
         );
+
+        enemyPools[EnemyType.Fast] = new ObjectPool<GameObject>(
+            CreateFastCreature,
+            null,
+            ReleaseFastCreature,
+            DestroyFastCreature,
+            defaultCapacity: MapGenConstants.MaxFastCreatureCountLimitOnStage,
+            maxSize: MapGenConstants.MaxFastCreatureCountLimitOnStage
+        );
+
+
 
         // 2) 풀을 미리 채워두기 (Create → Release)
         InitializeEnemyPoolsObjects();
@@ -120,6 +135,16 @@ public class EnemyPoolManager : MonoBehaviour
             GameObject newBomb = CreateBombCreature();
             bombPool.Release(newBomb);
         }
+
+        // 4) Fast 타입 풀 채우기
+        int fastWarmCount = MapGenConstants.MaxFastCreatureCountLimitOnStage;
+        var fastPool = enemyPools[EnemyType.Fast];
+        for (int i = 0; i < fastWarmCount; i++)
+        {
+            GameObject newFast = CreateFastCreature();
+            fastPool.Release(newFast);
+        }
+        
     }
 
     #region ObjectPool Arguments - Normal Creature
@@ -138,7 +163,6 @@ public class EnemyPoolManager : MonoBehaviour
         return newObj;
     }
 
-    private void GetNormalCreature(GameObject obj) => obj.SetActive(true);
     private void ReleaseNormalCreature(GameObject obj) => obj.SetActive(false);
     private void DestroyNormalCreature(GameObject obj) => DestroyImmediate(obj);
     #endregion
@@ -157,7 +181,7 @@ public class EnemyPoolManager : MonoBehaviour
         return newObj;
     }
 
-    private void GetBigCreature(GameObject obj) => obj.SetActive(true);
+    
     private void ReleaseBigCreature(GameObject obj) => obj.SetActive(false);
     private void DestroyBigCreature(GameObject obj) => DestroyImmediate(obj);
     #endregion
@@ -165,7 +189,7 @@ public class EnemyPoolManager : MonoBehaviour
     #region ObjectPool Arguments - Bomb Creature
     private async Task InitializeBombCreature()
     {
-        var handle = Addressables.LoadAssetAsync<GameObject>("Enemy_Fast");
+        var handle = Addressables.LoadAssetAsync<GameObject>("Enemy_Bomb");
         bombCreaturePrefab = await handle.Task;
     }
 
@@ -176,9 +200,27 @@ public class EnemyPoolManager : MonoBehaviour
         return newObj;
     }
 
-    private void GetBombCreature(GameObject obj) => obj.SetActive(true);
     private void ReleaseBombCreature(GameObject obj) => obj.SetActive(false);
     private void DestroyBombCreature(GameObject obj) => DestroyImmediate(obj);
+    #endregion
+
+    #region ObjectPool Arguments - Big Creature
+    private async Task InitializeFastCreature()
+    {
+        var handle = Addressables.LoadAssetAsync<GameObject>("Enemy_Fast");
+        fastCreaturePrefab = await handle.Task;
+    }
+
+    private GameObject CreateFastCreature()
+    {
+        var newObj = Instantiate(bigCreaturePrefab, Vector3.zero, Quaternion.identity, EnemyContainer);
+        newObj.SetActive(false);
+        return newObj;
+    }
+
+    
+    private void ReleaseFastCreature(GameObject obj) => obj.SetActive(false);
+    private void DestroyFastCreature(GameObject obj) => DestroyImmediate(obj);
     #endregion
 
     #region Common Logics
@@ -201,10 +243,6 @@ public class EnemyPoolManager : MonoBehaviour
         //obj.transform.SetParent(spawnerTransform);
         obj.SetActive(true);
 
-        // 여기서 타입 정보를 설정
-
-
-
         currentCounts[type]++;
         activeEnemies.Add(obj);
         return obj;
@@ -214,7 +252,6 @@ public class EnemyPoolManager : MonoBehaviour
     public void ReturnToPool(EnemyType type, GameObject obj, float offset)
     {
         StartCoroutine(CorpseDisappearCoroutine(type, obj, offset));
-
     }
 
     IEnumerator CorpseDisappearCoroutine(EnemyType type, GameObject obj, float offset)
@@ -228,7 +265,6 @@ public class EnemyPoolManager : MonoBehaviour
         currentCounts[type] = Mathf.Max(0, currentCounts[type] - 1);
         enemyPools[type].Release(obj); // SetActive(false) 등 수행
         activeEnemies.Remove(obj);
-
     }
 
     
@@ -260,16 +296,15 @@ public class EnemyPoolManager : MonoBehaviour
     public void InitializeSpawnLimits()
     {
         currentCounts[EnemyType.Normal] = 0;
-        currentCounts[EnemyType.Big] = 0;
-        currentCounts[EnemyType.Bomb] = 0;
-
-        // maxCounts[EnemyType.Normal] = MapGenCalculator.GetMaxNormalCount(stageIndex);
-        // maxCounts[EnemyType.Big] = MapGenCalculator.GetMaxBigCount(stageIndex);
-        // maxCounts[EnemyType.Bomb] = MapGenCalculator.GetMaxBombCount(stageIndex);
+        currentCounts[EnemyType.Big]    = 0;
+        currentCounts[EnemyType.Bomb]   = 0;
+        currentCounts[EnemyType.Fast]   = 0;      // ← 추가
 
         maxCounts[EnemyType.Normal] = MapGenConstants.MaxNormalCreatureCountLimitOnStage;
-        maxCounts[EnemyType.Big] = MapGenConstants.MaxBigCreatureCountLimitOnStage;
-        maxCounts[EnemyType.Bomb] = MapGenConstants.MaxBombCreatureCountLimitOnStage;
+        maxCounts[EnemyType.Big]    = MapGenConstants.MaxBigCreatureCountLimitOnStage;
+        maxCounts[EnemyType.Bomb]   = MapGenConstants.MaxBombCreatureCountLimitOnStage;
+        maxCounts[EnemyType.Fast]   = MapGenConstants.MaxFastCreatureCountLimitOnStage;  // ← 추가
     }
+
     #endregion
 }

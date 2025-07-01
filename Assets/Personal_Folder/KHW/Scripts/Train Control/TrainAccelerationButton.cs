@@ -1,16 +1,23 @@
+using System;
+using DunGen;
 using UnityEngine;
 
 public class TrainAccelerationButton : MonoBehaviour
 {
     void Start()
     {
-        GamePlayManager.instance.OnStationDepartAction += EnableAccelerationButton;
+        MapGenerationManager.Instance.runtimeDungeon.Generator.OnGenerationComplete += EnableAccelerationButton;
         //GamePlayManager.instance.OnStationArriveAction +=
+    }
+
+    private void EnableAccelerationButton(DungeonGenerator generator)
+    {
+        GetComponent<BoxCollider>().enabled = true;
     }
 
     void EnableAccelerationButton(float f)
     {
-        GetComponent<BoxCollider>().enabled = true;
+
     }
 
     public void DisableAccelerationButton()
@@ -30,6 +37,6 @@ public class TrainAccelerationButton : MonoBehaviour
 
     void OnDisable()
     {
-        GamePlayManager.instance.OnStationDepartAction -= EnableAccelerationButton;
+        MapGenerationManager.Instance.runtimeDungeon.Generator.OnGenerationComplete -= EnableAccelerationButton;
     }
 }

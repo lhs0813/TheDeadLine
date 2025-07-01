@@ -35,8 +35,12 @@ namespace Akila.FPSFramework.UI
             base.OnEnable();
             rightButton?.onClick.AddListener(GoRight);
             leftButton?.onClick.AddListener(GoLeft);
-            // 처음 한 번 레이블에 기본값 표시
-            UpdateLabel();
+
+        }
+
+        protected override void Start()
+        {
+
         }
 
         protected override void OnDisable()

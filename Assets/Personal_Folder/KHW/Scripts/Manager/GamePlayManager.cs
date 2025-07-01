@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Threading.Tasks;
 using DunGen;
@@ -57,7 +57,7 @@ public class GamePlayManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    void Start()
+    async void Start()
     {
         trainController = FindAnyObjectByType<TrainController>();
         runtimeDungeon = FindAnyObjectByType<RuntimeDungeon>();
@@ -66,6 +66,9 @@ public class GamePlayManager : MonoBehaviour
         runtimeDungeon.Generator.OnGenerationComplete += ChangeIsMapReady;
         ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction += EnableTrainDepartable;
         newMapReady = false;
+
+        // 1) 무기 프리팹 미리 로드
+        await SpawnedGunBuilder.InitializeAsync();
 
         //선로에서 시작. 맵 로딩.
         GoWaitingState();

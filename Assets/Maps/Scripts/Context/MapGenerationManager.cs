@@ -33,7 +33,7 @@ public class MapGenerationManager : MonoBehaviour
 
     public MapContext currentMapContext;
 
-    RuntimeDungeon runtimeDungeon;
+    public RuntimeDungeon runtimeDungeon;
 
     public Action OnNavMeshBakeAction;
 
@@ -47,6 +47,7 @@ public class MapGenerationManager : MonoBehaviour
 
         Instance = this;
         runtimeDungeon = GetComponent<RuntimeDungeon>();
+
     }
 
     void Start()
