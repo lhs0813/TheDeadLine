@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public abstract class ZombieBase : MonoBehaviour, IZombie
 {
-    private Animator _anim;
+    [SerializeField] private Animator _anim;
     private int _walkIndex;
     private int _runIndex;
     private int _attackIndex;
