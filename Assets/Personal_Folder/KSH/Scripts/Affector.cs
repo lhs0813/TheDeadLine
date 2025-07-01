@@ -50,7 +50,8 @@ public class Affector : MonoBehaviour
     public float efDestroyTime=10;
     [Space(30)]
 
-    public static float damageMulti=1f;
+    public static float damageMulti = 1f;
+    public static float damageVariation = 15;
 
     public List<GameObject> hitted = new();//중복방지start
     bool hitFirstIgnoreCheck;

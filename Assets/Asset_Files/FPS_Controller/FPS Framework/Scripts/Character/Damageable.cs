@@ -4,6 +4,7 @@ using UnityEngine.Events;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace Akila.FPSFramework
 {
@@ -263,7 +264,12 @@ namespace Akila.FPSFramework
         {
             //적이 받는 데미지 전체 조정 
             if (type != HealthType.Player)
+            {
+                amount = (1 + UnityEngine.Random.Range(-Affector.damageVariation, Affector.damageVariation) / 100) * amount;
                 amount *= Affector.damageMulti;
+                }
+
+
 
             //방패판정 
             if (type == HealthType.Player)
