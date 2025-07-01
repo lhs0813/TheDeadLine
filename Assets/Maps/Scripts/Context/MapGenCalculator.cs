@@ -10,7 +10,7 @@ public static class MapGenCalculator
         int max = stageIndex * MapGenConstants.MaxCreatureCountOnSpawnRoomMultiplier;
 
         int clampedMax = Mathf.Min(max, MapGenConstants.MaxCreatureCountOnSpawnRoom);
-        return new IntRange(min, clampedMax + 1);
+        return new IntRange(1, clampedMax + 1);
     }
 
 
