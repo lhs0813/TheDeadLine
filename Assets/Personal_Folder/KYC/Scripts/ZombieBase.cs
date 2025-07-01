@@ -202,7 +202,11 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     //0616 김현우 수정 : 추적시작시 패턴 추가.
     public void SetNotBeDespawned() //추적을 시작한 적은 죽을때까지 강제회수되지 않음.
     {
-        identifier.wasTrackingPlayer = true;
+        if (identifier != null)
+        {
+            identifier.wasTrackingPlayer = true;            
+        }
+
     }
 
     protected virtual void Die()
