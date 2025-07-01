@@ -14,6 +14,7 @@ public class MapUIController : MonoBehaviour
 
     private void Start()
     {
+        UpdateUI();
         // Combat 끝났을 때 역 이름 갱신
         GamePlayManager.instance.OnPreDepartAction += UpdateStationNames;
 
