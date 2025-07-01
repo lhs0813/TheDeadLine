@@ -5,17 +5,17 @@ public static class MapGenConstants
     ///Room Creatures Spawn Constants
     public const int BaseCreatureCountOnSpawnRoom = 0;
     public const int MinCreatureCountOnSpawnRoomMultiplier = 1; //스폰 최소치 배율. stageIndex = 5라면 방마다 최소 10마리 생성.
-    public const int MaxCreatureCountOnSpawnRoomMultiplier = 2; //스폰 최대치 배율. stageIndex = 5라면 방마다 최대 15마리까지 생성.
-    public const int MaxCreatureCountOnSpawnRoom = 4; //한 방에서 생성될 수 있는 적의 최대 수.
+    public const int MaxCreatureCountOnSpawnRoomMultiplier = 3; //스폰 최대치 배율. stageIndex = 5라면 방마다 최대 15마리까지 생성.
+    public const int MaxCreatureCountOnSpawnRoom = 9; //한 방에서 생성될 수 있는 적의 최대 수.
 
 
     ///Max Enemy Count On a stage
-    public const int MaxNormalCreatureCountLimitOnStage = 40; //스테이지 내 일반 적의 수의 리미트.
+    public const int MaxNormalCreatureCountLimitOnStage = 80; //스테이지 내 일반 적의 수의 리미트.
 
     public const int MaxBigCreatureCountLimitOnStage = 10; //스테이지 내 거대 적의 수의 리미트.
 
-    public const int MaxBombCreatureCountLimitOnStage = 5; //스테이지 내 자폭형 적의 수의 리미트.
+    public const int MaxBombCreatureCountLimitOnStage = 10; //스테이지 내 자폭형 적의 수의 리미트.
 
-    public const int MaxFastCreatureCountLimitOnStage = 10;
+    public const int MaxFastCreatureCountLimitOnStage = 15;
 
 }

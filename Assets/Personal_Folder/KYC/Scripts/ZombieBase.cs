@@ -284,7 +284,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
                     return; // 회피 성공 시 데미지 무시
                 }
 
-                float baseDamage = 10f * SkillEffectHandler.Instance.damageReduction; // 데미지 감소 적용
+                float baseDamage = EnemyConstants.GetZombieDamageByType(identifier.Type, GamePlayManager.instance.currentMapIndex) * SkillEffectHandler.Instance.damageReduction; // 데미지 감소 적용
                 damageable.Damage(baseDamage, this.gameObject, false);
             }
             else

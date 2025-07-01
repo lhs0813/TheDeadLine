@@ -486,15 +486,27 @@ namespace Akila.FPSFramework
                 aimDownSightsSprayPattern.ResetMagnitude(ref currentSprayVelocity, ref currentSprayVelocity);
             }
 
-            if (characterManager.IsAlmostStopped() == false && !isAiming)
-            {
-                float multiplier = Mathf.Lerp(0.5f, 1, characterManager.velocity.magnitude / character.sprintSpeed);
+            // if (characterManager.IsAlmostStopped() == false && !isAiming)
+            // {
+            //     float multiplier = Mathf.Lerp(2f, 4, characterManager.velocity.magnitude / character.sprintSpeed);
 
-                currentSprayAmount = hipFireSprayPattern.totalAmount * multiplier;
+            //     currentSprayAmount = hipFireSprayPattern.totalAmount * multiplier;
+            // }
+            // else
+            // {
+            //     currentSprayAmount = Mathf.Lerp(hipFireSprayPattern.totalAmount * currentSprayMultiplier, aimDownSightsSprayPattern.totalAmount * currentSprayMultiplier, aimProgress);
+            // }
+            if (!isAiming)
+            {
+                currentSprayAmount = hipFireSprayPattern.totalAmount * currentSprayMultiplier;
             }
             else
             {
-                currentSprayAmount = Mathf.Lerp(hipFireSprayPattern.totalAmount * currentSprayMultiplier, aimDownSightsSprayPattern.totalAmount * currentSprayMultiplier, aimProgress);
+                // Blend between hip-fire and ADS based on aimProgress
+                currentSprayAmount = Mathf.Lerp(
+                    hipFireSprayPattern.totalAmount * currentSprayMultiplier,
+                    aimDownSightsSprayPattern.totalAmount * currentSprayMultiplier,
+                    aimProgress);
             }
         }
 
@@ -1060,7 +1072,7 @@ namespace Akila.FPSFramework
             // Handle damageable objects
             if (damageable != null && damageable.health > 0)
             {
-                float totalDamage = damage * damageMultiplier * Affector.damageMulti;
+                float totalDamage = damage * damageMultiplier ;
 
                 bool critical = false;
 
@@ -1069,7 +1081,7 @@ namespace Akila.FPSFramework
 
 
 
-                damageable.Damage(totalDamage * Affector.damageMulti , actor.gameObject, critical);
+                damageable.Damage(totalDamage , actor.gameObject, critical);
 
                 bool shouldHighlight = damageable.health <= 0; // 0616 이현수 0.3 곱 왜한지 몰라서 수정 체력 0이하일 때 킬 효과
 
