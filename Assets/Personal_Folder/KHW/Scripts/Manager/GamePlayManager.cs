@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Threading.Tasks;
 using DunGen;
@@ -29,7 +29,7 @@ public class GamePlayManager : MonoBehaviour
     public RuntimeDungeon runtimeDungeon;
     public TrainController trainController;
     [SerializeField] GamePlayManagementUI gamePlayManagementUI;
-    [SerializeField] BackgroundMusicController bgmController;
+    public BackgroundMusicController bgmController;
 
     [Header("State Checker")]
     public static float Timer;

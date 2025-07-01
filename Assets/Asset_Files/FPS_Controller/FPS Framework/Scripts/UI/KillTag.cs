@@ -58,7 +58,7 @@ namespace Akila.FPSFramework
             if (type == KillFeedTagType.Message && message)
             {
                 timer = time;
-                message.text = damage.ToString("F2");
+                message.text = (damage).ToString("F1");
                 message.color = color;
             }
             if (animator) animator.Play("Show", 0, 0);

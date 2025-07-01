@@ -38,9 +38,9 @@ public class ChaseState : IZombieState
         _lastCheckTime = Time.time;
         _lastChaseUpdateTime = Time.time;
 
-        _checkInterval = Random.Range(0.3f, 0.6f);
-        _chaseInterval = Random.Range(0.2f, 0.5f);
-        predictionTime = Random.Range(0.2f, 1.2f);
+        _checkInterval = Random.Range(0.2f, 0.4f);
+        _chaseInterval = Random.Range(0.2f, 0.4f);
+        predictionTime = Random.Range(0.6f, 1.0f);
 
         if (_zombie.UseRandomSpeed)
         {
