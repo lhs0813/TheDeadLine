@@ -546,15 +546,19 @@ namespace Akila.FPSFramework
             // Adjust player speed based on the current state
             if (isFiring)
             {
-                character.SetSpeed(preset.fireWalkPlayerSpeed);
+                character.SetSpeed(0.8f);
+                //character.SetSpeed(preset.fireWalkPlayerSpeed);
             }
             else if (isAiming)
             {
-                character.SetSpeed(preset.aimWalkPlayerSpeed);
+                character.SetSpeed(0.8f);
+                //character.SetSpeed(preset.aimWalkPlayerSpeed);
+
             }
             else
             {
-                character.SetSpeed(preset.basePlayerSpeed);
+                character.SetSpeed(1f);
+                //character.SetSpeed(preset.basePlayerSpeed);
             }
         }
 

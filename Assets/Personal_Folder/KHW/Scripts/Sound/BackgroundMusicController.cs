@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -62,9 +62,12 @@ public class BackgroundMusicController : MonoBehaviour
     /// <summary>
     /// 현재 재생 중인 음악을 페이드 아웃하며 중지합니다.
     /// </summary>
-    public void StopCombatMusic()
+    public void StopCombatMusic(float _fadeDuration = 5f)
     {
         if (!_audioSrc.isPlaying) return;
+
+        if (_fadeDuration != 5)
+            fadeDuration = _fadeDuration;
 
         if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
         _fadeCoroutine = StartCoroutine(FadeOutCoroutine(fadeDuration));
