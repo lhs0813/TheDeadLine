@@ -7,6 +7,7 @@ public class TrainAccelerationButton : MonoBehaviour
     void Start()
     {
         MapGenerationManager.Instance.runtimeDungeon.Generator.OnGenerationComplete += EnableAccelerationButton;
+        GetComponent<BoxCollider>().enabled = false;
         //GamePlayManager.instance.OnStationArriveAction +=
     }
 

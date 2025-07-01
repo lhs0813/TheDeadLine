@@ -540,6 +540,9 @@ namespace Akila.FPSFramework
             Destroy(newPickupable.GetComponent<Pickable>());
             Destroy(newPickupable.gameObject, 3);
 
+            //트레일
+            Instantiate(newPickupable.GetComponent<PickableEffect>().trail, newPickupable.transform);
+
             //이펙트 off
             if (newPickupable.GetComponent<PickableEffect>())
                 newPickupable.GetComponent<PickableEffect>().enabled = false;
@@ -556,6 +559,8 @@ namespace Akila.FPSFramework
             aff.checkTime = 99;
             aff.checkCycle = 0.05f;
             aff.hitEnrionment = false;
+
+
 
 
 

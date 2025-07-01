@@ -235,11 +235,11 @@ namespace Akila.FPSFramework
             }
             else
             {
-                /*// 풀용 오브젝트가 아니면 원래대로 Destroy
+
                 if (destoryOnDeath && !destroyRoot)
                     Destroy(gameObject, destroyDelay);
                 else if (destoryOnDeath && destroyRoot)
-                    Destroy(transform.parent.gameObject, destroyDelay);*/
+                    Destroy(transform.parent.gameObject, destroyDelay);
             }
 
             died = true;

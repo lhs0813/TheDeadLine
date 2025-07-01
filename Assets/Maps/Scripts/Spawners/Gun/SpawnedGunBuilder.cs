@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-public enum WeaponGrade { Normal, Rare, Epic, Legendary }
+public enum WeaponGrade { Rare, Epic, Legendary }
 
 /// <summary>
 /// 무기 등급별 확률 계산 및 프리팹 관리 최적화 버전
@@ -107,7 +107,7 @@ public static class SpawnedGunBuilder
             if (roll <= cumulative)
                 return grade;
         }
-        return WeaponGrade.Normal;
+        return WeaponGrade.Rare;
     }
 
     /// <summary>
