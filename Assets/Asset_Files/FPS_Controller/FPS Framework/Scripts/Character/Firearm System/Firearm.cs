@@ -486,15 +486,27 @@ namespace Akila.FPSFramework
                 aimDownSightsSprayPattern.ResetMagnitude(ref currentSprayVelocity, ref currentSprayVelocity);
             }
 
-            if (characterManager.IsAlmostStopped() == false && !isAiming)
-            {
-                float multiplier = Mathf.Lerp(0.5f, 1, characterManager.velocity.magnitude / character.sprintSpeed);
+            // if (characterManager.IsAlmostStopped() == false && !isAiming)
+            // {
+            //     float multiplier = Mathf.Lerp(2f, 4, characterManager.velocity.magnitude / character.sprintSpeed);
 
-                currentSprayAmount = hipFireSprayPattern.totalAmount * multiplier;
+            //     currentSprayAmount = hipFireSprayPattern.totalAmount * multiplier;
+            // }
+            // else
+            // {
+            //     currentSprayAmount = Mathf.Lerp(hipFireSprayPattern.totalAmount * currentSprayMultiplier, aimDownSightsSprayPattern.totalAmount * currentSprayMultiplier, aimProgress);
+            // }
+            if (!isAiming)
+            {
+                currentSprayAmount = hipFireSprayPattern.totalAmount * currentSprayMultiplier;
             }
             else
             {
-                currentSprayAmount = Mathf.Lerp(hipFireSprayPattern.totalAmount * currentSprayMultiplier, aimDownSightsSprayPattern.totalAmount * currentSprayMultiplier, aimProgress);
+                // Blend between hip-fire and ADS based on aimProgress
+                currentSprayAmount = Mathf.Lerp(
+                    hipFireSprayPattern.totalAmount * currentSprayMultiplier,
+                    aimDownSightsSprayPattern.totalAmount * currentSprayMultiplier,
+                    aimProgress);
             }
         }
 
