@@ -7,5 +7,6 @@ public class TutorialFuseTrigger : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         ObjectiveManager.instance.EnableFuseFindingObjective(0);
+        FindAnyObjectByType<TrainDoorController>().OpenDoor();
     }
 }
