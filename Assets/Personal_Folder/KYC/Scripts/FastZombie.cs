@@ -14,7 +14,7 @@
 
     protected override void OnEnable()
     {
-        maxHealth = EnemyConstants.fast_baseHP + EnemyConstants.fast_offset * GamePlayManager.instance.currentMapIndex;
+        maxHealth = EnemyConstants.GetZombieHPByType(EnemyType.Fast, GamePlayManager.instance.currentMapIndex);
         base.OnEnable();
     }
 
