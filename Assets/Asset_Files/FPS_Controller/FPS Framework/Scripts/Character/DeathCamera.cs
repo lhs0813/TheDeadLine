@@ -38,7 +38,7 @@ namespace Akila.FPSFramework
             _rigidbody = GetComponent<Rigidbody>();
             _dieBgm = GetComponent<AudioSource>();
 
-            _Inventory = Player_Manager.Instance.gameObject;
+            
 
 
             deathPanel.SetActive(false);
@@ -59,6 +59,8 @@ namespace Akila.FPSFramework
 
             Camera mainCam = Camera.main;
             if (mainCam == null) return;
+
+            _Inventory = Player_Manager.Instance.gameObject;
 
             transform.position = mainCam.transform.position;
             transform.rotation = mainCam.transform.rotation;

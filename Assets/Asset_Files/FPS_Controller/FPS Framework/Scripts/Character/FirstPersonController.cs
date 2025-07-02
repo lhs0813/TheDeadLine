@@ -372,7 +372,7 @@ namespace Akila.FPSFramework
 
         protected virtual void UpdateCameraRotation()
         {
-            if (Player_Hand.Instance._isCharging)
+            if (Player_Hand.Instance._isCharging || Player_Hand.Instance._isLever)
                 return;
 
             //Tablet 사용중 화면 회전 없음.
