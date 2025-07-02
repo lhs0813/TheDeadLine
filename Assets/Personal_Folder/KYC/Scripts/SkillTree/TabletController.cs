@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
+using System.Collections;
 
 public class TabletController : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class TabletController : MonoBehaviour
     public float verticalOffset = -0.2f;
     public Vector3 offsetRotation;
     public GameObject weaponUI;
+    public GameObject interactionHud;
+
+    private Animator _tabletAnimator;
 
     public AudioSource openSounds;
     public AudioSource closeSounds;
@@ -41,6 +45,8 @@ public class TabletController : MonoBehaviour
         interactionsManager = FindAnyObjectByType<InteractionsManager>();
         input = FindAnyObjectByType<CharacterInput>();
         _control = new Controls();
+        _tabletAnimator = tabletVisual.GetComponent<Animator>();
+        
     }
 
     void Update()
@@ -97,7 +103,11 @@ public class TabletController : MonoBehaviour
         tabletVisual.SetActive(true);
         openSounds.Play();
         if (weaponUI != null)
+        {
+            interactionHud.SetActive(false);
             weaponUI.SetActive(false);
+        }
+
 
 
         interactionsManager.isActive = false;
@@ -112,6 +122,15 @@ public class TabletController : MonoBehaviour
 
     void HideTablet()
     {
+        _tabletAnimator.SetTrigger("Off");
+
+        StartCoroutine(delayHide());
+    }
+
+    private IEnumerator delayHide()
+    {
+        yield return new WaitForSeconds(0.2f);
+
         //Deactivate ESC Control.
         _control.Disable();
 
@@ -121,12 +140,18 @@ public class TabletController : MonoBehaviour
         tabletVisual.SetActive(false);
         closeSounds.Play();
         if (weaponUI != null)
+        {
             weaponUI.SetActive(true);
+            interactionHud.SetActive(true);
+        }
+
 
 
         interactionsManager.isActive = true;
         DisableCursor();
     }
+
+
 
     void EnableCursor()
     {

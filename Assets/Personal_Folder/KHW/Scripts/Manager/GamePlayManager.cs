@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Threading.Tasks;
 using DunGen;
@@ -15,6 +15,7 @@ public enum GameState
     Departing
 }
 
+[DefaultExecutionOrder(-100)]
 public class GamePlayManager : MonoBehaviour
 {
     [Header("Current Stage Info && GameState")]
@@ -28,7 +29,7 @@ public class GamePlayManager : MonoBehaviour
     public RuntimeDungeon runtimeDungeon;
     public TrainController trainController;
     [SerializeField] GamePlayManagementUI gamePlayManagementUI;
-    [SerializeField] BackgroundMusicController bgmController;
+    public BackgroundMusicController bgmController;
 
     [Header("State Checker")]
     public static float Timer;
@@ -68,10 +69,11 @@ public class GamePlayManager : MonoBehaviour
         newMapReady = false;
 
         // 1) 무기 프리팹 미리 로드
+        currentMapIndex = 0;
         await SpawnedGunBuilder.InitializeAsync();
+        currentStageInfo = await GetStageInfoAsync(currentMapIndex);
 
-        //선로에서 시작. 맵 로딩.
-        GoWaitingState();
+        allFuseActivated = false;
     }
 
     private void ChangeIsMapReady(DungeonGenerator generator)
@@ -218,11 +220,11 @@ public class GamePlayManager : MonoBehaviour
         }
 
         if (currentGameState == GameState.Waiting && Timer >= nextWaitingEndtime && newMapReady)
-            {
-                GoStageEnteringState();
-            }
+        {
+            GoStageEnteringState();
+        }
 
-        if (currentGameState == GameState.Combat && Timer >= nextNormalCombatEndTime)
+        if (currentGameState == GameState.Combat && Timer >= nextNormalCombatEndTime && currentMapIndex != 0)
         {
             GoDangerState();
         }

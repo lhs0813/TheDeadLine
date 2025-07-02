@@ -31,6 +31,8 @@ public class TrainController : MonoBehaviour
         GamePlayManager.instance.OnStationArriveAction += DisableAllLights;
         GamePlayManager.instance.OnTrainAccelerationAction += TrainAcceleration;
         ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction += EnableAllLights;
+
+        trainDoorController.OpenDoor();
     }
 
     public void DoorClose()

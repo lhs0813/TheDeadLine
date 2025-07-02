@@ -39,7 +39,7 @@ public class ObjectiveManager : MonoBehaviour
     public Action OnStartReturnToTheTrainObjectiveAction; //퓨즈를 모두 찾았을 때 복귀를 알리는 액션.
     public Action OnDisableAllObjectiveAction; //열차 출발등, 목표 표시가 필요없을 때 호출되는 액션.
 
-    private void EnableFuseFindingObjective(float obj)
+    public void EnableFuseFindingObjective(float obj)
     {
         ResetFuseCounter();
 

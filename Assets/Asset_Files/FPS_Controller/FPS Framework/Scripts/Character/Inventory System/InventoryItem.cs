@@ -426,11 +426,15 @@ namespace Akila.FPSFramework
 
             yield return new WaitForSeconds(0.5f);
 
-            Player_Manager.Instance.playerController.walkSpeed *= SkillEffectHandler.Instance.bonusMoveSpeed;
-            Player_Manager.Instance.playerController.sprintSpeed *= SkillEffectHandler.Instance.bonusMoveSpeed;
+            if(SkillEffectHandler.Instance.bonusMoveSpeed != 1)
+            {
+                Player_Manager.Instance.playerController.walkSpeed *= SkillEffectHandler.Instance.bonusMoveSpeed;
+                Player_Manager.Instance.playerController.sprintSpeed *= SkillEffectHandler.Instance.bonusMoveSpeed;
 
-            // 이 코드는 Player_Manager 내부에서 코루틴을 자기 자신으로 실행
-            Player_Manager.Instance.StartCoroutine(Player_Manager.Instance.SpeedReturn());
+                // 이 코드는 Player_Manager 내부에서 코루틴을 자기 자신으로 실행
+                Player_Manager.Instance.StartCoroutine(Player_Manager.Instance.SpeedReturn());
+            }
+            
 
 
             Drop(removeFromList);

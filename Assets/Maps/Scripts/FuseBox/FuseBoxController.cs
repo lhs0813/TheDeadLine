@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FuseBoxController : MonoBehaviour
 {
-    void OnEnable()
+    void Start()
     {
         ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction += DisableFuse;
     }
