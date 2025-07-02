@@ -2,33 +2,82 @@ public static class EnemyConstants
 {
     #region HP points
 
-    public static float normal_baseHP = 25f;
-    public static float normal_offset = 25f;
-    public static float normal_baseDamage = 5f;
-    public static float normal_damageOffset = 5f;
+    // --- Normal Zombie ---
+    public const float normal_baseHP       = 25f;
+    // 9스테이지에서 500이 되도록 미리 계산한 계수
+    private static readonly float normal_hpOffset =
+        (500f - normal_baseHP) / (9f * 9f);
 
-    public static float big_baseHP = 400f;
-    public static float big_0ffset = 100f;
-    public static float big_baseDamage = 10f;
-    public static float big_damageOffset = 10f;
+    // --- Big Zombie ---
+    public const float big_baseHP          = 400f;
+    // 9스테이지에서 3000이 되도록 미리 계산한 계수
+    private static readonly float big_hpOffset =
+        (3000f - big_baseHP) / (9f * 9f);
 
-    public static float fast_baseHP = 25f;
-    public static float fast_offset = 15f;
-    public static float fast_baseDamage = 5f;
-    public static float fast_damageOffset = 5f;
+    // --- Fast Zombie ---
+    public const float fast_baseHP         = 25f;
+    // 9스테이지에서 300이 되도록 미리 계산한 계수
+    private static readonly float fast_hpOffset =
+        (300f - fast_baseHP) / (9f * 9f);
 
-    public static float bomb_baseHP = 40f;
-    public static float bomb_offset = 30f;
-    public static float bomb_baseDamage = 5f;
-    public static float bomb_damageOffset = 3f;
+    // --- Bomb Zombie ---
+    public const float bomb_baseHP         = 40f;
+    // 9스테이지에서 400이 되도록 미리 계산한 계수
+    private static readonly float bomb_hpOffset =
+        (400f - bomb_baseHP) / (9f * 9f);
+
+
+    /// <summary>
+    /// stage에 따라 HP를 계산합니다.
+    /// stage가 9면 각각 500, 1500, 300, 400이고,
+    /// 이후에도 stage² 곡선을 따라 무한히 증가합니다.
+    /// </summary>
+    public static float GetZombieHPByType(EnemyType enemyType, int stage)
+    {
+        float sq = stage * stage;
+        switch (enemyType)
+        {
+            case EnemyType.Normal:
+                return normal_baseHP + normal_hpOffset * sq;
+            case EnemyType.Big:
+                return big_baseHP + big_hpOffset * sq;
+            case EnemyType.Fast:
+                return fast_baseHP + fast_hpOffset * sq;
+            case EnemyType.Bomb:
+                return bomb_baseHP + bomb_hpOffset * sq;
+            default:
+                return 0f;
+        }
+    }
+
+    #endregion
+
+    #region Damage (unchanged)
+
+    public const float normal_baseDamage   = 5f;
+    public const float normal_damageOffset = 5f;
+    public const float big_baseDamage      = 10f;
+    public const float big_damageOffset    = 10f;
+    public const float fast_baseDamage     = 5f;
+    public const float fast_damageOffset   = 5f;
+    public const float bomb_baseDamage     = 5f;
+    public const float bomb_damageOffset   = 3f;
 
     public static float GetZombieDamageByType(EnemyType enemyType, int mapIndex)
     {
-        if (enemyType == EnemyType.Normal) return normal_baseDamage + mapIndex * normal_damageOffset;
-        if (enemyType == EnemyType.Big) return big_baseDamage + mapIndex * big_damageOffset;
-        if (enemyType == EnemyType.Fast) return fast_baseDamage + mapIndex * fast_damageOffset;
-
-        return 0;
+        switch (enemyType)
+        {
+            case EnemyType.Normal:
+                return normal_baseDamage + mapIndex * mapIndex * normal_damageOffset;
+            case EnemyType.Big:
+                return big_baseDamage + mapIndex * big_damageOffset;
+            case EnemyType.Fast:
+                return fast_baseDamage + mapIndex * fast_damageOffset;
+            case EnemyType.Bomb:
+                return bomb_baseDamage + mapIndex * mapIndex * bomb_damageOffset;
+            default:
+                return 0f;
+        }
     }
 
     #endregion
