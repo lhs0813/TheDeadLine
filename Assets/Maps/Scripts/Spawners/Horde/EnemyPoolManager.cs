@@ -213,7 +213,7 @@ public class EnemyPoolManager : MonoBehaviour
 
     private GameObject CreateFastCreature()
     {
-        var newObj = Instantiate(bigCreaturePrefab, Vector3.zero, Quaternion.identity, EnemyContainer);
+        var newObj = Instantiate(fastCreaturePrefab, Vector3.zero, Quaternion.identity, EnemyContainer);
         newObj.SetActive(false);
         return newObj;
     }

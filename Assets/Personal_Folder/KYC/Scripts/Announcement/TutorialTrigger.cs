@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class TutorialTrigger : MonoBehaviour
 {
     public string triggerID;
     private GameObject _uiToShow;
+    private Coroutine _hideCoroutine;
 
     private void Start()
     {
@@ -16,15 +18,16 @@ public class TutorialTrigger : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        if (_uiToShow != null)
-            _uiToShow.SetActive(true);
+        TutorialTriggerUIController.Instance.ShowUI(triggerID);
     }
 
-    private void OnTriggerExit(Collider other)
+    private IEnumerator HideUIAfterSeconds(float delay)
     {
-        if (!other.CompareTag("Player")) return;
+        yield return new WaitForSeconds(delay);
 
         if (_uiToShow != null)
             _uiToShow.SetActive(false);
     }
+
+    // OnTriggerExit 제거해도 됨
 }
