@@ -1,6 +1,7 @@
 ﻿using Akila.FPSFramework;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class Player_Hand : MonoBehaviour
 {
@@ -31,6 +32,12 @@ public class Player_Hand : MonoBehaviour
     public GameObject _leverPosition;
     public Vector3 leverPosition;
 
+    private GameObject _lever;
+
+    public AudioSource LeverSounds;
+    public AudioSource LeverSounds2;
+
+
     void Awake()
     {
         if (Instance == null)
@@ -46,6 +53,7 @@ public class Player_Hand : MonoBehaviour
         _playerCamera = _player.transform.GetChild(0).gameObject;
         _fpc = _player.GetComponent<FirstPersonController>();
         _playerDamagable = _player.GetComponent<Damageable>();
+        _lever = FindAnyObjectByType<TrainAccelerationButton>().transform.gameObject;
 
     }
 
@@ -86,7 +94,7 @@ public class Player_Hand : MonoBehaviour
     {
         if (_isLever)
         {
-            _playerCamera.transform.rotation = Quaternion.Euler(18.5f, 0, 0);
+            _playerCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
             _player.transform.position = _leverPosition.transform.position;
         }
 
@@ -96,10 +104,10 @@ public class Player_Hand : MonoBehaviour
             _player.transform.position = _Charge_Position.transform.position;
         }
 
-        
+
     }
 
-    
+
 
     IEnumerator ChargeCameraLock()
     {
@@ -133,7 +141,7 @@ public class Player_Hand : MonoBehaviour
         inventory.gameObject.SetActive(false);
         interactableHud.gameObject.SetActive(false);
 
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(2.5f);
 
         _isLever = false;
 
@@ -144,10 +152,21 @@ public class Player_Hand : MonoBehaviour
             _fpc.SetRotationAngles(NormalizeAngle(camEuler.x), NormalizeAngle(camEuler.y));
         }
 
-        
+
 
         inventory.gameObject.SetActive(true);
         interactableHud.gameObject.SetActive(true);
 
+    }
+
+    public void lever1()
+    {
+        _lever.GetComponent<Animator>().SetTrigger("On");
+        LeverSounds.Play();
+    }
+
+    public void lever2()
+    {
+        LeverSounds2.Play();
     }
 }
