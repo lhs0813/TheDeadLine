@@ -69,7 +69,7 @@ public class GamePlayManager : MonoBehaviour
         newMapReady = false;
 
         // 1) 무기 프리팹 미리 로드
-        currentMapIndex = 0;
+        //currentMapIndex = 0;
         await SpawnedGunBuilder.InitializeAsync();
         currentStageInfo = await GetStageInfoAsync(currentMapIndex);
 
@@ -111,6 +111,9 @@ public class GamePlayManager : MonoBehaviour
         //맵 정보 저장 및 생성.
         currentStageInfo = await GetStageInfoAsync(currentMapIndex);
         await MapGenerationManager.Instance.LoadMap(currentMapIndex);
+
+        //좀비 확률 설정.
+        HordeSpawnBuilder.SetSpawnWeights(currentMapIndex);
 
         OnStationDepartAction?.Invoke(waitingDuration);
 
