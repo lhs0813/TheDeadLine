@@ -233,7 +233,7 @@ namespace Akila.FPSFramework
             }
 
             GetComponent<TrainAccelerationButton>().UseAccelerationButton();
-
+            
             Player_Hand.Instance.Lever();
         }
 
