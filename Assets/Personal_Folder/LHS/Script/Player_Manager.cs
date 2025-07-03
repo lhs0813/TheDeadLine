@@ -20,6 +20,8 @@ public class Player_Manager : MonoBehaviour
 
     public AudioSource _bonusRunSounds;
 
+    public bool playerIsGod = true;
+
     private void Awake()
     {
         Instance = this;
