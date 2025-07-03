@@ -2849,6 +2849,8 @@ GameObject:
   - component: {fileID: 4327954035200056}
   - component: {fileID: 33424284299617484}
   - component: {fileID: 23235813252565762}
+  - component: {fileID: 1471189778452512033}
+  - component: {fileID: 1139815448691880772}
   m_Layer: 0
   m_Name: WideStandardCornHoleScreen
   m_TagString: Untagged
@@ -2866,8 +2868,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -25.43, y: 0.02, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4426668790461950}
   - {fileID: 4721250355757490}
@@ -2964,6 +2966,43 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1471189778452512033
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1842873525971478}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.0000012, y: 4.0892677, z: 2.6795666}
+  m_Center: {x: 0.000023305422, y: 2.0611565, z: 0.29903173}
+--- !u!208 &1139815448691880772
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1842873525971478}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.5000001, y: 2.045, z: 1.34}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 2.061, z: 0.29900002}
+  m_TimeToStationary: 0.5
 --- !u!1 &1868497901853710
 GameObject:
   m_ObjectHideFlags: 0

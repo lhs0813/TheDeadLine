@@ -785,6 +785,8 @@ GameObject:
   - component: {fileID: 4269454855064718}
   - component: {fileID: 33206406028962928}
   - component: {fileID: 23651921013802072}
+  - component: {fileID: 2719044487034690637}
+  - component: {fileID: 358149226207414454}
   m_Layer: 0
   m_Name: DriverRacerScreen
   m_TagString: Untagged
@@ -802,8 +804,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -13, y: 0, z: 1.79}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4573928206269596}
   - {fileID: 4493727283968962}
@@ -870,6 +872,43 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2719044487034690637
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981860115800392}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.2797549, y: 3.9999995, z: 5.5585303}
+  m_Center: {x: -0.06680681, y: 2.0256746, z: -0.21120302}
+--- !u!208 &358149226207414454
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981860115800392}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.6400001, y: 2, z: 2.779}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.067, y: 2.026, z: -0.21100001}
+  m_TimeToStationary: 0.5
 --- !u!1 &1989260857918648
 GameObject:
   m_ObjectHideFlags: 0
