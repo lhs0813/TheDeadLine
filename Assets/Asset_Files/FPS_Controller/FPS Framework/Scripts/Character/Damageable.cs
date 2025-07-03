@@ -203,13 +203,7 @@ namespace Akila.FPSFramework
         }
 
 
-        private IEnumerator DelayedLoad() // 사망시 메인메뉴 씬으로 돌아가는 시스템 - 이현수
-        {
-            yield return new WaitForSeconds(3f); // 3초 대기
-            Cursor.lockState = CursorLockMode.None;  // 마우스 잠금 해제
-            Cursor.visible = true;                   // 마우스 커서 보이게
-            SceneManager.LoadScene("Main Menu");
-        }
+        
         private void Die()
         {
             //---------0607 김현우 수정 : EnemyIdentifier 대응.
@@ -221,7 +215,7 @@ namespace Akila.FPSFramework
                 if (Actor.respawnable) Actor.deaths++;
                 if (damageSource) DeathCamera.Instance?.Enable(gameObject, damageSource);
 
-                StartCoroutine(DelayedLoad());
+                GamePlayManager.instance.StartCoroutine(GamePlayManager.instance.DelayedLoad());
             }
 
             if (ragdoll) ragdoll.Enable(damageDirection);
