@@ -44,6 +44,16 @@ namespace Akila.FPSFramework
         { 
             return bone;
         }
+        public bool GetHead()
+        { 
+            bool isHeadshot = false;
+
+            if (bone == HumanBodyBones.Head)
+            {
+                isHeadshot = true;
+            }
+            return (isHeadshot);
+        }
 
         public float GetDamageMultipler()
         {

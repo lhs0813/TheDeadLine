@@ -142,7 +142,7 @@ public class TabletController : MonoBehaviour
         if (weaponUI != null)
         {
             weaponUI.SetActive(true);
-            interactionHud.SetActive(true);
+            //interactionHud.SetActive(true); // 0703 이현수 태블릿  버그 수정.
         }
 
 
