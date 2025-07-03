@@ -135,7 +135,6 @@ namespace Akila.FPSFramework
                     if (apply) Apply(value);
                     selector.value = value;
                     carouselSelectorValue = value;
-                    selector.UpdateLabel();
                 }
                 else if (apply)
                     Apply(selector.value);
@@ -202,7 +201,10 @@ namespace Akila.FPSFramework
                 }
             }
 
-            Load();
+            //Load();
+            LoadAll(true);
+            SaveAll();
+            
         }
 
         public void Apply(float value)

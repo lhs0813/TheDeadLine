@@ -6,6 +6,7 @@ public class UI_Objective_Info : MonoBehaviour
 {
     [SerializeField] LocalizeStringEvent objectiveEvent;   // 하나만 연결
     [SerializeField] TextMeshProUGUI objectiveText;       // Disable용
+    [SerializeField] GameObject lineObj;
     [SerializeField] bool isActive;
 
     void Start()
@@ -30,14 +31,17 @@ public class UI_Objective_Info : MonoBehaviour
         if (!isActive)
         {
             objectiveText.gameObject.SetActive(true);
+            lineObj.SetActive(true);
             isActive = true;
         }
-       
+
         // 1) 키와 인자 바꾸기
         objectiveEvent.StringReference.TableEntryReference = "Objective_Find Fuse";
-        objectiveEvent.StringReference.Arguments = new object[]{ count, max };
+        objectiveEvent.StringReference.Arguments = new object[] { count, max };
         // 2) 즉시 갱신
         objectiveEvent.RefreshString();
+        
+        
     }
 
     void ShowReturnObjective()
@@ -45,6 +49,7 @@ public class UI_Objective_Info : MonoBehaviour
         if (!isActive)
         {
             objectiveText.gameObject.SetActive(true);
+            lineObj.SetActive(true);
             isActive = true;
         }
 
@@ -58,8 +63,10 @@ public class UI_Objective_Info : MonoBehaviour
         if (isActive)
         {
             isActive = false;
-            objectiveText.gameObject.SetActive(false);
         }
+
+        objectiveText.gameObject.SetActive(false);
+        lineObj.SetActive(false);
 
 
 
