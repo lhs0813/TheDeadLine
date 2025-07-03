@@ -86,7 +86,6 @@ namespace Akila.FPSFramework
                 hitmarkAudio?.PlayOneShot();
                 hitmarkAudioHead?.PlayOneShot();
             }
-
             else
                 hitmarkAudio?.PlayOneShot();
 
