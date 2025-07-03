@@ -33,6 +33,7 @@ public class TrainController : MonoBehaviour
         ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction += EnableAllLights;
 
         trainDoorController.OpenDoor();
+        DisableAllLights(0);
     }
 
     public void DoorClose()

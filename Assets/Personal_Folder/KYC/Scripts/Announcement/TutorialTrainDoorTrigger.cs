@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TutorialFuseTrigger : MonoBehaviour
+public class TutorialTrainDoorTrigger : MonoBehaviour
 {
     bool isAlreadyTriggered = false;
 
@@ -15,7 +15,7 @@ public class TutorialFuseTrigger : MonoBehaviour
 
         if (isAlreadyTriggered) return;
 
-        ObjectiveManager.instance.EnableFuseFindingObjective(0);
-        isAlreadyTriggered = true;
+
+        FindAnyObjectByType<TrainDoorController>().OpenDoor();
     }
 }
