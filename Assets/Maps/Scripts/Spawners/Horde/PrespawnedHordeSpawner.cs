@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DunGen;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -30,7 +31,10 @@ public class PrespawnedHordeSpawner : MonoBehaviour
         );
 
         if (spawnPoints.Count == 0)
-            Debug.LogError("[HordeSpawner] 유효 스폰 포인트를 하나도 찾지 못했습니다!");
+        {
+            Debug.LogError($"[HordeSpawner] 유효 스폰 포인트를 하나도 찾지 못했습니다! {GetComponentInParent<Tile>().gameObject.name}");
+        }
+
     }
 
     /// <summary>

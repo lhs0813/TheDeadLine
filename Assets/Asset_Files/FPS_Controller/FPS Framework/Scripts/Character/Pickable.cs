@@ -232,13 +232,17 @@ namespace Akila.FPSFramework
                 return;
             }
 
-            GetComponent<TrainAccelerationButton>().UseAccelerationButton();          
+            GetComponent<TrainAccelerationButton>().UseAccelerationButton();
+            
+            Player_Hand.Instance.Lever();
         }
 
         public object[] GetInteractionArguments()
         {
             return null;
         }
+
+
     }
 
     public enum PickableType
@@ -249,6 +253,6 @@ namespace Akila.FPSFramework
         DataChip = 3,
         FuseBox = 4,
         ReCharge = 5,
-        AccelerationButton = 6
+        AccelerationButton = 6,
     }
 }

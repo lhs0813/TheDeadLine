@@ -19,8 +19,8 @@ MonoBehaviour:
     Max: 9
   BranchMode: 0
   BranchCount:
-    Min: 1
-    Max: 5
+    Min: 30
+    Max: 40
   GlobalProps:
   - ID: 20
     Count:
@@ -43,7 +43,7 @@ MonoBehaviour:
       Min: 7
       Max: 8
   KeyManager: {fileID: 0}
-  DoorwayConnectionChance: 1
+  DoorwayConnectionChance: 0.511
   RestrictConnectionToSameSection: 0
   TileInjectionRules: []
   TileTagConnectionMode: 1
@@ -52,11 +52,7 @@ MonoBehaviour:
       id: 0
     TagB:
       id: 0
-  - TagA:
-      id: 1
-    TagB:
-      id: 1
-  BranchTagPruneMode: 1
+  BranchTagPruneMode: 0
   BranchPruneTags: []
   Nodes:
   - Graph: {fileID: 11400000}
@@ -91,7 +87,14 @@ MonoBehaviour:
     DungeonArchetypes:
     - {fileID: 11400000, guid: dbeef31d761391a4e880fce6c7c203d6, type: 2}
     Position: 0
-    Length: 1
+    Length: 0.43240222
+    Keys: []
+    Locks: []
+  - Graph: {fileID: 11400000}
+    DungeonArchetypes:
+    - {fileID: 11400000, guid: 229bef3ecc9bd064baa058ce7258e941, type: 2}
+    Position: 0.43240222
+    Length: 0.56759775
     Keys: []
     Locks: []
   currentFileVersion: 1

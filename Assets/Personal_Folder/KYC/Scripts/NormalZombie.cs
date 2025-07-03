@@ -12,7 +12,7 @@ public class NormalZombie : ZombieBase
 
     protected override void OnEnable()
     {
-        maxHealth = EnemyConstants.normal_baseHP + EnemyConstants.normal_offset * GamePlayManager.instance.currentMapIndex;
+        maxHealth = EnemyConstants.GetZombieHPByType(EnemyType.Normal, GamePlayManager.instance.currentMapIndex);
         base.OnEnable();
     }
 
