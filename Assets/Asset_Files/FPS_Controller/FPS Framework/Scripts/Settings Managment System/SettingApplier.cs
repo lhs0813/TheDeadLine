@@ -135,6 +135,7 @@ namespace Akila.FPSFramework
                     if (apply) Apply(value);
                     selector.value = value;
                     carouselSelectorValue = value;
+                    selector.UpdateLabel();
                 }
                 else if (apply)
                     Apply(selector.value);

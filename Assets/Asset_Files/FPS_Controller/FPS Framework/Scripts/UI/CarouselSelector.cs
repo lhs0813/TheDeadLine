@@ -35,7 +35,7 @@ namespace Akila.FPSFramework.UI
             base.OnEnable();
             rightButton?.onClick.AddListener(GoRight);
             leftButton?.onClick.AddListener(GoLeft);
-
+            UpdateLabel();
         }
 
         protected override void Start()
@@ -81,7 +81,7 @@ namespace Akila.FPSFramework.UI
             onValueChange?.Invoke(value);
         }
 
-        private void UpdateLabel()
+        public void UpdateLabel()
         {
             if(!LocalizationNeeded)
             {

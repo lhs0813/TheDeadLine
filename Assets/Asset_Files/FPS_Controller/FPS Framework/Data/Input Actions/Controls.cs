@@ -347,7 +347,7 @@ namespace Akila.FPSFramework
                 {
                     ""name"": """",
                     ""id"": ""191a173e-9115-4fa9-8c25-f6ea9a65a6dc"",
-                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -849,7 +849,7 @@ namespace Akila.FPSFramework
                 {
                     ""name"": """",
                     ""id"": ""9bbafeb7-0348-4120-be7c-b56e7699ff0d"",
-                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
