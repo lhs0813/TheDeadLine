@@ -16,4 +16,9 @@
         maxHealth = EnemyConstants.GetZombieHPByType(EnemyType.Big, GamePlayManager.instance.currentMapIndex);
         base.OnEnable();
     }
+
+    private void OnDisable()
+    {
+        transform.localPosition = UnityEngine.Vector3.zero;
+    }
 }

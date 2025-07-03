@@ -103,37 +103,37 @@ namespace Akila.FPSFramework
 
         }
 
-        const string LanguageKey = "Settings/LanguageIndex";
+        // const string LanguageKey = "Settings/LanguageIndex";
 
-        public override void OnStart()
-        {
-            base.OnStart();
+        // public override void OnStart()
+        // {
+        //     base.OnStart();
 
-            // 1) 저장된 값이 있으면 불러와 적용
-            if (SaveSystem.HasKey(LanguageKey))
-            {
-                int saved = SaveSystem.Load<int>(LanguageKey);
-                SaveSystem.Save<int>(LanguageKey, saved);
-                SetLanguage(saved);
-                Debug.Log($"Loaded locale index {saved}");
-                return;
-            }
-            else
-            {
-                // 2) 없으면 시스템 로케일로 자동 선택
-                string iso = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;  // "ko","en" 등
-                var locales = LocalizationSettings.AvailableLocales.Locales;
-                int idx = locales.FindIndex(l => l.Identifier.Code == iso);
-                if (idx < 0) idx = 0;  // fallback to first
+        //     // 1) 저장된 값이 있으면 불러와 적용
+        //     if (SaveSystem.HasKey(LanguageKey))
+        //     {
+        //         int saved = SaveSystem.Load<int>(LanguageKey);
+        //         SaveSystem.Save<int>(LanguageKey, saved);
+        //         SetLanguage(saved);
+        //         Debug.Log($"Loaded locale index {saved}");
+        //         return;
+        //     }
+        //     else
+        //     {
+        //         // 2) 없으면 시스템 로케일로 자동 선택
+        //         string iso = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;  // "ko","en" 등
+        //         var locales = LocalizationSettings.AvailableLocales.Locales;
+        //         int idx = locales.FindIndex(l => l.Identifier.Code == iso);
+        //         if (idx < 0) idx = 0;  // fallback to first
 
-                SetLanguage(idx);
-                Debug.Log($"Auto-selected locale index {idx}");
+        //         SetLanguage(idx);
+        //         Debug.Log($"Auto-selected locale index {idx}");
                 
-                SaveSystem.Save<int>(LanguageKey, idx);
-            }
+        //         SaveSystem.Save<int>(LanguageKey, idx);
+        //     }
 
 
 
-        }
+        // }
     }
 }
