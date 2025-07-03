@@ -1078,7 +1078,8 @@ namespace Akila.FPSFramework
             {
                 float totalDamage = damage * damageMultiplier ;
 
-                bool critical = false;
+                bool critical = damageableGroup.GetHead();
+
 
                 /*if (damageMultiplier > 2)
                     critical = true;*/
@@ -1096,7 +1097,7 @@ namespace Akila.FPSFramework
                     if (uiManager != null)
                     {
                         Hitmarker hitmarker = uiManager.Hitmarker;
-                        hitmarker?.Show(shouldHighlight);
+                        hitmarker?.Show(shouldHighlight,critical);
                     }
                 }
             }

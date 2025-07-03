@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +12,8 @@ namespace Akila.FPSFramework
         public IDamageable GetDamageable();
         public HumanBodyBones GetBone();
         public float GetDamageMultipler();
+        public bool GetHead();
+
         public string uniqueID { get; }
     }
 }
