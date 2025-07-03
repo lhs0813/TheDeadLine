@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Threading.Tasks;
+using Akila.FPSFramework;
 using DunGen;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -231,6 +233,15 @@ public class GamePlayManager : MonoBehaviour
         {
             GoDangerState();
         }
+    }
+
+    public IEnumerator DelayedLoad() // 사망시 메인메뉴 씬으로 돌아가는 시스템 - 이현수
+    {
+        UIManager.Instance.gameObject.SetActive(false);
+        yield return new WaitForSeconds(5.5f); // 3초 대기
+        Cursor.lockState = CursorLockMode.None;  // 마우스 잠금 해제
+        Cursor.visible = true;                   // 마우스 커서 보이게
+        SceneManager.LoadScene("Main_Menu");
     }
 
     void OnDisable()

@@ -3,6 +3,7 @@ using System;
 using Akila.FPSFramework;
 using System.Collections;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class Player_Manager : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class Player_Manager : MonoBehaviour
     public float MaxHealth;
 
     public AudioSource _bonusRunSounds;
+
+    public bool playerIsGod = true;
 
     private void Awake()
     {
@@ -99,8 +102,6 @@ public class Player_Manager : MonoBehaviour
         // 보정
         cam.m_Lens.FieldOfView = to;
     }
-
-
 
 }
 
