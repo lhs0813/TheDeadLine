@@ -168,7 +168,9 @@ public class GamePlayManager : MonoBehaviour
     public void GoFirstCombatState()
     {
         currentGameState = GameState.Combat;
-        nextNormalCombatEndTime = Timer + currentStageInfo.combatTime;        
+        nextNormalCombatEndTime = Timer + currentStageInfo.combatTime;   
+
+        OnStationArriveAction?.Invoke(currentStageInfo.combatTime);     
     }
 
     public void GoPreDepartingState()
