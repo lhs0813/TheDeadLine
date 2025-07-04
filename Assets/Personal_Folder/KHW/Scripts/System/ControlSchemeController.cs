@@ -7,8 +7,7 @@ public class InputSchemeManager : MonoBehaviour
 {
     public enum InputScheme
     {
-        Keyboard,
-        Mouse,
+        KeyboardAndMouse,
         Gamepad
     }
 
@@ -20,11 +19,11 @@ public class InputSchemeManager : MonoBehaviour
         Other
     }
 
-    public static InputScheme CurrentScheme { get; private set; } = InputScheme.Mouse;
-    public static GamepadType CurrentGamepadType { get; private set; } = GamepadType.None;
+    public static InputScheme CurrentScheme { get; private set; } = InputScheme.KeyboardAndMouse;
+    public static GamepadType   CurrentGamepadType { get; private set; } = GamepadType.None;
 
-    public static event Action<InputScheme> OnSchemeChanged;
-    public static event Action<GamepadType> OnGamepadTypeChanged;
+    public static event Action<InputScheme>   OnSchemeChanged;
+    public static event Action<GamepadType>   OnGamepadTypeChanged;
 
     private static InputSchemeManager _instance;
 
@@ -39,7 +38,7 @@ public class InputSchemeManager : MonoBehaviour
         // DontDestroyOnLoad(gameObject);
     }
 
-    void Update()
+    private void Update()
     {
         // 1) 스킴 감지
         var newScheme = DetectScheme();
@@ -69,17 +68,20 @@ public class InputSchemeManager : MonoBehaviour
 
     private InputScheme DetectScheme()
     {
+        // -- Keyboard or Mouse both map to KeyboardAndMouse --
         if (Mouse.current != null)
         {
-            if (Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f ||
+            var delta = Mouse.current.delta.ReadValue().sqrMagnitude;
+            if (delta > 0.01f ||
                 Mouse.current.leftButton.wasPressedThisFrame ||
                 Mouse.current.rightButton.wasPressedThisFrame)
-                return InputScheme.Mouse;
+                return InputScheme.KeyboardAndMouse;
         }
 
         if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
-            return InputScheme.Keyboard;
+            return InputScheme.KeyboardAndMouse;
 
+        // -- Gamepad stays as before --
         if (Gamepad.current != null)
         {
             var g = Gamepad.current;
@@ -90,6 +92,7 @@ public class InputSchemeManager : MonoBehaviour
                 return InputScheme.Gamepad;
         }
 
+        // otherwise keep whatever we had
         return CurrentScheme;
     }
 
@@ -105,9 +108,9 @@ public class InputSchemeManager : MonoBehaviour
 
         // 그 외엔 대체로 XInput 기반 Xbox 패드
         var desc = g.description;
-        if (desc.interfaceName != null && desc.interfaceName.Contains("XInput"))
+        if (!string.IsNullOrEmpty(desc.interfaceName) && desc.interfaceName.Contains("XInput"))
             return GamepadType.Xbox;
-        if (desc.product != null && desc.product.ToLower().Contains("xbox"))
+        if (!string.IsNullOrEmpty(desc.product) && desc.product.ToLower().Contains("xbox"))
             return GamepadType.Xbox;
 
         // 알 수 없는 패드
