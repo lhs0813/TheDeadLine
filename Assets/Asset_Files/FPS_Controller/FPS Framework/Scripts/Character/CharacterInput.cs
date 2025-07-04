@@ -161,6 +161,7 @@ namespace Akila.FPSFramework
 
             Vector2 lookInput = new Vector2();
 
+
             //Find the main camera if it's null only.
             mainCamera = Camera.main;
 
