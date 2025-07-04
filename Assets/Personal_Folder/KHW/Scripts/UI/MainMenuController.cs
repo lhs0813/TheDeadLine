@@ -10,6 +10,8 @@ public class MainMenuController : MonoBehaviour
     void Start()
     {
         InputSchemeManager.OnSchemeChanged += ManageInputType;
+
+        Time.timeScale = 1f;
     }
 
     private void ManageInputType(InputSchemeManager.InputScheme scheme)
