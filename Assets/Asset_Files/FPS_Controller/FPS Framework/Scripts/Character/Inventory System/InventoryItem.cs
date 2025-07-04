@@ -208,6 +208,8 @@ namespace Akila.FPSFramework
 
         private float defaultAimingTime;
 
+        private bool _ThrowcanhitEnemy;
+
         /// <summary>
         /// Sets up the item and assigns the replacement item.
         /// </summary>
@@ -434,10 +436,12 @@ namespace Akila.FPSFramework
                 // 이 코드는 Player_Manager 내부에서 코루틴을 자기 자신으로 실행
                 Player_Manager.Instance.StartCoroutine(Player_Manager.Instance.SpeedReturn());
             }
-            
 
+            _ThrowcanhitEnemy = true;
 
             Drop(removeFromList);
+
+
             isDropping = false;
             EnableCommand();
 
@@ -551,18 +555,20 @@ namespace Akila.FPSFramework
             newPickupable.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 
 
-            //투척 공격 
-            var aff = newPickupable.gameObject.AddComponent<Affector>();
-            aff.damage= 9999; 
-            aff.hitCount = 1 + SkillEffectHandler.Instance.throwHitMore;
 
-            aff.checkTime = 99;
-            aff.checkCycle = 0.05f;
-            aff.hitEnrionment = false;
+            if (_ThrowcanhitEnemy) // 던지기 안하고 무기 교체시 -> 공격판정 없음.
+            {
+                //투척 공격 
+                var aff = newPickupable.gameObject.AddComponent<Affector>();
+                aff.damage = 9999;
+                aff.hitCount = 1 + SkillEffectHandler.Instance.throwHitMore;
 
+                aff.checkTime = 99;
+                aff.checkCycle = 0.05f;
+                aff.hitEnrionment = false;
+            }
 
-
-
+            _ThrowcanhitEnemy = false;
 
             // Remove the current item from the inventory list if specified.
             if (removeFromList) inventory.items.Remove(this);

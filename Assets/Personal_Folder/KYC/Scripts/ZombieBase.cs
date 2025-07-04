@@ -262,6 +262,9 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     }
     public void DamageTiming()
     {
+        if (Player_Manager.Instance.playerIsGod) // 이현수 수정 플레이어 무적 관리
+            return;
+
         // 플레이어 오브젝트 확인
         GameObject playerObj = GameObject.FindWithTag("Player");
         if (playerObj == null) return;

@@ -14,6 +14,7 @@ namespace Akila.FPSFramework
         public Color normal = Color.white;
         public Color highlight = Color.red;
         public AudioProfile hitmarkerSound;
+        public AudioProfile hitmarkerSoundHead;
 
         [Header("Movement")]
         public float maxSize = 20;
@@ -25,6 +26,8 @@ namespace Akila.FPSFramework
 
         private float fadeTimer;
         private Audio hitmarkAudio;
+        private Audio hitmarkAudioHead;
+
 
         private void Awake()
         {
@@ -38,6 +41,9 @@ namespace Akila.FPSFramework
             {
                 hitmarkAudio = new Audio();
                 hitmarkAudio.Setup(this, hitmarkerSound);
+
+                hitmarkAudioHead = new Audio();
+                hitmarkAudioHead.Setup(this, hitmarkerSoundHead);
             }
         }
 
@@ -55,7 +61,7 @@ namespace Akila.FPSFramework
                 Disable();
         }
 
-        public void Show(bool highlight)
+        public void Show(bool highlight ,bool Critical = false)
         {
             if (highlight)
             {
@@ -75,7 +81,16 @@ namespace Akila.FPSFramework
             hitmakerObject.alpha = 1;
             fadeTimer = fadeDelay;
 
-            hitmarkAudio?.PlayOneShot();
+            if (Critical)
+            {
+                hitmarkAudio?.PlayOneShot();
+                hitmarkAudioHead?.PlayOneShot();
+            }
+            else
+                hitmarkAudio?.PlayOneShot();
+
+
+
 
             ApplyMovement();
         }
