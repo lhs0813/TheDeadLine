@@ -165,6 +165,12 @@ public class GamePlayManager : MonoBehaviour
         OnStationArriveAction?.Invoke(currentStageInfo.combatTime);
     }
 
+    public void GoFirstCombatState()
+    {
+        currentGameState = GameState.Combat;
+        nextNormalCombatEndTime = Timer + currentStageInfo.combatTime;        
+    }
+
     public void GoPreDepartingState()
     {
         currentGameState = GameState.PreDeparting;
@@ -229,7 +235,7 @@ public class GamePlayManager : MonoBehaviour
             GoStageEnteringState();
         }
 
-        if (currentGameState == GameState.Combat && Timer >= nextNormalCombatEndTime && currentMapIndex != 0)
+        if (currentGameState == GameState.Combat && Timer >= nextNormalCombatEndTime)
         {
             GoDangerState();
         }

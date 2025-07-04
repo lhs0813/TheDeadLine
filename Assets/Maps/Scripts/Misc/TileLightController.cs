@@ -17,7 +17,7 @@ public class TileLightController : MonoBehaviour
     {
         foreach (var light in GetComponentsInChildren<Light>())
         {
-            light.intensity = 0;
+            light.color = Color.red;
         }
     }
 }
