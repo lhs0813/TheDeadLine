@@ -189,6 +189,8 @@ public class GamePlayManager : MonoBehaviour
     {
         currentGameState = GameState.Danger;
 
+        bgmController.PlayRandomDangerMusic();
+
         OnDangerAction?.Invoke();
     }
 
