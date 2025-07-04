@@ -201,7 +201,10 @@ namespace Akila.FPSFramework
                 }
             }
 
-            Load();
+            //Load();
+            LoadAll(true);
+            SaveAll();
+            
         }
 
         public void Apply(float value)

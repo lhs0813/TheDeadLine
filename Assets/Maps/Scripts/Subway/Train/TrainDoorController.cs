@@ -1,7 +1,8 @@
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Collections;
 
 public class TrainDoorController : MonoBehaviour
 {
@@ -32,6 +33,14 @@ public class TrainDoorController : MonoBehaviour
         {
             door.SetTrigger(DoorOpenTriggerHash);
         }
+        StartCoroutine(godMode());
+    }
+
+    IEnumerator godMode()
+    {
+        yield return new WaitForSeconds(1.0f);
+        Player_Manager.Instance.playerIsGod = false;
+        
     }
 
     public void CloseDoor()
@@ -42,5 +51,6 @@ public class TrainDoorController : MonoBehaviour
         {
             door.SetTrigger(DoorCloseTriggerHash);
         }
+        Player_Manager.Instance.playerIsGod = true;
     }
 }
