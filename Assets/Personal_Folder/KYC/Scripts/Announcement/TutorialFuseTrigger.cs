@@ -16,7 +16,7 @@ public class TutorialFuseTrigger : MonoBehaviour
         if (isAlreadyTriggered) return;
 
         GamePlayManager.instance.GoFirstCombatState();
-        //ObjectiveManager.instance.EnableFuseFindingObjective(0);
+        ObjectiveManager.instance.EnableFuseFindingObjective(0);
         isAlreadyTriggered = true;
     }
 }
