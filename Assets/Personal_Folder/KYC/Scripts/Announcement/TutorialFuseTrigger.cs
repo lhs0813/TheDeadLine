@@ -15,8 +15,8 @@ public class TutorialFuseTrigger : MonoBehaviour
 
         if (isAlreadyTriggered) return;
 
+        GamePlayManager.instance.GoFirstCombatState();
         ObjectiveManager.instance.EnableFuseFindingObjective(0);
-        FindAnyObjectByType<TrainDoorController>().OpenDoor();
         isAlreadyTriggered = true;
     }
 }

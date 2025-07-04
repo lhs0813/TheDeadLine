@@ -121,17 +121,31 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 3427443039211795932}
   options:
-  - Setting_Language_Language_English
-  - Setting_Language_Language_Korean
+  - English
+  - "\uD55C\uAD6D\uC5B4"
+  - "\u65E5\u672C\u8A9E"
+  - "\u4E2D\u6587"
   value: 0
   label: {fileID: 3427443039211795932}
   rightButton: {fileID: 8148316344428023419}
   leftButton: {fileID: 9059031759359552385}
   onValueChange:
     m_PersistentCalls:
-      m_Calls: []
-  localizeLabelEvent: {fileID: 7855815168294461228}
-  LocalizationNeeded: 1
+      m_Calls:
+      - m_Target: {fileID: 2134437267271310555}
+        m_TargetAssemblyTypeName: Akila.FPSFramework.UI.CarouselSelector, Assembly-CSharp
+        m_MethodName: UpdateLabel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  localizeLabelEvent: {fileID: 0}
+  LocalizationNeeded: 0
 --- !u!1 &142736478741297745
 GameObject:
   m_ObjectHideFlags: 0
@@ -3492,7 +3506,6 @@ GameObject:
   - component: {fileID: 4375457019040646322}
   - component: {fileID: 4933742173329195528}
   - component: {fileID: 3427443039211795932}
-  - component: {fileID: 7855815168294461228}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -3547,7 +3560,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: English
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 790be7b8145daa943be2636a4f480af6, type: 2}
   m_sharedMaterial: {fileID: 6277740771308484127, guid: 790be7b8145daa943be2636a4f480af6,
@@ -3619,46 +3632,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &7855815168294461228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1322476556418382496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_StringReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:b94aa6514d1638240a3a37e5532daf4c
-    m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: Setting_Language_Language_English
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  m_FormatArguments: []
-  m_UpdateString:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3427443039211795932}
-        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
-        m_MethodName: set_text
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-  references:
-    version: 2
-    RefIds: []
 --- !u!1 &1511286522062019143
 GameObject:
   m_ObjectHideFlags: 0
@@ -3762,6 +3735,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settingsMenuActivateTime: 0.4
+  OnOpen:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2134437267271310555}
+        m_TargetAssemblyTypeName: Akila.FPSFramework.UI.CarouselSelector, Assembly-CSharp
+        m_MethodName: UpdateLabel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   OnClose:
     m_PersistentCalls:
       m_Calls:

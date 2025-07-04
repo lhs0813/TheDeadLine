@@ -1,7 +1,9 @@
 ﻿using Akila.FPSFramework;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.XR;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Player_Hand : MonoBehaviour
 {
@@ -37,6 +39,9 @@ public class Player_Hand : MonoBehaviour
     public AudioSource LeverSounds;
     public AudioSource LeverSounds2;
 
+    public CharacterInput input; 
+
+    public InputAction tablet;
 
     void Awake()
     {
@@ -44,6 +49,8 @@ public class Player_Hand : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+
+        
     }
 
     void Start()
@@ -55,11 +62,16 @@ public class Player_Hand : MonoBehaviour
         _playerDamagable = _player.GetComponent<Damageable>();
         _lever = FindAnyObjectByType<TrainAccelerationButton>().transform.gameObject;
 
+
+        input = FindAnyObjectByType<CharacterInput>();
+
+        tablet = input.controls.Player.UseTablet;
     }
 
 
     public void Charge()
     {
+        tablet.Disable();
         _playerHandAnim.SetTrigger("Charge");
 
         _startPosition = _player.transform.position;
@@ -79,6 +91,7 @@ public class Player_Hand : MonoBehaviour
 
     public void Lever()
     {
+        tablet.Disable();
         _playerHandAnim.SetTrigger("Lever");
 
         _startPosition = _player.transform.position;
@@ -134,6 +147,7 @@ public class Player_Hand : MonoBehaviour
 
         inventory.gameObject.SetActive(true);
         interactableHud.gameObject.SetActive(true);
+        tablet.Enable();
     }
 
     IEnumerator leverCameraLock()
@@ -156,6 +170,7 @@ public class Player_Hand : MonoBehaviour
 
         inventory.gameObject.SetActive(true);
         interactableHud.gameObject.SetActive(true);
+        tablet.Enable();
 
     }
 

@@ -46,7 +46,7 @@ namespace Akila.FPSFramework
             interactAudio = new Audio();
 
             if (defaultInteractAudio != null)
-               currentInteractAudioClip = defaultInteractAudio.audioClip;
+                currentInteractAudioClip = defaultInteractAudio.audioClip;
 
             interactAudio.Setup(this, defaultInteractAudio);
         }
@@ -164,6 +164,11 @@ namespace Akila.FPSFramework
             {
                 Debug.LogError("Please install 'FPS Framework: Multiplayer Edition' before trying to network your components.");
             }
+        }
+
+        void OnDisable()
+        {
+            controls.Player.Disable();            
         }
 #endif
     }
