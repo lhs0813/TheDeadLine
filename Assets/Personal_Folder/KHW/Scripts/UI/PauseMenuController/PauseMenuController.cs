@@ -95,6 +95,8 @@ namespace Akila.FPSFramework.UI
         {
             _controls.UI.Pause.performed -= OnPausePerformed;
             _controls.Disable();
+
+            FPSFrameworkCore.IsPaused = false;
         }
 
         private void OnPausePerformed(InputAction.CallbackContext ctx)
@@ -203,17 +205,19 @@ namespace Akila.FPSFramework.UI
             // 2) _isOpen 은 그대로 true
             //    Time.timeScale 도 그대로 0 유지
         }
-        
+
         public void ShowPauseUIOnly()
         {
             // 인터랙션 복원
-            canvasGroup.interactable   = true;
+            canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
             // 언스케일드 페이드 인 코루틴 호출하거나 즉시
             canvasGroup.alpha = 1f;
         }
 
     }
+    
+    
     
 
 }
