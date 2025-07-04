@@ -1,115 +1,130 @@
-﻿// MainSceneController.cs
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
-/// 타이틀 화면 진입 시 연출을 담당하는 컨트롤러
+/// 타이틀 화면 연출 컨트롤러
 /// - 지하철 감속
-/// - 브레이크 사운드 재생
-/// - 도어 오픈 애니메이션
-/// - 타이틀 UI 페이드 인
+/// - 브레이크 사운드
+/// - 도어 열림 애니메이션
+/// - UI 페이드 인
 /// </summary>
 public class MainSceneController : MonoBehaviour
 {
     [Header("Subway Settings")]
-    public SubwayMovement subwayMovement;      // SubwayMovement 컴포넌트 참조
-    public float initialSpeed = 10f;          // 시작 속도
+    public SubwayMovement subwayMovement;
+    public float initialSpeed = 10f;
     [Tooltip("감속에 걸릴 시간 (초)")]
     public float decelerationTime = 3f;
 
     [Header("Audio")]
     public AudioSource audioSource;
-    public AudioClip brakeSound;             // 브레이크(감속) 사운드
+    public AudioClip brakeSound;
     public AudioClip doorOpenSound;
 
     [Header("BGM")]
-    public AudioSource bgmAudioSource;    // 배경 음악 전용 AudioSource
+    public AudioSource bgmAudioSource;
     public AudioClip titleBGM;
     [Tooltip("타이틀 BGM 페이드인 시간 (초)")]
     public float bgmFadeInTime = 2f;
 
     [Header("Door")]
-    public Animator[] doorAnimators;          // 도어 애니메이터
-    public string openTriggerName = "Open"; // 도어 열기 트리거 이름
-    [Tooltip("도어 오픈 애니메이션 재생 대기 시간 (초)")]
+    public Animator[] doorAnimators;
+    public string openTriggerName = "Open";
     public float doorOpenDuration = 2f;
-    [Tooltip("각 UI 요소가 페이드인에 걸리는 시간")]
-    public float uiFadeDuration = 0.5f;
+
     [Header("UI")]
-    public CanvasGroup titleUI;              // 로고 + Start 버튼이 포함된 CanvasGroup
-    [Header("Title UI Elements")]
+    public CanvasGroup titleUI;
     public GameObject logoImage;
-    public GameObject[] buttons; // Start, Options, Exit 등
+    public GameObject[] buttons;
     public float buttonAppearDelay = 0.2f;
-    void Start()
+    public float uiFadeDuration = 0.5f;
+
+    // 캐싱용
+    private WaitForSeconds waitAfterDoor;
+    private WaitForSeconds buttonDelay;
+    private Dictionary<GameObject, CanvasGroup> buttonCanvasGroups = new();
+
+    void Awake()
     {
-        // 지하철 시작 속도 설정
-        if (subwayMovement != null)
-            subwayMovement.SetSpeed(initialSpeed);
+        waitAfterDoor = new WaitForSeconds(doorOpenDuration);
+        buttonDelay = new WaitForSeconds(buttonAppearDelay);
 
-        // 타이틀 UI 비활성화
-        titleUI.alpha = 0f;
-        titleUI.interactable = titleUI.blocksRaycasts = false;
-        // 버튼과 로고는 처음엔 꺼두고 알파도 0으로
-        if (logoImage != null)
-        {
-            var cg = logoImage.GetComponent<CanvasGroup>();
-            if (cg != null) cg.alpha = 0f;
-            logoImage.SetActive(false);
-        }
-
+        // 버튼별 CanvasGroup 캐싱
         foreach (var btn in buttons)
         {
             if (btn != null)
             {
                 var cg = btn.GetComponent<CanvasGroup>();
-                if (cg != null) cg.alpha = 0f;
-                btn.SetActive(false);
+                if (cg != null)
+                {
+                    buttonCanvasGroups[btn] = cg;
+                }
             }
-            // 연출 코루틴 시작
-            StartCoroutine(PlayIntroSequence());
         }
+    }
+
+    void Start()
+    {
+        // 초기 세팅
+        if (subwayMovement != null)
+            subwayMovement.SetSpeed(initialSpeed);
+
+        titleUI.alpha = 0f;
+        titleUI.interactable = titleUI.blocksRaycasts = false;
+
+        if (logoImage != null)
+        {
+            var cg = logoImage.GetComponent<CanvasGroup>();
+            if (cg != null)
+            {
+                cg.alpha = 0f;
+                cg.interactable = cg.blocksRaycasts = false;
+                logoImage.SetActive(true);
+            }
+        }
+
+        foreach (var kvp in buttonCanvasGroups)
+        {
+            kvp.Value.alpha = 0f;
+            kvp.Value.interactable = kvp.Value.blocksRaycasts = false;
+            kvp.Key.SetActive(true); // 미리 켜둠
+        }
+
+        StartCoroutine(PlayIntroSequence());
     }
 
     private IEnumerator PlayIntroSequence()
     {
-        // 1) 감속 사운드 재생
+        // 1) 감속 사운드
         if (audioSource != null && brakeSound != null)
             audioSource.PlayOneShot(brakeSound);
 
-        // 2) decelerationTime 동안 속도 선형 감속
+        // 2) 감속
         float elapsed = 0f;
         while (elapsed < decelerationTime)
         {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / decelerationTime);
-            float currentSpeed = Mathf.Lerp(initialSpeed, 0f, t);
             if (subwayMovement != null)
-                subwayMovement.SetSpeed(currentSpeed);
-
+                subwayMovement.SetSpeed(Mathf.Lerp(initialSpeed, 0f, t));
             yield return null;
         }
 
-        // 완전 정지
         if (subwayMovement != null)
         {
             subwayMovement.SetSpeed(0f);
             subwayMovement.enabled = false;
         }
-        else
-        {
-            Debug.LogError("SubwayMovement 컴포넌트가 할당되지 않았습니다!");
-        }
 
         yield return new WaitForSeconds(0.5f);
 
-        // 3) 도어 열기 트리거
+        // 3) 도어 애니메이션
         foreach (var anim in doorAnimators)
             if (anim != null)
                 anim.SetTrigger(openTriggerName);
 
-        // 4) 도어 오픈 사운드 재생 & 페이드 아웃
         if (audioSource != null && doorOpenSound != null)
         {
             audioSource.clip = doorOpenSound;
@@ -118,10 +133,9 @@ public class MainSceneController : MonoBehaviour
             StartCoroutine(FadeAudio(audioSource, doorOpenDuration));
         }
 
-        // 4) 도어 애니메이션 대기
-        yield return new WaitForSeconds(doorOpenDuration);
+        yield return waitAfterDoor;
 
-        // 5) 타이틀 BGM 페이드인
+        // 4) BGM 시작
         if (bgmAudioSource != null && titleBGM != null)
         {
             bgmAudioSource.clip = titleBGM;
@@ -130,73 +144,38 @@ public class MainSceneController : MonoBehaviour
             StartCoroutine(FadeAudioTo(bgmAudioSource, bgmFadeInTime, 1f));
         }
 
-        // 6) 타이틀 UI 페이드 인
+        // 5) UI 페이드 인
         StartCoroutine(FadeInTitleUI());
     }
 
-    // 브레이크/도어 사운드 페이드아웃
-    private IEnumerator FadeAudio(AudioSource src, float duration)
-    {
-        float startVol = src.volume;
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            src.volume = Mathf.Lerp(startVol, 0f, elapsed / duration);
-            yield return null;
-        }
-        src.volume = 0f;
-    }
-
-    // BGM 페이드인
-    public IEnumerator FadeAudioTo(AudioSource src, float duration, float targetVolume)
-    {
-        float startVol = src.volume;
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            src.volume = Mathf.Lerp(startVol, targetVolume, elapsed / duration);
-            yield return null;
-        }
-        src.volume = targetVolume;
-    }
-
-    public IEnumerator FadeInTitleUI()
+    private IEnumerator FadeInTitleUI()
     {
         titleUI.alpha = 1f;
         titleUI.interactable = titleUI.blocksRaycasts = true;
 
-        // 1. 로고 페이드 인
+        // 로고 페이드 인
         if (logoImage != null)
         {
-            CanvasGroup logoCanvas = logoImage.GetComponent<CanvasGroup>();
-            if (logoCanvas != null)
+            var cg = logoImage.GetComponent<CanvasGroup>();
+            if (cg != null)
             {
-                logoCanvas.alpha = 0f;
-                logoImage.SetActive(true);
-                yield return StartCoroutine(FadeCanvasGroup(logoCanvas, 1.1f, 1f));
+                cg.alpha = 0f;
+                cg.interactable = cg.blocksRaycasts = true;
+                yield return StartCoroutine(FadeCanvasGroup(cg, 1.1f, 1f));
             }
         }
 
-        yield return new WaitForSeconds(0.01f); // 로고가 다 뜬 뒤 약간 기다림
+        yield return new WaitForSeconds(0.01f);
 
-        // 2. 버튼들 하나씩 페이드 인
-        foreach (var btn in buttons)
+        // 버튼들 병렬 페이드 인
+        foreach (var kvp in buttonCanvasGroups)
         {
-            if (btn != null)
-            {
-                CanvasGroup cg = btn.GetComponent<CanvasGroup>();
-                if (cg != null)
-                {
-                    cg.alpha = 0f;
-                    btn.SetActive(true);
-                    yield return StartCoroutine(FadeCanvasGroup(cg, uiFadeDuration, 1f));
-                    yield return new WaitForSeconds(buttonAppearDelay);
-                }
-            }
+            kvp.Value.interactable = kvp.Value.blocksRaycasts = true;
+            StartCoroutine(FadeCanvasGroup(kvp.Value, uiFadeDuration, 1f));
+            yield return buttonDelay; // 간격 유지
         }
     }
+
     private IEnumerator FadeCanvasGroup(CanvasGroup group, float duration, float targetAlpha)
     {
         float startAlpha = group.alpha;
@@ -211,7 +190,34 @@ public class MainSceneController : MonoBehaviour
 
         group.alpha = targetAlpha;
     }
+
+    private IEnumerator FadeAudio(AudioSource src, float duration)
+    {
+        float startVol = src.volume;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            src.volume = Mathf.Lerp(startVol, 0f, elapsed / duration);
+            yield return null;
+        }
+
+        src.volume = 0f;
+    }
+
+    public IEnumerator FadeAudioTo(AudioSource src, float duration, float targetVolume)
+    {
+        float startVol = src.volume;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            src.volume = Mathf.Lerp(startVol, targetVolume, elapsed / duration);
+            yield return null;
+        }
+
+        src.volume = targetVolume;
+    }
 }
-
-
-
