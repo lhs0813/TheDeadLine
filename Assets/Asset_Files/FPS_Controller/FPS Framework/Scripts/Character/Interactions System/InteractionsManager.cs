@@ -168,7 +168,12 @@ namespace Akila.FPSFramework
 
         void OnDisable()
         {
-            controls.Player.Disable();            
+                      
+        }
+
+        private void OnDestroy()
+        {
+            controls.Player.Disable();
         }
 #endif
     }

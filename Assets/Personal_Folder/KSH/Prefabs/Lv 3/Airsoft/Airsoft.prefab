@@ -648,6 +648,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: -4}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!114 &6051137835100913241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1190,6 +1191,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: 11.49}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!1 &2526575107052462789
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,6 +1669,7 @@ MonoBehaviour:
   rotation: {x: 11.1, y: -16.49, z: 28.2}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!114 &9001477475855263339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1922,7 +1925,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Airsoft Gun
   gunImage: {fileID: 21300000, guid: ad9609874d252f844a1c9c466bddffc1, type: 3}
-  grade: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 0.50980395}
+  item1:
+    m_Name: Item 1
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: f7579516-8950-4254-a942-fb14216454b5
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  item2:
+    m_Name: Item 2
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 2e2c91f3-a393-4b6f-a8b0-b11eaa4f115d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  item3:
+    m_Name: Item 3
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: c7c8140f-e1f8-49ce-9ef6-d99aeed0a40f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  Scroll:
+    m_Name: Scroll
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: edabe099-ea2b-4429-8714-c303c6e67f5e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   OnDropStart:
     m_PersistentCalls:
       m_Calls: []
@@ -1930,6 +1968,8 @@ MonoBehaviour:
   muzzle: {fileID: 7470466804449063755}
   handLeftWeapon: {fileID: 6957777894491163968}
   handRight: {fileID: 1842231967758506708}
+  gradeNum: 0
+  gradeColor: []
   casingEjectionPort: {fileID: 0}
   chamberingEffects: {fileID: 0}
   events:
@@ -2492,6 +2532,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: 0}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!1 &3947097740525675282
 GameObject:
   m_ObjectHideFlags: 0
@@ -3130,6 +3171,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: 15}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!1 &5021104879997388243
 GameObject:
   m_ObjectHideFlags: 0
@@ -3264,6 +3306,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: -15}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!1 &5350680642323544031
 GameObject:
   m_ObjectHideFlags: 0
@@ -3397,6 +3440,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: 25}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!1 &5397215450128036986
 GameObject:
   m_ObjectHideFlags: 0
@@ -4329,6 +4373,7 @@ MonoBehaviour:
   rotation: {x: -1.84, y: -33.4, z: 29.36}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!114 &284853825562941397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4863,6 +4908,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: 0}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!1 &7251695781739805619
 GameObject:
   m_ObjectHideFlags: 0
@@ -5025,6 +5071,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: -25}
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0.1}
 --- !u!1 &7772018844815101923
 GameObject:
   m_ObjectHideFlags: 0
