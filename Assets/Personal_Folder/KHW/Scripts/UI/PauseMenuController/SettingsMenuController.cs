@@ -39,6 +39,8 @@ namespace Akila.FPSFramework.UI
             _canvasGroup.interactable = false;
             _canvasGroup.blocksRaycasts = false;
             _isOpen = false;
+
+            
         }
 
         /// <summary>
@@ -62,9 +64,9 @@ namespace Akila.FPSFramework.UI
             {
                 EventSystem.current.SetSelectedGameObject(firstUIObj);
             }
-            else if (scheme == InputSchemeManager.InputScheme.Keyboard || scheme == InputSchemeManager.InputScheme.Mouse)
+            else
             {
-                //
+                
             }
         }
 
