@@ -51,7 +51,8 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
     [Header("Procedual Zombie")]
     public Material[] materials;
-    
+    public GameObject hatSpace;
+    public GameObject[] hats;
 
     protected IZombieState currentState;
     protected UnityEngine.AI.NavMeshAgent agent;
@@ -65,6 +66,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
     //0612 이현수 수정 자식 데미저블 그룹 가져오기
     DamageableGroup[] damageableGroups;
+    
 
     protected virtual void Awake()
     {
@@ -131,7 +133,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         _anim.SetFloat("attackIndex", _attackIndex);
         _anim.SetFloat("deathIndex", _deathIndex);
 
-        Debug.Log("좀비 이름: " + gameObject.name);
+        #region 일반 절차적 좀비 설정
         if (gameObject.name == "Zombie_Normal")
         {
             Transform target = transform.Find("Zombie_Mesh");
@@ -141,7 +143,20 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
                 Material randomMat = materials[Random.Range(0, materials.Length)];
                 renderer.material = randomMat;
             }
+
+            foreach (Transform child in hatSpace.transform)
+            {
+                Destroy(child.gameObject);
+            }
+
+            int randomIndex = Random.Range(0, hats.Length);
+            GameObject hat = Instantiate(hats[randomIndex], hatSpace.transform);
+
+            hat.transform.localPosition = Vector3.zero;
+            hat.transform.localRotation = Quaternion.identity;
         }
+        #endregion
+
 
         if (identifier != null)
         {
