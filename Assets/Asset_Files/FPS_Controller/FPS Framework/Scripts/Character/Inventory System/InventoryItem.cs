@@ -418,7 +418,7 @@ namespace Akila.FPSFramework
             Animator _anim = GetComponentInChildren<Animator>();
             _anim.SetTrigger("Throw");
 
-
+            Player_Manager.Instance.throwSounds.Play();
 
 
 
