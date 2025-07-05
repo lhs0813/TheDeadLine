@@ -55,11 +55,11 @@ public static class EnemyConstants
     #region Damage (unchanged)
 
     public const float normal_baseDamage   = 5f;
-    public const float normal_damageOffset = 5f;
+    public const float normal_damageOffset = 2f;
     public const float big_baseDamage      = 10f;
-    public const float big_damageOffset    = 10f;
+    public const float big_damageOffset    = 5f;
     public const float fast_baseDamage     = 5f;
-    public const float fast_damageOffset   = 5f;
+    public const float fast_damageOffset   = 1f;
     public const float bomb_baseDamage     = 5f;
     public const float bomb_damageOffset   = 3f;
 
@@ -68,13 +68,13 @@ public static class EnemyConstants
         switch (enemyType)
         {
             case EnemyType.Normal:
-                return normal_baseDamage + mapIndex * mapIndex * normal_damageOffset;
+                return normal_baseDamage + mapIndex * normal_damageOffset;
             case EnemyType.Big:
                 return big_baseDamage + mapIndex * big_damageOffset;
             case EnemyType.Fast:
                 return fast_baseDamage + mapIndex * fast_damageOffset;
             case EnemyType.Bomb:
-                return bomb_baseDamage + mapIndex * mapIndex * bomb_damageOffset;
+                return bomb_baseDamage + mapIndex * bomb_damageOffset;
             default:
                 return 0f;
         }
