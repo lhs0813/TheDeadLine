@@ -92,6 +92,7 @@ public class BackgroundMusicController : MonoBehaviour
 
         // 이전 페이드 코루틴 정리
         if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
+        _fadeCoroutine = StartCoroutine(FadeInCoroutine(fadeDuration));
     }
 
     
@@ -109,7 +110,7 @@ public class BackgroundMusicController : MonoBehaviour
             fadeDuration = _fadeDuration;
 
         if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
-        _fadeCoroutine = StartCoroutine(FadeOutCoroutine(fadeDuration));
+        _fadeCoroutine = StartCoroutine(FadeOutCoroutine(2f));
     }
 
     private IEnumerator FadeInCoroutine(float duration)
