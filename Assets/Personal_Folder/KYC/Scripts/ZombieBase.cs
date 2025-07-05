@@ -144,16 +144,21 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
                 renderer.material = randomMat;
             }
 
+            // 기존 모자 제거
             foreach (Transform child in hatSpace.transform)
             {
                 Destroy(child.gameObject);
             }
 
-            int randomIndex = Random.Range(0, hats.Length);
-            GameObject hat = Instantiate(hats[randomIndex], hatSpace.transform);
+            // 50% 확률로만 모자 생성
+            if (Random.value < 0.5f) // 0.5보다 작을 확률은 약 50%
+            {
+                int randomIndex = Random.Range(0, hats.Length);
+                GameObject hat = Instantiate(hats[randomIndex], hatSpace.transform);
 
-            hat.transform.localPosition = Vector3.zero;
-            hat.transform.localRotation = Quaternion.identity;
+                hat.transform.localPosition = Vector3.zero;
+                hat.transform.localRotation = Quaternion.identity;
+            }
         }
         #endregion
 
