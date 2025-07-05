@@ -33,7 +33,7 @@ public class DangerStateUI : MonoBehaviour
         if (!isHidden)
         {
             isHidden = true;
-            _anim.SetTrigger("Off");            
+            _anim.SetTrigger("Off");
         }
 
     }
@@ -42,9 +42,9 @@ public class DangerStateUI : MonoBehaviour
     {
         if (isHidden)
         {
-            isHidden = false;  
+            isHidden = false;
             _anim.SetTrigger("On");
-            _dangerInfoAnim.SetTrigger("On");         
+            _dangerInfoAnim.SetTrigger("On");
         }
 
     }
@@ -52,5 +52,10 @@ public class DangerStateUI : MonoBehaviour
     void Update()
     {
 
+    }
+
+    void OnDisable()
+    {
+        GamePlayManager.instance.OnStationArriveAction -= InitializeState;
     }
 }
