@@ -15,12 +15,12 @@ MonoBehaviour:
   globalPropGroupID_obsolete: 
   globalPropRanges_obsolete: []
   Length:
-    Min: 9
-    Max: 11
-  BranchMode: 2
+    Min: 15
+    Max: 17
+  BranchMode: 1
   BranchCount:
-    Min: 1
-    Max: 5
+    Min: 16
+    Max: 18
   GlobalProps:
   - ID: 20
     Count:
@@ -28,19 +28,19 @@ MonoBehaviour:
       Max: 30
   - ID: 21
     Count:
-      Min: 25
-      Max: 25
+      Min: 70
+      Max: 70
   - ID: 30
     Count:
-      Min: 70
-      Max: 80
+      Min: 130
+      Max: 150
   - ID: 31
     Count:
-      Min: 15
-      Max: 20
+      Min: 19
+      Max: 24
   - ID: 41
     Count:
-      Min: 8
+      Min: 9
       Max: 9
   KeyManager: {fileID: 0}
   DoorwayConnectionChance: 1
@@ -52,10 +52,6 @@ MonoBehaviour:
       id: 0
     TagB:
       id: 0
-  - TagA:
-      id: 1
-    TagB:
-      id: 1
   BranchTagPruneMode: 1
   BranchPruneTags: []
   Nodes:
@@ -70,7 +66,7 @@ MonoBehaviour:
     LockPlacement: 0
   - Graph: {fileID: 11400000}
     TileSets:
-    - {fileID: 11400000, guid: eea4edbdb3798f1488ab829e78962170, type: 2}
+    - {fileID: 11400000, guid: 3a21350b2cb5baf4f8233c7617e82163, type: 2}
     NodeType: 2
     Position: 1
     Label: Goal
@@ -91,7 +87,14 @@ MonoBehaviour:
     DungeonArchetypes:
     - {fileID: 11400000, guid: dbeef31d761391a4e880fce6c7c203d6, type: 2}
     Position: 0
-    Length: 1
+    Length: 0.18994413
+    Keys: []
+    Locks: []
+  - Graph: {fileID: 11400000}
+    DungeonArchetypes:
+    - {fileID: 11400000, guid: 229bef3ecc9bd064baa058ce7258e941, type: 2}
+    Position: 0.18994413
+    Length: 0.81005585
     Keys: []
     Locks: []
   currentFileVersion: 1
