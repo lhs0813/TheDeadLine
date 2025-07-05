@@ -21,6 +21,12 @@ public class LoadingSceneManager : MonoBehaviour
         SceneManager.LoadScene("LoadingScene");
     }
 
+    public static void LoadSceneForEndlessMode(string sceneName)
+    {
+        nextScene = sceneName;
+        SceneManager.LoadScene("LoadingSceneToInfinity");
+    }
+
     IEnumerator LoadScene()
     {
         yield return null;
