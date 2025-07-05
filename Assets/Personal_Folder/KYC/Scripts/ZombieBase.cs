@@ -49,6 +49,9 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     public AudioClip[] attackClips;
     public AudioClip[] deathClips;
 
+    [Header("Procedual Zombie")]
+    public Material[] materials;
+    
 
     protected IZombieState currentState;
     protected UnityEngine.AI.NavMeshAgent agent;
@@ -128,6 +131,17 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         _anim.SetFloat("attackIndex", _attackIndex);
         _anim.SetFloat("deathIndex", _deathIndex);
 
+        Debug.Log("좀비 이름: " + gameObject.name);
+        if (gameObject.name == "Zombie_Normal")
+        {
+            Transform target = transform.Find("Zombie_Mesh");
+            Renderer renderer = target.GetComponent<Renderer>();
+            if (renderer != null && materials.Length > 0)
+            {
+                Material randomMat = materials[Random.Range(0, materials.Length)];
+                renderer.material = randomMat;
+            }
+        }
 
         if (identifier != null)
         {
