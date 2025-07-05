@@ -20,6 +20,7 @@ public class Player_Manager : MonoBehaviour
     public float MaxHealth;
 
     public AudioSource _bonusRunSounds;
+    public AudioSource throwSounds;
 
     public bool playerIsGod = true;
 
