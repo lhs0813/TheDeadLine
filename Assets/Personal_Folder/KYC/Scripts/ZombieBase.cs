@@ -124,7 +124,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         _anim = GetComponent<Animator>();
 
         _walkIndex = Random.Range(0, 4);
-        _runIndex = Random.Range(0, 3);
+        _runIndex = Random.Range(0, 4);
         _attackIndex = Random.Range(0, 3);
         _deathIndex = Random.Range(0, 2);
 
