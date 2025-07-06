@@ -379,6 +379,17 @@ namespace DunGen
 
 			ChangeStatus(GenerationStatus.Complete);
 
+		    int branchCount = proxyDungeon.BranchPathTiles.Count;
+
+			if (branchCount < DungeonFlow.BranchCount.Min)
+			{
+				Debug.LogWarning($"[DunGen] Branch count {branchCount} < {DungeonFlow.BranchCount.Min}, regenerating dungeon…");
+				// Clear(false) 를 호출해 내부 데이터를 리셋해도 좋고,
+				// 그냥 바로 InnerGenerate(true) 로 재시도해도 됩니다.
+				yield return Wait(InnerGenerate(true));
+				yield break;
+			}
+
 			bool charactersShouldRecheckTile = true;
 
 #if UNITY_EDITOR

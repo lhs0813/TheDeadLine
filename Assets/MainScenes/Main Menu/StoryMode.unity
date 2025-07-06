@@ -2669,6 +2669,50 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 157459663}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &157691811
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 157691813}
+  - component: {fileID: 157691812}
+  m_Layer: 0
+  m_Name: DunGen Coroutine Helper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &157691812
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157691811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5e84273fce13e41969baa0fb65e754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &157691813
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157691811}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &160111393
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6663,6 +6707,50 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 339963137}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &346725845
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 346725847}
+  - component: {fileID: 346725846}
+  m_Layer: 0
+  m_Name: DunGen Coroutine Helper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &346725846
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346725845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5e84273fce13e41969baa0fb65e754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &346725847
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346725845}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &346976350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15053,8 +15141,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Generator:
     allowImmediateRepeats: 0
-    Seed: 0
-    ShouldRandomizeSeed: 1
+    Seed: 1111
+    ShouldRandomizeSeed: 0
     MaxAttemptCount: 200
     UseMaximumPairingAttempts: 0
     MaxPairingAttempts: 5
@@ -15069,13 +15157,13 @@ MonoBehaviour:
     PlaceTileTriggers: 1
     TileTriggerLayer: 2
     GenerateAsynchronously: 1
-    MaxAsyncFrameMilliseconds: 200
+    MaxAsyncFrameMilliseconds: 500
     PauseBetweenRooms: 0
     RestrictDungeonToBounds: 0
     TilePlacementBounds:
       m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 5, y: 5, z: 5}
-    OverlapThreshold: 0.0001
+    OverlapThreshold: 0.01
     Padding: 0
     DisallowOverhangs: 0
     AvoidCollisionsWithOtherDungeons: 0
@@ -22912,6 +23000,50 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1074832067}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1090442298
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1090442300}
+  - component: {fileID: 1090442299}
+  m_Layer: 0
+  m_Name: DunGen Coroutine Helper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1090442299
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090442298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5e84273fce13e41969baa0fb65e754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1090442300
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090442298}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1092672141
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28931,6 +29063,50 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1364601317}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1379097607
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1379097609}
+  - component: {fileID: 1379097608}
+  m_Layer: 0
+  m_Name: DunGen Coroutine Helper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1379097608
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379097607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5e84273fce13e41969baa0fb65e754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1379097609
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379097607}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1385505389
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30980,6 +31156,50 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1489359987}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1489510491
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1489510493}
+  - component: {fileID: 1489510492}
+  m_Layer: 0
+  m_Name: DunGen Coroutine Helper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1489510492
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489510491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5e84273fce13e41969baa0fb65e754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1489510493
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489510491}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1494312406
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43796,3 +44016,8 @@ SceneRoots:
   - {fileID: 1445294847}
   - {fileID: 4411037084231325594}
   - {fileID: 872627883}
+  - {fileID: 1489510493}
+  - {fileID: 157691813}
+  - {fileID: 346725847}
+  - {fileID: 1090442300}
+  - {fileID: 1379097609}
