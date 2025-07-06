@@ -19,8 +19,8 @@ MonoBehaviour:
     Max: 10
   BranchMode: 1
   BranchCount:
-    Min: 9
-    Max: 11
+    Min: 5
+    Max: 20
   GlobalProps:
   - ID: 20
     Count:
@@ -43,7 +43,7 @@ MonoBehaviour:
       Min: 5
       Max: 5
   KeyManager: {fileID: 0}
-  DoorwayConnectionChance: 1
+  DoorwayConnectionChance: 0
   RestrictConnectionToSameSection: 0
   TileInjectionRules: []
   TileTagConnectionMode: 1
@@ -79,6 +79,15 @@ MonoBehaviour:
     NodeType: 0
     Position: 0
     Label: Platform
+    Keys: []
+    Locks: []
+    LockPlacement: 0
+  - Graph: {fileID: 11400000}
+    TileSets:
+    - {fileID: 11400000, guid: 74c10648e23d4314c8454860e3feba96, type: 2}
+    NodeType: 0
+    Position: 0.08826815
+    Label: Ticket
     Keys: []
     Locks: []
     LockPlacement: 0

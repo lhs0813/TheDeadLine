@@ -262,9 +262,13 @@ IEnumerator CorpseDisappearCoroutine(EnemyType type, GameObject obj, float offse
 {
     yield return new WaitForSeconds(offset);
 
-    // 2) Double‐check: maybe it was removed by something else in the meantime?
-    if (!activeEnemies.Contains(obj))
-        yield break;
+        // 2) Double‐check: maybe it was removed by something else in the meantime?
+        if (!activeEnemies.Contains(obj))
+        {
+            DestroyImmediate(obj);
+            yield break;
+        }
+
 
     // reset position (optional)
     obj.transform.position = Vector3.zero;
