@@ -251,7 +251,22 @@ public class GamePlayManager : MonoBehaviour
         yield return new WaitForSeconds(5.5f); // 3초 대기
         Cursor.lockState = CursorLockMode.None;  // 마우스 잠금 해제
         Cursor.visible = true;                   // 마우스 커서 보이게
-        SceneManager.LoadScene("Main_Menu");
+
+
+
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "EndlessModeScene")
+        {
+            SceneManager.LoadScene("EndlessModeScene");
+        }
+        else if (currentScene == "StoryMode")
+        {
+            SceneManager.LoadScene("StoryModeLoop");
+        }
+        else
+        {
+            SceneManager.LoadScene("Main_Menu");
+        }
     }
 
     void OnDisable()
