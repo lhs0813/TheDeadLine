@@ -251,22 +251,33 @@ public class EnemyPoolManager : MonoBehaviour
 
     public void ReturnToPool(EnemyType type, GameObject obj, float offset)
     {
+        // 1) Guard: if this enemy isn't marked active, don't schedule a return at all.
+        if (!activeEnemies.Contains(obj))
+            return;
+
         StartCoroutine(CorpseDisappearCoroutine(type, obj, offset));
     }
 
-    IEnumerator CorpseDisappearCoroutine(EnemyType type, GameObject obj, float offset)
-    {
-        yield return new WaitForSeconds(offset);
+IEnumerator CorpseDisappearCoroutine(EnemyType type, GameObject obj, float offset)
+{
+    yield return new WaitForSeconds(offset);
 
-        obj.transform.position = Vector3.zero;
+    // 2) Double‐check: maybe it was removed by something else in the meantime?
+    if (!activeEnemies.Contains(obj))
+        yield break;
 
-        // 중복 반환 방지: activeEnemies에 아직 있는 경우만 반환
+    // reset position (optional)
+    obj.transform.position = Vector3.zero;
 
-        currentCounts[type] = Mathf.Max(0, currentCounts[type] - 1);
-        enemyPools[type].Release(obj); // SetActive(false) 등 수행
-        activeEnemies.Remove(obj);
-    }
+    // decrement count safely
+    currentCounts[type] = Mathf.Max(0, currentCounts[type] - 1);
 
+    // actually release back to the pool
+    enemyPools[type].Release(obj);
+
+    // remove from active list
+    activeEnemies.Remove(obj);
+}
     
     public void ReturnAllEnemiesToPool()
     {
