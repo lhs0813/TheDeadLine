@@ -794,7 +794,7 @@ namespace Akila.FPSFramework
                 shotsFired = 0;
                 finalDirection = GetSprayPattern(_direction);
 
-                FireDone(position, rotation, finalDirection);
+                FireDone(position, rotation, _direction);
 
                 // Apply fire logic if not set to always apply fire
                 if (!preset.alwaysApplyFire)
