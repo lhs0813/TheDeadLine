@@ -110,6 +110,9 @@ public class GamePlayManager : MonoBehaviour
         //다음맵 로딩 시작
         currentMapIndex++;
 
+        if (currentMapIndex == 10)
+            SceneManager.LoadScene("EndingScene");
+
         //맵 정보 저장 및 생성.
         currentStageInfo = await GetStageInfoAsync(currentMapIndex);
         await MapGenerationManager.Instance.LoadMap(currentMapIndex);
@@ -260,6 +263,10 @@ public class GamePlayManager : MonoBehaviour
             SceneManager.LoadScene("EndlessModeScene");
         }
         else if (currentScene == "StoryMode")
+        {
+            SceneManager.LoadScene("StoryModeLoop");
+        }
+        else if (currentScene == "StoryModeLoop")
         {
             SceneManager.LoadScene("StoryModeLoop");
         }

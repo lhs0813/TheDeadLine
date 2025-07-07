@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Localization.Components;
 
@@ -7,7 +7,10 @@ public class UI_Objective_Info : MonoBehaviour
     [SerializeField] LocalizeStringEvent objectiveEvent;   // 하나만 연결
     [SerializeField] TextMeshProUGUI objectiveText;       // Disable용
     [SerializeField] GameObject lineObj;
+    [SerializeField] GameObject backImg;
+
     [SerializeField] bool isActive;
+
 
     void Start()
     {
@@ -33,6 +36,7 @@ public class UI_Objective_Info : MonoBehaviour
             objectiveText.gameObject.SetActive(true);
             lineObj.SetActive(true);
             isActive = true;
+            backImg.SetActive(true);
         }
 
         // 1) 키와 인자 바꾸기
@@ -50,6 +54,7 @@ public class UI_Objective_Info : MonoBehaviour
         {
             objectiveText.gameObject.SetActive(true);
             lineObj.SetActive(true);
+            backImg.SetActive(true);
             isActive = true;
         }
 
@@ -67,6 +72,7 @@ public class UI_Objective_Info : MonoBehaviour
 
         objectiveText.gameObject.SetActive(false);
         lineObj.SetActive(false);
+        backImg.SetActive(false);
 
 
 

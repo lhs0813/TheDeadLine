@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -213,6 +213,11 @@ namespace Akila.FPSFramework.UI
             canvasGroup.blocksRaycasts = true;
             // 언스케일드 페이드 인 코루틴 호출하거나 즉시
             canvasGroup.alpha = 1f;
+        }
+
+        private void OnDestroy()
+        {
+            AudioListener.pause = false;
         }
 
     }
