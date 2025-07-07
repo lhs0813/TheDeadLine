@@ -72,7 +72,7 @@ public class MapGenerationManager : MonoBehaviour
 
     private static async Task<DungeonFlow> GetDungeonFlowAsync(int mapIndex)
     {
-        int ModifiedMapIndex = mapIndex > 10 ? 10 : mapIndex;
+        int ModifiedMapIndex = MapGenCalculator.GetModifiedIndex(mapIndex);
 
         string key = $"DF_Station_{ModifiedMapIndex}";
         var handle = Addressables.LoadAssetAsync<DungeonFlow>(key);
