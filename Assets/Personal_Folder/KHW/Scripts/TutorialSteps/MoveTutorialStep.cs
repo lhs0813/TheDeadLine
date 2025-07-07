@@ -1,16 +1,22 @@
+using System.Collections;
 using UnityEngine;
+using static TutorialTriggerManager;
 
-public class MoveTutorialStep : MonoBehaviour
+public interface TutorialExecution
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public abstract void ExecuteTutorial();
+}
+public abstract class TutorialStepBase : MonoBehaviour, TutorialExecution
+{
+    public abstract void ExecuteTutorial();
+}
 
-    // Update is called once per frame
-    void Update()
+public class MoveTutorialStep : TutorialStepBase
+{
+    public override void ExecuteTutorial()
     {
-        
+        TutorialTriggerUIController.Instance.ShowUI("0", 10f);
+
+        Destroy(gameObject);
     }
 }
