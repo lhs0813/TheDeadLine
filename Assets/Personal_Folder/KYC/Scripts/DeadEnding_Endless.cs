@@ -4,7 +4,7 @@ using TMPro;
 using System.Collections;
 using static Beautify.Universal.Beautify;
 
-public class DeadEnding : MonoBehaviour
+public class DeadEnding_Endless : MonoBehaviour
 {
     [Header("화면 페이드용")]
     public Image fadeImage;
@@ -16,7 +16,9 @@ public class DeadEnding : MonoBehaviour
     public float textFadeDuration = 1f;
 
     [Header("결과 표시용 Score 텍스트")]
-    public TextMeshProUGUI RemainScore;
+    public TextMeshProUGUI survivorRounds;
+    public TextMeshProUGUI highSurvivorRounds;
+
 
     [Header("나타날 버튼들")]
     public Button button1;
@@ -40,7 +42,7 @@ public class DeadEnding : MonoBehaviour
         button1?.gameObject.SetActive(false);
         button2?.gameObject.SetActive(false);
 
-        RemainScore?.transform.parent.gameObject.SetActive(false);
+        survivorRounds?.transform.parent.gameObject.SetActive(false);
 
     }
 
@@ -51,27 +53,25 @@ public class DeadEnding : MonoBehaviour
 
     public void Death()
     {
+        // 현재 도달한 스테이지 계산
+        int currentStage =  GamePlayManager.instance.currentMapIndex - 4;
 
-        /*// 1) 시간 계산 & 저장/로드
-        clearTime = RecordManager.Instance.StopStoryTimer();
-        bestClearTime = RecordManager.Instance.GetBestStoryTime();
+        // 현재 스테이지 텍스트 표시
+        if (survivorRounds != null)
+            survivorRounds.text = "Station " + currentStage.ToString();
 
-        // 2) 포맷된 문자열 세팅
-        if (clearTimeNumberText != null)
-            clearTimeNumberText.text = FormatTime(clearTime);
+        // 최고 기록 저장 시도
+        RecordManager.Instance.RecordInfiniteStage(currentStage);
 
-        if (bestClearTimeNumberText != null)
-        {
-            bestClearTimeNumberText.text = bestClearTime == float.MaxValue
-                ? "--:--.---"
-                : FormatTime(bestClearTime);
-        }*/
+        // 최고 기록 불러와서 표시
+        int bestStage = RecordManager.Instance.LoadInfiniteStage();
+        if (highSurvivorRounds != null)
+            highSurvivorRounds.text = "Station " + bestStage.ToString();
 
-        // 3) 페이드 코루틴 시작
+        // 결과 텍스트 활성화
+        survivorRounds.transform.parent.gameObject.SetActive(true);
 
-
-        RemainScore.text = (9 - GamePlayManager.instance.currentMapIndex).ToString();
-
+        // 페이드 시퀀스 시작
         StartCoroutine(FadeSequence());
     }
 
@@ -111,7 +111,9 @@ public class DeadEnding : MonoBehaviour
         }
 
         // 결과 텍스트(숫자) 활성화
-        RemainScore?.transform.parent.gameObject.SetActive(true);
+        survivorRounds?.transform.parent.gameObject.SetActive(true);
+        highSurvivorRounds?.transform.parent.gameObject.SetActive(true);
+
 
 
         // 일시정지 & 커서 활성화

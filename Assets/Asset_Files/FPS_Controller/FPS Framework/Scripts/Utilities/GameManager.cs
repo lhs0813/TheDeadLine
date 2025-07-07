@@ -1,7 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 namespace Akila.FPSFramework
@@ -12,6 +13,7 @@ namespace Akila.FPSFramework
         public static GameManager instance;
 
         [SerializeField] DeathCamera deathCamera;
+        [SerializeField] DeathCamera endlessDeathCamera;
         [SerializeField] UIManager uIManager;
 
         private void Awake()
@@ -23,7 +25,20 @@ namespace Akila.FPSFramework
             else
                 Destroy(gameObject);
 
-            Instantiate(deathCamera, transform);
+            Time.timeScale = 1f;
+
+
+            if (SceneManager.GetActiveScene().name == "StoryMode" || SceneManager.GetActiveScene().name == "StoryModeLoop")
+            {
+                Instantiate(deathCamera, transform);
+            }
+            else if (SceneManager.GetActiveScene().name == "EndlessModeScene")
+            {
+                Instantiate(endlessDeathCamera, transform);
+            }
+
+
+
             Instantiate(uIManager, transform);
         }
     }

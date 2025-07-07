@@ -90,6 +90,16 @@ namespace Akila.FPSFramework
 
             deathPanel.SetActive(true);
 
+            if (deathPanel.GetComponent<DeadEnding_Endless>() != null)
+            {
+                deathPanel.GetComponent<DeadEnding_Endless>().Death();
+            }
+            else if (deathPanel.GetComponent<DeadEnding>() != null)
+            {
+                deathPanel.GetComponent<DeadEnding>().Death();
+            }
+
+
             Camera.enabled = true;
             AudioListener.enabled = true;
         }
