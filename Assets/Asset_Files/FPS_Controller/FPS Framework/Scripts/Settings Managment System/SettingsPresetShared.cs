@@ -103,6 +103,15 @@ namespace Akila.FPSFramework
 
         }
 
+        public void SetVolume(float value)
+        {
+            // 입력값을 1~100 사이로 제한
+            float v = Mathf.Clamp(value, 1f, 100f);
+            // 0~1 범위로 정규화
+            AudioListener.volume = v / 100f;
+        }
+
+
         // const string LanguageKey = "Settings/LanguageIndex";
 
         // public override void OnStart()
@@ -128,7 +137,7 @@ namespace Akila.FPSFramework
 
         //         SetLanguage(idx);
         //         Debug.Log($"Auto-selected locale index {idx}");
-                
+
         //         SaveSystem.Save<int>(LanguageKey, idx);
         //     }
 

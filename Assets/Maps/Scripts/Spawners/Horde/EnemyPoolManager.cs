@@ -232,11 +232,21 @@ public class EnemyPoolManager : MonoBehaviour
 
         var obj = enemyPools[type].Get(); //적 object 가져오기. Normal형 적의 경우에는 Random 포함된 구조.
 
-        if (obj.TryGetComponent<EnemyIdentifier>(out var id))
+        if (obj == null)
         {
-            id.Type = type; //타입 설정 (pool 전용.)
-            id.isPrespawn = isPrespawn; //선제 스폰 적인지 구분.
+            Debug.Log("스폰시킬 적을 가져오지 못함");
+            return null;
         }
+
+        if (obj.TryGetComponent<EnemyIdentifier>(out var id))
+            {
+                if (id != null)
+                {
+                    id.Type = type; //타입 설정 (pool 전용.)
+                    id.isPrespawn = isPrespawn; //선제 스폰 적인지 구분.                
+                }
+
+            }
 
         //위치 설정 후 SetActive.True
         obj.transform.SetPositionAndRotation(pos, rot);
