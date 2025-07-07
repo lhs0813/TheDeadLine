@@ -5,24 +5,32 @@ public class FuseBoxController : MonoBehaviour
 {
     void OnEnable()
     {
-        ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction += DisableFuse;
+        if (ObjectiveManager.instance != null)
+            ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction += DisableFuse;
     }
 
     public void OnFuseActivated()
     {
         ObjectiveManager.instance.FuseFound();
-        gameObject.SetActive(false);
-        Destroy(gameObject);
+        gameObject.SetActive(false);  // → OnDisable() 호출 → 언구독
     }
 
     void DisableFuse()
     {
         Debug.Log("Fuse Disabled!");
-        Destroy(gameObject);
+        gameObject.SetActive(false);  // → OnDisable() 호출 → 언구독
     }
 
+    void OnDisable()
+    {
+        if (ObjectiveManager.instance != null)
+            ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction -= DisableFuse;
+    }
+
+    // 만약 파괴 순서가 불안정하다면 추가로…
     void OnDestroy()
     {
-        ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction -= DisableFuse;
+        if (ObjectiveManager.instance != null)
+            ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction -= DisableFuse;
     }
 }

@@ -1085,8 +1085,12 @@ namespace Akila.FPSFramework
             {
                 float totalDamage = damage * damageMultiplier ;
 
-                bool critical = damageableGroup.GetHead();
+                bool critical = false;
 
+                if (damageableGroup != null)
+                {
+                    critical = damageableGroup.GetHead();
+                }
 
                 /*if (damageMultiplier > 2)
                     critical = true;*/

@@ -20,6 +20,7 @@ public class Player_Manager : MonoBehaviour
     public float MaxHealth;
 
     public AudioSource _bonusRunSounds;
+    public AudioSource throwSounds;
 
     public bool playerIsGod = true;
 
@@ -59,8 +60,8 @@ public class Player_Manager : MonoBehaviour
 
         yield return new WaitForSeconds(1.0f);
 
-        playerController.walkSpeed = 4;
-        playerController.sprintSpeed = 8;
+        playerController.walkSpeed = 5;
+        playerController.sprintSpeed = 9;
 
         // FOV: 70 → 60
         yield return StartCoroutine(LerpFOV(fpsCamera, 65f, 60f, 0.3f));

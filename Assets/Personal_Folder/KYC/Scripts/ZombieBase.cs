@@ -49,6 +49,10 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     public AudioClip[] attackClips;
     public AudioClip[] deathClips;
 
+    [Header("Procedual Zombie")]
+    public Material[] materials;
+    public GameObject hatSpace;
+    public GameObject[] hats;
 
     protected IZombieState currentState;
     protected UnityEngine.AI.NavMeshAgent agent;
@@ -62,6 +66,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
     //0612 이현수 수정 자식 데미저블 그룹 가져오기
     DamageableGroup[] damageableGroups;
+    
 
     protected virtual void Awake()
     {
@@ -119,7 +124,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         _anim = GetComponent<Animator>();
 
         _walkIndex = Random.Range(0, 4);
-        _runIndex = Random.Range(0, 3);
+        _runIndex = Random.Range(0, 4);
         _attackIndex = Random.Range(0, 3);
         _deathIndex = Random.Range(0, 2);
 
@@ -127,6 +132,35 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         _anim.SetFloat("runIndex", _runIndex);
         _anim.SetFloat("attackIndex", _attackIndex);
         _anim.SetFloat("deathIndex", _deathIndex);
+
+        #region 일반 절차적 좀비 설정
+        if (gameObject.name == "Zombie_Normal")
+        {
+            Transform target = transform.Find("Zombie_Mesh");
+            Renderer renderer = target.GetComponent<Renderer>();
+            if (renderer != null && materials.Length > 0)
+            {
+                Material randomMat = materials[Random.Range(0, materials.Length)];
+                renderer.material = randomMat;
+            }
+
+            // 기존 모자 제거
+            foreach (Transform child in hatSpace.transform)
+            {
+                Destroy(child.gameObject);
+            }
+
+            // 50% 확률로만 모자 생성
+            if (Random.value < 0.5f) // 0.5보다 작을 확률은 약 50%
+            {
+                int randomIndex = Random.Range(0, hats.Length);
+                GameObject hat = Instantiate(hats[randomIndex], hatSpace.transform);
+
+                hat.transform.localPosition = Vector3.zero;
+                hat.transform.localRotation = Quaternion.identity;
+            }
+        }
+        #endregion
 
 
         if (identifier != null)

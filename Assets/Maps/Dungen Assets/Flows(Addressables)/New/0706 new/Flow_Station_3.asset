@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e228b45736a8cf4ea000616e628a4dd, type: 3}
+  m_Name: Flow_Station_3
+  m_EditorClassIdentifier: 
+  globalPropGroupID_obsolete: 
+  globalPropRanges_obsolete: []
+  Length:
+    Min: 9
+    Max: 11
+  BranchMode: 1
+  BranchCount:
+    Min: 6
+    Max: 20
+  GlobalProps:
+  - ID: 20
+    Count:
+      Min: 10
+      Max: 10
+  - ID: 21
+    Count:
+      Min: 25
+      Max: 25
+  - ID: 30
+    Count:
+      Min: 70
+      Max: 90
+  - ID: 31
+    Count:
+      Min: 7
+      Max: 12
+  - ID: 41
+    Count:
+      Min: 6
+      Max: 6
+  KeyManager: {fileID: 0}
+  DoorwayConnectionChance: 1
+  RestrictConnectionToSameSection: 0
+  TileInjectionRules:
+  - TileSet: {fileID: 0}
+    NormalizedPathDepth:
+      Min: 0
+      Max: 1
+    NormalizedBranchDepth:
+      Min: 0
+      Max: 1
+    CanAppearOnMainPath: 1
+    CanAppearOnBranchPath: 0
+    IsRequired: 0
+    IsLocked: 0
+    LockID: 0
+  TileTagConnectionMode: 1
+  TileConnectionTags:
+  - TagA:
+      id: 0
+    TagB:
+      id: 0
+  BranchTagPruneMode: 1
+  BranchPruneTags: []
+  Nodes:
+  - Graph: {fileID: 11400000}
+    TileSets:
+    - {fileID: 11400000, guid: fbfe80fe325143e4dafb59cc2ac28c76, type: 2}
+    NodeType: 1
+    Position: 0
+    Label: Start
+    Keys: []
+    Locks: []
+    LockPlacement: 0
+  - Graph: {fileID: 11400000}
+    TileSets:
+    - {fileID: 11400000, guid: 3a21350b2cb5baf4f8233c7617e82163, type: 2}
+    NodeType: 2
+    Position: 1
+    Label: Goal
+    Keys: []
+    Locks: []
+    LockPlacement: 0
+  - Graph: {fileID: 11400000}
+    TileSets:
+    - {fileID: 11400000, guid: 5fc64f4170aae984090037e0d41f48ea, type: 2}
+    NodeType: 0
+    Position: 0
+    Label: Platform
+    Keys: []
+    Locks: []
+    LockPlacement: 0
+  - Graph: {fileID: 11400000}
+    TileSets:
+    - {fileID: 11400000, guid: 74c10648e23d4314c8454860e3feba96, type: 2}
+    NodeType: 0
+    Position: 0.28715083
+    Label: Ticket
+    Keys: []
+    Locks: []
+    LockPlacement: 0
+  Lines:
+  - Graph: {fileID: 11400000}
+    DungeonArchetypes:
+    - {fileID: 11400000, guid: dbeef31d761391a4e880fce6c7c203d6, type: 2}
+    Position: 0
+    Length: 0.43240222
+    Keys: []
+    Locks: []
+  - Graph: {fileID: 11400000}
+    DungeonArchetypes:
+    - {fileID: 11400000, guid: 229bef3ecc9bd064baa058ce7258e941, type: 2}
+    Position: 0.43240222
+    Length: 0.56759775
+    Keys: []
+    Locks: []
+  currentFileVersion: 1

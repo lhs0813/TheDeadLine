@@ -16,7 +16,7 @@ public class TutorialTriggerUIController : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void ShowUI(string triggerID)
+    public void ShowUI(string triggerID, float timeShown)
     {
         // 이전 UI 있으면 끄기
         if (_currentUI != null)
@@ -33,7 +33,7 @@ public class TutorialTriggerUIController : MonoBehaviour
             StopCoroutine(_hideCoroutine);
 
         // 3초 뒤 자동 숨김
-        _hideCoroutine = StartCoroutine(HideCurrentUIAfterDelay(2f));
+        _hideCoroutine = StartCoroutine(HideCurrentUIAfterDelay(timeShown));
     }
 
     private IEnumerator HideCurrentUIAfterDelay(float delay)
