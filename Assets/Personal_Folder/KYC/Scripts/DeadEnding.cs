@@ -48,7 +48,7 @@ public class DeadEnding : MonoBehaviour
 
     private void OnEnable()
     {
-        Death();
+        
     }
 
     public void Death()

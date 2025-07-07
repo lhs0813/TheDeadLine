@@ -89,6 +89,8 @@ namespace Akila.FPSFramework
             _rigidbody.AddTorque(randomTorque, ForceMode.Impulse);
 
             deathPanel.SetActive(true);
+            deathPanel.GetComponent<DeadEnding>().Death();
+
 
             Camera.enabled = true;
             AudioListener.enabled = true;
