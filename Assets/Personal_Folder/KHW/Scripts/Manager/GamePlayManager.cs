@@ -263,6 +263,11 @@ public class GamePlayManager : MonoBehaviour
         {
             SceneManager.LoadScene("StoryModeLoop");
         }
+        else if (currentScene == "StoryModeLoop")
+        {
+            SceneManager.LoadScene("StoryModeLoop");
+        }
+
         else
         {
             SceneManager.LoadScene("Main_Menu");
