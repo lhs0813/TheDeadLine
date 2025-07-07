@@ -12,7 +12,7 @@ public static class EnemyConstants
     public const float big_baseHP          = 400f;
     // 9스테이지에서 3000이 되도록 미리 계산한 계수
     private static readonly float big_hpOffset =
-        (2000f - big_baseHP) / (9f * 9f);
+        (1700f - big_baseHP) / (9f * 9f);
 
     // --- Fast Zombie ---
     public const float fast_baseHP         = 25f;

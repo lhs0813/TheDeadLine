@@ -19,9 +19,13 @@ public class FuseStep : TutorialStepBase
     {
         TutorialTriggerUIController.Instance.ShowUI("6", 5f);
 
-        yield return new WaitForSeconds(5f);
+        GetComponent<BoxCollider>().enabled = false;
 
-        TutorialTriggerUIController.Instance.ShowUI("10", 5f);
+        yield return new WaitForSeconds(4f);
+
+        TutorialTriggerUIController.Instance.ShowUI("10", 4f);
+
+        Destroy(gameObject,5f);
     }
 
     private void ActivateTrainCollider()

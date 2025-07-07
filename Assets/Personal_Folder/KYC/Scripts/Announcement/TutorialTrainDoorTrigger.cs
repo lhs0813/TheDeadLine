@@ -17,5 +17,7 @@ public class TutorialTrainDoorTrigger : MonoBehaviour
 
 
         FindAnyObjectByType<TrainDoorController>().OpenDoor();
+
+        isAlreadyTriggered = true;
     }
 }

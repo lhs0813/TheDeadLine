@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Threading.Tasks;
 using Akila.FPSFramework;
@@ -73,13 +73,18 @@ public class GamePlayManager : MonoBehaviour
         // 1) 무기 프리팹 미리 로드
         //currentMapIndex = 0;
         await SpawnedGunBuilder.InitializeAsync();
-        currentStageInfo = await GetStageInfoAsync(currentMapIndex);
+        currentStageInfo = await GetStageInfoAsync(MapGenCalculator.GetModifiedIndex(currentMapIndex));
 
         allFuseActivated = false;
     }
 
     private void ChangeIsMapReady(DungeonGenerator generator)
     {
+        if (FindAnyObjectByType<Dungeon>().BranchPathTiles.Count < 5)
+        {
+            
+        }
+
         newMapReady = true; // 맵 생성 완료
 
         // 배열을 변수에 담지 않고 바로 순회
@@ -110,12 +115,11 @@ public class GamePlayManager : MonoBehaviour
         //다음맵 로딩 시작
         currentMapIndex++;
 
-        if (currentMapIndex == 10)
-            SceneManager.LoadScene("EndingScene");
-
         //맵 정보 저장 및 생성.
-        currentStageInfo = await GetStageInfoAsync(currentMapIndex);
-        await MapGenerationManager.Instance.LoadMap(currentMapIndex);
+        int ModifiedMapIndex = MapGenCalculator.GetModifiedIndex(currentMapIndex);
+
+        currentStageInfo = await GetStageInfoAsync(ModifiedMapIndex);
+        await MapGenerationManager.Instance.LoadMap(ModifiedMapIndex);
 
         //좀비 확률 설정.
         HordeSpawnBuilder.SetSpawnWeights(currentMapIndex);
@@ -136,9 +140,8 @@ public class GamePlayManager : MonoBehaviour
 
     private static async Task<StageInfo> GetStageInfoAsync(int mapIndex)
     {
-        int ModifiedMapIndex = mapIndex > 10 ? 10 : mapIndex;
 
-        string key = $"StageInfo_{ModifiedMapIndex}";
+        string key = $"StageInfo_{mapIndex}";
         var handle = Addressables.LoadAssetAsync<StageInfo>(key);
         var flow = await handle.Task;
 
@@ -254,26 +257,7 @@ public class GamePlayManager : MonoBehaviour
         yield return new WaitForSeconds(5.5f); // 3초 대기
         Cursor.lockState = CursorLockMode.None;  // 마우스 잠금 해제
         Cursor.visible = true;                   // 마우스 커서 보이게
-
-
-
-        string currentScene = SceneManager.GetActiveScene().name;
-        if (currentScene == "EndlessModeScene")
-        {
-            SceneManager.LoadScene("EndlessModeScene");
-        }
-        else if (currentScene == "StoryMode")
-        {
-            SceneManager.LoadScene("StoryModeLoop");
-        }
-        else if (currentScene == "StoryModeLoop")
-        {
-            SceneManager.LoadScene("StoryModeLoop");
-        }
-        else
-        {
-            SceneManager.LoadScene("Main_Menu");
-        }
+        SceneManager.LoadScene("Main_Menu");
     }
 
     void OnDisable()

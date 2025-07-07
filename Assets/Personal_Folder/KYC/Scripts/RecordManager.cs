@@ -4,12 +4,10 @@ public class RecordManager : MonoBehaviour
 {
     public static RecordManager Instance { get; private set; }
 
-    // PlayerPrefs 키
     private const string StoryTimeKey = "StoryClearTime";
     private const string InfiniteStageKey = "InfiniteMaxStage";
 
-    // 스토리 모드 타이머
-    [SerializeField] private float _storyStartTime = 0f;
+    private float _storyStartTime = 0f;
 
     private void Awake()
     {
@@ -18,40 +16,40 @@ public class RecordManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        else Destroy(gameObject);
     }
 
-    // —— 스토리 모드 시간 기록 ——
-    /// <summary>
-    /// 스토리 모드 시작 시 호출
-    /// </summary>
     public void StartStoryTimer()
     {
         _storyStartTime = Time.time;
     }
 
     /// <summary>
-    /// 엔딩 씬에서 탈출구 상호작용 시 호출
+    /// 스토리 모드 클리어 시 호출.
+    /// 기록 갱신 여부 비교 후 true 최단 기록을 세이브,
+    /// 항상 이번 세션의 clearTime을 리턴.
     /// </summary>
-    public void StopStoryTimer()
+    public float StopStoryTimer()
     {
         float clearTime = Time.time - _storyStartTime;
-        SaveStoryTime(clearTime);
-    }
 
-    private void SaveStoryTime(float time)
-    {
-        PlayerPrefs.SetFloat(StoryTimeKey, time);
-        PlayerPrefs.Save();
+        // 이전 최단 기록 로드
+        float prevBest = PlayerPrefs.GetFloat(StoryTimeKey, float.MaxValue);
+        // 이번 기록이 더 짧으면 갱신
+        if (clearTime < prevBest)
+        {
+            PlayerPrefs.SetFloat(StoryTimeKey, clearTime);
+            PlayerPrefs.Save();
+        }
+
+        return clearTime;
     }
 
     /// <summary>
-    /// 저장된 스토리 모드 클리어 시간(초). 저장된 값이 없으면 float.MaxValue 반환
+    /// 저장된 최단 스토리 모드 클리어 타임을 반환.
+    /// 기록 없으면 float.MaxValue
     /// </summary>
-    public float LoadStoryTime()
+    public float GetBestStoryTime()
     {
         return PlayerPrefs.GetFloat(StoryTimeKey, float.MaxValue);
     }

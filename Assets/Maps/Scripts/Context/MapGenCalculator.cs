@@ -6,11 +6,21 @@ public static class MapGenCalculator
     #region MapContexts
     public static IntRange GetCreatureSpawnCountRangePerSpawner(int stageIndex)
     {
-        int min = stageIndex * MapGenConstants.MinCreatureCountOnSpawnRoomMultiplier;
-        int max = stageIndex * MapGenConstants.MaxCreatureCountOnSpawnRoomMultiplier;
+        int min = (int)(stageIndex * MapGenConstants.MinCreatureCountOnSpawnRoomMultiplier);
+        int max = (int)(MapGenConstants.MaxCreatureCountOnSpawnRoomMultiplier * stageIndex);
 
+        int clampedMin = Mathf.Min(min, MapGenConstants.MaxMinimumCreatureCountOnSpawnRoom);
         int clampedMax = Mathf.Min(max, MapGenConstants.MaxCreatureCountOnSpawnRoom);
-        return new IntRange(1, clampedMax);
+        return new IntRange(min + 1, clampedMax);
+    }
+
+    public static int GetModifiedIndex(int mapIndex)
+    {
+        if (mapIndex <= 10)
+            return mapIndex;
+
+        // 11 이상일 때는 3 ~ 11 사이 임의 반환
+        return UnityEngine.Random.Range(3, 11);  // 상한 12 미포함 → 최대 11
     }
 
 

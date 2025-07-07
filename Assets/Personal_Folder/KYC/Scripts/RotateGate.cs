@@ -11,14 +11,12 @@ public class RotateGate : MonoBehaviour
 
     void Start()
     {
-        Activate();
+        
     }
 
     public void Activate()
     {
         StartCoroutine(MoveOverTime());
-        RecordManager.Instance.StopStoryTimer();
-        float clearTime = RecordManager.Instance.LoadStoryTime();
     }
 
     private IEnumerator MoveOverTime()
