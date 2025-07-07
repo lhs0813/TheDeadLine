@@ -1,45 +1,102 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using System.Collections;
 
 public class EscapeTrigger : MonoBehaviour
 {
-    // Inspector에서 화면 꽉 찬 Image 할당
+    [Header("화면 페이드용")]
     public Image fadeImage;
-    // 페이드 지속시간 (초)
     public float fadeDuration = 2f;
 
-    // 한 번만 페이드하도록 플래그
-    private bool _isFading = false;
+    [Header("페이드 후 보여줄 텍스트")]
+    public TextMeshProUGUI messageText;
+    public float textFadeDelay = 0.5f;
+    public float textFadeDuration = 1f;
 
-    // 플레이어가 트리거에 들어왔을 때
+    [Header("나타날 버튼들")]
+    public Button button1;
+    public Button button2;
+    public float button1Delay = 0.5f; // 텍스트 페이드 끝나고 이만큼 기다린 뒤 첫 버튼
+    public float button2Delay = 1f;   // 텍스트 페이드 끝나고 이만큼 기다린 뒤 두 번째 버튼
+
+    private bool _isFading = false;
+    public float ClearTime;
+
+    private void Start()
+    {
+        // 시작할 때 텍스트·버튼들 투명/비활성화
+        if (messageText != null)
+        {
+            var tc = messageText.color;
+            tc.a = 0f;
+            messageText.color = tc;
+        }
+        if (button1 != null) button1.gameObject.SetActive(false);
+        if (button2 != null) button2.gameObject.SetActive(false);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!_isFading && other.CompareTag("Player"))
         {
-            StartCoroutine(FadeToWhite());
+            StartCoroutine(FadeSequence());
+            RecordManager.Instance.StopStoryTimer();
+            ClearTime =  RecordManager.Instance.LoadStoryTime();
         }
     }
 
-    // 알파를 0→1 로 올리는 코루틴
-    private IEnumerator FadeToWhite()
+    private IEnumerator FadeSequence()
     {
         _isFading = true;
-        float elapsed = 0f;
-        Color c = fadeImage.color;
 
+        // 1) 화면 페이드
+        float elapsed = 0f;
+        Color screenCol = fadeImage.color;
         while (elapsed < fadeDuration)
         {
             elapsed += Time.deltaTime;
-            c.a = Mathf.Clamp01(elapsed / fadeDuration);
-            fadeImage.color = c;
+            screenCol.a = Mathf.Clamp01(elapsed / fadeDuration);
+            fadeImage.color = screenCol;
             yield return null;
         }
+        screenCol.a = 1f;
+        fadeImage.color = screenCol;
 
-        // 완전히 하얗게
-        c.a = 1f;
-        fadeImage.color = c;
+        // 2) 텍스트 페이드 인
+        yield return new WaitForSecondsRealtime(textFadeDelay);
+        if (messageText != null)
+        {
+            elapsed = 0f;
+            var textCol = messageText.color;
+            while (elapsed < textFadeDuration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                textCol.a = Mathf.Clamp01(elapsed / textFadeDuration);
+                messageText.color = textCol;
+                yield return null;
+            }
+            textCol.a = 1f;
+            messageText.color = textCol;
+        }
 
-        // TODO: 화면 전환이나 다음 로직 호출
+        // 3) 게임 일시정지 & 커서 활성화
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        // 4) 버튼들 시간차로 활성화
+        if (button1 != null)
+        {
+            yield return new WaitForSecondsRealtime(button1Delay);
+            button1.gameObject.SetActive(true);
+        }
+        if (button2 != null)
+        {
+            yield return new WaitForSecondsRealtime(button2Delay - button1Delay);
+            button2.gameObject.SetActive(true);
+        }
+        
+        // TODO: 이후 로직…
     }
 }
