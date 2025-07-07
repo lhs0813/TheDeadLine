@@ -27,9 +27,11 @@ namespace Akila.FPSFramework
         [Tooltip("The amount of collectables granted when picked up (used if type is 'Collectable').")]
         public int collectableCount = 1;
 
+
         [HideInInspector] public UnityEvent<GameObject> onInteractWithItem;
         [HideInInspector] public UnityEvent<GameObject> onInteractWithAmmo;
 
+        
         public void Interact(InteractionsManager source)
         {
             if (source == null)
@@ -67,6 +69,9 @@ namespace Akila.FPSFramework
                     break;
                 case PickableType.AccelerationButton :
                     InteractWithAccelerationButton(source);
+                    break;
+                case PickableType.rotateGate:
+                    InteractWithRotateGate(source);
                     break;
 
                 default:
@@ -242,6 +247,17 @@ namespace Akila.FPSFramework
             return null;
         }
 
+        public virtual void InteractWithRotateGate(InteractionsManager source)
+        {
+            if (source == null || source.Inventory == null)
+            {
+                Debug.LogError("Missing source or inventory reference during collectable interaction.", gameObject);
+                return;
+            }
+            RotateGate rotateGate = GetComponent<RotateGate>();
+            GetComponent<BoxCollider>().enabled = false;
+            rotateGate.Activate();
+        }
 
     }
 
@@ -254,5 +270,6 @@ namespace Akila.FPSFramework
         FuseBox = 4,
         ReCharge = 5,
         AccelerationButton = 6,
+        rotateGate = 7,
     }
 }

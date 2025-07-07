@@ -11,7 +11,7 @@ public class RotateGate : MonoBehaviour
 
     void Start()
     {
-        Activate();
+        
     }
 
     public void Activate()
