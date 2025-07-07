@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4671057667283417318}
@@ -102,9 +102,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   searchRadius: 0
-  Speed: 15
-  RandomMoveRadius: 0.2
-  RandomMoveSpeedScale: 3
+  Speed: 30
+  RandomMoveRadius: 0.1
+  RandomMoveSpeedScale: 2
   randomTime: 10
 --- !u!114 &8671813891641488
 MonoBehaviour:
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c29a97481c1df141930d343887b9064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 70
+  damage: 1
   damageMax: 0
   push: 0
   motionMultifly: -1
@@ -257,17 +257,17 @@ PrefabInstance:
     - target: {fileID: 9130157617893998611, guid: f5f8345963f66034d9bd6192299427c0,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9130157617893998611, guid: f5f8345963f66034d9bd6192299427c0,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.4
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 9130157617893998611, guid: f5f8345963f66034d9bd6192299427c0,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9130157617893998611, guid: f5f8345963f66034d9bd6192299427c0,
         type: 3}
