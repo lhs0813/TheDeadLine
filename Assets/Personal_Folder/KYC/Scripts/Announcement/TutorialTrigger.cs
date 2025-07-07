@@ -18,16 +18,7 @@ public class TutorialTrigger : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        TutorialTriggerUIController.Instance.ShowUI(triggerID);
+        GetComponent<TutorialStepBase>().ExecuteTutorial();
+        //TutorialTriggerUIController.Instance.ShowUI(triggerID);
     }
-
-    private IEnumerator HideUIAfterSeconds(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        if (_uiToShow != null)
-            _uiToShow.SetActive(false);
-    }
-
-    // OnTriggerExit 제거해도 됨
 }
