@@ -205,15 +205,15 @@ namespace Akila.FPSFramework
                 crouchInput = false;
         }
 
-        private void InputStop()
+        public void InputStop()
         {
-            _isLapTopOn = true;
+            //_isLapTopOn = true;
             controls.Player.Disable();
         }
 
-        private void InputStart()
+        public void InputStart()
         {
-            _isLapTopOn = false;
+            //_isLapTopOn = false;
             controls.Player.Enable();
         }
         private void LateUpdate()
