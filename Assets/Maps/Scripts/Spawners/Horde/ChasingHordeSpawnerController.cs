@@ -57,8 +57,9 @@ public class ChasingHordeSpawnerController : MonoBehaviour
     private void ManagePlayerLocation(DungenCharacter character, Tile previousTile, Tile newTile)
     {
         //Null 체크: 이전 타일이 없으면, wasAdjacent = false 로 처리
-        bool wasAdjacent = previousTile != null && previousTile.IsAdjacentTo(spawningTile);
+        bool wasAdjacent = previousTile != null  && previousTile.IsAdjacentTo(spawningTile);
 
+        bool wasOnThisTile = previousTile != spawningTile;
         //지금 인접해 있는지
         bool nowAdjacent = newTile != null && newTile.IsAdjacentTo(spawningTile);
 
@@ -66,9 +67,14 @@ public class ChasingHordeSpawnerController : MonoBehaviour
         if (wasAdjacent)
             return;
 
+        if (wasOnThisTile)
+        {
+            Debug.Log("이전에 이 타일에 있었음.");
+        }
+
         //새로 인접해졌다면 스폰 시도
-        if (nowAdjacent)
-            TryActivateSpawner();
+            if (nowAdjacent)
+                TryActivateSpawner();
 
     }
 
