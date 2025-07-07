@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  damageMax: 0
   push: 0
   motionMultifly: -1
   navMultifly: -1
@@ -66,8 +67,21 @@ MonoBehaviour:
   reflect: 1
   OnHit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   hitEffect: {fileID: 0}
+  efPosThis: 0
   efDiretionHitNormal: 0
   efInChiled: 0
   efInChiledlocalPositionZero: 0
@@ -132,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f41583476af8dba44b8337cb4f7e2516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 10
+  time: 3
   isRepeat: 0
   num: 0
   timeRndMax: 0
