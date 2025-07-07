@@ -89,7 +89,15 @@ namespace Akila.FPSFramework
             _rigidbody.AddTorque(randomTorque, ForceMode.Impulse);
 
             deathPanel.SetActive(true);
-            deathPanel.GetComponent<DeadEnding>().Death();
+
+            if (deathPanel.GetComponent<DeadEnding_Endless>() != null)
+            {
+                deathPanel.GetComponent<DeadEnding_Endless>().Death();
+            }
+            else if (deathPanel.GetComponent<DeadEnding>() != null)
+            {
+                deathPanel.GetComponent<DeadEnding>().Death();
+            }
 
 
             Camera.enabled = true;
