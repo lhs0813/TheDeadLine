@@ -41,7 +41,7 @@ namespace Akila.FPSFramework
             
 
 
-            deathPanel.SetActive(false);
+            
             // Rigidbody 설정
             _rigidbody.isKinematic = true; // 기본적으로 비활성화
 
@@ -89,6 +89,7 @@ namespace Akila.FPSFramework
             _rigidbody.AddTorque(randomTorque, ForceMode.Impulse);
 
             deathPanel.SetActive(true);
+
             Camera.enabled = true;
             AudioListener.enabled = true;
         }
