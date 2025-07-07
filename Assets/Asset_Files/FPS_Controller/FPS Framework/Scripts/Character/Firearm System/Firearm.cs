@@ -332,7 +332,7 @@ namespace Akila.FPSFramework
             // Initialize ammo profile if not set
             if (ammoProfile == null)
             {
-                Debug.LogError("Ammo profile is not set. Using a default instance.", preset);
+               // Debug.LogError("Ammo profile is not set. Using a default instance.", preset);
 
                 ammoProfile = new InventoryCollectable();
 
