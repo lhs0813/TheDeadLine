@@ -14,43 +14,65 @@ public class EscapeTrigger : MonoBehaviour
     public float textFadeDelay = 0.5f;
     public float textFadeDuration = 1f;
 
+    [Header("결과 표시용 Number 텍스트")]
+    public TextMeshProUGUI clearTimeNumberText;
+    public TextMeshProUGUI bestClearTimeNumberText;
+
     [Header("나타날 버튼들")]
     public Button button1;
     public Button button2;
-    public float button1Delay = 0.5f; // 텍스트 페이드 끝나고 이만큼 기다린 뒤 첫 버튼
-    public float button2Delay = 1f;   // 텍스트 페이드 끝나고 이만큼 기다린 뒤 두 번째 버튼
+    public float button1Delay = 0.5f;
+    public float button2Delay = 1f;
 
     private bool _isFading = false;
-    public float ClearTime;
+    private float clearTime;
+    private float bestClearTime;
 
     private void Start()
     {
-        // 시작할 때 텍스트·버튼들 투명/비활성화
+        // 메시지 & 버튼 초기 세팅
         if (messageText != null)
         {
             var tc = messageText.color;
             tc.a = 0f;
             messageText.color = tc;
         }
-        if (button1 != null) button1.gameObject.SetActive(false);
-        if (button2 != null) button2.gameObject.SetActive(false);
+        button1?.gameObject.SetActive(false);
+        button2?.gameObject.SetActive(false);
+
+        // Number 텍스트도 처음엔 숨기기
+        clearTimeNumberText?.transform.parent.gameObject.SetActive(false);
+        bestClearTimeNumberText?.transform.parent.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!_isFading && other.CompareTag("Player"))
+        if (_isFading || !other.CompareTag("Player")) return;
+
+        // 1) 시간 계산 & 저장/로드
+        clearTime = RecordManager.Instance.StopStoryTimer();
+        bestClearTime = RecordManager.Instance.GetBestStoryTime();
+
+        // 2) 포맷된 문자열 세팅
+        if (clearTimeNumberText != null)
+            clearTimeNumberText.text = FormatTime(clearTime);
+
+        if (bestClearTimeNumberText != null)
         {
-            StartCoroutine(FadeSequence());
-            RecordManager.Instance.StopStoryTimer();
-            ClearTime =  RecordManager.Instance.LoadStoryTime();
+            bestClearTimeNumberText.text = bestClearTime == float.MaxValue
+                ? "--:--.---"
+                : FormatTime(bestClearTime);
         }
+
+        // 3) 페이드 코루틴 시작
+        StartCoroutine(FadeSequence());
     }
 
     private IEnumerator FadeSequence()
     {
         _isFading = true;
 
-        // 1) 화면 페이드
+        // 화면 페이드
         float elapsed = 0f;
         Color screenCol = fadeImage.color;
         while (elapsed < fadeDuration)
@@ -63,7 +85,7 @@ public class EscapeTrigger : MonoBehaviour
         screenCol.a = 1f;
         fadeImage.color = screenCol;
 
-        // 2) 텍스트 페이드 인
+        // 메시지 텍스트 페이드 인
         yield return new WaitForSecondsRealtime(textFadeDelay);
         if (messageText != null)
         {
@@ -80,23 +102,30 @@ public class EscapeTrigger : MonoBehaviour
             messageText.color = textCol;
         }
 
-        // 3) 게임 일시정지 & 커서 활성화
+        // 결과 텍스트(숫자) 활성화
+        clearTimeNumberText?.transform.parent.gameObject.SetActive(true);
+        bestClearTimeNumberText?.transform.parent.gameObject.SetActive(true);
+        clearTimeNumberText?.gameObject.SetActive(true);
+        bestClearTimeNumberText?.gameObject.SetActive(true);
+
+        // 일시정지 & 커서 활성화
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        // 4) 버튼들 시간차로 활성화
-        if (button1 != null)
-        {
-            yield return new WaitForSecondsRealtime(button1Delay);
-            button1.gameObject.SetActive(true);
-        }
-        if (button2 != null)
-        {
-            yield return new WaitForSecondsRealtime(button2Delay - button1Delay);
-            button2.gameObject.SetActive(true);
-        }
-        
-        // TODO: 이후 로직…
+        // 버튼들 활성화
+        yield return new WaitForSecondsRealtime(button1Delay);
+        button1?.gameObject.SetActive(true);
+
+        yield return new WaitForSecondsRealtime(button2Delay - button1Delay);
+        button2?.gameObject.SetActive(true);
+    }
+
+    private string FormatTime(float t)
+    {
+        int m = Mathf.FloorToInt(t / 60f);
+        int s = Mathf.FloorToInt(t % 60f);
+        int ms = Mathf.FloorToInt((t * 1000f) % 1000f);
+        return $"{m:00}:{s:00}.{ms:000}";
     }
 }
