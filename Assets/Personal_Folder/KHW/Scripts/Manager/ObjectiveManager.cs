@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+[DefaultExecutionOrder(-60)]
 public class ObjectiveManager : MonoBehaviour
 {
     #region singleton - instance
@@ -85,7 +86,7 @@ public class ObjectiveManager : MonoBehaviour
 
     void OnDisable()
     {
-        GamePlayManager.instance.OnStationArriveAction -= EnableFuseFindingObjective;        
+        GamePlayManager.instance.OnStationArriveAction -= EnableFuseFindingObjective;
     }
 
     #endregion
