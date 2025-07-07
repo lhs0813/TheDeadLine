@@ -37,11 +37,13 @@ public class TabletStep : TutorialStepBase
 
     private IEnumerator TabletOpenTutorialCoroutine()
     {
-        TutorialTriggerUIController.Instance.ShowUI("8", 5f);
+        TutorialTriggerUIController.Instance.ShowUI("8", 4f);
 
         yield return new WaitForSeconds(5f);
 
-        TutorialTriggerUIController.Instance.ShowUI("9", 5f);
+        TutorialTriggerUIController.Instance.ShowUI("9", 3f);
+
+        Destroy(gameObject);
 
 
     }
@@ -51,7 +53,7 @@ public class TabletStep : TutorialStepBase
         input.controls.Player.Enable();
         input.controls.Firearm.Enable();
 
-        Destroy(gameObject);
+
     }
 
 }
