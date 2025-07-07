@@ -42,6 +42,7 @@ namespace Akila.FPSFramework
         {
             Instance = this;
 
+            InteractPossible = true;
             Inventory = GetComponent<IInventory>();
             controls = new Controls();
             controls.Player.Enable();
