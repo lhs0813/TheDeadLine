@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
+using System.Diagnostics.Contracts;
+
 
 
 
@@ -83,7 +85,6 @@ namespace Akila.FPSFramework
         public InputAction item2;
         public InputAction item3;
         public InputAction Scroll;
-
 
 
         public GameObject playerObj { get; set; }
@@ -254,7 +255,6 @@ namespace Akila.FPSFramework
             item1 = characterInput.controls.Player.Item1;
             item2 = characterInput.controls.Player.Item2;
             item3 = characterInput.controls.Player.Item3;
-
             Scroll = characterInput.controls.Player.SwitchItem;
 
             playerObj = character.gameObject;
@@ -394,6 +394,7 @@ namespace Akila.FPSFramework
             item2.Disable();
             item3.Disable();
             Scroll.Disable();
+            InteractionsManager.Instance.InteractPossible = false;
         }
 
         void EnableCommand()
@@ -402,6 +403,8 @@ namespace Akila.FPSFramework
             item2.Enable();
             item3.Enable();
             Scroll.Enable();
+
+            InteractionsManager.Instance.InteractPossible = true;
         }
 
         public IEnumerator DropAnimationDelay(bool removeFromList = true)

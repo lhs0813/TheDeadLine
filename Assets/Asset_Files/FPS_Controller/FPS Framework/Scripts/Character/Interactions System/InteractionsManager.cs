@@ -12,6 +12,8 @@ namespace Akila.FPSFramework
     [AddComponentMenu("Akila/FPS Framework/Player/Interactions Manager")]
     public class InteractionsManager : MonoBehaviour
     {
+        public static InteractionsManager Instance { get; private set; }
+
         [Tooltip("The allowed range for any interaction")]
         public float range = 2;
         [Tooltip("If 1 player interaction angle is 360 if 0.5 interaction angle is 180")]
@@ -32,10 +34,14 @@ namespace Akila.FPSFramework
 
         public bool isActive { get; set; } = true;
 
+        public bool InteractPossible = true;
+
         public AudioClip currentInteractAudioClip { get; set; }
 
         private void Start()
         {
+            Instance = this;
+
             Inventory = GetComponent<IInventory>();
             controls = new Controls();
             controls.Player.Enable();
@@ -57,6 +63,7 @@ namespace Akila.FPSFramework
 
         private void Update()
         {
+
             IInteractable interactable = GetInteractable();
 
             if (HUDObject)
@@ -90,6 +97,9 @@ namespace Akila.FPSFramework
 
                 if (controls.Player.Intract.triggered)
                 {
+                    if (InteractPossible == false)
+                        return;
+
                     interactable.Interact(this);
                 }
             }
