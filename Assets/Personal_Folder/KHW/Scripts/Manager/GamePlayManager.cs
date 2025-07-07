@@ -116,8 +116,10 @@ public class GamePlayManager : MonoBehaviour
         currentMapIndex++;
 
         //맵 정보 저장 및 생성.
-        currentStageInfo = await GetStageInfoAsync(currentMapIndex);
-        await MapGenerationManager.Instance.LoadMap(currentMapIndex);
+        int ModifiedMapIndex = MapGenCalculator.GetModifiedIndex(currentMapIndex);
+
+        currentStageInfo = await GetStageInfoAsync(ModifiedMapIndex);
+        await MapGenerationManager.Instance.LoadMap(ModifiedMapIndex);
 
         //좀비 확률 설정.
         HordeSpawnBuilder.SetSpawnWeights(currentMapIndex);
@@ -138,9 +140,8 @@ public class GamePlayManager : MonoBehaviour
 
     private static async Task<StageInfo> GetStageInfoAsync(int mapIndex)
     {
-        int ModifiedMapIndex = MapGenCalculator.GetModifiedIndex(mapIndex);
 
-        string key = $"StageInfo_{ModifiedMapIndex}";
+        string key = $"StageInfo_{mapIndex}";
         var handle = Addressables.LoadAssetAsync<StageInfo>(key);
         var flow = await handle.Task;
 
