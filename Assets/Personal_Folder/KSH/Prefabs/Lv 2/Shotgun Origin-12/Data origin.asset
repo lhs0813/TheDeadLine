@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23ee099bf388b684a82d6b44291759ae, type: 3}
-  m_Name: Data
+  m_Name: Data origin
   m_EditorClassIdentifier: 
   replacement: {fileID: 6213586124208848989, guid: 49183878e2147764781a31b81dac9652,
     type: 3}
@@ -30,11 +30,11 @@ MonoBehaviour:
   casing: {fileID: 1064783083948533016, guid: 9f7b28249011bbc448cf336c7b206d66, type: 3}
   defaultDecal: {fileID: 0}
   decalDirection: 0
-  fireRate: 250
+  fireRate: 200
   muzzleVelocity: 400
   casingVelocity: 5
   impactForce: 25
-  damage: 300
+  damage: 400
   range: 50
   maxAimDeviation: 5
   sprayPattern: {fileID: 11400000, guid: 6ac0a12652b420b44a30f7c55b2e6b2b, type: 2}
@@ -54,8 +54,8 @@ MonoBehaviour:
   gamepadVibrationAmountLeft: 1
   gamepadVibrationDuration: 0.1
   ammoType: {fileID: 11400000, guid: e587548615e6b32478c1492ff4b58779, type: 2}
-  magazineCapacity: 30
-  reserve: 30
+  magazineCapacity: 20
+  reserve: 20
   canAutomaticallyReload: 1
   reloadMethod: 1
   reloadTime: 0.37
@@ -63,12 +63,12 @@ MonoBehaviour:
   reloadStateName: Reload Transition In
   reloadTransitionTime: 0
   canCancelReloading: 0
-  cameraRecoil: 0
+  cameraRecoil: 10
   cameraShakeAmount: 0.5
   cameraShakeRoughness: 5
   cameraShakeStartTime: 0.1
   cameraShakeDuration: 0.1
-  horizontalRecoil: 0
+  horizontalRecoil: 5
   verticalRecoil: 0.2
   aimSpeed: 10
   aimFieldOfView: 50
