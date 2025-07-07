@@ -18,7 +18,8 @@ public class TutorialTrigger : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        TutorialTriggerUIController.Instance.ShowUI(triggerID);
+        GetComponent<TutorialStepBase>().ExecuteTutorial();
+        //TutorialTriggerUIController.Instance.ShowUI(triggerID);
     }
 
     private IEnumerator HideUIAfterSeconds(float delay)

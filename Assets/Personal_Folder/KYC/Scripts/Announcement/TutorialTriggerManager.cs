@@ -11,6 +11,10 @@ public class TutorialTriggerManager : MonoBehaviour
     {
         public string triggerID;
         public GameObject uiToShow;
+        public virtual void Execute()
+        {
+
+        }
     }
 
     public List<TutorialStep> tutorialSteps = new List<TutorialStep>();
