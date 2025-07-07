@@ -73,7 +73,7 @@ public class GamePlayManager : MonoBehaviour
         // 1) 무기 프리팹 미리 로드
         //currentMapIndex = 0;
         await SpawnedGunBuilder.InitializeAsync();
-        currentStageInfo = await GetStageInfoAsync(currentMapIndex);
+        currentStageInfo = await GetStageInfoAsync(MapGenCalculator.GetModifiedIndex(currentMapIndex));
 
         allFuseActivated = false;
     }
