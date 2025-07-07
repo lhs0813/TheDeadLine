@@ -39,11 +39,11 @@ public class TabletStep : TutorialStepBase
     {
         TutorialTriggerUIController.Instance.ShowUI("8", 4f);
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f);
 
         TutorialTriggerUIController.Instance.ShowUI("9", 3f);
 
-        Destroy(gameObject);
+
 
 
     }
@@ -53,7 +53,7 @@ public class TabletStep : TutorialStepBase
         input.controls.Player.Enable();
         input.controls.Firearm.Enable();
 
-
+        Destroy(gameObject, 10f);
     }
 
 }
