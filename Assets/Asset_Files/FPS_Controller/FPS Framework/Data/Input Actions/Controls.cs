@@ -357,28 +357,6 @@ namespace Akila.FPSFramework
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0aa981ee-9aa6-4424-8578-00d2f3494093"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Crouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""305932dd-4ff7-454e-80cf-5a5873397580"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Crouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""aff5a42f-9fa0-42df-82ce-bcb33b326cdb"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
