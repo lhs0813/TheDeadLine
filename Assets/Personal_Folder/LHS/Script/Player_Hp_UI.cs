@@ -12,6 +12,9 @@ public class Player_Hp_UI : MonoBehaviour
     public Image hpBar;
     private float _maxHp = 100;
 
+    public GameObject hpIcon;
+    private Animator hpIconAnim;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,10 +22,13 @@ public class Player_Hp_UI : MonoBehaviour
         //hpBar = transform.GetChild(4).GetComponent<Image>();
         Player_Manager.PlayerHpChange += HpUiUpdate;
         Player_Manager.PlayerMaxHpChange += MaxHpUiUpdate;
+
+        hpIconAnim = hpIcon.GetComponent<Animator>();
     }
 
     void HpUiUpdate(float hp)
     {
+        hpIconAnim.SetTrigger("On");
         HpUis[1].text = hp.ToString("F0"); // 1번은 NowHealth , 0번은 토탈 헬스~
         if (hp > 0)
         {
