@@ -62115,9 +62115,6 @@ GameObject:
   m_Component:
   - component: {fileID: 492294895}
   - component: {fileID: 492294894}
-  - component: {fileID: 492294893}
-  - component: {fileID: 492294892}
-  - component: {fileID: 492294891}
   - component: {fileID: 492294890}
   m_Layer: 2
   m_Name: Tile_Platform(2 upper)(Clone)
@@ -62147,53 +62144,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 20.754827, y: 8.000009, z: 36.003662}
   m_Center: {x: -12.787414, y: -1.2948027, z: -4.001831}
---- !u!114 &492294891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492294889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8157a60a38d7dbd47834efe61152adf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnCount: 1
-  danger: 0
---- !u!114 &492294892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492294889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a0e41965a4740945a30b3a93f64b3fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &492294893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492294889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3cc6fb6f1365ec4681768764ddcc153, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isBeingPreSpawned: 1
-  isAlreadyTriggered: 0
-  tileSpawning: {fileID: 492294894}
-  spawners:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  mapIndex: 1
-  danger: 0
 --- !u!114 &492294894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77656,6 +77606,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontSize
       value: 105.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8636235998870173887, guid: 31057ebea554a6a498bb5eb2eab107c8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8652353670060591659, guid: 31057ebea554a6a498bb5eb2eab107c8,
         type: 3}
