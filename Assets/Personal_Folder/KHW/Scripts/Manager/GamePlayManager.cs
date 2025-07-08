@@ -119,6 +119,8 @@ public class GamePlayManager : MonoBehaviour
         if (isStoryMode && currentMapIndex == 10)
         {
             SceneManager.LoadScene("EndingScene");
+
+            return;
         }
 
         //맵 정보 저장 및 생성.
