@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Threading.Tasks;
 using Akila.FPSFramework;
@@ -24,6 +24,7 @@ public class GamePlayManager : MonoBehaviour
     public int currentMapIndex = 0;
     public StageInfo currentStageInfo;
     public GameState currentGameState;
+    public bool isStoryMode;
 
 
     [Header("Instances")]
@@ -115,8 +116,13 @@ public class GamePlayManager : MonoBehaviour
         //다음맵 로딩 시작
         currentMapIndex++;
 
+        if (isStoryMode && currentMapIndex == 10)
+        {
+            SceneManager.LoadScene("EndingScene");
+        }
+
         //맵 정보 저장 및 생성.
-        int ModifiedMapIndex = MapGenCalculator.GetModifiedIndex(currentMapIndex);
+            int ModifiedMapIndex = MapGenCalculator.GetModifiedIndex(currentMapIndex);
 
         currentStageInfo = await GetStageInfoAsync(ModifiedMapIndex);
         await MapGenerationManager.Instance.LoadMap(ModifiedMapIndex);
@@ -257,7 +263,7 @@ public class GamePlayManager : MonoBehaviour
         yield return new WaitForSeconds(5.5f); // 3초 대기
         Cursor.lockState = CursorLockMode.None;  // 마우스 잠금 해제
         Cursor.visible = true;                   // 마우스 커서 보이게
-        SceneManager.LoadScene("Main_Menu");
+        //SceneManager.LoadScene("Main_Menu");
     }
 
     void OnDisable()

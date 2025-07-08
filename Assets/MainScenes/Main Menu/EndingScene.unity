@@ -24968,7 +24968,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 66022106}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1879594532}
+        m_TargetAssemblyTypeName: Dead_Btn, Assembly-CSharp
+        m_MethodName: Gomain
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &66022106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30253,6 +30265,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f632d4e916f0d7442ac798d5dde7b083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alternateSceneName: EndlessModeScene
+  defaultMapImage: {fileID: 0}
+  alternateMapImage: {fileID: 0}
   mapUIObjects:
   - {fileID: 1718748970}
   - {fileID: 876296549}
@@ -30265,6 +30280,7 @@ MonoBehaviour:
   - {fileID: 1897517770}
   - {fileID: 865142543}
   - {fileID: 459152808}
+  endlessIndexText: {fileID: 0}
 --- !u!65 &193709974
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -33290,8 +33306,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: RETRY
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 790be7b8145daa943be2636a4f480af6, type: 2}
+  m_sharedMaterial: {fileID: 6277740771308484127, guid: 790be7b8145daa943be2636a4f480af6,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -62098,9 +62115,6 @@ GameObject:
   m_Component:
   - component: {fileID: 492294895}
   - component: {fileID: 492294894}
-  - component: {fileID: 492294893}
-  - component: {fileID: 492294892}
-  - component: {fileID: 492294891}
   - component: {fileID: 492294890}
   m_Layer: 2
   m_Name: Tile_Platform(2 upper)(Clone)
@@ -62130,53 +62144,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 20.754827, y: 8.000009, z: 36.003662}
   m_Center: {x: -12.787414, y: -1.2948027, z: -4.001831}
---- !u!114 &492294891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492294889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8157a60a38d7dbd47834efe61152adf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnCount: 1
-  danger: 0
---- !u!114 &492294892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492294889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a0e41965a4740945a30b3a93f64b3fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &492294893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492294889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3cc6fb6f1365ec4681768764ddcc153, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isBeingPreSpawned: 1
-  isAlreadyTriggered: 0
-  tileSpawning: {fileID: 492294894}
-  spawners:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  mapIndex: 1
-  danger: 0
 --- !u!114 &492294894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62991,8 +62958,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 171}
-  m_SizeDelta: {x: 1000, y: 50}
+  m_AnchoredPosition: {x: 0, y: 168}
+  m_SizeDelta: {x: 1500, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &520009221
 MonoBehaviour:
@@ -65824,7 +65791,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 595464476}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1879594532}
+        m_TargetAssemblyTypeName: Dead_Btn, Assembly-CSharp
+        m_MethodName: retry
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &595464476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77628,6 +77607,11 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 105.25
       objectReference: {fileID: 0}
+    - target: {fileID: 8636235998870173887, guid: 31057ebea554a6a498bb5eb2eab107c8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8652353670060591659, guid: 31057ebea554a6a498bb5eb2eab107c8,
         type: 3}
       propertyPath: m_Name
@@ -89073,8 +89057,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: MAIN MENU
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 790be7b8145daa943be2636a4f480af6, type: 2}
+  m_sharedMaterial: {fileID: 6277740771308484127, guid: 790be7b8145daa943be2636a4f480af6,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -93939,6 +93924,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f632d4e916f0d7442ac798d5dde7b083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alternateSceneName: EndlessModeScene
+  defaultMapImage: {fileID: 0}
+  alternateMapImage: {fileID: 0}
   mapUIObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -93951,6 +93939,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  endlessIndexText: {fileID: 0}
 --- !u!65 &1538975651
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95297,8 +95286,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Best Clear Time: '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 790be7b8145daa943be2636a4f480af6, type: 2}
+  m_sharedMaterial: {fileID: 6277740771308484127, guid: 790be7b8145daa943be2636a4f480af6,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -98701,8 +98691,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Clear Time: '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 790be7b8145daa943be2636a4f480af6, type: 2}
+  m_sharedMaterial: {fileID: 6277740771308484127, guid: 790be7b8145daa943be2636a4f480af6,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -98764,7 +98755,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -376.43463, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -104297,6 +104288,7 @@ GameObject:
   - component: {fileID: 1879594529}
   - component: {fileID: 1879594531}
   - component: {fileID: 1879594530}
+  - component: {fileID: 1879594532}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -104367,6 +104359,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1879594528}
   m_CullTransparentMesh: 1
+--- !u!114 &1879594532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879594528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e0e1286af506b4e90e9a3b008d4cc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1881794355
 GameObject:
   m_ObjectHideFlags: 0
