@@ -182,11 +182,13 @@ namespace Akila.FPSFramework
         }
 
         List<GameObject> hitted = new();
+        public int hitCountMax = 1;
+         int hitCountNow ;
+
         bool isHit = false;
 
         IEnumerator Update2()
         {
-
             for (; ; )
             {
                 yield return new WaitForSeconds(0.05f);
@@ -237,7 +239,7 @@ namespace Akila.FPSFramework
                         UpdateHits(ray, hit);
 
 
-                    if (isHit && destroyOnImpact)
+                    if (hitCountNow>=hitCountMax)
                     {
                         Destroy(gameObject);
                         break;
@@ -251,6 +253,8 @@ namespace Akila.FPSFramework
                     }*/
 
                 }
+
+
 
                 if (useAutoScaling)
                 {
@@ -285,10 +289,6 @@ namespace Akila.FPSFramework
             rb.AddForce(Physics.gravity * gravity, ForceMode.Acceleration);
         }
 
-        private void LateUpdate()
-        {
-        }
-
         protected virtual void UpdateHits(Ray ray, RaycastHit hit)
         {
             //stop if object has ignore component
@@ -311,6 +311,7 @@ namespace Akila.FPSFramework
 
             Firearm.UpdateHits(source.firearm, defaultDecal, ray, hit, CalculateDamage(), decalDirection);
 
+            hitCountNow++;
             isHit = true;
         }
 

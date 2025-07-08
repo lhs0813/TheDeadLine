@@ -332,7 +332,7 @@ namespace Akila.FPSFramework
             // Initialize ammo profile if not set
             if (ammoProfile == null)
             {
-                Debug.LogError("Ammo profile is not set. Using a default instance.", preset);
+               // Debug.LogError("Ammo profile is not set. Using a default instance.", preset);
 
                 ammoProfile = new InventoryCollectable();
 
@@ -794,7 +794,14 @@ namespace Akila.FPSFramework
                 shotsFired = 0;
                 finalDirection = GetSprayPattern(_direction);
 
-                FireDone(position, rotation, finalDirection);
+
+
+                if(preset.shotCount==1)
+                 FireDone(position, rotation, finalDirection);                
+                else
+                    FireDone(position, rotation, _direction);
+
+
 
                 // Apply fire logic if not set to always apply fire
                 if (!preset.alwaysApplyFire)
