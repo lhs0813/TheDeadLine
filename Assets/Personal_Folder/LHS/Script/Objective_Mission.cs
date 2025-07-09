@@ -13,7 +13,7 @@ public class Objective_Mission : MonoBehaviour
 
     void ObjectiveMission()
     {
-        int fuseCount = ObjectiveManager.instance.fuseCounterObjective;
+        int fuseCount = GamePlayManager.instance.currentStageInfo.fuseCount;
         fuseText.SetText(fuseText.text, fuseCount);
         anim.SetTrigger("On");
     }
