@@ -207,7 +207,7 @@ namespace Akila.FPSFramework
                 Vector3 shootDirection = direction;
 
                 Ray ray2 = new Ray(shootOrigin, shootDirection);
-                RaycastHit[] Push = Physics.SphereCastAll(ray2, hitRadius, distance, LayerMask.GetMask("Monster_Ragdoll"));
+               // RaycastHit[] Push = Physics.SphereCastAll(ray2, hitRadius, distance, LayerMask.GetMask("Monster_Ragdoll"));
 
                 foreach (RaycastHit hit in hits)
                 {
