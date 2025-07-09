@@ -1,6 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Localization.Components;
+using UnityEngine.SceneManagement;
 
 public class UI_Objective_Info : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class UI_Objective_Info : MonoBehaviour
 
     MapUIController map;
 
-
+    Animator anim;
     void Start()
     {
         ObjectiveManager.instance.OnFindFuseAction += ShowFuseFindingObjective;
@@ -21,7 +22,7 @@ public class UI_Objective_Info : MonoBehaviour
         ObjectiveManager.instance.OnDisableAllObjectiveAction += DisableText;
 
         map = FindAnyObjectByType<MapUIController>();
-
+        anim = GetComponent<Animator>();
         DisableText();
     }
 
@@ -37,18 +38,38 @@ public class UI_Objective_Info : MonoBehaviour
     {
         if (!isActive)
         {
+            anim.SetTrigger("On");
             objectiveText.gameObject.SetActive(true);
             //0709 김용찬 수정 튜토리얼에선 맵 이름 안뜨게 수정 (사유: 조잡함)
-            int mapIndex = GamePlayManager.instance.currentMapIndex;
-            if (mapIndex != 0)  
+
+            if(SceneManager.GetActiveScene().name == "StoryMode" || SceneManager.GetActiveScene().name == "StoryModeLoop")
             {
-                stationName.SetActive(true);
-                stationName.GetComponentInChildren<TextMeshProUGUI>().text = map.centerStationText.text;
+                int mapIndex = GamePlayManager.instance.currentMapIndex;
+                if (mapIndex != 0)
+                {
+                    stationName.SetActive(true);
+                    stationName.GetComponentInChildren<TextMeshProUGUI>().text = map.centerStationText.text;
+                }
+                else
+                {
+                    stationName.SetActive(false);
+                }
             }
             else
             {
-                stationName.SetActive(false);
+                int mapIndex = GamePlayManager.instance.currentMapIndex;
+                if (mapIndex != 0)
+                {
+                    stationName.SetActive(true);
+                    stationName.GetComponentInChildren<TextMeshProUGUI>().text =  "Station " + (GamePlayManager.instance.currentMapIndex - 4).ToString();
+                }
+                else
+                {
+                    stationName.SetActive(false);
+                }
             }
+
+
             isActive = true;
             backImg.SetActive(true);
         }
@@ -67,6 +88,7 @@ public class UI_Objective_Info : MonoBehaviour
         if (!isActive)
         {
             objectiveText.gameObject.SetActive(true);
+            anim.SetTrigger("On");
             //stationName.SetActive(true);
             backImg.SetActive(true);
             isActive = true;
