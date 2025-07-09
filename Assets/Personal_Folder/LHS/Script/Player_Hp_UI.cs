@@ -45,16 +45,23 @@ public class Player_Hp_UI : MonoBehaviour
     void HpUiUpdate(float hp)
     {
         hpIconAnim.SetTrigger("On");
+
+        // 체력 텍스트 업데이트
         HpUis[1].text = hp.ToString("F0");
 
+        // 색상 보간 (흰색 → 빨간색)
+        float t = 1f - Mathf.Clamp01(hp / _maxHp); // 0 (full) → 1 (zero)
+        Color color = Color.Lerp(Color.white, Color.red, t);
+        HpUis[1].color = color;
+
+        // 체력바 및 비네트 효과 처리
         if (hp > 0)
         {
-            hpBar.fillAmount = (float)(hp / _maxHp);
+            hpBar.fillAmount = hp / _maxHp;
 
-            // 🔴 Vignette 효과 동기화
             if (vignette != null)
             {
-                vignette.intensity.value = 1f - (hp / _maxHp);
+                vignette.intensity.value = t;
             }
         }
         else
@@ -63,7 +70,7 @@ public class Player_Hp_UI : MonoBehaviour
 
             if (vignette != null)
             {
-                vignette.intensity.value = 1f; // 체력 0일 때 최대 강도
+                vignette.intensity.value = 1f;
             }
         }
     }
