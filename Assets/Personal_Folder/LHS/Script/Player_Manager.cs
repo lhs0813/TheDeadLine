@@ -44,15 +44,6 @@ public class Player_Manager : MonoBehaviour
         PlayerMaxHpChange += MaxhpUpdate;
     }
 
-    /*public void ApplyDamageEffect()
-    {
-        if (vignette != null)
-        {
-            vignette.intensity.value = 0.5f;
-            vignette.color.value = Color.red;
-        }
-    }*/
-
     private void hpUpdate(float hp)
     {
         playerHp = hp;
