@@ -40,16 +40,17 @@ public class PrespawnedHordeSpawner : MonoBehaviour
     /// <summary>
     /// 분할 스폰: 한 프레임에 한 마리씩(또는 frameDelayPerSpawn 프레임마다)
     /// </summary>
-    public void TrySpawn(int mapIndex, bool track)
+    public void TrySpawn(int mapIndex, bool track, bool danger)
     {
-        StartCoroutine(SpawnRoutine(mapIndex, track));
+        StartCoroutine(SpawnRoutine(mapIndex, track, danger));
     }
 
-    private IEnumerator SpawnRoutine(int mapIndex, bool track)
+    private IEnumerator SpawnRoutine(int mapIndex, bool track, bool danger)
     {
+        //track -> false -> prespawn
         foreach (var point in spawnPoints)
         {
-            int it = track ? dangerSpawnCountMultiplier : 1;
+            int it = danger ? dangerSpawnCountMultiplier : 1;
 
             for (int i = 0; i < it; i++)
             {
@@ -63,7 +64,7 @@ public class PrespawnedHordeSpawner : MonoBehaviour
                 if (enemy != null)
                     preSpawnedEnemies.Add(enemy);
 
-                    yield return null;
+                yield return null;
             }
         }
     }

@@ -77,7 +77,7 @@ public class MainPathSpawnController : MonoBehaviour
     {
         foreach (var s in spawners)
         {
-            s.MainSpawn(GamePlayManager.instance.currentMapIndex, false);
+            s.MainSpawn(GamePlayManager.instance.currentMapIndex, false, danger);
         }
     }
 
@@ -86,7 +86,7 @@ public class MainPathSpawnController : MonoBehaviour
     {
         foreach (var s in spawners)
         {
-            s.MainSpawn(GamePlayManager.instance.currentMapIndex, true);
+            s.MainSpawn(GamePlayManager.instance.currentMapIndex, true, danger);
         }      
     }
 
