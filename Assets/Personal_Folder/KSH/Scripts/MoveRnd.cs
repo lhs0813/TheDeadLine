@@ -25,8 +25,8 @@ public class MoveRnd : MonoBehaviour
 
     void Update()
     {
-        if (target == null)
-            target = Info.GetCloseEnemy(gameObject, searchRadius);
+       // if (target == null)
+       //     target = Info.GetCloseEnemy(gameObject, searchRadius);
 
 
 
