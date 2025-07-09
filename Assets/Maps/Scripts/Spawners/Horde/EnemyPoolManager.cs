@@ -275,7 +275,7 @@ IEnumerator CorpseDisappearCoroutine(EnemyType type, GameObject obj, float offse
         // 2) Double‐check: maybe it was removed by something else in the meantime?
         if (!activeEnemies.Contains(obj))
         {
-            DestroyImmediate(obj);
+            //DestroyImmediate(obj);
             yield break;
         }
 
@@ -292,26 +292,48 @@ IEnumerator CorpseDisappearCoroutine(EnemyType type, GameObject obj, float offse
     // remove from active list
     activeEnemies.Remove(obj);
 }
-    
+
+    //public void ReturnAllEnemiesToPool()
+    //{
+    //    //적 사망 반환 코루틴 진행중인 경우 취소.
+    //    StopAllCoroutines();
+
+    //    //배열 내 생성되어있는 모든 적들 반환.
+    //    for (int i = activeEnemies.Count - 1; i >= 0; i--)
+    //    {
+    //        Debug.Log("생성된 적 반환");
+
+    //        GameObject enemy = activeEnemies[i];
+    //        if (enemy != null)
+    //        {
+    //            EnemyType type = enemy.GetComponent<EnemyIdentifier>().Type;
+    //            ReturnToPool(type, enemy, 0f);
+    //        }
+    //    }
+
+    //    //배열 Clear.
+    //    activeEnemies.Clear();
+    //}
+
     public void ReturnAllEnemiesToPool()
     {
-        //적 사망 반환 코루틴 진행중인 경우 취소.
+        // 1) 진행 중인 코루틴 취소
         StopAllCoroutines();
-
-        //배열 내 생성되어있는 모든 적들 반환.
-        for (int i = activeEnemies.Count - 1; i >= 0; i--)
+        // 2) 리스트에 있는 모든 적을 즉시 풀에 반환
+        foreach (var enemy in activeEnemies)
         {
-            Debug.Log("생성된 적 반환");
-
-            GameObject enemy = activeEnemies[i];
-            if (enemy != null)
-            {
-                EnemyType type = enemy.GetComponent<EnemyIdentifier>().Type;
-                ReturnToPool(type, enemy, 0f);
-            }
+            if (enemy == null)
+                continue;
+            // 타입 가져오기
+            var type = enemy.GetComponent<EnemyIdentifier>().Type;
+            // (옵션) 위치 초기화
+            enemy.transform.position = Vector3.zero;
+            // 카운트 감소
+            currentCounts[type] = Mathf.Max(0, currentCounts[type] - 1);
+            // 바로 릴리즈 → actionOnRelease 콜백에서 SetActive(false) 실행
+            enemyPools[type].Release(enemy);
         }
-
-        //배열 Clear.
+        // 3) 액티브 리스트 완전 초기화
         activeEnemies.Clear();
     }
 
