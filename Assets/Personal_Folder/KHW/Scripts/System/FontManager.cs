@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
@@ -21,45 +21,51 @@ public class FontManager : MonoBehaviour
 
         _fontMap = new Dictionary<string, TMP_FontAsset>()
         {
-            { "ko", _koreanFont },
-            { "en", _englishFont },
-            { "ja-JP", _japaneseFont },
+            { "ko",      _koreanFont          },
+            { "en",      _englishFont         },
+            { "ja-JP",   _japaneseFont        },
             { "zh-Hans", _simplifiedChineseFont },
         };
 
-        // Localization 초기화 완료 시 + 로케일 변경 시 기존 로직
-        LocalizationSettings.InitializationOperation.Completed += op =>
+        // Localization 준비 완료 직후와 언어 변경 시 폰트 적용
+        LocalizationSettings.InitializationOperation.Completed += _ =>
         {
             ApplyFont(LocalizationSettings.SelectedLocale);
             LocalizationSettings.SelectedLocaleChanged += ApplyFont;
         };
 
-        // 씬이 로드될 때마다 호출
+        // 씬 전환 시에도 폰트 재적용
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDestroy()
     {
-        // 메모리 누수 방지
         LocalizationSettings.SelectedLocaleChanged -= ApplyFont;
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    // 씬이 바뀌면 현재 로케일로 폰트 다시 적용
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         ApplyFont(LocalizationSettings.SelectedLocale);
     }
 
-    // 공통 적용 로직
     private void ApplyFont(Locale locale)
     {
-        var code = locale.Identifier.Code;
-        if (!_fontMap.TryGetValue(code, out var font)) return;
+        if (!_fontMap.TryGetValue(locale.Identifier.Code, out var font))
+            return;
 
         currentFont = font;
 
-        foreach (var txt in FindObjectsByType<TextMeshProUGUI>(FindObjectsSortMode.None))
+        // 모든 TextMeshProUGUI 컴포넌트를 찾아 폰트와 머티리얼을 교체하고
+        // 텍스트 강제 재할당 및 메시 업데이트를 수행합니다.
+        foreach (var txt in FindObjectsOfType<TextMeshProUGUI>(true))
+        {
             txt.font = font;
+            txt.fontSharedMaterial = font.material;
+
+            // Force a full re‐render so old SubMeshes are cleared
+            txt.text = txt.text;
+            txt.ForceMeshUpdate(true, true);
+        }
     }
 }
