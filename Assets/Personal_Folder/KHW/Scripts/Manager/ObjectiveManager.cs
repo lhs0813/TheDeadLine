@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
 
@@ -33,7 +33,7 @@ public class ObjectiveManager : MonoBehaviour
     #region Fusefinding
 
     int currentFuseCounter;
-    int fuseCounterObjective = 1;
+    public int fuseCounterObjective = 1;
 
     public Action OnStartFuseFindingObjectiveAction; //역 도착시 목표 시작을 알리는 액션.
     public Action<int, int> OnFindFuseAction; //퓨즈를 찾을 때마다 호출되는 액션.
@@ -46,6 +46,7 @@ public class ObjectiveManager : MonoBehaviour
 
         fuseCounterObjective = GamePlayManager.instance.currentStageInfo.fuseCount;
         OnFindFuseAction?.Invoke(currentFuseCounter, fuseCounterObjective);
+
         //UI 활성화 
     }
 

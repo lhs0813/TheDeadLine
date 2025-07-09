@@ -197,7 +197,8 @@ namespace Akila.FPSFramework
                 Ray ray = new Ray(previousPosition, -(previousPosition - transform.position));
                 float distance = Vector3.Distance(transform.position, previousPosition);
 
-                RaycastHit[] hits = Physics.SphereCastAll(ray, hitRadius, distance, hittableLayers);
+                // RaycastHit[] hits = Physics.SphereCastAll(ray, hitRadius, distance, hittableLayers);
+                RaycastHit[] hits = Physics.RaycastAll(ray,  distance, hittableLayers);
 
 
                 System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
@@ -206,7 +207,7 @@ namespace Akila.FPSFramework
                 Vector3 shootDirection = direction;
 
                 Ray ray2 = new Ray(shootOrigin, shootDirection);
-                RaycastHit[] Push = Physics.SphereCastAll(ray2, hitRadius, distance, LayerMask.GetMask("Monster_Ragdoll"));
+               // RaycastHit[] Push = Physics.SphereCastAll(ray2, hitRadius, distance, LayerMask.GetMask("Monster_Ragdoll"));
 
                 foreach (RaycastHit hit in hits)
                 {
