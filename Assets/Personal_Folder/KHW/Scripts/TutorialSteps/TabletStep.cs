@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using Akila.FPSFramework;
 using UnityEngine;
@@ -53,7 +53,7 @@ public class TabletStep : TutorialStepBase
         input.controls.Player.Enable();
         input.controls.Firearm.Enable();
 
-        Destroy(gameObject, 10f);
+        Destroy(gameObject);
     }
 
 }

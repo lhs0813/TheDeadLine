@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using static TutorialTriggerManager;
 
@@ -15,8 +15,7 @@ public class MoveTutorialStep : TutorialStepBase
 {
     public override void ExecuteTutorial()
     {
-        TutorialTriggerUIController.Instance.ShowUI("0", 10f);
+        TutorialTriggerUIController.Instance.ShowUI("0", 4f);
 
-        Destroy(gameObject);
     }
 }

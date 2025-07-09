@@ -17,7 +17,8 @@ public class TutorialTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
-
+        if (_uiToShow != null)
+            _uiToShow.SetActive(true);        // ← 여기를 추가
         GetComponent<TutorialStepBase>().ExecuteTutorial();
         //TutorialTriggerUIController.Instance.ShowUI(triggerID);
     }

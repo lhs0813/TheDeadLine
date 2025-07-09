@@ -1,14 +1,12 @@
+﻿using Akila.FPSFramework;
 using System.Collections;
 using UnityEngine;
 
 public class FuseStep : TutorialStepBase
 {
     [SerializeField] GameObject trainTriggerObject;
+    CharacterInput input;
 
-    void Start()
-    {
-        ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction += ActivateTrainCollider;
-    }
 
     public override void ExecuteTutorial()
     {
@@ -17,24 +15,23 @@ public class FuseStep : TutorialStepBase
 
     private IEnumerator FuseTutorialCoroutine()
     {
-        TutorialTriggerUIController.Instance.ShowUI("6", 5f);
+        input = FindAnyObjectByType<CharacterInput>();
+        input.controls.Player.Disable();
+        input.controls.Firearm.Disable();
+
+        TutorialTriggerUIController.Instance.ShowUI("6", 7f);
 
         GetComponent<BoxCollider>().enabled = false;
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(7f);
 
-        TutorialTriggerUIController.Instance.ShowUI("10", 4f);
+        input.controls.Player.Enable();
+        input.controls.Firearm.Enable();
+        TutorialTriggerUIController.Instance.ShowUI("10", 7f);
 
-        Destroy(gameObject,5f);
+        Destroy(gameObject);
     }
 
-    private void ActivateTrainCollider()
-    {
-        trainTriggerObject.SetActive(true);
-    }
 
-    void OnDestroy()
-    {
-        ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction -= ActivateTrainCollider;        
-    }
+
 }

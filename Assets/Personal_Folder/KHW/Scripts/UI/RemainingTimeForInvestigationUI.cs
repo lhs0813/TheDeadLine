@@ -51,7 +51,9 @@ public class RemainingTimeForInvestigationUI : MonoBehaviour
         this.remainingTime = remainingTime;
         isHidden = false;
 
-        ColorChange(Color.green);
+        Color greenWithAlpha = new Color(0f, 1f, 0f, 0.666f);
+        ColorChange(greenWithAlpha);
+
         _hasColorChanged = false;
 
         _anim.SetTrigger("On");
@@ -88,7 +90,9 @@ public class RemainingTimeForInvestigationUI : MonoBehaviour
 
             if (remainingTime < 60f && !_hasColorChanged)
             {
-                ColorChange(new Color(1f, 0.35f, 0f)); // 오렌지 색
+                Color orangeWithAlpha = new Color(1f, 0.35f, 0f, 0.666f);
+                ColorChange(orangeWithAlpha);
+
                 _hasColorChanged = true;
             }
         }

@@ -6,10 +6,12 @@ public class UI_Objective_Info : MonoBehaviour
 {
     [SerializeField] LocalizeStringEvent objectiveEvent;   // 하나만 연결
     [SerializeField] TextMeshProUGUI objectiveText;       // Disable용
-    [SerializeField] GameObject lineObj;
+    [SerializeField] GameObject stationName;
     [SerializeField] GameObject backImg;
 
     [SerializeField] bool isActive;
+
+    MapUIController map;
 
 
     void Start()
@@ -17,7 +19,9 @@ public class UI_Objective_Info : MonoBehaviour
         ObjectiveManager.instance.OnFindFuseAction += ShowFuseFindingObjective;
         ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction += ShowReturnObjective;
         ObjectiveManager.instance.OnDisableAllObjectiveAction += DisableText;
-        
+
+        map = FindAnyObjectByType<MapUIController>();
+
         DisableText();
     }
 
@@ -34,7 +38,17 @@ public class UI_Objective_Info : MonoBehaviour
         if (!isActive)
         {
             objectiveText.gameObject.SetActive(true);
-            lineObj.SetActive(true);
+            //0709 김용찬 수정 튜토리얼에선 맵 이름 안뜨게 수정 (사유: 조잡함)
+            int mapIndex = GamePlayManager.instance.currentMapIndex;
+            if (mapIndex != 0)  
+            {
+                stationName.SetActive(true);
+                stationName.GetComponentInChildren<TextMeshProUGUI>().text = map.centerStationText.text;
+            }
+            else
+            {
+                stationName.SetActive(false);
+            }
             isActive = true;
             backImg.SetActive(true);
         }
@@ -53,7 +67,7 @@ public class UI_Objective_Info : MonoBehaviour
         if (!isActive)
         {
             objectiveText.gameObject.SetActive(true);
-            lineObj.SetActive(true);
+            //stationName.SetActive(true);
             backImg.SetActive(true);
             isActive = true;
         }
@@ -71,7 +85,7 @@ public class UI_Objective_Info : MonoBehaviour
         }
 
         objectiveText.gameObject.SetActive(false);
-        lineObj.SetActive(false);
+        stationName.SetActive(false);
         backImg.SetActive(false);
 
 
