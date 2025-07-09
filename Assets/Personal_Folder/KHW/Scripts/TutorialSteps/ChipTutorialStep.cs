@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ChipTutorialStep : TutorialStepBase
 {
@@ -6,6 +6,5 @@ public class ChipTutorialStep : TutorialStepBase
     {
         TutorialTriggerUIController.Instance.ShowUI("4", 10f);
 
-        Destroy(gameObject);
     }
 }

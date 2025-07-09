@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class GunPickUpTutorialStep : TutorialStepBase
@@ -14,9 +14,8 @@ public class GunPickUpTutorialStep : TutorialStepBase
 
         yield return new WaitForSeconds(3f);
 
-        TutorialTriggerUIController.Instance.ShowUI("2", 4f);
+        TutorialTriggerUIController.Instance.ShowUI("2", 3f);
         
-        Destroy(gameObject);
     }
 
 }

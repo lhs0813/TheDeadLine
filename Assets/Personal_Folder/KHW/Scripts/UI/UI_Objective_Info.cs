@@ -38,9 +38,17 @@ public class UI_Objective_Info : MonoBehaviour
         if (!isActive)
         {
             objectiveText.gameObject.SetActive(true);
-            stationName.SetActive(true);
-            stationName.GetComponentInChildren<TextMeshProUGUI>().text = map.centerStationText.text;
-
+            //0709 김용찬 수정 튜토리얼에선 맵 이름 안뜨게 수정 (사유: 조잡함)
+            int mapIndex = GamePlayManager.instance.currentMapIndex;
+            if (mapIndex != 0)  
+            {
+                stationName.SetActive(true);
+                stationName.GetComponentInChildren<TextMeshProUGUI>().text = map.centerStationText.text;
+            }
+            else
+            {
+                stationName.SetActive(false);
+            }
             isActive = true;
             backImg.SetActive(true);
         }
