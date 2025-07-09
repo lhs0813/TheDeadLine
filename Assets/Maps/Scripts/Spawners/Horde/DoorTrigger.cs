@@ -4,7 +4,7 @@ public class DoorTrigger : MonoBehaviour
 {
     [Tooltip("문 앞 트리거에 반응할 스포너 컨트롤러")]
     public PreSpawnHordeSpawnerController spawnerController;
-    //public Animator doorAnimator;
+    public Animator doorAnimator;
 
     private void Start()
     {
@@ -20,7 +20,7 @@ public class DoorTrigger : MonoBehaviour
         spawnerController.OnPlayerDoorApproach();
         
 
-        //doorAnimator.SetTrigger("Open");
+        doorAnimator.SetTrigger("Open");
         // 한 번만 동작하도록 자신(트리거)을 제거
         Destroy(gameObject);
     }

@@ -43,7 +43,11 @@ public class MainPathSpawner : MonoBehaviour
     /// </summary>
     public void MainSpawn(int mapIndex, bool track, bool danger)
     {
-        StartCoroutine(SpawnRoutine(mapIndex, track, danger));
+        if (gameObject.activeInHierarchy)
+        {
+            StartCoroutine(SpawnRoutine(mapIndex, track, danger));            
+        }
+
     }
 
     private IEnumerator SpawnRoutine(int mapIndex, bool track, bool danger)
