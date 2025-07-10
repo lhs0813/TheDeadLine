@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LeastSquares;
-using Microsoft.Unity.VisualStudio.Editor;
 using Steamworks;
 using Steamworks.Data;
 using TMPro;
@@ -89,75 +88,60 @@ namespace LeastSquares
                 Debug.LogError("SteamClient is not valid. Cannot regenerate leaderboard UI.");
                 return;
             }
+
             var oldRows = _rows;
             _rows = new List<GameObject>();
-
             var mySteamId = SteamClient.SteamId;
 
-            // 1) scores로부터 UI 행 생성하면서—동시에 내 ID라면 바로 강조
-            for (var i = 0; i < scores.Length; i++)
-            {
-                var entry = scores[i];
-                var go = await CreateRow(entry);
+            // 중복 제거
+            var uniqueScores = scores.Distinct(new LeaderboardEntryComparer()).ToArray();
+            bool hasMyEntry = uniqueScores.Any(e => e.User.Id == mySteamId);
 
-                // 1~9번째(인덱스 0~8)만 검사하고 싶다면
+            // UI 행 생성
+            for (var i = 0; i < uniqueScores.Length; i++)
+            {
+                var entry = uniqueScores[i];
+                var go = await CreateRow(entry);
                 if (i < 9 && entry.User.Id == mySteamId)
                 {
-                    // 배경 Image 컴포넌트 가져오기
-                    var bgImage = go.transform.GetChild(0)
-                                     .GetComponent<UnityEngine.UI.Image>();
+                    var bgImage = go.transform.GetChild(0).GetComponent<UnityEngine.UI.Image>();
                     bgImage.color = UnityEngine.Color.green;
                 }
-
                 _rows.Add(go);
             }
 
-            // 3) 이미 리스트에 내 엔트리가 있는지 검사
-            bool hasMyEntry = scores.Any(e => e.User.Id == mySteamId);
-            
-            // 4) 없을 때만 “내 순위” 추가
+            // "내 순위" 추가 (중복 방지)
             if (!hasMyEntry)
             {
                 var around = await Leaderboard.GetScoresAroundUser(EntriesToShowAtOnce / 2);
                 if (around != null && around.Length > 0)
                 {
-                    // 내 Entry 찾기
                     var myEntry = around.FirstOrDefault(e => e.User.Id == mySteamId);
-                    bool found = myEntry.User.Id == mySteamId;
-
-                    GameObject userRow;
-                    if (found)
+                    if (myEntry.User.Id == mySteamId && !uniqueScores.Any(e => e.User.Id == mySteamId))
                     {
-                        // 내 점수가 주변 순위 안에 있을 때
-                        userRow = await CreateRow(myEntry);
+                        GameObject userRow = await CreateRow(myEntry);
+                        userRow.transform.GetChild(0).GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+                        _rows.Add(userRow);
                     }
-                    else
-                    {
-                        // 내 점수가 전혀 없을 때
-                        userRow = Instantiate(EntryPrefab, transform);
-                        var row = userRow.GetComponent<LeaderboardUIRow>();
-                        row.Rank.text = "None";
-                        row.Score.text = "None";
-                        row.Name.text = SteamClient.Name;
-                        row.Avatar.sprite = await GetLocalUserAvatarSprite();
-                    }
-
-                    // 강조 색상(UnityEngine.Color 명시)
-                    userRow.transform.GetChild(0)
-                           .GetComponent<UnityEngine.UI.Image>()
-                           .color = UnityEngine.Color.green;
-
-                    _rows.Add(userRow);
-                }
-                else
-                {
-                    Debug.Log("주변 순위가 없습니다.");
                 }
             }
-            
-                // 5) 이전에 생성했던 행들 정리
-                foreach (var old in oldRows)
-                    Destroy(old);
+
+            foreach (var old in oldRows)
+                Destroy(old);
+        }
+
+        // LeaderboardEntry 비교를 위한 커스텀 comparer
+        private class LeaderboardEntryComparer : IEqualityComparer<LeaderboardEntry>
+        {
+            public bool Equals(LeaderboardEntry x, LeaderboardEntry y)
+            {
+                return x.User.Id == y.User.Id && x.Score == y.Score;
+            }
+
+            public int GetHashCode(LeaderboardEntry obj)
+            {
+                return obj.User.Id.GetHashCode() ^ obj.Score.GetHashCode();
+            }
         }
 
         /// <summary>
@@ -208,10 +192,7 @@ namespace LeastSquares
         private void OnEnable()
         {
             _rows.Clear(); // 기존 행 초기화
-            if (Leaderboard != null)
-            {
-                RefreshScores(); // 리더보드 새로고침
-            }
+
         }
 
     }
