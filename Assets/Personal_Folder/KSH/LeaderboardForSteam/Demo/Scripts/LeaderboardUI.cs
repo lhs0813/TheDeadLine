@@ -28,6 +28,7 @@ namespace LeastSquares
 
         void Start()
         {
+            SaveScore();
             RefreshScores();
         }
 
@@ -85,60 +86,73 @@ namespace LeastSquares
         {
             var oldRows = _rows;
             _rows = new List<GameObject>();
+
+            var mySteamId = SteamClient.SteamId;
+
+            // 1) scores로부터 UI 행 생성하면서—동시에 내 ID라면 바로 강조
             for (var i = 0; i < scores.Length; i++)
             {
-                var go = await CreateRow(scores[i]);
+                var entry = scores[i];
+                var go = await CreateRow(entry);
+
+                // 1~9번째(인덱스 0~8)만 검사하고 싶다면
+                if (i < 9 && entry.User.Id == mySteamId)
+                {
+                    // 배경 Image 컴포넌트 가져오기
+                    var bgImage = go.transform.GetChild(0)
+                                     .GetComponent<UnityEngine.UI.Image>();
+                    bgImage.color = UnityEngine.Color.green;
+                }
 
                 _rows.Add(go);
             }
 
-            // 3) 예외적으로 '내 순위' 한 줄 추가
-            LeaderboardEntry[] around = await Leaderboard.GetScoresAroundUser(500); // ±100등 가져오기
-            var mySteamId = SteamClient.SteamId;
-
-            // ① 먼저 내 엔트리를 찾는다 (ID 기준)
-            LeaderboardEntry myEntry = default;
-            bool found = false;
-
-            foreach (var entry in around)
+            // 3) 이미 리스트에 내 엔트리가 있는지 검사
+            bool hasMyEntry = scores.Any(e => e.User.Id == mySteamId);
+            
+            // 4) 없을 때만 “내 순위” 추가
+            if (!hasMyEntry)
             {
-                if (entry.User.Id == mySteamId)
+                var around = await Leaderboard.GetScoresAroundUser(EntriesToShowAtOnce / 2);
+                if (around != null && around.Length > 0)
                 {
-                    myEntry = entry;
-                    found = true;
-                    break;
+                    // 내 Entry 찾기
+                    var myEntry = around.FirstOrDefault(e => e.User.Id == mySteamId);
+                    bool found = myEntry.User.Id == mySteamId;
+
+                    GameObject userRow;
+                    if (found)
+                    {
+                        // 내 점수가 주변 순위 안에 있을 때
+                        userRow = await CreateRow(myEntry);
+                    }
+                    else
+                    {
+                        // 내 점수가 전혀 없을 때
+                        userRow = Instantiate(EntryPrefab, transform);
+                        var row = userRow.GetComponent<LeaderboardUIRow>();
+                        row.Rank.text = "None";
+                        row.Score.text = "None";
+                        row.Name.text = SteamClient.Name;
+                        row.Avatar.sprite = await GetLocalUserAvatarSprite();
+                    }
+
+                    // 강조 색상(UnityEngine.Color 명시)
+                    userRow.transform.GetChild(0)
+                           .GetComponent<UnityEngine.UI.Image>()
+                           .color = UnityEngine.Color.green;
+
+                    _rows.Add(userRow);
+                }
+                else
+                {
+                    Debug.Log("주변 순위가 없습니다.");
                 }
             }
-
-            GameObject userRow;
-
-            if (found)
-            {
-                // ② 내 정확한 엔트리를 찾았을 때
-                userRow = await CreateRow(myEntry);
-            }
-            else
-            {
-                // ③ 기록이 없거나 탐색 실패했을 때
-                userRow = Instantiate(EntryPrefab, transform);
-                var row = userRow.GetComponent<LeaderboardUIRow>();
-                row.Rank.text = "None";
-                row.Score.text = "None";
-                row.Name.text = SteamClient.Name;
-
-                var sprite = await GetLocalUserAvatarSprite();
-                row.Avatar.sprite = sprite;
-            }
-
-            userRow.transform.GetChild(0).GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
-            //
-            _rows.Add(userRow);
-
-
-            for (var i = 0; i < oldRows.Count; i++)
-            {
-                Destroy(oldRows[i]);
-            }
+            
+                // 5) 이전에 생성했던 행들 정리
+                foreach (var old in oldRows)
+                    Destroy(old);
         }
 
         /// <summary>
@@ -168,12 +182,14 @@ namespace LeastSquares
         /// </summary>
         public void SaveScore()
         {
-            var text = Input.text;
-            Leaderboard.SubmitScore(int.Parse(text));
+            
+            Leaderboard.SubmitScore(RecordManager.Instance.LoadInfiniteStage());
             RefreshScores();
         }
 
     }
+
+    
 
     [Serializable]
     public enum LeaderboardType
