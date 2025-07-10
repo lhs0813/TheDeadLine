@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4297220813243253295}
   - component: {fileID: 4670838223695882839}
+  - component: {fileID: 7976080452830685072}
   m_Layer: 2
   m_Name: Door_base
   m_TagString: Untagged
@@ -33,6 +34,7 @@ Transform:
   - {fileID: 4204245882143560522}
   - {fileID: 5015239270672949252}
   - {fileID: 8025542183734435477}
+  - {fileID: 397475705491054093}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &4670838223695882839
@@ -69,6 +71,19 @@ MonoBehaviour:
   hideConditionalObjects: 0
   spawnedBlockerPrefab: {fileID: 0}
   fileVersion: 1
+--- !u!114 &7976080452830685072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115542190717927959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd1c99d6cd46a0440b3cc0b9b396a3de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 691316386980724697}
 --- !u!1 &271281191379219467
 GameObject:
   m_ObjectHideFlags: 0
@@ -81,7 +96,7 @@ GameObject:
   - component: {fileID: 4315796050587903557}
   - component: {fileID: 6191090412633972698}
   - component: {fileID: 98196112147476493}
-  m_Layer: 2
+  m_Layer: 21
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,6 +301,73 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.0000005, y: 4.0000005, z: 0.0000007788258}
   m_Center: {x: 0, y: 0, z: 0.000049591064}
+--- !u!1 &4088678492032141588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 397475705491054093}
+  - component: {fileID: 4121072506683127152}
+  - component: {fileID: 7077340989296488563}
+  m_Layer: 2
+  m_Name: DoorSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &397475705491054093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4088678492032141588}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.035, y: 0.046868324, z: -2.88}
+  m_LocalScale: {x: 0.99999976, y: 1, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4297220813243253295}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4121072506683127152
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4088678492032141588}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 13.583887, y: 4, z: 20.669975}
+  m_Center: {x: -10.09298, y: 2, z: -0.12981558}
+--- !u!114 &7077340989296488563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4088678492032141588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 472df52f47baac7449f0c989524f873a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorController: {fileID: 7976080452830685072}
 --- !u!1 &5360173334135684841
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,8 +420,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0074898, y: 1, z: 1.7257267}
-  m_Center: {x: -0.77554697, y: 0, z: -0.05419794}
+  m_Size: {x: 1.0074899, y: 1, z: 1.4973353}
+  m_Center: {x: -0.775547, y: 0, z: -0.04420078}
 --- !u!114 &2776322115918001753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,7 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnerController: {fileID: 0}
-  doorAnimator: {fileID: 691316386980724697}
+  doorController: {fileID: 7976080452830685072}
 --- !u!1 &5679713302049766078
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +450,7 @@ GameObject:
   - component: {fileID: 8357248238478964425}
   - component: {fileID: 7975665797802765350}
   - component: {fileID: 7641395847724526863}
-  m_Layer: 2
+  m_Layer: 21
   m_Name: New Wall_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -521,7 +603,7 @@ GameObject:
   - component: {fileID: 5488360953782672184}
   - component: {fileID: 971102740640538602}
   - component: {fileID: 2149703041995313701}
-  m_Layer: 2
+  m_Layer: 21
   m_Name: Plane_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
