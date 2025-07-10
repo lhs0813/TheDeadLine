@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using TMPro;
 using UnityEngine;
 
@@ -8,6 +8,7 @@ public class RemainingTimeForWaitingUI : MonoBehaviour
     float remainingTime;
     bool isHidden;
     Animator _anim;
+
 
     private void Start()
     {
@@ -66,6 +67,7 @@ public class RemainingTimeForWaitingUI : MonoBehaviour
         else if (!isHidden && remainingTime <= 0f)
         {
             HideUI();
+
         }
     }
 

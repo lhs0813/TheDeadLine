@@ -4,6 +4,9 @@ using Akila.FPSFramework;
 using System.Collections;
 using Cinemachine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.PostProcessing;
+
 
 public class Player_Manager : MonoBehaviour
 {
@@ -19,6 +22,8 @@ public class Player_Manager : MonoBehaviour
     public float playerHp;
     public float MaxHealth;
 
+    
+
     public AudioSource _bonusRunSounds;
     public AudioSource throwSounds;
 
@@ -30,6 +35,7 @@ public class Player_Manager : MonoBehaviour
 
         PlayerHpChange = null;
         PlayerMaxHpChange = null;
+        
     }
 
     void Start()
