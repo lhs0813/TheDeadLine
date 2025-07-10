@@ -19,11 +19,11 @@ public class FuseStep : TutorialStepBase
         input.controls.Player.Disable();
         input.controls.Firearm.Disable();
 
-        TutorialTriggerUIController.Instance.ShowUI("6", 7f);
+        TutorialTriggerUIController.Instance.ShowUI("6", 5f);
 
         GetComponent<BoxCollider>().enabled = false;
 
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(5f);
 
         input.controls.Player.Enable();
         input.controls.Firearm.Enable();
