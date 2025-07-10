@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -89,7 +89,7 @@ namespace LeastSquares
             if (!_leaderboard.HasValue) return await Task.Run(() => new LeaderboardEntry[]{});
             return await _leaderboard.Value.GetScoresFromFriendsAsync();
         }
-
+        
         /// <summary>
         /// Gets the best score for the user
         /// </summary>
