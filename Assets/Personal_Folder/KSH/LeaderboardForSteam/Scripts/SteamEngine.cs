@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,11 +24,16 @@ namespace LeastSquares
         {
             if (_initialized && _initializedId != appId)
                 throw new ArgumentException("Only 1 instance of SteamEngine can exist at the same time");
-            if (_initialized) return;
+            if (_initialized)
+            {
+                Destroy(gameObject); // 중복 인스턴스 제거
+                return;
+            }
             try
             {
                 SteamClient.Init(appId);
                 Debug.Log($"Steam started for app {appId}");
+                DontDestroyOnLoad(gameObject); // 씬 전환 시 유지
             }
             catch (Exception e)
             {
@@ -54,7 +59,13 @@ namespace LeastSquares
         /// </summary>
         private void OnDestroy()
         {
-            SteamClient.Shutdown();
+            if (_initialized && _initializedId == appId)
+            {
+                SteamClient.Shutdown();
+                _initialized = false;
+                _initializedId = 0;
+                Debug.Log("SteamClient shutdown.");
+            }
         }
     }
 }

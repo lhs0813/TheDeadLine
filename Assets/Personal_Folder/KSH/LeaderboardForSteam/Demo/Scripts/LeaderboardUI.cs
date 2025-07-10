@@ -26,8 +26,13 @@ namespace LeastSquares
         private List<GameObject> _rows = new();
         private int _offset;
 
-        void Start()
+        async void Start()
         {
+            if (!SteamClient.IsValid)
+            {
+                Debug.LogError("SteamClient is not initialized. Waiting for initialization...");
+                await WaitForSteamInitialization();
+            }
             SaveScore();
             RefreshScores();
         }
@@ -57,25 +62,20 @@ namespace LeastSquares
 
         async Task<Sprite> GetLocalUserAvatarSprite()
         {
-            var mySteamId = SteamClient.SteamId;  // ① 현재 로그인된 계정의 SteamID
-            //
-            //    true를 두 번째 인자로 주면, 캐시에 없을 때 서버에서 강제로 받아옵니다.
-            bool infoRequested = SteamFriends.RequestUserInformation(mySteamId, true);
+            if (!SteamClient.IsValid)
+            {
+                Debug.LogError("SteamClient is not valid. Cannot load user avatar.");
+                return null;
+            }
 
-            // ③ 아바타 이미지 로드
+            var mySteamId = SteamClient.SteamId;
+            bool infoRequested = SteamFriends.RequestUserInformation(mySteamId, true);
             var avatarImage = await SteamFriends.GetSmallAvatarAsync(mySteamId);
             if (!avatarImage.HasValue)
-                return null;  // 아바타가 없거나 로딩 실패
+                return null;
 
-            // ④ Data.Image → Texture2D 변환
             var tex = avatarImage.Value.Convert();
-
-            // ⑤ Texture2D → Sprite 생성
-            return Sprite.Create(
-                tex,
-                new Rect(0, 0, tex.width, tex.height),
-                new Vector2(0.5f, 0.5f)
-            );
+            return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
         }
 
         /// <summary>
@@ -84,6 +84,11 @@ namespace LeastSquares
         /// <param name="scores">An array of leaderboard entries</param>
         async void RegenerateUI(LeaderboardEntry[] scores)
         {
+            if (!SteamClient.IsValid)
+            {
+                Debug.LogError("SteamClient is not valid. Cannot regenerate leaderboard UI.");
+                return;
+            }
             var oldRows = _rows;
             _rows = new List<GameObject>();
 
@@ -185,6 +190,28 @@ namespace LeastSquares
             
             Leaderboard.SubmitScore(RecordManager.Instance.LoadInfiniteStage());
             RefreshScores();
+        }
+        private async Task WaitForSteamInitialization()
+        {
+            int maxAttempts = 10;
+            int attempt = 0;
+            while (!SteamClient.IsValid && attempt < maxAttempts)
+            {
+                await Task.Delay(500); // 0.5초 대기
+                attempt++;
+            }
+            if (!SteamClient.IsValid)
+            {
+                Debug.LogError("Failed to initialize SteamClient after waiting.");
+            }
+        }
+        private void OnEnable()
+        {
+            _rows.Clear(); // 기존 행 초기화
+            if (Leaderboard != null)
+            {
+                RefreshScores(); // 리더보드 새로고침
+            }
         }
 
     }
