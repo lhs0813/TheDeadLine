@@ -25313,10 +25313,20 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3511477219954790212, guid: 31057ebea554a6a498bb5eb2eab107c8,
+    - target: {fileID: 3380608704174305174, guid: 31057ebea554a6a498bb5eb2eab107c8,
         type: 3}
-      propertyPath: m_Lens.FieldOfView
-      value: 68.92337
+      propertyPath: m_LocalPosition.x
+      value: -0.0000009238721
+      objectReference: {fileID: 0}
+    - target: {fileID: 3380608704174305174, guid: 31057ebea554a6a498bb5eb2eab107c8,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.000000059604645
+      objectReference: {fileID: 0}
+    - target: {fileID: 3380608704174305174, guid: 31057ebea554a6a498bb5eb2eab107c8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.000000923872
       objectReference: {fileID: 0}
     - target: {fileID: 3632952836669292125, guid: 31057ebea554a6a498bb5eb2eab107c8,
         type: 3}
@@ -25412,11 +25422,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ClearFlags
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7290339975597934382, guid: 31057ebea554a6a498bb5eb2eab107c8,
-        type: 3}
-      propertyPath: field of view
-      value: 68.92337
       objectReference: {fileID: 0}
     - target: {fileID: 8073198521788939171, guid: 31057ebea554a6a498bb5eb2eab107c8,
         type: 3}
@@ -41719,7 +41724,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2019462932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46127,8 +46132,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3cc6fb6f1365ec4681768764ddcc153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBeingPreSpawned: 0
+  isAlreadyTriggered: 0
   tileSpawning: {fileID: 0}
   spawners: []
+  mapIndex: 0
   danger: 0
 --- !u!65 &197211470230747888
 BoxCollider:
@@ -96502,8 +96510,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3cc6fb6f1365ec4681768764ddcc153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBeingPreSpawned: 0
+  isAlreadyTriggered: 0
   tileSpawning: {fileID: 0}
   spawners: []
+  mapIndex: 0
   danger: 0
 --- !u!23 &6831926214066207353
 MeshRenderer:

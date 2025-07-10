@@ -44,6 +44,7 @@ public class RemainingTimeForInvestigationUI : MonoBehaviour
     {
         isHidden = true;
         _anim.SetTrigger("Off");
+        
     }
 
     private void ShowUI(float remainingTime)

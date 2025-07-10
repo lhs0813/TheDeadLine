@@ -51,6 +51,8 @@ public class GamePlayManager : MonoBehaviour
     public Action<int> OnMapLoadFinishingAction; //맵 로딩 완료시 매니저에서 한번 더 호출.Arg는 mapIndex.
     public Action<float> OnTrainAccelerationAction; //열차를 가속시켰을 때 발동됨.
 
+    public Action OnTrainArriveAction;
+
     private void Awake()
     {
         if (instance == null)
@@ -59,6 +61,8 @@ public class GamePlayManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+
+        OnTrainArriveAction = null;
     }
 
     async void Start()
@@ -68,7 +72,10 @@ public class GamePlayManager : MonoBehaviour
         gamePlayManagementUI = FindAnyObjectByType<GamePlayManagementUI>();
         bgmController = GetComponentInChildren<BackgroundMusicController>();
         runtimeDungeon.Generator.OnGenerationComplete += ChangeIsMapReady;
+
+        
         ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction += EnableTrainDepartable;
+
         newMapReady = false;
 
         // 1) 무기 프리팹 미리 로드
@@ -161,6 +168,8 @@ public class GamePlayManager : MonoBehaviour
         currentGameState = GameState.Entering;
 
         trainController.MoveToStageRail();
+
+        OnTrainArriveAction.Invoke();
     }
 
     /// <summary>
