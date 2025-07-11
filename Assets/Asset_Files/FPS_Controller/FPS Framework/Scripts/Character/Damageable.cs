@@ -259,10 +259,13 @@ namespace Akila.FPSFramework
             //적이 받는 데미지 전체 조정 
             if (type != HealthType.Player)
             {
+
                 //자연스럽게 15% +-
+                if(amount!=9999)
                 amount = (1 + UnityEngine.Random.Range(-Affector.damageVariation, Affector.damageVariation) / 100) * amount;
+               
                 amount *= Affector.damageMulti;
-                }
+            }
 
 
 
