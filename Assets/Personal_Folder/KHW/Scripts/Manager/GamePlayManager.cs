@@ -182,6 +182,8 @@ public class GamePlayManager : MonoBehaviour
 
         trainController.TrainArrive();
 
+        PreSpawnHordeSpawnerController.isAnyRoomTriggered = false;
+
         bgmController.PlayRandomCombatMusic();
 
         Debug.Log("기차가 역에 도착");

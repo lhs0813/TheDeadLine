@@ -40,16 +40,17 @@ public class PrespawnedHordeSpawner : MonoBehaviour
     /// <summary>
     /// 분할 스폰: 한 프레임에 한 마리씩(또는 frameDelayPerSpawn 프레임마다)
     /// </summary>
-    public void TrySpawn(int mapIndex, bool track)
+    public void TrySpawn(int mapIndex, bool track, bool danger)
     {
-        StartCoroutine(SpawnRoutine(mapIndex, track));
+        StartCoroutine(SpawnRoutine(mapIndex, track, danger));
     }
 
-    private IEnumerator SpawnRoutine(int mapIndex, bool track)
+    private IEnumerator SpawnRoutine(int mapIndex, bool track, bool danger)
     {
+        //track -> false -> prespawn
         foreach (var point in spawnPoints)
         {
-            int it = track ? dangerSpawnCountMultiplier : 1;
+            int it = danger ? dangerSpawnCountMultiplier : 1;
 
             for (int i = 0; i < it; i++)
             {
@@ -63,7 +64,7 @@ public class PrespawnedHordeSpawner : MonoBehaviour
                 if (enemy != null)
                     preSpawnedEnemies.Add(enemy);
 
-                    yield return null;
+                yield return null;
             }
         }
     }
@@ -133,5 +134,25 @@ public class PrespawnedHordeSpawner : MonoBehaviour
             }
         }
         preSpawnedEnemies.Clear();
+    }
+
+    public void DeSpawnUnExitedHorde()
+    {
+        foreach (var enemy in preSpawnedEnemies)
+        {
+            if (enemy != null)
+            {
+                var id = enemy.GetComponent<EnemyIdentifier>();
+                if (id != null && id.isTileChanged) //null 아님, 플레이어를 따라 방 밖으로 나간 놈들은 반환하지 않음.
+                {
+                    //아무것도 하지 않음.
+                }
+                else if (id != null) //여전히 방 안에 있음. 반환함. 
+                {
+                    EnemyPoolManager.Instance.ReturnToPool(id.Type, enemy, 0f);
+                }
+            }
+        }
+        preSpawnedEnemies.Clear();        
     }
 }
