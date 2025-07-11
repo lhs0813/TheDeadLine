@@ -165,7 +165,7 @@ public class ChaseState : IZombieState
         _zombie.audioSource.loop = loop;
         _zombie.audioSource.Play();
 
-        _nextSoundTime = Time.time + Random.Range(5f, 10f);
+        _nextSoundTime = Time.time + Random.Range(3f, 7f);
     }
 
     public void Exit()

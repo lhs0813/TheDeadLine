@@ -9,6 +9,8 @@ using System.Collections;
 
 public class TabletController : MonoBehaviour
 {
+    public static TabletController Instance { get; private set; }
+
     public static bool isTabletActive = false;
     public static Action onTabletShownAction;
     public static Action onTabletDisabledAction;
@@ -41,8 +43,11 @@ public class TabletController : MonoBehaviour
     private Vector2 virtualCursorPos;
     private GameObject lastHovered;
 
+    public bool isTabletPossible = true;
+
     void Awake()
     {
+        Instance = this;
         // Initialize input actions
         _control = new Controls();
     }
@@ -76,6 +81,9 @@ public class TabletController : MonoBehaviour
         {
             if (input.TabletInput)
             {
+                if (!isTabletPossible)
+                    return;
+
                 if (!isTabletActive)
                     ShowTablet();
                 else

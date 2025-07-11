@@ -85,7 +85,7 @@ namespace Akila.FPSFramework
         public InputAction item2;
         public InputAction item3;
         public InputAction Scroll;
-
+        
 
         public GameObject playerObj { get; set; }
 
@@ -395,6 +395,7 @@ namespace Akila.FPSFramework
             item3.Disable();
             Scroll.Disable();
             InteractionsManager.Instance.InteractPossible = false;
+            TabletController.Instance.isTabletPossible = false;
         }
 
         void EnableCommand()
@@ -403,7 +404,7 @@ namespace Akila.FPSFramework
             item2.Enable();
             item3.Enable();
             Scroll.Enable();
-
+            TabletController.Instance.isTabletPossible = true;
             InteractionsManager.Instance.InteractPossible = true;
         }
 
