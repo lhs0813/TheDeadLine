@@ -11,6 +11,7 @@ public class FontManager : MonoBehaviour
     [SerializeField] private TMP_FontAsset _englishFont;
     [SerializeField] private TMP_FontAsset _japaneseFont;
     [SerializeField] private TMP_FontAsset _simplifiedChineseFont;
+    [SerializeField] private TMP_FontAsset _russianFont;
 
     private Dictionary<string, TMP_FontAsset> _fontMap;
     public static TMP_FontAsset currentFont;
@@ -25,6 +26,7 @@ public class FontManager : MonoBehaviour
             { "en",      _englishFont         },
             { "ja-JP",   _japaneseFont        },
             { "zh-Hans", _simplifiedChineseFont },
+            { "ru-RU",   _russianFont          },
         };
 
         // Localization 준비 완료 직후와 언어 변경 시 폰트 적용

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LeastSquares;
-using Microsoft.Unity.VisualStudio.Editor;
 using Steamworks;
 using Steamworks.Data;
 using TMPro;
@@ -26,8 +25,14 @@ namespace LeastSquares
         private List<GameObject> _rows = new();
         private int _offset;
 
-        void Start()
+        async void Start()
         {
+            if (!SteamClient.IsValid)
+            {
+                Debug.LogError("SteamClient is not initialized. Waiting for initialization...");
+                await WaitForSteamInitialization();
+            }
+            SaveScore();
             RefreshScores();
         }
 
@@ -56,25 +61,20 @@ namespace LeastSquares
 
         async Task<Sprite> GetLocalUserAvatarSprite()
         {
-            var mySteamId = SteamClient.SteamId;  // ① 현재 로그인된 계정의 SteamID
-            //
-            //    true를 두 번째 인자로 주면, 캐시에 없을 때 서버에서 강제로 받아옵니다.
-            bool infoRequested = SteamFriends.RequestUserInformation(mySteamId, true);
+            if (!SteamClient.IsValid)
+            {
+                Debug.LogError("SteamClient is not valid. Cannot load user avatar.");
+                return null;
+            }
 
-            // ③ 아바타 이미지 로드
+            var mySteamId = SteamClient.SteamId;
+            bool infoRequested = SteamFriends.RequestUserInformation(mySteamId, true);
             var avatarImage = await SteamFriends.GetSmallAvatarAsync(mySteamId);
             if (!avatarImage.HasValue)
-                return null;  // 아바타가 없거나 로딩 실패
+                return null;
 
-            // ④ Data.Image → Texture2D 변환
             var tex = avatarImage.Value.Convert();
-
-            // ⑤ Texture2D → Sprite 생성
-            return Sprite.Create(
-                tex,
-                new Rect(0, 0, tex.width, tex.height),
-                new Vector2(0.5f, 0.5f)
-            );
+            return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
         }
 
         /// <summary>
@@ -83,61 +83,64 @@ namespace LeastSquares
         /// <param name="scores">An array of leaderboard entries</param>
         async void RegenerateUI(LeaderboardEntry[] scores)
         {
+            if (!SteamClient.IsValid)
+            {
+                Debug.LogError("SteamClient is not valid. Cannot regenerate leaderboard UI.");
+                return;
+            }
+
             var oldRows = _rows;
             _rows = new List<GameObject>();
-            for (var i = 0; i < scores.Length; i++)
-            {
-                var go = await CreateRow(scores[i]);
+            var mySteamId = SteamClient.SteamId;
 
+            // 중복 제거
+            var uniqueScores = scores.Distinct(new LeaderboardEntryComparer()).ToArray();
+            bool hasMyEntry = uniqueScores.Any(e => e.User.Id == mySteamId);
+
+            // UI 행 생성
+            for (var i = 0; i < uniqueScores.Length; i++)
+            {
+                var entry = uniqueScores[i];
+                var go = await CreateRow(entry);
+                if (i < 9 && entry.User.Id == mySteamId)
+                {
+                    var bgImage = go.transform.GetChild(0).GetComponent<UnityEngine.UI.Image>();
+                    bgImage.color = UnityEngine.Color.green;
+                }
                 _rows.Add(go);
             }
 
-            // 3) 예외적으로 '내 순위' 한 줄 추가
-            LeaderboardEntry[] around = await Leaderboard.GetScoresAroundUser(500); // ±100등 가져오기
-            var mySteamId = SteamClient.SteamId;
-
-            // ① 먼저 내 엔트리를 찾는다 (ID 기준)
-            LeaderboardEntry myEntry = default;
-            bool found = false;
-
-            foreach (var entry in around)
+            // "내 순위" 추가 (중복 방지)
+            if (!hasMyEntry)
             {
-                if (entry.User.Id == mySteamId)
+                var around = await Leaderboard.GetScoresAroundUser(EntriesToShowAtOnce / 2);
+                if (around != null && around.Length > 0)
                 {
-                    myEntry = entry;
-                    found = true;
-                    break;
+                    var myEntry = around.FirstOrDefault(e => e.User.Id == mySteamId);
+                    if (myEntry.User.Id == mySteamId && !uniqueScores.Any(e => e.User.Id == mySteamId))
+                    {
+                        GameObject userRow = await CreateRow(myEntry);
+                        userRow.transform.GetChild(0).GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+                        _rows.Add(userRow);
+                    }
                 }
             }
 
-            GameObject userRow;
+            foreach (var old in oldRows)
+                Destroy(old);
+        }
 
-            if (found)
+        // LeaderboardEntry 비교를 위한 커스텀 comparer
+        private class LeaderboardEntryComparer : IEqualityComparer<LeaderboardEntry>
+        {
+            public bool Equals(LeaderboardEntry x, LeaderboardEntry y)
             {
-                // ② 내 정확한 엔트리를 찾았을 때
-                userRow = await CreateRow(myEntry);
-            }
-            else
-            {
-                // ③ 기록이 없거나 탐색 실패했을 때
-                userRow = Instantiate(EntryPrefab, transform);
-                var row = userRow.GetComponent<LeaderboardUIRow>();
-                row.Rank.text = "None";
-                row.Score.text = "None";
-                row.Name.text = SteamClient.Name;
-
-                var sprite = await GetLocalUserAvatarSprite();
-                row.Avatar.sprite = sprite;
+                return x.User.Id == y.User.Id && x.Score == y.Score;
             }
 
-            userRow.transform.GetChild(0).GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
-            //
-            _rows.Add(userRow);
-
-
-            for (var i = 0; i < oldRows.Count; i++)
+            public int GetHashCode(LeaderboardEntry obj)
             {
-                Destroy(oldRows[i]);
+                return obj.User.Id.GetHashCode() ^ obj.Score.GetHashCode();
             }
         }
 
@@ -168,12 +171,33 @@ namespace LeastSquares
         /// </summary>
         public void SaveScore()
         {
-            var text = Input.text;
-            Leaderboard.SubmitScore(int.Parse(text));
+            
+            Leaderboard.SubmitScore(RecordManager.Instance.LoadInfiniteStage());
             RefreshScores();
+        }
+        private async Task WaitForSteamInitialization()
+        {
+            int maxAttempts = 10;
+            int attempt = 0;
+            while (!SteamClient.IsValid && attempt < maxAttempts)
+            {
+                await Task.Delay(500); // 0.5초 대기
+                attempt++;
+            }
+            if (!SteamClient.IsValid)
+            {
+                Debug.LogError("Failed to initialize SteamClient after waiting.");
+            }
+        }
+        private void OnEnable()
+        {
+            _rows.Clear(); // 기존 행 초기화
+
         }
 
     }
+
+    
 
     [Serializable]
     public enum LeaderboardType

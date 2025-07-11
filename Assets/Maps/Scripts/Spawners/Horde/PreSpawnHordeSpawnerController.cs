@@ -1,139 +1,174 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DunGen;
+using Steamworks;
 using UnityEngine;
 
-/// <summary>
-/// 플레이어가 근처 타일에 진입했을 때, 적을 스폰.
-/// </summary>
+public enum PreSpawnRoomState
+{
+    None,               // 아무 일 없음
+    Releasing,          // Release 콜라이더로 열려서 스폰 중
+    PlayerApproached    // 플레이어가 문 앞에 접근해서 내부 선제 스폰 & 문이 열림
+}
+
 public class PreSpawnHordeSpawnerController : MonoBehaviour
 {
-    //선제 스폰된 상태. 다음 Tile이 자기 자신인지 확인하기 위함.
-    [SerializeField] private bool isBeingPreSpawned;
-    //한번 트리거된 선제 스폰 방은 다시 트리거 되지 않음.
-    [SerializeField] private bool isAlreadyTriggered;
-    //해당 스크립트가 같이 붙어있는 Tile Component.
+    public static bool isAnyRoomTriggered;
+
+    [HideInInspector] public PreSpawnRoomState state;
+    private bool isDespawned;
+    private bool danger;
+
     [SerializeField] private Tile tileSpawning;
     [SerializeField] private List<PrespawnedHordeSpawner> spawners;
-    [SerializeField] private int mapIndex;
-    [SerializeField] private bool danger;
-    DungenCharacter character;
+
+    private DungenCharacter character;
 
     void Start()
     {
-        //초기화 (DungenCharacter, Tile.)
-        character = FindAnyObjectByType<DungenCharacter>();
+        // 초기화
+        character    = FindAnyObjectByType<DungenCharacter>();
         tileSpawning = GetComponent<Tile>();
-        spawners = GetComponentsInChildren<PrespawnedHordeSpawner>().ToList();
+        spawners     = GetComponentsInChildren<PrespawnedHordeSpawner>().ToList();
+        danger       = false;
+        state        = PreSpawnRoomState.None;
+        isDespawned  = false;
 
-        //OnTileChanged Event는 DungenCharacter 자기자신, 이전 타일, 현재 타일을 줌.
-        character.OnTileChanged += ManagePlayerLocation;
+        // 이벤트 구독
+        character.OnTileChanged                      += ManagePlayerLocation;
         MapGenerationManager.Instance.OnNavMeshBakeAction += InitializeSpawners;
-        GamePlayManager.instance.OnDangerAction += ChangeToDangerState;
-
-        mapIndex = GamePlayManager.instance.currentMapIndex;
-        danger = false;
-    }
-
-    private void ChangeToDangerState()
-    {
-        isAlreadyTriggered = false;
-        danger = true;
-    }
-
-    public void InitializeSpawners()
-    {
-        // 1) 파괴된(=null) 스포너만 걸러내기
-        spawners.RemoveAll(s => s == null);
-
-        // 2) 남은 스포너만 초기화
-        foreach (var sp in spawners)
-            sp.InitializeSpawnPoints();
-    }
-
-    private void ManagePlayerLocation(DungenCharacter character, Tile previousTile, Tile newTile)
-    {
-        if (newTile == null) return;
-
-        if (isAlreadyTriggered) //생성되고, 플레이어가 같은 방까지 들어온 적이 있음.
-        {
-            if (!newTile.IsAdjacentTo(tileSpawning) && newTile != tileSpawning)
-            {
-                //플레이어가 들어온적이 있는데, 플레이어가 두 칸 떨어진 공간까지 이동.
-                DespawnPreSpawnHorde(); //생성된 적들을 제거.
-                isBeingPreSpawned = false; //다시 생성될 수 있음.
-            }
-            else
-            {
-                return; //적들이 사라지지 않아도 됨. 반환           
-            }
-
-        }
-        else
-        {
-            if (!isBeingPreSpawned) //스폰되지는 않은 상태.
-            {
-                if (newTile.IsAdjacentTo(tileSpawning)) //인접타일에 플레이어가 있음.
-                {
-                    isBeingPreSpawned = true; //플래그 처리.
-                    SpawnPreSpawnHorde(); //스폰.
-                }
-                else //스폰도 안되었고, 인접타일에 플레이어도 없음.
-                {
-                    return; //반환.
-                }
-            }
-            else //스폰됨. 플레이어가 이 타일에 들어올 때까지 기다려야 함.
-            {
-                if (newTile == tileSpawning) //적이 스폰된 상태에서, 해당 타일에 플레이어가 들어옴.
-                {
-                    isAlreadyTriggered = true; //더 이상 이 방에서 선제 스폰이 발생하지 않음. flag 설정.
-                }
-                else if (!newTile.IsAdjacentTo(tileSpawning)) //스폰이 되었는데, 플레이어가 인접하지 않은 타일로 감.
-                {
-                    isBeingPreSpawned = false; //다시 플레이어가 접근할 때 까지 대기. flag 설정.
-                    DespawnPreSpawnHorde(); //생성된 적들을 제거.
-                }
-                else //newTile이 인접타일인 경우, 주위를 돈 것이라고 해석. 스폰된 상태를 유지.
-                {
-                    if (!isBeingPreSpawned)
-                    {
-                        isBeingPreSpawned = true;
-                    }
-                }
-            }
-
-        }
-
-    }
-
-    /// <summary>
-    /// 선제적 적 스폰 처리.
-    /// </summary>
-    private void SpawnPreSpawnHorde()
-    {
-        foreach (var sp in spawners)
-        {
-            if(sp.gameObject.activeInHierarchy)
-            sp.TrySpawn(GamePlayManager.instance.currentMapIndex, danger);
-        }
-
-    }
-
-    /// <summary>
-    /// 플레이어가 멀어진 경우, 스폰된 적들을 반환.
-    /// </summary>
-    private void DespawnPreSpawnHorde()
-    {
-        foreach (var sp in spawners)
-            sp.DeSpawn();
+        GamePlayManager.instance.OnDangerAction          += () => danger = true;
     }
 
     void OnDestroy()
     {
-        character.OnTileChanged -= ManagePlayerLocation;
+        character.OnTileChanged                      -= ManagePlayerLocation;
         MapGenerationManager.Instance.OnNavMeshBakeAction -= InitializeSpawners;
-        GamePlayManager.instance.OnDangerAction -= ChangeToDangerState;        
+        GamePlayManager.instance.OnDangerAction          -= () => danger = true;
+    }
+
+    // 스포너 포인트 초기화
+    public void InitializeSpawners()
+    {
+        spawners.RemoveAll(s => s == null);
+        spawners.ForEach(s => s.InitializeSpawnPoints());
+    }
+
+    // 1) 플레이어가 문 앞 트리거에 진입했을 때 (Pre-spawn)
+    public void OnPlayerDoorApproach(DoorController doorController)
+    {
+        // 이미 문 앞에서 열림 상태라면 아무것도 하지 않음
+        if (state == PreSpawnRoomState.PlayerApproached)
+        {
+            doorController.OpenDoor();
+            return;
+        }
+
+
+        // 다른 방의 미리 스폰된 적 제거
+        foreach (var ctrl in FindObjectsByType<PreSpawnHordeSpawnerController>(FindObjectsSortMode.None))
+            if (ctrl != this)
+                ctrl.DespawnPreSpawnHorde();
+
+        // Release 흐름 도중 접근이라면, 단순히 문만 연 채로 전환
+        if (state == PreSpawnRoomState.Releasing)
+        {
+            state = PreSpawnRoomState.PlayerApproached;
+            doorController.OpenDoor();
+            return;
+        }
+
+        // None 상태에서만 내부 선제 스폰
+        SpawnPreSpawnHorde();
+        state = PreSpawnRoomState.PlayerApproached;
+        doorController.OpenDoor();
+
+
+    }
+
+    // 2) Release 콜라이더 진입 시 (Release-spawn)
+    public void OnDoorSpawnTriggered(DoorSpawner spawner, DoorController doorController)
+    {
+        // 이미 Release 또는 Approach 상태라면 무시
+        if (state != PreSpawnRoomState.None || isAnyRoomTriggered)
+            return;
+
+        isAnyRoomTriggered = true;
+        state              = PreSpawnRoomState.Releasing;
+        isDespawned        = false;
+
+        // 내부 + 외부 스폰
+        SpawnPreSpawnHorde();
+        spawner.TrySpawn(GamePlayManager.instance.currentMapIndex, danger);
+
+        // 문 열고 닫기 예약
+        doorController.OpenDoor();
+        StartCoroutine(DoorSpawnCoroutine(doorController));
+
+        // 한 번만 트리거되도록 비활성화
+        spawner.GetComponent<Collider>().enabled = false;
+    }
+
+    private IEnumerator DoorSpawnCoroutine(DoorController doorController)
+    {
+        yield return new WaitForSeconds(3f);
+
+        // 아직 PlayerApproached 전환이 안 되었으면 닫고 해제
+        if (state == PreSpawnRoomState.Releasing)
+        {
+            doorController.CloseDoor();
+            yield return new WaitForSeconds(1f);
+
+            if (state == PreSpawnRoomState.Releasing)
+            {
+                DespawnDoorSpawnHorde();
+                state = PreSpawnRoomState.None;                
+            }
+
+        }
+
+        yield return new WaitForSeconds(5f);
+
+        isAnyRoomTriggered = false;
+    }
+
+    // 3) 플레이어가 방을 떠났을 때(Approach 흐름 해제)
+    private void ManagePlayerLocation(DungenCharacter _, Tile __, Tile newTile)
+    {
+        if (newTile == null) return;
+
+        // PlayerApproached 상태에서 방을 완전히 벗어나면 내부 좀비만 제거
+        if (state == PreSpawnRoomState.PlayerApproached
+            && !newTile.IsAdjacentTo(tileSpawning)
+            && newTile != tileSpawning)
+        {
+            DespawnPreSpawnHorde();
+            state = PreSpawnRoomState.None;
+        }
+    }
+
+    // 내부 선제 스폰 헬퍼
+    private void SpawnPreSpawnHorde()
+    {
+        spawners.ForEach(s =>
+        {
+            if (s.gameObject.activeInHierarchy)
+                s.TrySpawn(GamePlayManager.instance.currentMapIndex, false, danger);
+        });
+    }
+
+    // 내부 스폰된 좀비 삭제
+    public void DespawnPreSpawnHorde()
+    {
+        if (isDespawned) return;
+        isDespawned = true;
+        spawners.ForEach(s => s.DeSpawn());
+    }
+
+    // Release 스폰된 방 밖 좀비 삭제
+    private void DespawnDoorSpawnHorde()
+    {
+        spawners.ForEach(s => s.DeSpawnUnExitedHorde());
     }
 }
