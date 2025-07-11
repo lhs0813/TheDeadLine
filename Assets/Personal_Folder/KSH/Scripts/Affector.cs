@@ -97,6 +97,12 @@ public class Affector : MonoBehaviour
             inTransform[i].transform.parent = null;
         }
     }
+    private void OnDisable()
+    {
+
+        StopAllCoroutines();
+
+    }
 
 
 
@@ -149,8 +155,10 @@ public class Affector : MonoBehaviour
 
         before = transform.position;
     }
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
+        if(enabled==false) return;
+
         CommonEnter(collision.gameObject);
     }
 
@@ -303,6 +311,8 @@ public class Affector : MonoBehaviour
                 Destroy(gameObject); // enabled = false;
             else
                 enabled = false;
+
+
         }
 
 
