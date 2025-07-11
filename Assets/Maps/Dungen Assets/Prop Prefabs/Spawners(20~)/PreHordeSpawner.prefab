@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7009975607187083319}
-  - component: {fileID: 4842682529709325743}
   - component: {fileID: 417787375507909028}
   - component: {fileID: 4242686220127484000}
+  - component: {fileID: 2602777614084559769}
   m_Layer: 27
   m_Name: PreHordeSpawner
   m_TagString: Untagged
@@ -34,20 +34,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4842682529709325743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3442350214898673785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f01ba3d69a24d94688e11d339045ba5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnRadius: 2.5
-  minSpawnDistance: 0.5
 --- !u!114 &417787375507909028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 137da25107750d24ca8772f51c61cf73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRadius: 10
-  minSpawnDistance: 5
+  spawnRadius: 4
+  minSpawnDistance: 1
 --- !u!114 &4242686220127484000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,3 +87,17 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2602777614084559769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3442350214898673785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f01ba3d69a24d94688e11d339045ba5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnRadius: 3
+  minSpawnDistance: 1

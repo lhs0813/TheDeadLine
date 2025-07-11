@@ -60,7 +60,11 @@ public class PreSpawnHordeSpawnerController : MonoBehaviour
     {
         // 이미 문 앞에서 열림 상태라면 아무것도 하지 않음
         if (state == PreSpawnRoomState.PlayerApproached)
+        {
+            doorController.OpenDoor();
             return;
+        }
+
 
         // 다른 방의 미리 스폰된 적 제거
         foreach (var ctrl in FindObjectsByType<PreSpawnHordeSpawnerController>(FindObjectsSortMode.None))
@@ -108,18 +112,23 @@ public class PreSpawnHordeSpawnerController : MonoBehaviour
 
     private IEnumerator DoorSpawnCoroutine(DoorController doorController)
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
 
         // 아직 PlayerApproached 전환이 안 되었으면 닫고 해제
         if (state == PreSpawnRoomState.Releasing)
         {
             doorController.CloseDoor();
             yield return new WaitForSeconds(1f);
-            DespawnDoorSpawnHorde();
-            state = PreSpawnRoomState.None;
+
+            if (state == PreSpawnRoomState.Releasing)
+            {
+                DespawnDoorSpawnHorde();
+                state = PreSpawnRoomState.None;                
+            }
+
         }
 
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(5f);
 
         isAnyRoomTriggered = false;
     }

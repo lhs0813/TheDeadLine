@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DunGen;
-using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 
 public class MainPathSpawnController : MonoBehaviour
@@ -51,13 +50,22 @@ public class MainPathSpawnController : MonoBehaviour
         int spawnDepth = tileSpawning.GetDeepness();
         int delta      = newDepth - prevDepth;
 
+        if (!previousTile.IsMainPath()) //방 밖으로 나온 경우.//
+        {
+            if (newDepth == spawnDepth + 1 || newDepth == spawnDepth - 1)
+            {
+                UnderSpawn();
+                return;
+            }
+        }
+
         // 상승/하강 분기 (플래그 검사 포함)
         if (delta > 0 && newDepth == spawnDepth - 1 && !upperSpawned)
         {
             UpperSpawn();
             upperSpawned = true;
         }
-        else if (delta < 0 && newDepth == spawnDepth + 2 && !underSpawned)
+        else if (delta < 0 && newDepth == spawnDepth + 1 && !underSpawned)
         {
             UnderSpawn();
             underSpawned = true;
@@ -68,7 +76,7 @@ public class MainPathSpawnController : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"[{nameof(MainPathSpawnController)}] Unexpected depth jump: {delta}");
+            //Debug.LogWarning($"[{nameof(MainPathSpawnController)}] Unexpected depth jump: {delta}");
         }
     }
 

@@ -32,7 +32,7 @@ public class DoorSpawner : MonoBehaviour
         if (danger)
             spawnCount *= 2;
 
-        for (int i = 0; i < spawnCount / 3; i++)
+        for (int i = 0; i < spawnCount / 2; i++)
         {
             EnemyType type = HordeSpawnBuilder.RollEnemyType(mapIndex);
             EnemyPoolManager.Instance.Spawn(type, transform.position, Quaternion.identity, false);
