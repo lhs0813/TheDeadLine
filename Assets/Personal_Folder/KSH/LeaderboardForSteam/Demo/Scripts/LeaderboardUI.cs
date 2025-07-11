@@ -1,8 +1,10 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using LeastSquares;
+using Steamworks;
 using Steamworks.Data;
 using TMPro;
 using UnityEngine;
@@ -20,24 +22,30 @@ namespace LeastSquares
         public TMP_InputField Input;
         public SteamLeaderboard Leaderboard;
         public LeaderboardType Type = LeaderboardType.Global;
-        private List<GameObject> _rows = new ();
+        private List<GameObject> _rows = new();
         private int _offset;
 
-        void Start()
+        async void Start()
         {
+            if (!SteamClient.IsValid)
+            {
+                Debug.LogError("SteamClient is not initialized. Waiting for initialization...");
+                await WaitForSteamInitialization();
+            }
+            SaveScore();
             RefreshScores();
         }
 
         /// <summary>
         /// Fill the leaderboardUI with new scores
         /// </summary>
-        async void RefreshScores()
+        public async void RefreshScores()
         {
             LeaderboardEntry[] scores;
             switch (Type)
             {
                 case LeaderboardType.Global:
-                    scores = await Leaderboard.GetScores(EntriesToShowAtOnce-1, 1 + _offset);
+                    scores = await Leaderboard.GetScores(EntriesToShowAtOnce - 1, 1 + _offset);
                     break;
                 case LeaderboardType.Friends:
                     scores = await Leaderboard.GetScoresFromFriends();
@@ -51,24 +59,88 @@ namespace LeastSquares
             RegenerateUI(scores);
         }
 
+        async Task<Sprite> GetLocalUserAvatarSprite()
+        {
+            if (!SteamClient.IsValid)
+            {
+                Debug.LogError("SteamClient is not valid. Cannot load user avatar.");
+                return null;
+            }
+
+            var mySteamId = SteamClient.SteamId;
+            bool infoRequested = SteamFriends.RequestUserInformation(mySteamId, true);
+            var avatarImage = await SteamFriends.GetSmallAvatarAsync(mySteamId);
+            if (!avatarImage.HasValue)
+                return null;
+
+            var tex = avatarImage.Value.Convert();
+            return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+        }
+
         /// <summary>
         /// Renegenerate the leaderboard rows
         /// </summary>
         /// <param name="scores">An array of leaderboard entries</param>
         async void RegenerateUI(LeaderboardEntry[] scores)
         {
+            if (!SteamClient.IsValid)
+            {
+                Debug.LogError("SteamClient is not valid. Cannot regenerate leaderboard UI.");
+                return;
+            }
+
             var oldRows = _rows;
             _rows = new List<GameObject>();
-            for (var i = 0; i < scores.Length; i++)
-            {
-                var go = await CreateRow(scores[i]);
+            var mySteamId = SteamClient.SteamId;
 
+            // 중복 제거
+            var uniqueScores = scores.Distinct(new LeaderboardEntryComparer()).ToArray();
+            bool hasMyEntry = uniqueScores.Any(e => e.User.Id == mySteamId);
+
+            // UI 행 생성
+            for (var i = 0; i < uniqueScores.Length; i++)
+            {
+                var entry = uniqueScores[i];
+                var go = await CreateRow(entry);
+                if (i < 9 && entry.User.Id == mySteamId)
+                {
+                    var bgImage = go.transform.GetChild(0).GetComponent<UnityEngine.UI.Image>();
+                    bgImage.color = UnityEngine.Color.green;
+                }
                 _rows.Add(go);
             }
 
-            for (var i = 0; i < oldRows.Count; i++)
+            // "내 순위" 추가 (중복 방지)
+            if (!hasMyEntry)
             {
-                Destroy(oldRows[i]);
+                var around = await Leaderboard.GetScoresAroundUser(EntriesToShowAtOnce / 2);
+                if (around != null && around.Length > 0)
+                {
+                    var myEntry = around.FirstOrDefault(e => e.User.Id == mySteamId);
+                    if (myEntry.User.Id == mySteamId && !uniqueScores.Any(e => e.User.Id == mySteamId))
+                    {
+                        GameObject userRow = await CreateRow(myEntry);
+                        userRow.transform.GetChild(0).GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+                        _rows.Add(userRow);
+                    }
+                }
+            }
+
+            foreach (var old in oldRows)
+                Destroy(old);
+        }
+
+        // LeaderboardEntry 비교를 위한 커스텀 comparer
+        private class LeaderboardEntryComparer : IEqualityComparer<LeaderboardEntry>
+        {
+            public bool Equals(LeaderboardEntry x, LeaderboardEntry y)
+            {
+                return x.User.Id == y.User.Id && x.Score == y.Score;
+            }
+
+            public int GetHashCode(LeaderboardEntry obj)
+            {
+                return obj.User.Id.GetHashCode() ^ obj.Score.GetHashCode();
             }
         }
 
@@ -83,7 +155,7 @@ namespace LeastSquares
             var row = go.GetComponent<LeaderboardUIRow>();
             row.Score.text = entry.Score.ToString();
             row.Name.text = entry.User.Name;
-            row.Rank.text = entry.GlobalRank.ToString();
+            row.Rank.text = "#" + entry.GlobalRank.ToString();
             var maybeImage = await entry.User.GetSmallAvatarAsync();
             if (maybeImage.HasValue)
             {
@@ -99,12 +171,33 @@ namespace LeastSquares
         /// </summary>
         public void SaveScore()
         {
-            var text = Input.text;
-            Leaderboard.SubmitScore(int.Parse(text));
+            
+            Leaderboard.SubmitScore(RecordManager.Instance.LoadInfiniteStage());
             RefreshScores();
         }
-        
+        private async Task WaitForSteamInitialization()
+        {
+            int maxAttempts = 10;
+            int attempt = 0;
+            while (!SteamClient.IsValid && attempt < maxAttempts)
+            {
+                await Task.Delay(500); // 0.5초 대기
+                attempt++;
+            }
+            if (!SteamClient.IsValid)
+            {
+                Debug.LogError("Failed to initialize SteamClient after waiting.");
+            }
+        }
+        private void OnEnable()
+        {
+            _rows.Clear(); // 기존 행 초기화
+
+        }
+
     }
+
+    
 
     [Serializable]
     public enum LeaderboardType

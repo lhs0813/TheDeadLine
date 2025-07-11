@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -25,10 +25,22 @@ namespace LeastSquares
         /// </summary>
         private async Task CreateOrFindLeaderboard()
         {
-            if (_leaderboard != null || !SteamClient.IsValid) return;
-            _leaderboard = await SteamUserStats.FindOrCreateLeaderboardAsync(Name, (LeaderboardSort) SortType, (LeaderboardDisplay) DisplayType);
+            if (_leaderboard != null) return;
+            if (!SteamClient.IsValid)
+            {
+                Debug.LogError("SteamClient is not valid. Cannot initialize leaderboard.");
+                return;
+            }
+            try
+            {
+                _leaderboard = await SteamUserStats.FindOrCreateLeaderboardAsync(Name, (LeaderboardSort)SortType, (LeaderboardDisplay)DisplayType);
+                Debug.Log($"Leaderboard '{Name}' initialized successfully.");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Failed to initialize leaderboard '{Name}': {e.Message}");
+            }
         }
-
         /// <summary>
         /// Submits a new score to the steam leaderboard. Only updates it if its better than the previous one
         /// </summary>
@@ -62,12 +74,18 @@ namespace LeastSquares
         /// </summary>
         /// <returns>A list of leaderboard entries from all players</returns>
         public async Task<LeaderboardEntry[]> GetScores(int entriesToRetrieve, int offset = 1)
-        { 
+        {
             await CreateOrFindLeaderboard();
-            if (!_leaderboard.HasValue) return await Task.Run(() => new LeaderboardEntry[]{});
-            return await _leaderboard.Value.GetScoresAsync(entriesToRetrieve, offset);
+            if (!_leaderboard.HasValue)
+            {
+                Debug.LogError($"Leaderboard '{Name}' not initialized.");
+                return await Task.Run(() => new LeaderboardEntry[] { });
+            }
+            var scores = await _leaderboard.Value.GetScoresAsync(entriesToRetrieve, offset);
+            Debug.Log($"Retrieved {scores.Length} scores from leaderboard '{Name}'.");
+            return scores;
         }
-        
+
         /// <summary>
         /// Get scores around the current steam user
         /// </summary>
@@ -89,7 +107,7 @@ namespace LeastSquares
             if (!_leaderboard.HasValue) return await Task.Run(() => new LeaderboardEntry[]{});
             return await _leaderboard.Value.GetScoresFromFriendsAsync();
         }
-
+        
         /// <summary>
         /// Gets the best score for the user
         /// </summary>

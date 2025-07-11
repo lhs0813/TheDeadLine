@@ -50,7 +50,7 @@ public class Affector : MonoBehaviour
     public float efDestroyTime=10;
     [Space(30)]
 
-    public static float damageMulti = 1f;
+    public static float damageMulti = 1.3f;
     public static float damageVariation = 15;
 
     public List<GameObject> hitted = new();//중복방지start
@@ -96,6 +96,10 @@ public class Affector : MonoBehaviour
         { 
             inTransform[i].transform.parent = null;
         }
+    }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
 
@@ -149,8 +153,10 @@ public class Affector : MonoBehaviour
 
         before = transform.position;
     }
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
+        if(enabled==false) return;
+
         CommonEnter(collision.gameObject);
     }
 
@@ -303,6 +309,8 @@ public class Affector : MonoBehaviour
                 Destroy(gameObject); // enabled = false;
             else
                 enabled = false;
+
+
         }
 
 
