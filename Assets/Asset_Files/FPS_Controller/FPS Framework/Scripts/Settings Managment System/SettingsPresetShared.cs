@@ -106,9 +106,21 @@ namespace Akila.FPSFramework
         public void SetVolume(float value)
         {
             // 입력값을 1~100 사이로 제한
-            float v = Mathf.Clamp(value, 1f, 100f);
+            float v = Mathf.Clamp(value, 0f, 100f);
             // 0~1 범위로 정규화
             AudioListener.volume = v / 100f;
+        }
+
+        public void SetBrightness(float value)
+        {
+            // 0~100 범위로 클램프
+    // 0~1 정규화
+            float t = Mathf.Clamp01(value / 100f);
+            // 0.2~0.4 사이로 보간
+            float mapped = Mathf.Lerp(0.05f, 0.25f, t);
+            
+            RenderSettings.ambientLight = Color.white * mapped;
+
         }
 
 
