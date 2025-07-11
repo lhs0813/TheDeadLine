@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
@@ -12,8 +11,6 @@ public class GunSpawner : MonoBehaviour
     /// <param name="stageIndex"></param>
     public void InitializeGunProp(int stageIndex)
     {
-        Debug.Log("initialize Gun");
-
         GameObject prefab = SpawnedGunBuilder.GetRandomGunPrefab(stageIndex);
         if (prefab != null)
         {
