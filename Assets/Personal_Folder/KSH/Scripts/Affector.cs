@@ -99,9 +99,7 @@ public class Affector : MonoBehaviour
     }
     private void OnDisable()
     {
-
         StopAllCoroutines();
-
     }
 
 
