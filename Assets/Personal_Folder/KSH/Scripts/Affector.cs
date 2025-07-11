@@ -209,7 +209,10 @@ public class Affector : MonoBehaviour
 
                 var damageableGroup = go.GetComponent<DamageableGroup>();
                 if (damageableGroup)
-                    value*=damageableGroup.GetDamageMultipler();
+                {
+                    value *= damageableGroup.GetDamageMultipler();
+                    critical = damageableGroup.GetHead();
+                }
 
 
                 damageTarget.Damage(value, gameObject, critical);
