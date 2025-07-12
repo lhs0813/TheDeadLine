@@ -52,9 +52,10 @@ public static class SpawnedGunBuilder
 
         // 1스테이지에서 lnStage=0 → rare=90, epic=7, legendary=3
         // 9스테이지에서 lnStage=ln(9) → rare=40, epic=30, legendary=30
-        float rare      = 90f - (40f / ln9) * lnStage;
-        float epic      = 7f   + (33f / ln9) * lnStage;
-        float legendary = 3f   + (7f / ln9) * lnStage;
+        // 9스테이지에서 lnStage=ln(9) → rare=75, epic=20, legendary=5
+        float rare      = 90f - (10 / ln9) * lnStage;  
+        float epic      = 3f   + (12f / ln9) * lnStage; 
+        float legendary = 1f   + (4f / ln9) * lnStage;  
 
         // 음수로 떨어지지 않도록 0 이상으로 보정
         return grade switch
