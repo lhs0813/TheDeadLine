@@ -133,7 +133,7 @@ public class GamePlayManager : MonoBehaviour
         //다음맵 로딩 시작
         currentMapIndex++;
 
-        if (isStoryMode && currentMapIndex == 10)
+        if (isStoryMode && currentMapIndex >= 10)
         {
             SceneManager.LoadScene("EndingScene");
 

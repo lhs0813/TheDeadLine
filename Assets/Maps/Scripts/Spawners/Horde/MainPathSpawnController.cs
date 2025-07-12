@@ -12,6 +12,7 @@ public class MainPathSpawnController : MonoBehaviour
     List<MainPathSpawner> spawners;
 
 
+    int mapIndex;
     bool upperSpawned;
     bool underSpawned;
     bool danger;
@@ -32,6 +33,8 @@ public class MainPathSpawnController : MonoBehaviour
         MapGenerationManager.Instance.OnNavMeshBakeAction += InitializeSpawners;
         GamePlayManager.instance.OnDangerAction += ChangeToDangerState;
 
+
+        mapIndex = GamePlayManager.instance.currentMapIndex;
         //flag Initialize.
         upperSpawned = false;
         underSpawned = false;
@@ -114,7 +117,7 @@ public class MainPathSpawnController : MonoBehaviour
     {
         foreach (var s in spawners)
         {
-            s.MainSpawn(GamePlayManager.instance.currentMapIndex, false, danger);
+            s.MainSpawn(mapIndex, false, danger);
         }
     }
 
@@ -123,7 +126,7 @@ public class MainPathSpawnController : MonoBehaviour
     {
         foreach (var s in spawners)
         {
-            s.MainSpawn(GamePlayManager.instance.currentMapIndex, true, danger);
+            s.MainSpawn(mapIndex, true, danger);
         }
     }
 
@@ -134,7 +137,7 @@ public class MainPathSpawnController : MonoBehaviour
 
         // 2) 남은 스포너만 초기화
         foreach (var sp in spawners)
-            sp.InitializeSpawnPoints(GamePlayManager.instance.currentMapIndex);
+            sp.InitializeSpawnPoints(mapIndex);
     }
 
     private void ChangeToDangerState()
