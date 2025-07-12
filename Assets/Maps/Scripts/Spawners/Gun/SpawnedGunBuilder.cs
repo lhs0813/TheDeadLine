@@ -48,14 +48,14 @@ public static class SpawnedGunBuilder
         // stageIndex가 1 이하로 들어오면 lnStage=0으로 처리
         stageIndex = Mathf.Max(stageIndex, 1);
         float lnStage = Mathf.Log(stageIndex);
-        float ln9 = Mathf.Log(9f);
+        float ln9 = Mathf.Log(15f);
 
         // 1스테이지에서 lnStage=0 → rare=90, epic=7, legendary=3
         // 9스테이지에서 lnStage=ln(9) → rare=40, epic=30, legendary=30
         // 9스테이지에서 lnStage=ln(9) → rare=75, epic=20, legendary=5
-        float rare      = 90f - (10 / ln9) * lnStage;  
-        float epic      = 3f   + (12f / ln9) * lnStage; 
-        float legendary = 1f   + (4f / ln9) * lnStage;  
+        float rare      = 90f - (20 / ln9) * lnStage;  
+        float epic      = 3f   + (17f / ln9) * lnStage; 
+        float legendary = 1f   + (9f / ln9) * lnStage;  
 
         // 음수로 떨어지지 않도록 0 이상으로 보정
         return grade switch
