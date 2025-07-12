@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -65,6 +66,26 @@ public static class SpawnedGunBuilder
             WeaponGrade.Legendary => Mathf.Max(legendary, 0f),
             _                     => 0f,
         };
+    }
+
+        /// <summary>
+    /// 스테이지별 등급 확률을 각각 한 줄씩 포맷팅해서 반환합니다.
+    /// 예) "Rare: 75.00%\nEpic: 20.00%\nLegendary: 5.00%"
+    /// </summary>
+    public static string GetGradeProbabilitiesText(int stageIndex)
+    {
+        var probs = GetGradeProbabilities(stageIndex);
+        var sb = new StringBuilder();
+
+        // Grades 배열 순서대로
+        foreach (var grade in Grades)
+        {
+            // 소수점 두 자리까지 포맷팅
+            sb.AppendLine($"{grade}: {probs[grade]:F2}%");
+        }
+
+        // 마지막 줄바꿈 제거
+        return sb.ToString().TrimEnd('\r', '\n');
     }
 
     /// <summary>

@@ -1,27 +1,29 @@
+using System.Text;
+
 public static class EnemyConstants
 {
     #region HP points
 
     // --- Normal Zombie ---
-    public const float normal_baseHP       = 25f;
+    public const float normal_baseHP = 25f;
     // 9스테이지에서 500이 되도록 미리 계산한 계수
     private static readonly float normal_hpOffset =
         (250f - normal_baseHP) / (9f * 9f);
 
     // --- Big Zombie ---
-    public const float big_baseHP          = 400f;
+    public const float big_baseHP = 400f;
     // 9스테이지에서 3000이 되도록 미리 계산한 계수
     private static readonly float big_hpOffset =
         (1500f - big_baseHP) / (9f * 9f);
 
     // --- Fast Zombie ---
-    public const float fast_baseHP         = 25f;
+    public const float fast_baseHP = 25f;
     // 9스테이지에서 300이 되도록 미리 계산한 계수
     private static readonly float fast_hpOffset =
         (150f - fast_baseHP) / (9f * 9f);
 
     // --- Bomb Zombie ---
-    public const float bomb_baseHP         = 40f;
+    public const float bomb_baseHP = 40f;
     // 9스테이지에서 400이 되도록 미리 계산한 계수
     private static readonly float bomb_hpOffset =
         (400f - bomb_baseHP) / (9f * 9f);
@@ -54,14 +56,14 @@ public static class EnemyConstants
 
     #region Damage (unchanged)
 
-    public const float normal_baseDamage   = 5f;
+    public const float normal_baseDamage = 5f;
     public const float normal_damageOffset = 2f;
-    public const float big_baseDamage      = 10f;
-    public const float big_damageOffset    = 5f;
-    public const float fast_baseDamage     = 5f;
-    public const float fast_damageOffset   = 1f;
-    public const float bomb_baseDamage     = 5f;
-    public const float bomb_damageOffset   = 3f;
+    public const float big_baseDamage = 10f;
+    public const float big_damageOffset = 5f;
+    public const float fast_baseDamage = 5f;
+    public const float fast_damageOffset = 1f;
+    public const float bomb_baseDamage = 5f;
+    public const float bomb_damageOffset = 3f;
 
     public static float GetZombieDamageByType(EnemyType enemyType, int mapIndex)
     {
@@ -78,6 +80,46 @@ public static class EnemyConstants
             default:
                 return 0f;
         }
+    }
+
+    #endregion
+    
+     #region Pretty-Print Methods
+
+    /// <summary>
+    /// 주어진 스테이지의 좀비 HP를 한 줄씩 포맷팅한 문자열로 반환합니다.
+    /// 예) "Normal: 125.00\nBig: 640.00\nFast: 100.00\nBomb: 190.00"
+    /// </summary>
+    public static string GetZombieHPText(int stage)
+    {
+        var sb = new StringBuilder();
+        var order = new[] { EnemyType.Normal, EnemyType.Big, EnemyType.Fast, EnemyType.Bomb };
+
+        foreach (var type in order)
+        {
+            float hp = GetZombieHPByType(type, stage);
+            sb.AppendLine($"{type}: {hp:F2}");
+        }
+
+        return sb.ToString().TrimEnd('\r', '\n');
+    }
+
+    /// <summary>
+    /// 주어진 맵 인덱스의 좀비 데미지를 한 줄씩 포맷팅한 문자열로 반환합니다.
+    /// 예) "Normal: 15.00\nBig: 35.00\nFast: 8.00\nBomb: 14.00"
+    /// </summary>
+    public static string GetZombieDamageText(int mapIndex)
+    {
+        var sb = new StringBuilder();
+        var order = new[] { EnemyType.Normal, EnemyType.Big, EnemyType.Fast, EnemyType.Bomb };
+
+        foreach (var type in order)
+        {
+            float dmg = GetZombieDamageByType(type, mapIndex);
+            sb.AppendLine($"{type}: {dmg:F2}");
+        }
+
+        return sb.ToString().TrimEnd('\r', '\n');
     }
 
     #endregion

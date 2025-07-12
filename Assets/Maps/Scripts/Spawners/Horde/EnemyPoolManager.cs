@@ -19,7 +19,7 @@ public class EnemyPoolManager : MonoBehaviour
     public static EnemyPoolManager Instance { get; private set; }
 
     private Dictionary<EnemyType, ObjectPool<GameObject>> enemyPools = new();
-    private List<GameObject> activeEnemies = new();
+    public List<GameObject> activeEnemies = new();
 
     public Transform EnemyContainer;
 
