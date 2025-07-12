@@ -33,6 +33,7 @@ namespace Akila.FPSFramework
 
         [Space]
         public UnityEvent OnDeath;
+        public UnityEvent OnHit ;
 
         public Actor Actor { get; set; }
         public Ragdoll ragdoll { get; set; }
@@ -43,6 +44,7 @@ namespace Akila.FPSFramework
         public bool died;
         public bool deadConfirmed { get; set; }
 
+        ZombieBase _zombie;
 
         //킬 데미지 관련 변수 설정
         KillFeed _killFeed;
@@ -98,6 +100,7 @@ namespace Akila.FPSFramework
             if (type == HealthType.NPC)
             {
                 enemyIdentifier = GetComponentInParent<EnemyIdentifier>();
+                _zombie = transform.parent.GetComponentInChildren<ZombieBase>();
             }
 
             if (type == HealthType.Other)
@@ -315,7 +318,12 @@ namespace Akila.FPSFramework
                 _killFeed = FindAnyObjectByType<KillFeed>();
             }
             if(type == HealthType.NPC)
+            {
                 _killFeed.DamageShow(amount, critical);
+                if(!_zombie.hurt)
+                    _zombie.hurt = true;
+            }
+                
 
         
 

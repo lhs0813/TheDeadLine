@@ -297,7 +297,7 @@ namespace Akila.FPSFramework
                     }
                     else
                     {
-                        finalDamage = damage;
+                        finalDamage = Player_Manager.Instance.MaxHealth * 0.3f;
                     }
 
                     damageable.Damage(finalDamage, damageSource?.gameObject);

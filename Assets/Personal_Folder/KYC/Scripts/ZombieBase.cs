@@ -23,7 +23,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     public virtual bool UseRandomSpeed => true;
     public virtual bool isBombZombie => false;
 
-
+    
 
     public float health = 100f;
     public float maxHealth = 100f;
@@ -35,6 +35,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     public float visibleDistance = 45f; // 시야 거리
     public float fieldOfViewAngle = 180f; // 시야각
     public float minAttackStartDistance = 20f; // 등 뒤여도 접근하면 추격
+    public bool hurt = false;
 
     [Header("Zombie Collider")]
     public CapsuleCollider collider;
@@ -162,6 +163,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         }
         #endregion
 
+        hurt = false;
 
         if (identifier != null)
         {
@@ -227,6 +229,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     public virtual void TakeDamage(float damage)
     {
         health -= damage;
+        
         if (health <= 0)
         {
             Die();
