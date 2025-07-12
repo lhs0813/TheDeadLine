@@ -122,7 +122,7 @@ namespace Akila.FPSFramework
             }
 
             index = Mathf.Clamp(index, 0, inventory.maxSlots - 1);
-            inventory.Switch(index);
+           // inventory.Switch(index);
 
             Destroy(gameObject);
         }
