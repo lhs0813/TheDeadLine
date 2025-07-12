@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DunGen;
@@ -14,6 +15,9 @@ public class MainPathSpawnController : MonoBehaviour
     bool upperSpawned;
     bool underSpawned;
     bool danger;
+
+    bool canSpawn;
+    public float spawnCooldown = 5f;
 
     void Start()
     {
@@ -36,6 +40,7 @@ public class MainPathSpawnController : MonoBehaviour
 
     private void ManagePlayerLocation(DungenCharacter character, Tile previousTile, Tile newTile)
     {
+        if (!canSpawn) return;
         // 안전성 체크
         if (newTile == null || previousTile == null)
             return;
@@ -45,16 +50,17 @@ public class MainPathSpawnController : MonoBehaviour
             return;
 
         // 깊이 계산
-        int prevDepth  = previousTile.GetDeepness();
-        int newDepth   = newTile.GetDeepness();
+        int prevDepth = previousTile.GetDeepness();
+        int newDepth = newTile.GetDeepness();
         int spawnDepth = tileSpawning.GetDeepness();
-        int delta      = newDepth - prevDepth;
+        int delta = newDepth - prevDepth;
 
         if (!previousTile.IsMainPath()) //방 밖으로 나온 경우.//
         {
             if (newDepth == spawnDepth + 1 || newDepth == spawnDepth - 1)
             {
                 UnderSpawn();
+                StartCoroutine(SpawnCooldown());
                 return;
             }
         }
@@ -63,11 +69,13 @@ public class MainPathSpawnController : MonoBehaviour
         if (delta > 0 && newDepth == spawnDepth - 1 && !upperSpawned)
         {
             UpperSpawn();
+            StartCoroutine(SpawnCooldown());
             upperSpawned = true;
         }
         else if (delta < 0 && newDepth == spawnDepth + 1 && !underSpawned)
         {
             UnderSpawn();
+            StartCoroutine(SpawnCooldown());
             underSpawned = true;
         }
         else if (delta == 0)
@@ -80,6 +88,13 @@ public class MainPathSpawnController : MonoBehaviour
         }
     }
 
+    private IEnumerator SpawnCooldown()
+    {
+        canSpawn = false;
+        yield return new WaitForSeconds(spawnCooldown);
+        canSpawn = true;
+    }
+
 
     private void UpperSpawn()
     {
@@ -89,13 +104,13 @@ public class MainPathSpawnController : MonoBehaviour
         }
     }
 
-    
+
     private void UnderSpawn()
     {
         foreach (var s in spawners)
         {
             s.MainSpawn(GamePlayManager.instance.currentMapIndex, true, danger);
-        }      
+        }
     }
 
     public void InitializeSpawners()
@@ -113,5 +128,12 @@ public class MainPathSpawnController : MonoBehaviour
         danger = true;
         upperSpawned = false;
         underSpawned = false;
+    }
+
+    void OnDestroy()
+    {
+        character.OnTileChanged -= ManagePlayerLocation;
+        MapGenerationManager.Instance.OnNavMeshBakeAction -= InitializeSpawners;
+        GamePlayManager.instance.OnDangerAction -= ChangeToDangerState;        
     }
 }
