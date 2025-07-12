@@ -163,7 +163,7 @@ public class TabletController : MonoBehaviour
         if (weaponUI)
         {
             weaponUI.SetActive(true);
-            interactionHud.SetActive(true);
+            //interactionHud.SetActive(true);
         }
 
         interactionsManager.isActive = true;
