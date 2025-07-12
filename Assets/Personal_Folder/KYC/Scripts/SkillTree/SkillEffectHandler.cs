@@ -24,7 +24,6 @@ public class SkillEffectHandler : MonoBehaviour
     public float headshotDamageMultiplier = 1f; // 헤드샷 데미지 배수
     public float attackSpeedBonus = 1f; // 공격속도증가
     public float recoilMultiplier = 1f; // 반동감소
-    public bool isAmmoInfinite = false; // 무한 탄약 여부
     public bool isHeartofBerserkeravailable = false; // Berserker 효과 활성화 여부
     public float berserkerDamageMultiplier = 1.5f; // Berserker 데미지 배수 (예: 1.5f는 50% 증가)
     public float damageReduction = 1f; // 데미지 감소 배수 (예: 0.8f는 20% 감소)
@@ -78,10 +77,6 @@ public class SkillEffectHandler : MonoBehaviour
             berserkerDamageMultiplier = 0.0f;
             isHeartofBerserkeravailable = false; // Berserker 효과 비활성화
         };
-
-        _applyLevelEffects["INFINITE_AMMO"] = (level) => isAmmoInfinite = true; // 무한 탄약
-        _removeEffects["INFINITE_AMMO"] = () => isAmmoInfinite = false; // 무한 탄약 해제
-
 
         _applyLevelEffects["DAMAGE_REDUCTION"] = (level) => damageReduction = 1f - 0.1f * level; //  데미지 감소
         _removeEffects["DAMAGE_REDUCTION"] = () => damageReduction = 1f; // 원상 복구
