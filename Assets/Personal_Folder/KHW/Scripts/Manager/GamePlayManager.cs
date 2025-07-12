@@ -52,6 +52,7 @@ public class GamePlayManager : MonoBehaviour
     public Action<float> OnTrainAccelerationAction; //열차를 가속시켰을 때 발동됨.
 
     public Action OnTrainArriveAction;
+    public bool goingUp;
 
     private void Awake()
     {
@@ -75,6 +76,7 @@ public class GamePlayManager : MonoBehaviour
 
         
         ObjectiveManager.instance.OnStartReturnToTheTrainObjectiveAction += EnableTrainDepartable;
+        FindAnyObjectByType<DungenCharacter>().OnTileChanged += ManagePlayerLocation;
 
         newMapReady = false;
 
@@ -84,6 +86,14 @@ public class GamePlayManager : MonoBehaviour
         currentStageInfo = await GetStageInfoAsync(MapGenCalculator.GetModifiedIndex(currentMapIndex));
 
         allFuseActivated = false;
+    }
+
+    private void ManagePlayerLocation(DungenCharacter character, Tile previousTile, Tile newTile)
+    {
+        if (!previousTile.IsMainPath() || !newTile.IsMainPath()) return;
+
+        if (newTile.GetDeepness() > previousTile.GetDeepness()) goingUp = true;
+        else goingUp = false;
     }
 
     private void ChangeIsMapReady(DungeonGenerator generator)
