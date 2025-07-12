@@ -227,6 +227,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 555214930123368533, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
         type: 3}
+      propertyPath: m_Radius
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 555214930123368533, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
       propertyPath: avoidancePriority
       value: 90
       objectReference: {fileID: 0}
@@ -379,13 +384,18 @@ PrefabInstance:
     - target: {fileID: 5704286264748806086, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
         type: 3}
       propertyPath: moveSpeed
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5704286264748806086, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
         type: 3}
       propertyPath: attackRange
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5704286264748806086, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 3074225836615237383}
     - target: {fileID: 5704286264748806086, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
         type: 3}
       propertyPath: ragdollAnim
@@ -403,9 +413,59 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5704286264748806086, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
         type: 3}
+      propertyPath: chaseClips.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704286264748806086, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      propertyPath: deathClips.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704286264748806086, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
       propertyPath: minAttackStartDistance
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 5704286264748806086, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      propertyPath: 'chaseClips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: c41ecb4e113e6f543a3ba5d40fa52f39, type: 3}
+    - target: {fileID: 5704286264748806086, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      propertyPath: 'chaseClips.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 0bee0b52ca0805e4c9e16d111a8cd8c3, type: 3}
+    - target: {fileID: 5704286264748806086, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      propertyPath: 'chaseClips.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 7e8b3892ef4abe14f875049726e26981, type: 3}
+    - target: {fileID: 5704286264748806086, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      propertyPath: 'chaseClips.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 68b7d11d8c3abc346a57b238f343caee, type: 3}
+    - target: {fileID: 5704286264748806086, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      propertyPath: 'chaseClips.Array.data[4]'
+      value: 
+      objectReference: {fileID: 8300000, guid: fe207f5c613aec949bf225617bffda93, type: 3}
+    - target: {fileID: 5704286264748806086, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      propertyPath: 'chaseClips.Array.data[5]'
+      value: 
+      objectReference: {fileID: 8300000, guid: b379a8f5b7dc6b949bee45ffa56d92c3, type: 3}
+    - target: {fileID: 5704286264748806086, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      propertyPath: 'chaseClips.Array.data[6]'
+      value: 
+      objectReference: {fileID: 8300000, guid: d33fbfa833b7621449937083735b70eb, type: 3}
+    - target: {fileID: 5704286264748806086, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      propertyPath: 'chaseClips.Array.data[7]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 769e6a88bb42a90499525c9c74bd65a5, type: 3}
     - target: {fileID: 5715484779371347075, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
         type: 3}
       propertyPath: m_Layer
@@ -639,6 +699,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7851250638638782874, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7851250638638782874, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7851250638638782874, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7851250638638782874, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -741,6 +816,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 104179351ca7dd24a8f5bd7beecf8d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &3074225836615237383 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1281232027605897026, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
+    type: 3}
+  m_PrefabInstance: {fileID: 4282362090679365701}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6312709096983426559 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7851250638638286266, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
@@ -766,7 +847,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.4
   m_Height: 2.3
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
