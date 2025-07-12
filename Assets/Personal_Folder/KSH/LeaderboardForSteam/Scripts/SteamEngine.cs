@@ -26,7 +26,7 @@ namespace LeastSquares
                 throw new ArgumentException("Only 1 instance of SteamEngine can exist at the same time");
             if (_initialized)
             {
-                Destroy(gameObject); // 중복 인스턴스 제거
+                
                 return;
             }
             try

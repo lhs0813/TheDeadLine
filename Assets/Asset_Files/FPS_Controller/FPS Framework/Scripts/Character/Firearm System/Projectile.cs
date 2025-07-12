@@ -93,6 +93,11 @@ namespace Akila.FPSFramework
                 //Final setup
                 source.Projectiles?.Add(this);
             }
+
+
+
+
+            previousPosition = this.source.transform.position;
         }
 
         private void Awake()
@@ -131,27 +136,32 @@ namespace Akila.FPSFramework
                 Destroy(gameObject, lifeTime);
 
 
-            // ✅ 즉시 충돌 검사 추가
-            Collider[] overlapped = Physics.OverlapSphere(transform.position, hitRadius, hittableLayers);
-            foreach (var col in overlapped)
-            {
-                if (col.transform.TryGetComponent(out IgnoreHitDetection ignore)) continue;
-                if (sourcePlayer && col.transform == sourcePlayer.transform) continue;
 
-                // 레이 생성을 위한 임의 Ray 설정
-                Ray dummyRay = new Ray(transform.position - direction * 0.1f, direction);
-                if (col.Raycast(dummyRay, out RaycastHit hit, 1f))
-                {
-                    UpdateHits(dummyRay, hit);
-                    if (destroyOnImpact)
-                    {
-                        Destroy(gameObject);
-                        return; // 이 시점에서 종료
-                    }
-                }
-            }
 
-            previousPosition = transform.position; // 주의: source.transform.position 아님!
+
+
+            //// ✅ 즉시 충돌 검사 추가
+            //Collider[] overlapped = Physics.OverlapSphere(transform.position, hitRadius, hittableLayers);
+            //foreach (var col in overlapped)
+            //{
+            //    if (col.transform.TryGetComponent(out IgnoreHitDetection ignore)) continue;
+            //    if (sourcePlayer && col.transform == sourcePlayer.transform) continue;
+
+            //    // 레이 생성을 위한 임의 Ray 설정
+            //    Ray dummyRay = new Ray(transform.position - direction * 0.1f, direction);
+            //    if (col.Raycast(dummyRay, out RaycastHit hit, 1f))
+            //    {
+            //        UpdateHits(dummyRay, hit);
+            //        if (destroyOnImpact)
+            //        {
+            //            Destroy(gameObject);
+            //            return; // 이 시점에서 종료
+            //        }
+            //    }
+            //}
+            //previousPosition = transform.position; // 주의: source.transform.position 아님!
+
+
             StartCoroutine(Update2());
         }
 
@@ -191,7 +201,7 @@ namespace Akila.FPSFramework
         {
             for (; ; )
             {
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(0.1f);
 
 
                 Ray ray = new Ray(previousPosition, -(previousPosition - transform.position));
@@ -206,8 +216,10 @@ namespace Akila.FPSFramework
                 Vector3 shootOrigin = startPosition;
                 Vector3 shootDirection = direction;
 
-                Ray ray2 = new Ray(shootOrigin, shootDirection);
+               // Ray ray2 = new Ray(shootOrigin, shootDirection);
                // RaycastHit[] Push = Physics.SphereCastAll(ray2, hitRadius, distance, LayerMask.GetMask("Monster_Ragdoll"));
+
+
 
                 foreach (RaycastHit hit in hits)
                 {

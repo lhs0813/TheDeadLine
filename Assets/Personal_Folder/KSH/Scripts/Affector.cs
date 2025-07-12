@@ -50,7 +50,7 @@ public class Affector : MonoBehaviour
     public float efDestroyTime=10;
     [Space(30)]
 
-    public static float damageMulti = 1.3f;
+    public static float damageMulti = 1.5f;
     public static float damageVariation = 15;
 
     public List<GameObject> hitted = new();//중복방지start
@@ -209,7 +209,10 @@ public class Affector : MonoBehaviour
 
                 var damageableGroup = go.GetComponent<DamageableGroup>();
                 if (damageableGroup)
-                    value*=damageableGroup.GetDamageMultipler();
+                {
+                    value *= damageableGroup.GetDamageMultipler();
+                    critical = damageableGroup.GetHead();
+                }
 
 
                 damageTarget.Damage(value, gameObject, critical);
