@@ -921,18 +921,7 @@ namespace Akila.FPSFramework
             {
                 ApplyRecoil();
             }
-
-            // Decrease remaining ammo count and update spray amount
-            if(SkillEffectHandler.Instance.isAmmoInfinite == true)
-            {
-                if (gradeNum == 4)
-                 remainingAmmoCount--;              
-            }
-            else
-            {
                 remainingAmmoCount--;
-            }
-
 
             // Play firing animation across all animators
             foreach (Animator animator in animators)

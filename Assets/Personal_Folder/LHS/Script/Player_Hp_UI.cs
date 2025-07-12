@@ -49,19 +49,25 @@ public class Player_Hp_UI : MonoBehaviour
         // 체력 텍스트 업데이트
         HpUis[1].text = hp.ToString("F0");
 
+        // 체력 비율 계산
+        float hpRatio = Mathf.Clamp01(hp / _maxHp);
+
         // 색상 보간 (흰색 → 빨간색)
-        float t = 1f - Mathf.Clamp01(hp / _maxHp); // 0 (full) → 1 (zero)
-        Color color = Color.Lerp(Color.white, Color.red, t);
+        float tColor = 1f - hpRatio;
+        Color color = Color.Lerp(Color.white, Color.red, tColor);
         HpUis[1].color = color;
+
+        // 비네트용 보정된 보간값 (로그 스케일처럼 체감 되도록)
+        float tVignette = 1f - Mathf.Pow(hpRatio, 0.3f); // 0.3f는 조절 가능
 
         // 체력바 및 비네트 효과 처리
         if (hp > 0)
         {
-            hpBar.fillAmount = hp / _maxHp;
+            hpBar.fillAmount = hpRatio;
 
             if (vignette != null)
             {
-                vignette.intensity.value = t;
+                vignette.intensity.value = tVignette * 1.2f;
             }
         }
         else

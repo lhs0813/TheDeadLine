@@ -46,6 +46,10 @@ public class MainSceneController : MonoBehaviour
     private WaitForSeconds buttonDelay;
     private Dictionary<GameObject, CanvasGroup> buttonCanvasGroups = new();
 
+    [Header("Leaderboard")]
+    [Tooltip("오른쪽 아래에 활성화할 리더보드 오브젝트")]
+    public GameObject leaderboardObject;
+
     void Awake()
     {
         waitAfterDoor = new WaitForSeconds(doorOpenDuration);
@@ -67,6 +71,7 @@ public class MainSceneController : MonoBehaviour
 
     void Start()
     {
+        leaderboardObject.SetActive(false);
         // 초기 세팅
         if (subwayMovement != null)
             subwayMovement.SetSpeed(initialSpeed);
@@ -174,6 +179,9 @@ public class MainSceneController : MonoBehaviour
             StartCoroutine(FadeCanvasGroup(kvp.Value, uiFadeDuration, 1f));
             yield return buttonDelay; // 간격 유지
         }
+        yield return new WaitForSeconds(0.3f);
+        if (leaderboardObject != null)
+            leaderboardObject.SetActive(true);
     }
 
     private IEnumerator FadeCanvasGroup(CanvasGroup group, float duration, float targetAlpha)
