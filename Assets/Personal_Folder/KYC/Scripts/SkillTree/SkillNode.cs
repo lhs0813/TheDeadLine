@@ -21,7 +21,9 @@ public class SkillNode : MonoBehaviour,  IPointerClickHandler, IPointerEnterHand
     public Button button;
     public Image iconImage;
     public GameObject[] levelDotSets;
-
+    [Header("Infinite Skill Settings")]
+    public bool infinite = false;                    // 무한 업그레이드 여부
+    public TextMeshProUGUI infiniteLevelText;        // 중앙 숫자 표시용 텍스트
 
     private void Start()
     {
@@ -65,12 +67,17 @@ public class SkillNode : MonoBehaviour,  IPointerClickHandler, IPointerEnterHand
     }
     public void LevelUp()
     {
-        if (currentLevel >= maxLevel) return;
+        // infinite 아니라면 기존 maxLevel 체크
+        if (!infinite && currentLevel >= maxLevel) return;
 
         currentLevel++;
         SkillEffectHandler.Instance.ApplyEffectById(skillId, currentLevel);
         UpdateVisual();
+
+        if (infinite)
+            UpdateInfiniteText();
     }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         OnClick(eventData);
@@ -102,6 +109,9 @@ public class SkillNode : MonoBehaviour,  IPointerClickHandler, IPointerEnterHand
         currentLevel--;
         SkillEffectHandler.Instance.ApplyEffectById(skillId, currentLevel);
         UpdateVisual();
+
+        if (infinite)
+            UpdateInfiniteText();
     }
     public void UpdateTooltipText()
     {
@@ -118,5 +128,40 @@ public class SkillNode : MonoBehaviour,  IPointerClickHandler, IPointerEnterHand
             };
     }
 
+    private void UpdateInfiniteText()
+    {
+        if (infiniteLevelText == null) return;
+
+        switch (skillId)
+        {
+            case "INFINITE_MAX_HEALTH":
+                // 1레벨당 체력 +5 → 4레벨이면 4 * 5 = 20
+                infiniteLevelText.text = "+" + (150 + currentLevel * 5).ToString();
+                break;
+
+            case "INFINITE_BASE_DAMAGE":
+                // 1레벨당 데미지 +1% → 5레벨이면 "5%"
+                infiniteLevelText.text = "+" + (currentLevel+50).ToString() + "%";
+                break;
+
+            default:
+                // 그 외 기본 표시
+                infiniteLevelText.text = currentLevel.ToString();
+                break;
+        }
+    }
+    public void OnInfiniteLevelUp()
+    {
+        var manager = FindObjectOfType<SkillTreeManager>();
+        if (manager != null)
+            manager.TryLevelUpSkill(this);  // 포인트 차감 → LevelUp → UI 갱신
+    }
+
+    public void OnInfiniteLevelDown()
+    {
+        var manager = FindObjectOfType<SkillTreeManager>();
+        if (manager != null)
+            manager.TryLevelDownSkill(this);  // 포인트 반환 → LevelDown → UI 갱신
+    }
 
 }

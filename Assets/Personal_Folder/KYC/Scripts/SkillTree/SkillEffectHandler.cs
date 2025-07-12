@@ -137,6 +137,26 @@ public class SkillEffectHandler : MonoBehaviour
         {
             bonusMoveSpeed = 1f; // 이동 속도 증가 배수 초기화
         };
+        _applyLevelEffects["INFINITE_MAX_HEALTH"] = level =>
+        {
+            maxHealthIncrease = true;
+            maxHealthIncreaseAmount = 150 + 5f * level;
+        };
+        _removeEffects["INFINITE_MAX_HEALTH"] = () =>
+        {
+            maxHealthIncrease = false;
+            maxHealthIncreaseAmount = 150f;
+        };
+
+        // ● 무한 스킬: 기본 피해량 +1% per level
+        _applyLevelEffects["INFINITE_BASE_DAMAGE"] = level =>
+        {
+            bonusDamegeRate = 1.5f + 0.01f * level;
+        };
+        _removeEffects["INFINITE_BASE_DAMAGE"] = () =>
+        {
+            bonusDamegeRate = 1.5f;
+        };
         // 🎯 여기다 계속 추가 가능
     }
 
