@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,6 +6,7 @@ public class MainMenuController : MonoBehaviour
 {
     [SerializeField] GameObject FirstButtonOfMainMenu;
     [SerializeField] GameObject MainMenuObj;
+    [SerializeField] GameObject LeaderboardUI;
 
     void Start()
     {
@@ -30,11 +31,13 @@ public class MainMenuController : MonoBehaviour
     public void DisableMenu()
     {
         MainMenuObj.SetActive(false);
+        LeaderboardUI.SetActive(false);
     }
 
     public void EnableMenu()
     {
         MainMenuObj.SetActive(true);
+        LeaderboardUI.SetActive(true);
     }
 
     void OnDisable()
