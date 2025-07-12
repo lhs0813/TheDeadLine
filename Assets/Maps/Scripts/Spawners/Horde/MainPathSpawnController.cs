@@ -36,6 +36,8 @@ public class MainPathSpawnController : MonoBehaviour
         upperSpawned = false;
         underSpawned = false;
         danger = false;
+
+        canSpawn = true;
     }
 
     private void ManagePlayerLocation(DungenCharacter character, Tile previousTile, Tile newTile)
