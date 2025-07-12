@@ -98,7 +98,7 @@ public class SkillEffectHandler : MonoBehaviour
         _applyLevelEffects["MAX_HEALTH_INCREASE"] = (level) =>
         {
             maxHealthIncrease = true; // 최대 체력 증가 활성화
-            maxHealthIncreaseAmount = 50f * level; // 레벨에 따라 최대 체력 증가량 증가
+            maxHealthIncreaseAmount = 30f * level; // 레벨에 따라 최대 체력 증가량 증가
         };
         _removeEffects["MAX_HEALTH_INCREASE"] = () =>
         {
