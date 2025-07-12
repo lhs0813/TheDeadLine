@@ -68,6 +68,8 @@ public class TabletController : MonoBehaviour
 
     void OnDisable()
     {
+        isTabletActive = false;
+
         // Clean up action maps to avoid lingering callbacks
         _control.UI.Pause.Disable();
         _control.Firearm.Disable();
