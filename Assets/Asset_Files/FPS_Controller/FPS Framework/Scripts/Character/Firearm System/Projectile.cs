@@ -167,7 +167,7 @@ namespace Akila.FPSFramework
 
         public float CalculateDamage()
         {
-            float distanceFromStartPos = Vector3.Distance(transform.position, startPosition);
+            float distanceFromStartPos = Vector3.Distance(previousPosition, startPosition);
 
             float countFactor =  source.preset.shotCount;
 
@@ -193,7 +193,7 @@ namespace Akila.FPSFramework
 
         List<GameObject> hitted = new();
         public int hitCountMax = 1;
-         int hitCountNow ;
+        int hitCountNow ;
 
         bool isHit = false;
 

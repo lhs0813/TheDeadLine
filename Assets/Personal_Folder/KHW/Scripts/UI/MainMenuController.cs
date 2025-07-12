@@ -7,6 +7,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] GameObject FirstButtonOfMainMenu;
     [SerializeField] GameObject MainMenuObj;
     [SerializeField] GameObject LeaderboardUI;
+    [SerializeField] GameObject SNSUI;
 
     void Start()
     {
@@ -32,12 +33,14 @@ public class MainMenuController : MonoBehaviour
     {
         MainMenuObj.SetActive(false);
         LeaderboardUI.SetActive(false);
+        SNSUI.SetActive(false);
     }
 
     public void EnableMenu()
     {
         MainMenuObj.SetActive(true);
         LeaderboardUI.SetActive(true);
+        SNSUI.SetActive(true);
     }
 
     void OnDisable()

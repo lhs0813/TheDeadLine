@@ -59,11 +59,23 @@ public class MainPathSpawnController : MonoBehaviour
 
         if (!previousTile.IsMainPath()) //방 밖으로 나온 경우.//
         {
-            if (newDepth == spawnDepth + 1 || newDepth == spawnDepth - 1)
+            if (GamePlayManager.instance.goingUp) //상승기조. 윗쪽 계단에서 스폰되도록.
             {
-                UnderSpawn();
-                StartCoroutine(SpawnCooldown());
-                return;
+                if (newDepth == spawnDepth - 1)
+                {
+                    UnderSpawn();
+                    StartCoroutine(SpawnCooldown());
+                    return;
+                }
+            }
+            else //하강기조
+            {
+                if (newDepth == spawnDepth + 1)
+                {
+                    UnderSpawn();
+                    StartCoroutine(SpawnCooldown());
+                    return;
+                }                
             }
         }
 

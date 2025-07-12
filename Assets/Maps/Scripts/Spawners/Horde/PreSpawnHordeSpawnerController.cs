@@ -50,6 +50,7 @@ public class PreSpawnHordeSpawnerController : MonoBehaviour
     // 1) 플레이어가 문 앞 트리거에 진입했을 때 (Pre-spawn)
     public void OnPlayerDoorApproach(DoorController doorController)
     {
+        doorController.OpenDoor();
         if (isSpawned) return;
 
         isSpawned = true;
@@ -61,7 +62,7 @@ public class PreSpawnHordeSpawnerController : MonoBehaviour
 
         // None 상태에서만 내부 선제 스폰
         SpawnPreSpawnHorde();
-        doorController.OpenDoor();
+
     }
 
     // 내부 선제 스폰 헬퍼

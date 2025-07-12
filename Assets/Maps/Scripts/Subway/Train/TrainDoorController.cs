@@ -45,8 +45,6 @@ public class TrainDoorController : MonoBehaviour
 
     public void CloseDoor()
     {
-        Debug.Log("Close Door");
-
         foreach (var door in trainDoorAnimator)
         {
             door.SetTrigger(DoorCloseTriggerHash);

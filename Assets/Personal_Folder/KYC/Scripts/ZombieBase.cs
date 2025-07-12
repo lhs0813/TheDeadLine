@@ -234,6 +234,11 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         {
             Die();
         }
+        else if (currentState is PatrolState)
+        {
+            Debug.Log("Damaged While patrolling");
+            SetState(new ChaseState());
+        }
     }
 
     //0616 김현우 수정 : 추적시작시 패턴 추가.

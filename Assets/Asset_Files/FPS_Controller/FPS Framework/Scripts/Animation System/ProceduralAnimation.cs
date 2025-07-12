@@ -15,6 +15,7 @@ namespace Akila.FPSFramework.Animation
         public bool autoStop = false;
         public bool perModifierConnections = true;
         public bool playOnAwake = false;
+        public bool alwaysTrue;
         [Space]
         public TriggerType triggerType;
         public InputAction triggerInputAction;
@@ -78,6 +79,7 @@ namespace Akila.FPSFramework.Animation
         public List<ProceduralAnimationModifier> modifiers { get; set; } = new List<ProceduralAnimationModifier>();
         public bool alwaysStayIdle { get; set; }
 
+
         private void Awake()
         {
             RefreshModifiers();
@@ -121,8 +123,12 @@ namespace Akila.FPSFramework.Animation
 
             if(triggerType == TriggerType.Hold)
             {
-                if (triggerInputAction.IsPressed()) Play();
-                else Stop();
+                if (alwaysTrue) Play();
+                else
+                {
+                    if (triggerInputAction.IsPressed()) Play();
+                    else Stop();
+                }
             }
 
             if(triggerType == TriggerType.Tab)
@@ -153,6 +159,7 @@ namespace Akila.FPSFramework.Animation
             {
                 Stop();
             }
+
         }
 
         public void Play(float fixedTime = -1)
