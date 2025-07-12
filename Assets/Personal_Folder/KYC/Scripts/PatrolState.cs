@@ -1,6 +1,7 @@
 ﻿using UnityEngine.AI;
 using UnityEngine;
 using System.Collections;
+using Akila.FPSFramework;
 
 public class PatrolState : IZombieState
 {
@@ -21,7 +22,6 @@ public class PatrolState : IZombieState
             _checkRoutine = _zombie.StartCoroutine(CheckPlayer());
             _isChecking = true;
         }
-
     }
 
     public void Update()
@@ -48,7 +48,7 @@ public class PatrolState : IZombieState
             }
 
             if (_zombie.CanSeePlayer(_player) ||
-                Vector3.Distance(_zombie.transform.position, _player.position) < _zombie.minAttackStartDistance)
+                Vector3.Distance(_zombie.transform.position, _player.position) < _zombie.minAttackStartDistance || _zombie.hurt)
             {
                 yield return null;
                 _zombie.SetState(new ChaseState());

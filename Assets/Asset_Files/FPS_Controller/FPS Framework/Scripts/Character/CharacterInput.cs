@@ -151,6 +151,7 @@ namespace Akila.FPSFramework
 
             if (tacticalSprintInput) sprintInput = false;
 
+
             //Update tac sprint input.
             controls.Player.TacticalSprint.HasDoupleClicked(ref rawTacticalSprintInput, ref lastSprintClickTime);
 
@@ -235,7 +236,7 @@ namespace Akila.FPSFramework
 
             controls.Player.Sprint.canceled += context =>
             {
-                rawSprintInput = false;
+                rawSprintInput = true;
             };
 
             //Crouch

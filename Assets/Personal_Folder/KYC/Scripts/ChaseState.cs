@@ -51,6 +51,8 @@ public class ChaseState : IZombieState
         }
 
         PlayRandomSound(_zombie.chaseClips);
+
+
     }
 
 
