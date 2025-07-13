@@ -440,6 +440,9 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
   died: 0
   isPlayer: 0
   onRespawn:
@@ -4486,9 +4489,10 @@ MonoBehaviour:
   moveSpeed: 8
   detectionRange: 50
   attackRange: 2.5
-  visibleDistance: 25
+  visibleDistance: 45
   fieldOfViewAngle: 180
-  minAttackStartDistance: 15
+  minAttackStartDistance: 20
+  hurt: 0
   collider: {fileID: 5641592795895210739}
   ragdollAnim: {fileID: 6689751671884596216}
   audioSource: {fileID: 0}
