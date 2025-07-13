@@ -28,7 +28,7 @@ public class ChaseState : IZombieState
 
         _zombie.Animator.SetTrigger("ToChase");
         _zombie.Agent.speed = _zombie.moveSpeed;
-        _zombie.Agent.stoppingDistance = 2.0f;
+        //_zombie.Agent.stoppingDistance = 2.0f;
         _zombie.SetNotBeDespawned();
 
         _playerController = _player.GetComponent<FirstPersonController>();
@@ -151,10 +151,12 @@ public class ChaseState : IZombieState
         if (_zombie.Agent == null || !_zombie.Agent.isOnNavMesh) return;
         if (Vector3.Distance(target, _lastDestination) < _destinationUpdateThreshold) return;
 
+        // Y값 보정 없이 그대로 target 넣으면 공중일 수 있음
         if (NavMesh.SamplePosition(target, out NavMeshHit hit, 3f, NavMesh.AllAreas))
         {
-            _zombie.Agent.SetDestination(hit.position);
-            _lastDestination = hit.position;
+            Vector3 groundTarget = new Vector3(target.x, hit.position.y, target.z); // Y 보정
+            _zombie.Agent.SetDestination(groundTarget);
+            _lastDestination = groundTarget;
         }
     }
 
@@ -167,7 +169,7 @@ public class ChaseState : IZombieState
         _zombie.audioSource.loop = loop;
         _zombie.audioSource.Play();
 
-        _nextSoundTime = Time.time + Random.Range(3f, 7f);
+        _nextSoundTime = Time.time + clip.length;
     }
 
     public void Exit()
