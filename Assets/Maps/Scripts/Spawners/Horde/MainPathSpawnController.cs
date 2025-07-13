@@ -95,6 +95,10 @@ public class MainPathSpawnController : MonoBehaviour
             StartCoroutine(SpawnCooldown());
             underSpawned = true;
         }
+        else if (Mathf.Abs(newDepth - spawnDepth) >= 2)
+        {
+            DeSpawn();
+        }
         else if (delta == 0)
         {
             // 같은 깊이(수평 이동) 시 필요하다면 처리
@@ -128,6 +132,14 @@ public class MainPathSpawnController : MonoBehaviour
         {
             s.MainSpawn(mapIndex, true, danger);
         }
+    }
+
+    private void DeSpawn()
+    {
+        foreach (var s in spawners)
+        {
+            s.DeSpawn();
+        }        
     }
 
     public void InitializeSpawners()
