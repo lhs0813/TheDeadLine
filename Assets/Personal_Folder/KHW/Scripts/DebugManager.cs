@@ -65,7 +65,7 @@ public class DebugManager : MonoBehaviour
         string enemyDMGs  = EnemyConstants.GetZombieDamageText(stageIndex);
 
         mapInfoString =
-            $"맵 로드 완료 - Stage {stageIndex}\n" +
+            $"Map Loaded - Stage {stageIndex}\n" +
             $"Flow: {flow.name}\n" +
             $"Gun Spawners: {gunCount}\n" +
             $"Skill Chips: {skillChipCount}\n" +
@@ -86,7 +86,7 @@ public class DebugManager : MonoBehaviour
             debugActive = !debugActive;
             debugCanvas.enabled = debugActive;
             // 디버그를 켰을 때 맨 처음 상태 텍스트 초기화
-            if (debugActive) SetStateString("Debug 모드 활성화");
+            if (debugActive) SetStateString("Debug Mode Activated");
         }
 
         // 디버그 모드가 꺼져 있으면 이후 로직은 모두 건너뜀
@@ -97,27 +97,27 @@ public class DebugManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F1) && !isStoryMode)
         {
             GamePlayManager.instance.currentMapIndex++;
-            stageIndexDebugString = $"다음 역 번호: {GamePlayManager.instance.currentMapIndex + 1}";
+            stageIndexDebugString = $"Next Station Number : {GamePlayManager.instance.currentMapIndex + 1}";
             SetStateString(stageIndexDebugString);
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
             isPlayerGod = !isPlayerGod;
             FindAnyObjectByType<Player_Manager>().playerIsGod = isPlayerGod;
-            godModeString = isPlayerGod ? "무적 활성화" : "무적 비활성화";
+            godModeString = isPlayerGod ? "GodMode Activated" : "GodMode Deactivated";
             SetStateString(godModeString);
         }
         if (Input.GetKeyDown(KeyCode.F3))
         {
             FindAnyObjectByType<SkillTreeManager>().availablePoints = 9999;
-            skillPointString = "스킬포인트 9999 획득";
+            skillPointString = "Obtain 9999 Skill Points";
             SetStateString(skillPointString);
         }
         if (Input.GetKeyDown(KeyCode.F4))
         {
             var player = FindAnyObjectByType<Player_Manager>();
             Instantiate(weaponSetPrefab, player.transform.position, player.transform.rotation);
-            weaponString = "무기 소환";
+            weaponString = "Summon All Weapons.";
             SetStateString(weaponString);
         }
 
