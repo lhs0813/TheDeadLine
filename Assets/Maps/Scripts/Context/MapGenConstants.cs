@@ -7,7 +7,7 @@ public static class MapGenConstants
     public const float MinCreatureCountOnSpawnRoomMultiplier = 0.8f; //스폰 최소치 배율. stageIndex = 5라면 방마다 최소 10마리 생성.
     public const float MaxCreatureCountOnSpawnRoomMultiplier = 1.4f; //스폰 최대치 배율. stageIndex = 5라면 방마다 최대 15마리까지 생성.
     public const int MaxMinimumCreatureCountOnSpawnRoom = 5;
-    public const int MaxCreatureCountOnSpawnRoom = 8; //한 방에서 생성될 수 있는 적의 최대 수.
+    public const int MaxCreatureCountOnSpawnRoom = 12; //한 방에서 생성될 수 있는 적의 최대 수.
 
 
     ///Max Enemy Count On a stage
