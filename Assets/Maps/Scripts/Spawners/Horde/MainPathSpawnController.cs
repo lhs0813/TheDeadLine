@@ -47,7 +47,7 @@ public class MainPathSpawnController : MonoBehaviour
     {
         if (!canSpawn) return;
         // 안전성 체크
-        if (newTile == null || previousTile == null)
+        if (newTile == null)
             return;
 
         // 메인 경로가 아니면 처리하지 않음

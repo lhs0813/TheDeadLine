@@ -97,7 +97,7 @@ namespace Akila.FPSFramework
 
 
 
-            previousPosition = this.source.transform.position;
+            previousPosition = this.source.transform.position + 0.5f * this.source.transform.forward;
         }
 
         private void Awake()
