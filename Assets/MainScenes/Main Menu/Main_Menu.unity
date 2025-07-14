@@ -1645,7 +1645,7 @@ GameObject:
   - component: {fileID: 90861892}
   - component: {fileID: 90861894}
   - component: {fileID: 90861893}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: CoachList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1691,10 +1691,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "-Jungle GameLab 3rd -\n\nCoach\n\n\uC870\uC131\uC6A9                          
+  m_text: "\n<color=#F6FF32>-Krafton Jungle GameLab 3rd -</color>\n\n\n<color=#F6FF32>Director</color>\n\n\uAE40\uC815\uD55C
+    / Junghan Kim\n\n\n<color=#F6FF32>Coach</color>\n\n\uC870\uC131\uC6A9                          
     \uBC31\uC131\uD604                           \uC784\uC131\uC9C4                          
     \uCD5C\uC6B0\uC131\n\n Seongyong Cho         Sunghyun Baek           Sungjin
-    Im             Wooseong Choi\n\n\nDirector\n\n\uAE40\uC815\uD55C / Junghan Kim\n"
+    Im             Wooseong Choi\n\n\n<color=#F6FF32>Publishing QA</color>\n\n\uC815\uC815\uC724
+    / Jeongyun Jeong\n\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 790be7b8145daa943be2636a4f480af6, type: 2}
   m_sharedMaterial: {fileID: 6277740771308484127, guid: 790be7b8145daa943be2636a4f480af6,
@@ -5963,7 +5965,7 @@ GameObject:
   - component: {fileID: 213902649}
   - component: {fileID: 213902651}
   - component: {fileID: 213902650}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: DevName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8174,7 +8176,7 @@ GameObject:
   - component: {fileID: 301570660}
   - component: {fileID: 301570659}
   - component: {fileID: 301570661}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8197,7 +8199,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1521}
+  m_AnchoredPosition: {x: 0, y: 2523}
   m_SizeDelta: {x: 1280, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &301570659
@@ -9529,7 +9531,7 @@ GameObject:
   - component: {fileID: 348845196}
   - component: {fileID: 348845198}
   - component: {fileID: 348845197}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: SUPPORT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9587,8 +9589,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4284940083
+  m_fontColor: {r: 0.2, g: 1, b: 0.4, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -10183,6 +10185,7 @@ GameObject:
   - component: {fileID: 388669440}
   - component: {fileID: 388669442}
   - component: {fileID: 388669441}
+  - component: {fileID: 388669443}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -10309,6 +10312,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 388669439}
   m_CullTransparentMesh: 1
+--- !u!114 &388669443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388669439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a60c6fe9e3126d44a2b5735c9c1dd4f
+    m_TableEntryReference:
+      m_KeyId: 11655669837430784
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 388669441}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &392689066 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1687480183521246807, guid: a746cfe9a2df48e4ea0b9fbac52c283d,
@@ -10633,7 +10676,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 421916553}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10664,7 +10707,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 870}
+  m_AnchoredPosition: {x: 0, y: 1872}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &424663361
@@ -11907,7 +11950,7 @@ GameObject:
   - component: {fileID: 460104461}
   - component: {fileID: 460104463}
   - component: {fileID: 460104462}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: LOGO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11930,7 +11973,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -1431}
+  m_AnchoredPosition: {x: 0, y: -1696}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &460104462
@@ -11953,7 +11996,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "-Logo Design, UX/UI Advice-\n\n\uC815\uC9C0\uC724 / Jiyun Jung\n"
+  m_text: "<color=#F6FF32>Logo Design, UX/UI Advice</color>\n\n\uC815\uC9C0\uC724
+    / Jiyun Jung\n\n\n<color=#F6FF32>Playtesters</color>\n\ns3lossso   Suo   ao_UZU  
+    \uBC30\uBCD1\uADFC   Kim710\n\nJungle Game Lab 3rd Crew"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 790be7b8145daa943be2636a4f480af6, type: 2}
   m_sharedMaterial: {fileID: 6277740771308484127, guid: 790be7b8145daa943be2636a4f480af6,
@@ -16577,7 +16622,7 @@ GameObject:
   - component: {fileID: 690207322}
   - component: {fileID: 690207324}
   - component: {fileID: 690207323}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16600,7 +16645,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1926}
+  m_AnchoredPosition: {x: 0, y: 2928}
   m_SizeDelta: {x: 1000.48, y: 410.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &690207323
@@ -20370,7 +20415,7 @@ GameObject:
   - component: {fileID: 833610846}
   - component: {fileID: 833610848}
   - component: {fileID: 833610847}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20393,7 +20438,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -2197}
+  m_AnchoredPosition: {x: 0, y: -2659}
   m_SizeDelta: {x: 800, y: 800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &833610847
@@ -24921,7 +24966,7 @@ GameObject:
   - component: {fileID: 1079960694}
   - component: {fileID: 1079960693}
   - component: {fileID: 1079960692}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24944,8 +24989,8 @@ MonoBehaviour:
   topLogo: {fileID: 1263966329}
   creditsRoot: {fileID: 421916553}
   scrollSpeedMultiplier: 1
-  scrollSpeed: 170
-  creditsDuration: 23
+  scrollSpeed: 160
+  creditsDuration: 27
 --- !u!114 &1079960693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26389,7 +26434,7 @@ GameObject:
   - component: {fileID: 1123837439}
   - component: {fileID: 1123837441}
   - component: {fileID: 1123837440}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: SPECIAL THANKS TO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26412,7 +26457,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -1271}
+  m_AnchoredPosition: {x: 0, y: -1536}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1123837440
@@ -26445,8 +26490,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4284940083
+  m_fontColor: {r: 0.2, g: 1, b: 0.4, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -26526,7 +26571,7 @@ GameObject:
   - component: {fileID: 1126045021}
   - component: {fileID: 1126045023}
   - component: {fileID: 1126045022}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26549,7 +26594,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -844, y: 994}
+  m_AnchoredPosition: {x: -844, y: 1996}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1126045022
@@ -29004,7 +29049,7 @@ GameObject:
   - component: {fileID: 1263966328}
   - component: {fileID: 1263966327}
   - component: {fileID: 1263966329}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29027,7 +29072,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1879}
+  m_AnchoredPosition: {x: 0, y: 2881}
   m_SizeDelta: {x: 1280, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1263966327
@@ -32795,7 +32840,7 @@ GameObject:
   - component: {fileID: 1456020025}
   - component: {fileID: 1456020027}
   - component: {fileID: 1456020026}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32824,8 +32869,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -1500}
-  m_SizeDelta: {x: 0, y: 3000}
+  m_AnchoredPosition: {x: 0, y: -2500}
+  m_SizeDelta: {x: 0, y: 5000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1456020026
 MonoBehaviour:
@@ -39166,7 +39211,7 @@ GameObject:
   - component: {fileID: 1708020041}
   - component: {fileID: 1708020043}
   - component: {fileID: 1708020042}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39189,7 +39234,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -2776}
+  m_AnchoredPosition: {x: 0, y: -3238}
   m_SizeDelta: {x: 1000, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1708020042
@@ -40398,7 +40443,7 @@ GameObject:
   - component: {fileID: 1782596062}
   - component: {fileID: 1782596064}
   - component: {fileID: 1782596063}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: DEV
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40463,8 +40508,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4284940083
+  m_fontColor: {r: 0.2, g: 1, b: 0.4, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -45185,7 +45230,7 @@ GameObject:
   - component: {fileID: 1960057905}
   - component: {fileID: 1960057907}
   - component: {fileID: 1960057906}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45208,7 +45253,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 832}
+  m_AnchoredPosition: {x: 0, y: 1834}
   m_SizeDelta: {x: 1000.48, y: 410.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1960057906
@@ -48315,7 +48360,7 @@ MonoBehaviour:
   _koreanFont: {fileID: 11400000, guid: 790be7b8145daa943be2636a4f480af6, type: 2}
   _englishFont: {fileID: 11400000, guid: 790be7b8145daa943be2636a4f480af6, type: 2}
   _japaneseFont: {fileID: 11400000, guid: 6b15b63f82af79e4498b6805a7416b35, type: 2}
-  _simplifiedChineseFont: {fileID: 11400000, guid: 49f2dcf85b31bca45825eb80c0ca4150,
+  _simplifiedChineseFont: {fileID: 11400000, guid: 115b9102257637c4cb6216e7acf90d46,
     type: 2}
   _russianFont: {fileID: 11400000, guid: a2206fb9e58142c43b3440bd615fd3fe, type: 2}
 --- !u!4 &2091714592
