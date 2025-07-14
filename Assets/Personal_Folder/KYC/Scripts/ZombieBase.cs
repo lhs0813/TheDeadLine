@@ -259,7 +259,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     protected virtual void Die()
     {
         SetState(new DeadState());
-        Debug.Log($"{gameObject.name} 사망");
+        //Debug.Log($"{gameObject.name} 사망");
 
         agent.enabled = false; // NavMeshAgent 비활성화
         collider.enabled = false; // 콜리더 비활성화
