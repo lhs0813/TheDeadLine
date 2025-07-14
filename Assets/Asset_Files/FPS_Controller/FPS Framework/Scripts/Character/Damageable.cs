@@ -229,7 +229,7 @@ namespace Akila.FPSFramework
             if (enemyIdentifier != null)
             {
                 Debug.Log($"{enemyIdentifier} 반환.");
-                EnemyPoolManager.Instance.ReturnToPool(enemyIdentifier.Type, enemyIdentifier.gameObject, 2f);
+                EnemyPoolManager.Instance.ReturnToPool(enemyIdentifier.Type, enemyIdentifier.gameObject, 3f);
             }
             else
             {
