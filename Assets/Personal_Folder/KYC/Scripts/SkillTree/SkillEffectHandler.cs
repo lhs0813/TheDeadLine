@@ -165,11 +165,9 @@ public class SkillEffectHandler : MonoBehaviour
         if (_applyLevelEffects.TryGetValue(skillId, out var action))
         {
             action.Invoke(level);
-            Debug.Log($"✅ 적용됨: {skillId} 레벨 {level}");
         }
         else
         {
-            Debug.LogWarning($"❗ 적용 실패: {skillId}는 등록되지 않음");
         }
     }
 
@@ -179,11 +177,9 @@ public class SkillEffectHandler : MonoBehaviour
         if (_removeEffects.TryGetValue(skillId, out var action))
         {
             action.Invoke();
-            Debug.Log($"⛔ 제거됨: {skillId}");
         }
         else
         {
-            Debug.LogWarning($"❗ 제거 실패: {skillId}는 등록되지 않음");
         }
     }
 }
