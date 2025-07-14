@@ -83,11 +83,11 @@ public class ChaseState : IZombieState
                 _zombie.SetState(new AttackState());
                 return;
             }
-            else if (distance > _zombie.detectionRange * 1.5f)
-            {
-                _zombie.SetState(new PatrolState());
-                return;
-            }
+            // else if (distance > _zombie.detectionRange * 1.5f)
+            // {
+            //     _zombie.SetState(new PatrolState());
+            //     return;
+            // }
         }
 
         // 타겟 추적 업데이트
@@ -98,6 +98,13 @@ public class ChaseState : IZombieState
             Vector3 toZombie = (_zombie.transform.position - _player.position).normalized;
             float angle = Vector3.Angle(_player.forward, toZombie);
             float distance = Vector3.Distance(_zombie.transform.position, _player.position);
+
+                const float recallDistance = 20f;  // 원하는 회수 거리
+                if (angle > 90f && distance > recallDistance)
+                {
+                    _zombie.ReleaseSelf();
+                    return;
+                }
 
             Vector3 playerVelocity = _playerController.Velocity;
             Vector3 predictedPosition = (playerVelocity.magnitude < 1f)
