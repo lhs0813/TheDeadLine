@@ -74,7 +74,7 @@ public class MapUiCOntrollerEndless : MonoBehaviour
     private string GetStationName(int index)
     {
         if (index >= 0)
-            return $"Station {index - 4f}";
+            return $"Station {index - 2f}";
         else
             return "???";
     }
