@@ -6,8 +6,8 @@ public static class MapGenCalculator
     #region MapContexts
     public static IntRange GetCreatureSpawnCountRangePerSpawner(int stageIndex)
     {
-        int min = (int)(stageIndex * MapGenConstants.MinCreatureCountOnSpawnRoomMultiplier);
-        int max = (int)(MapGenConstants.MaxCreatureCountOnSpawnRoomMultiplier * stageIndex);
+        int min = MapGenConstants.BaseCreatureCountOnSpawnRoom + (int)(stageIndex * MapGenConstants.MinCreatureCountOnSpawnRoomMultiplier);
+        int max = MapGenConstants.BaseCreatureCountOnSpawnRoom + (int)(MapGenConstants.MaxCreatureCountOnSpawnRoomMultiplier * stageIndex);
 
         int clampedMin = Mathf.Min(min, MapGenConstants.MaxMinimumCreatureCountOnSpawnRoom);
         int clampedMax = Mathf.Min(max, MapGenConstants.MaxCreatureCountOnSpawnRoom);
