@@ -8,6 +8,8 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] GameObject MainMenuObj;
     [SerializeField] GameObject LeaderboardUI;
     [SerializeField] GameObject SNSUI;
+    public GameObject creditsPanel;
+
 
     void Start()
     {
@@ -42,7 +44,10 @@ public class MainMenuController : MonoBehaviour
         LeaderboardUI.SetActive(true);
         SNSUI.SetActive(true);
     }
-
+    public void ShowCredits()
+    {
+        creditsPanel.SetActive(true);
+    }
     void OnDisable()
     {
         InputSchemeManager.OnSchemeChanged -= ManageInputType;        
