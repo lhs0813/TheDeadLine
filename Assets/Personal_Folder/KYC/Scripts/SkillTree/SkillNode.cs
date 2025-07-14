@@ -25,12 +25,16 @@ public class SkillNode : MonoBehaviour,  IPointerClickHandler, IPointerEnterHand
     public bool infinite = false;                    // 무한 업그레이드 여부
     public TextMeshProUGUI infiniteLevelText;        // 중앙 숫자 표시용 텍스트
 
+    public bool storyModeCheck = false;
+    
     private void Start()
     {
         GetComponent<Image>().alphaHitTestMinimumThreshold = alphaThreshold;
         UpdateVisual();
         if (tooltipTextObject != null)
             tooltipTextObject.SetActive(false);
+
+        storyModeCheck = GamePlayManager.instance.isStoryMode;
     }
 
     private void OnClick(PointerEventData eventData)
@@ -72,6 +76,14 @@ public class SkillNode : MonoBehaviour,  IPointerClickHandler, IPointerEnterHand
 
         currentLevel++;
         SkillEffectHandler.Instance.ApplyEffectById(skillId, currentLevel);
+
+
+        if (storyModeCheck)
+            AnalyticsManager.Instance.log_storymode_skill_up_name(skillId);
+        else
+            AnalyticsManager.Instance.log_endlessmode_skill_up_name(skillId);
+
+
         UpdateVisual();
 
         if (infinite)

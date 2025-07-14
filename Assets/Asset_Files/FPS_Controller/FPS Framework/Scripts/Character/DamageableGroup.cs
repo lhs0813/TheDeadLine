@@ -33,7 +33,7 @@ namespace Akila.FPSFramework
 
             if (_rigidbody != null)
                 _rigidbody.isKinematic = _kinematicInfo;
-        }
+            }
 
         public IDamageable GetDamageable()
         {
