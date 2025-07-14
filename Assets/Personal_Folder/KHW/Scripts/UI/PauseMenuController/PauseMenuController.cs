@@ -46,7 +46,7 @@ namespace Akila.FPSFramework.UI
         {
             if (!IsOpened) return;
 
-            Debug.Log(scheme);
+            //Debug.Log(scheme);
 
             if (scheme == InputSchemeManager.InputScheme.Gamepad)
             {
