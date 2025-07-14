@@ -61,7 +61,7 @@ public class MapUIForStation : MonoBehaviour
         else
         {
             // 3) Endless 모드: 텍스트 켜고 'index - 5' 표시
-            int display = GamePlayManager.instance.currentMapIndex - 4;
+            int display = GamePlayManager.instance.currentMapIndex - 2;
             endlessIndexText?.gameObject.SetActive(true);
             endlessIndexText.text = $"Station {display}";
         }

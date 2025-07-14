@@ -317,24 +317,28 @@ namespace Akila.FPSFramework
             {
                 _killFeed = FindAnyObjectByType<KillFeed>();
             }
-            if(type == HealthType.NPC)
+            if (type == HealthType.NPC)
             {
                 _killFeed.DamageShow(amount, critical);
-                if(!_zombie.hurt)
+                if (!_zombie.hurt)
                     _zombie.hurt = true;
+            }
+            else
+            {
+                _killFeed.DamageShow(amount, critical);                
             }
                 
 
         
 
             /*KillTag newTag = Instantiate(Tag, tagsHolder);
-            newTag.message.color = headshot && newTag.updateImageColors ? headshotColor : newTag.message.color;
-            newTag.gameObject.SetActive(true);
+                newTag.message.color = headshot && newTag.updateImageColors ? headshotColor : newTag.message.color;
+                newTag.gameObject.SetActive(true);
 
-            newTag.Show(killer, killed);*/
+                newTag.Show(killer, killed);*/
 
 
-            this.damageSource = damageSource;
+                this.damageSource = damageSource;
         }
         public void ResetInvincibilityFlagPerStation()
         {
