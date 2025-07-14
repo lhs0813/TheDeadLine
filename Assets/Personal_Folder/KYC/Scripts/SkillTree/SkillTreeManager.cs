@@ -25,8 +25,6 @@ public class SkillTreeManager : MonoBehaviour
     public int resetTicket = 1; // (초기값 원하는 대로)
     public event Action<int> OnPointChanged;
 
-    public RotateOnTrigger laptopTrigger;
-
     public AudioSource levelUpSounds;
     public AudioSource levelDownSounds;
 
@@ -38,13 +36,7 @@ public class SkillTreeManager : MonoBehaviour
         input = new Controls();
         OnPointChanged?.Invoke(availablePoints);
         input.UI.Pause.performed += ctx =>
-        {
-            if (laptopTrigger.isLapTopOn)
-            {
-                Debug.Log("노트북 꺼짐");
-                laptopTrigger.LabtopOff();
-            }
-            
+        {           
         };
 
     }
