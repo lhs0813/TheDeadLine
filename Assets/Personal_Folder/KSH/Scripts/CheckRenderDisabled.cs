@@ -9,9 +9,13 @@ public class CheckRenderDisabled : MonoBehaviour
     void Start()
     {
         meshRenderer = GetComponentInChildren<MeshRenderer>();
-        Guns = GetComponentInChildren<GunSpawner>().transform.parent.gameObject;
+
+        var gunSpawner = GetComponentInChildren<GunSpawner>();
+        if(gunSpawner)
+            Guns = gunSpawner.transform.parent.gameObject;
 
 
+        if(meshRenderer&& Guns)
         Invoke(nameof( Check),3f);
     }
 
