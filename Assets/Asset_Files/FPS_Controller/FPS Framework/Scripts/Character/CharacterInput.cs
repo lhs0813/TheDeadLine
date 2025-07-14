@@ -236,7 +236,7 @@ namespace Akila.FPSFramework
 
             controls.Player.Sprint.canceled += context =>
             {
-                rawSprintInput = true;
+                rawSprintInput = false;
             };
 
             //Crouch
