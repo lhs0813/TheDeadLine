@@ -53,6 +53,7 @@ MonoBehaviour:
   autoStop: 1
   perModifierConnections: 1
   playOnAwake: 0
+  alwaysTrue: 0
   triggerType: 0
   triggerInputAction:
     m_Name: Trigger Input
@@ -1399,6 +1400,7 @@ MonoBehaviour:
   autoStop: 1
   perModifierConnections: 1
   playOnAwake: 0
+  alwaysTrue: 0
   triggerType: 0
   triggerInputAction:
     m_Name: Trigger Input
@@ -2082,6 +2084,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
   died: 0
   isPlayer: 1
   onRespawn:
@@ -2158,7 +2163,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.4, y: 0.9, z: 0.4}
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -2406,7 +2411,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 54.5
+  m_fontSize: 25.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3086,6 +3091,9 @@ MonoBehaviour:
   - {fileID: 8669599298660492226}
   - {fileID: 4410735637620243648}
   - {fileID: 4683055878154579697}
+  infinite: 0
+  infiniteLevelText: {fileID: 0}
+  storyModeCheck: 0
 --- !u!1 &2678954840105934987
 GameObject:
   m_ObjectHideFlags: 0
@@ -3680,6 +3688,9 @@ MonoBehaviour:
   - {fileID: 2678954840105934987}
   - {fileID: 7176754980904216091}
   - {fileID: 8290756428174588775}
+  infinite: 0
+  infiniteLevelText: {fileID: 0}
+  storyModeCheck: 0
 --- !u!1 &2921398570401276138
 GameObject:
   m_ObjectHideFlags: 0
@@ -3986,6 +3997,9 @@ MonoBehaviour:
   - {fileID: 9107025063427487635}
   - {fileID: 8887645055313729873}
   - {fileID: 2924322117494798477}
+  infinite: 0
+  infiniteLevelText: {fileID: 0}
+  storyModeCheck: 0
 --- !u!1 &3199885399343697863
 GameObject:
   m_ObjectHideFlags: 0
@@ -4402,6 +4416,9 @@ MonoBehaviour:
   - {fileID: 3263372872827632061}
   - {fileID: 2741512409916824431}
   - {fileID: 2739761619335763903}
+  infinite: 0
+  infiniteLevelText: {fileID: 0}
+  storyModeCheck: 0
 --- !u!1 &3551836264349354197
 GameObject:
   m_ObjectHideFlags: 0
@@ -6003,7 +6020,6 @@ MonoBehaviour:
   pointsText: {fileID: 1197531117154724719}
   pointsText2: {fileID: 0}
   resetTicket: 1
-  laptopTrigger: {fileID: 0}
   levelUpSounds: {fileID: 3402759253406901364}
   levelDownSounds: {fileID: 6011501224059607928}
 --- !u!1 &5080842689390117713
@@ -6327,6 +6343,7 @@ MonoBehaviour:
   autoStop: 0
   perModifierConnections: 1
   playOnAwake: 1
+  alwaysTrue: 0
   triggerType: 2
   triggerInputAction:
     m_Name: Trigger Input
@@ -7385,6 +7402,9 @@ MonoBehaviour:
   - {fileID: 4149723697245550136}
   - {fileID: 1158756855950488577}
   - {fileID: 5529779053773032881}
+  infinite: 0
+  infiniteLevelText: {fileID: 0}
+  storyModeCheck: 0
 --- !u!1 &6428604815638911796
 GameObject:
   m_ObjectHideFlags: 0
@@ -7829,6 +7849,9 @@ MonoBehaviour:
   - {fileID: 6679897327408858997}
   - {fileID: 2295959906939441314}
   - {fileID: 5097908627563997626}
+  infinite: 0
+  infiniteLevelText: {fileID: 0}
+  storyModeCheck: 0
 --- !u!1 &6773901704999817698
 GameObject:
   m_ObjectHideFlags: 0
@@ -8275,6 +8298,9 @@ MonoBehaviour:
   - {fileID: 2094848438175432219}
   - {fileID: 3467605191523313076}
   - {fileID: 940864838086840118}
+  infinite: 0
+  infiniteLevelText: {fileID: 0}
+  storyModeCheck: 0
 --- !u!1 &6987765606631014319
 GameObject:
   m_ObjectHideFlags: 0
@@ -8498,6 +8524,9 @@ MonoBehaviour:
   - {fileID: 5080842689390117713}
   - {fileID: 3837573408087586694}
   - {fileID: 2921398570401276138}
+  infinite: 0
+  infiniteLevelText: {fileID: 0}
+  storyModeCheck: 0
 --- !u!1 &7082431252126771983
 GameObject:
   m_ObjectHideFlags: 0
@@ -9164,6 +9193,7 @@ MonoBehaviour:
   autoStop: 0
   perModifierConnections: 1
   playOnAwake: 1
+  alwaysTrue: 0
   triggerType: 0
   triggerInputAction:
     m_Name: Trigger Input
@@ -9826,7 +9856,7 @@ Transform:
   m_GameObject: {fileID: 8349323966057638235}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0000009536743, y: 0, z: -0.0000009536745}
+  m_LocalPosition: {x: -32.675014, y: 18.219147, z: 95.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10427,6 +10457,9 @@ MonoBehaviour:
   - {fileID: 5421009964685992586}
   - {fileID: 5409871960879907903}
   - {fileID: 3580540317479274636}
+  infinite: 0
+  infiniteLevelText: {fileID: 0}
+  storyModeCheck: 0
 --- !u!1 &8669599298660492226
 GameObject:
   m_ObjectHideFlags: 0
