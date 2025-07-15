@@ -28,7 +28,7 @@ public class SkillTreeManager : MonoBehaviour
     public AudioSource levelUpSounds;
     public AudioSource levelDownSounds;
 
-
+    
 
 
     private void Start()
@@ -38,6 +38,8 @@ public class SkillTreeManager : MonoBehaviour
         input.UI.Pause.performed += ctx =>
         {           
         };
+
+        
 
     }
 
