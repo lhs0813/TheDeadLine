@@ -599,17 +599,6 @@ namespace Akila.FPSFramework
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2fb9917f-e664-44ec-8175-11484af8235e"",
-                    ""path"": ""<Keyboard>/backquote"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Previous Item"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""9b338921-028e-41e4-9718-58c6eff7f2a2"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
