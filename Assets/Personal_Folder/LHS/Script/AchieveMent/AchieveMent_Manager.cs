@@ -18,18 +18,17 @@ public class AchieveMent_Manager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-
     public void AddZombieKill()
     {
-        /*if (!SteamManager.Initialized) return;
+        if (!SteamClient.IsValid) return;
 
-        int kills;
-        SteamUserStats.GetStat("STAT_ZOMBIE_KILLS", out kills); // ✅ 반드시 int로
+        int kills = SteamUserStats.GetStatInt("STAT_ZOMBIE_KILLS");
+
         kills++;
 
         SteamUserStats.SetStat("STAT_ZOMBIE_KILLS", kills);
-        SteamUserStats.StoreStats();*/
+        SteamUserStats.StoreStats();
+
+        Debug.Log("아니 좀비 죽여서 도전과제 했냐고");
     }
-
-
 }
