@@ -54,7 +54,7 @@ public class DeadEnding_Endless : MonoBehaviour
     public void Death()
     {
         // 현재 도달한 스테이지 계산
-        int currentStage =  GamePlayManager.instance.currentMapIndex - 4;
+        int currentStage =  GamePlayManager.instance.currentMapIndex - 2;
 
         // 현재 스테이지 텍스트 표시
         if (survivorRounds != null)
