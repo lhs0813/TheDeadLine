@@ -99,8 +99,8 @@ public class ChaseState : IZombieState
             float angle = Vector3.Angle(_player.forward, toZombie);
             float distance = Vector3.Distance(_zombie.transform.position, _player.position);
 
-                const float recallDistance = 30f;  // 원하는 회수 거리
-                if (angle > 120f && distance > recallDistance)
+                const float recallDistance = 35f;  // 원하는 회수 거리
+                if (angle > 150f && distance > recallDistance)
                 {
                     _zombie.ReleaseSelf();
                     return;

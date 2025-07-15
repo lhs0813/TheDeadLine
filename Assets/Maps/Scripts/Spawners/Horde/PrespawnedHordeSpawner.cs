@@ -13,9 +13,10 @@ public class PrespawnedHordeSpawner : MonoBehaviour
     private float minSpawnDistance = 5f;
 
     private readonly List<GameObject> preSpawnedEnemies = new List<GameObject>();
-
     private List<Vector3> spawnPoints;
-    int dangerSpawnCountMultiplier = 2;
+
+    // 정수에서 float으로 바꿔서 1.5 같은 소수점도 가능하도록
+    private float dangerSpawnMultiplier = 1.5f;
 
     public void InitializeSpawnPoints()
     {
@@ -31,10 +32,7 @@ public class PrespawnedHordeSpawner : MonoBehaviour
         );
 
         if (spawnPoints.Count == 0)
-        {
             Debug.LogError($"[HordeSpawner] 유효 스폰 포인트를 하나도 찾지 못했습니다! {GetComponentInParent<Tile>().gameObject.name}");
-        }
-
     }
 
     /// <summary>
@@ -47,26 +45,35 @@ public class PrespawnedHordeSpawner : MonoBehaviour
 
     private IEnumerator SpawnRoutine(int mapIndex, bool track, bool danger)
     {
-        //track -> false -> prespawn
+        // 위험 상태면 multiplier, 아니면 1배
+        float multiplier = danger ? dangerSpawnMultiplier : 1f;
+        int guaranteed = Mathf.FloorToInt(multiplier);               // 예: 1
+        float fractional = multiplier - guaranteed;                  // 예: 0.5
+
         foreach (var point in spawnPoints)
         {
-            int it = danger ? dangerSpawnCountMultiplier : 1;
+            // 1) guaranteed 만큼 무조건 스폰
+            for (int i = 0; i < guaranteed; i++)
+                SpawnOne(mapIndex, track, point);
 
-            for (int i = 0; i < it; i++)
-            {
-                // 스폰
-                float randomY = Random.Range(0f, 360f);
-                EnemyType type = HordeSpawnBuilder.RollEnemyType(mapIndex);
-                GameObject enemy = EnemyPoolManager
-                    .Instance
-                    .Spawn(type, point, Quaternion.Euler(0f, randomY, 0f), !track);
+            // 2) fractional 확률로 한 마리 추가 스폰
+            if (danger && Random.value < fractional)
+                SpawnOne(mapIndex, track, point);
 
-                if (enemy != null)
-                    preSpawnedEnemies.Add(enemy);
-
-                yield return null;
-            }
+            yield return null;
         }
+    }
+
+    private void SpawnOne(int mapIndex, bool track, Vector3 point)
+    {
+        float randomY = Random.Range(0f, 360f);
+        EnemyType type = HordeSpawnBuilder.RollEnemyType(mapIndex);
+        GameObject enemy = EnemyPoolManager
+            .Instance
+            .Spawn(type, point, Quaternion.Euler(0f, randomY, 0f), !track);
+
+        if (enemy != null)
+            preSpawnedEnemies.Add(enemy);
     }
 
     /// <summary>

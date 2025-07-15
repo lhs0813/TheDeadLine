@@ -105,8 +105,9 @@ namespace Akila.FPSFramework
 
         public void SetVolume(float value)
         {
+            Debug.Log($"[SetVolume] called with value={value}");
             // 입력값을 1~100 사이로 제한
-            float v = Mathf.Clamp(value, 0f, 100f);
+            float v = Mathf.Clamp(value, 0f, 99f);
             // 0~1 범위로 정규화
             AudioListener.volume = v / 100f;
         }
