@@ -87,7 +87,7 @@ public class SkillEffectHandler : MonoBehaviour
         _applyLevelEffects["ABSORB_HEALTH"] = (level) =>
         {
             absorbHeatlh = true; // 체력 흡수 활성화
-            absorbHeatlhAmount = 0f + 1f * level; // 레벨에 따라 흡수량 증가 (예: 1, 1.5, 2.0, ...)
+            absorbHeatlhAmount = 1f + 0.5f * (level -1); // 레벨에 따라 흡수량 증가 (예: 1, 1.5, 2.0, ...)
         };
         _removeEffects["ABSORB_HEALTH"] = () =>
         {
