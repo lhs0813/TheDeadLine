@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -16,6 +17,15 @@ public class MainMenuController : MonoBehaviour
         InputSchemeManager.OnSchemeChanged += ManageInputType;
 
         Time.timeScale = 1f;
+
+        if (InputSchemeManager.CurrentScheme == InputSchemeManager.InputScheme.Gamepad)
+        {
+            GoGamePadMod();
+        }
+        if (InputSchemeManager.CurrentScheme == InputSchemeManager.InputScheme.KeyboardAndMouse)
+        {
+            GoKMMod();
+        }
     }
 
     private void ManageInputType(InputSchemeManager.InputScheme scheme)
@@ -24,11 +34,31 @@ public class MainMenuController : MonoBehaviour
         {
             GoGamePadMod();
         }
+        if (scheme == InputSchemeManager.InputScheme.KeyboardAndMouse)
+        {
+            GoKMMod();
+        }
+    }
+
+    private IEnumerator WaitUntilButtonIsReadyAndSet()
+    {
+        yield return new WaitUntil(() => FirstButtonOfMainMenu != null && FirstButtonOfMainMenu.activeInHierarchy);
+        EventSystem.current.SetSelectedGameObject(FirstButtonOfMainMenu);
     }
 
     public void GoGamePadMod()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        StartCoroutine(WaitUntilButtonIsReadyAndSet());
         EventSystem.current.SetSelectedGameObject(FirstButtonOfMainMenu);
+    }
+
+    public void GoKMMod()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void DisableMenu()

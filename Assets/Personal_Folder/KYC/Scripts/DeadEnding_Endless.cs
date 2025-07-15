@@ -118,8 +118,6 @@ public class DeadEnding_Endless : MonoBehaviour
 
         // 일시정지 & 커서 활성화
         Time.timeScale = 0f;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
 
         // 버튼들 활성화
         yield return new WaitForSecondsRealtime(button1Delay);
