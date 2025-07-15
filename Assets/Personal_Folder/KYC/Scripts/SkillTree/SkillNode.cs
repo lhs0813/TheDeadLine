@@ -78,10 +78,7 @@ public class SkillNode : MonoBehaviour,  IPointerClickHandler, IPointerEnterHand
         SkillEffectHandler.Instance.ApplyEffectById(skillId, currentLevel);
 
 
-        if (storyModeCheck)
-            AnalyticsManager.Instance.log_storymode_skill_up_name(skillId);
-        else
-            AnalyticsManager.Instance.log_endlessmode_skill_up_name(skillId);
+        AnalyticsManager.Instance.SkillnPick_Dictionary(skillId);
 
 
         UpdateVisual();

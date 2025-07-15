@@ -215,13 +215,6 @@ public class GamePlayManager : MonoBehaviour
         //플레이어가 진입한 것 까지 확인. 문 닫음.
         trainController.DoorClose();
 
-        //데이터 로그 전송 로직 -> 이현수
-        if (isStoryMode)
-            AnalyticsManager.Instance.log_storymode_round_progress(currentMapIndex);
-        else
-            AnalyticsManager.Instance.log_endlessmode_round_progress(currentMapIndex);
-
-
         OnPreDepartAction?.Invoke();
 
         GoCombatEndState();
