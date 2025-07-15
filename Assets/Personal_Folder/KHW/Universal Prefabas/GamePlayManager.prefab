@@ -50,14 +50,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentMapIndex: 0
+  currentStageInfo: {fileID: 0}
   currentGameState: 0
+  isStoryMode: 0
   runtimeDungeon: {fileID: 0}
   trainController: {fileID: 0}
-  waitingDuration: 30
-  normalCombatDuration: 180
   gamePlayManagementUI: {fileID: 0}
   bgmController: {fileID: 0}
-  trainDepartability: 1
+  waitingDuration: 30
+  normalCombatDuration: 180
+  remainingTimeAfterTrainAcceleration: 5
+  goingUp: 0
+  allFuseActivated: 1
 --- !u!114 &5108315576397871636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619f1c194fe19a642ae35139637010bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fuseCounterObjective: 1
 --- !u!114 &6170577206660169501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,6 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroundMusicsOnCombat: []
+  backgroundMusicsOnDanger: []
   fadeDuration: 5
 --- !u!1 &7051388525534737776
 GameObject:

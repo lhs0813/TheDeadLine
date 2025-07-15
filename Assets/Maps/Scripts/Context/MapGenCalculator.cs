@@ -11,7 +11,7 @@ public static class MapGenCalculator
 
         int clampedMin = Mathf.Min(min, MapGenConstants.MaxMinimumCreatureCountOnSpawnRoom);
         int clampedMax = Mathf.Min(max, MapGenConstants.MaxCreatureCountOnSpawnRoom);
-        return new IntRange(clampedMin + 1, clampedMax);
+        return new IntRange(clampedMin, clampedMax);
     }
 
     public static int GetModifiedIndex(int mapIndex)

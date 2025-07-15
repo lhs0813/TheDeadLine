@@ -12,6 +12,7 @@ namespace Akila.FPSFramework
         public float damageMultipler = 1;
 
         private Rigidbody _rigidbody;
+        private Collider _col;
         private IDamageable damageable;
 
         public string uniqueID => throw new System.NotImplementedException();
@@ -33,7 +34,13 @@ namespace Akila.FPSFramework
 
             if (_rigidbody != null)
                 _rigidbody.isKinematic = _kinematicInfo;
-            }
+
+            if (_col == null)
+                _col = GetComponent<Collider>();
+            if (_col != null)
+                _col.isTrigger = _kinematicInfo;
+        }
+        
 
         public IDamageable GetDamageable()
         {
