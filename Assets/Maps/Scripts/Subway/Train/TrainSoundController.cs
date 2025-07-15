@@ -40,7 +40,7 @@ public class TrainSoundController : MonoBehaviour
             .Where(c => c.name.ToLower().Contains("arriv"))
             .ToList();
 
-        Debug.Log($"Arriving clip count: {trainArrivingClips.Count}");
+        //Debug.Log($"Arriving clip count: {trainArrivingClips.Count}");
 
         trainRunningClips = allClips
             .Where(c => c.name.ToLower().Contains("running"))

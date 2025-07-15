@@ -13,10 +13,10 @@ public class MainPathSpawner : MonoBehaviour
     private float minSpawnDistance = 5f;
 
     private readonly List<GameObject> preSpawnedEnemies = new List<GameObject>();
-
     private List<Vector3> spawnPoints;
-    int dangerSpawnCountMultiplier = 2;
 
+    // int → float로 변경
+    private float dangerSpawnMultiplier = 1.5f;
 
     public void InitializeSpawnPoints(int mapIndex)
     {   
@@ -35,48 +35,51 @@ public class MainPathSpawner : MonoBehaviour
         {
             Debug.LogError($"[HordeSpawner] 유효 스폰 포인트를 하나도 찾지 못했습니다! {GetComponentInParent<Tile>().gameObject.name}");
         }
-
     }
 
     /// <summary>
-    /// 분할 스폰: 한 프레임에 한 마리씩(또는 frameDelayPerSpawn 프레임마다)
+    /// 분할 스폰: 한 프레임에 한 번씩
     /// </summary>
     public void MainSpawn(int mapIndex, bool track, bool danger)
     {
         if (gameObject.activeInHierarchy)
-        {
-            StartCoroutine(SpawnRoutine(mapIndex, track, danger));            
-        }
-
+            StartCoroutine(SpawnRoutine(mapIndex, track, danger));
     }
 
     private IEnumerator SpawnRoutine(int mapIndex, bool track, bool danger)
     {
+        // multiplier 계산
+        float multiplier = danger ? dangerSpawnMultiplier : 1f;
+        int guaranteed = Mathf.FloorToInt(multiplier);   // 무조건 스폰 수
+        float fractional = multiplier - guaranteed;      // 확률 스폰 부분
+
         foreach (var point in spawnPoints)
         {
-            int it = danger ? dangerSpawnCountMultiplier : 1;
+            // 1) guaranteed 만큼 스폰
+            for (int i = 0; i < guaranteed; i++)
+                SpawnOne(mapIndex, track, point);
 
-            for (int i = 0; i < it; i++)
-            {
-                // 스폰
-                float randomY = Random.Range(0f, 360f);
-                EnemyType type = HordeSpawnBuilder.RollEnemyType(mapIndex);
-                GameObject enemy = EnemyPoolManager
-                    .Instance
-                    .Spawn(type, point, Quaternion.Euler(0f, randomY, 0f), !track);
+            // 2) fractional 확률로 한 마리 추가
+            if (danger && Random.value < fractional)
+                SpawnOne(mapIndex, track, point);
 
-                if (enemy != null)
-                    preSpawnedEnemies.Add(enemy);
-
-                    yield return null;
-            }
+            yield return null;
         }
     }
 
-    /// <summary>
-    /// center 기준 반경 내 NavMesh 유효 지점을 뽑되,
-    /// 서로 minDistance 이상 떨어지도록 시도
-    /// </summary>
+    private void SpawnOne(int mapIndex, bool track, Vector3 point)
+    {
+        float randomY = Random.Range(0f, 360f);
+        EnemyType type = HordeSpawnBuilder.RollEnemyType(mapIndex);
+        GameObject enemy = EnemyPoolManager
+            .Instance
+            .Spawn(type, point, Quaternion.Euler(0f, randomY, 0f), !track);
+
+        if (enemy != null)
+            preSpawnedEnemies.Add(enemy);
+    }
+
+    // 이하 GetNonOverlappingNavMeshPoints, DeSpawn 등은 그대로 유지
     private List<Vector3> GetNonOverlappingNavMeshPoints(
         Vector3 center,
         int count,
@@ -84,38 +87,23 @@ public class MainPathSpawner : MonoBehaviour
         float minDistance)
     {
         var points = new List<Vector3>();
-        int attempts = 0;
-        int maxAttempts = count * 100;  // 시도 횟수 늘림
+        int attempts = 0, maxAttempts = count * 100;
 
         while (points.Count < count && attempts < maxAttempts)
         {
             attempts++;
-            // y 고정 → 높이 변화 없이 평면 내에서만 샘플링
-            Vector3 randomDir = Random.insideUnitSphere;
-            randomDir.y = 0f;
-            Vector3 candidate = center + randomDir * radius;
-
-            // radius 만큼의 반경까지 샘플링
-            if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, radius, NavMesh.AllAreas))
+            Vector3 cand = center + (Random.insideUnitSphere.WithY(0f) * radius);
+            if (NavMesh.SamplePosition(cand, out NavMeshHit hit, radius, NavMesh.AllAreas))
             {
                 bool tooClose = false;
                 foreach (var p in points)
-                {
-                    if (Vector3.Distance(p, hit.position) < minDistance)
-                    {
-                        tooClose = true;
-                        break;
-                    }
-                }
-
-                if (!tooClose)
-                    points.Add(hit.position);
+                    if (Vector3.Distance(p, hit.position) < minDistance) { tooClose = true; break; }
+                if (!tooClose) points.Add(hit.position);
             }
         }
 
         if (points.Count < count)
-            Debug.LogWarning($"[HordeSpawner] 원하는 {count}개 중 {points.Count}개만 찾았습니다. " +
-                            "minDistance를 줄이거나 radius/maxAttempts를 늘려보세요.");
+            Debug.LogWarning($"[HordeSpawner] 원하는 {count}개 중 {points.Count}개만 찾았습니다.");
 
         return points;
     }
@@ -124,21 +112,21 @@ public class MainPathSpawner : MonoBehaviour
     {
         foreach (var enemy in preSpawnedEnemies)
         {
-            if (enemy != null)
-            {
-                var id = enemy.GetComponent<EnemyIdentifier>();
-                if (id != null && id.wasTrackingPlayer) //null 아님, 추적하지 않은 적들만.
-                {
-                    //아무것도 하지 않음.
-                }
-                else if (id != null && !id.wasTrackingPlayer) //추적을 하지는 않았음. 
-                {
-                    EnemyPoolManager.Instance.ReturnToPool(id.Type, enemy, 0f);
-                }
-            }
+            if (enemy == null) continue;
+            var id = enemy.GetComponent<EnemyIdentifier>();
+            if (id != null && !id.wasTrackingPlayer)
+                EnemyPoolManager.Instance.ReturnToPool(id.Type, enemy, 0f);
         }
         preSpawnedEnemies.Clear();
     }
 }
 
-
+// Vector3 확장 메서드 (WithY) 예시
+public static class Vector3Extensions
+{
+    public static Vector3 WithY(this Vector3 v, float y)
+    {
+        v.y = y;
+        return v;
+    }
+}
