@@ -177,7 +177,7 @@ public class Affector : MonoBehaviour
         //Damagebla 판단 
         var damageTarget = go.GetComponentInParent<Damageable>();
         if(damageTarget==null)
-            damageTarget = go.GetComponentInChildren<Damageable>();
+            damageTarget = go.transform.parent.GetComponentInChildren<Damageable>();
 
         if (damageTarget)
         {
