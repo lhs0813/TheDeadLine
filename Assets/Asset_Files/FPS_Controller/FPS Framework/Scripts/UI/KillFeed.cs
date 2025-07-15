@@ -64,8 +64,8 @@ namespace Akila.FPSFramework
 
 
             newSkull.gameObject.SetActive(true);
-            
 
+            AchieveMent_Manager.Instance.AddZombieKill();
             
             newSkull.Show(killer, killed);
             
