@@ -32,7 +32,7 @@ public class ChaseState : IZombieState
         _zombie.SetNotBeDespawned();
 
         _playerController = _player.GetComponent<FirstPersonController>();
-        _zombie.Agent.avoidancePriority = Random.Range(20, 80);
+        
 
         // 초기화
         _lastCheckTime = Time.time;
@@ -44,10 +44,16 @@ public class ChaseState : IZombieState
 
         if (_zombie.UseRandomSpeed)
         {
-            predictionTime = 0.8f;
-            float randomSpeed = Random.Range(4.0f, 7.0f);
+            float randomSpeed = Random.Range(4.0f, 5.6f);
             _zombie.moveSpeed = randomSpeed;
             _zombie.Agent.speed = randomSpeed;
+            _zombie.Agent.avoidancePriority = Random.Range(20, 80);
+        }
+        else
+        {
+            predictionTime = 0.8f;
+            _zombie.Agent.avoidancePriority = Random.Range(80, 100);
+            
         }
 
         PlayRandomSound(_zombie.chaseClips);
