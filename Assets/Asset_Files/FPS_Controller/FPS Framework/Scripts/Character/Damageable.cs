@@ -333,7 +333,7 @@ namespace Akila.FPSFramework
                 if (!_zombie.hurt)
                     _zombie.hurt = true;
             }
-            else
+            else if (type == HealthType.Other)
             {
                 _killFeed.DamageShow(amount, critical);                
             }

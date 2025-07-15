@@ -115,7 +115,7 @@ public class DebugManager : MonoBehaviour
 
             Firearm firearm = pickable.item.GetComponent<Firearm>();
             int grade = (firearm != null) ? firearm.gradeNum : -1;
-            Debug.Log($"[Debug] {pickable.Name} 의 firearm: {firearm}, gradeNum: {grade}");
+            //Debug.Log($"[Debug] {pickable.Name} 의 firearm: {firearm}, gradeNum: {grade}");
 
 
             if (dict.ContainsKey(name))
@@ -213,7 +213,7 @@ public class DebugManager : MonoBehaviour
         }
 
         // 매 프레임: 적 수 갱신 & 화면 갱신
-        UpdateEnemyCount();
+            UpdateEnemyCount();
         UpdateDebugString();
     }
 
