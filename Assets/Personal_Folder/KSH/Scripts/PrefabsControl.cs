@@ -1,4 +1,5 @@
 using Akila.FPSFramework;
+using FIMSpace.FProceduralAnimation;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,10 +16,33 @@ public class PrefabsControl : MonoBehaviour
 
     void OnEnable()
     {
-        ActiveMeshRender();
-        //InstPickables();
-        // EraseMeshCollider();
+
+        offCol();
+        offAni();
+
+
+           // ActiveMeshRender();
+           //InstPickables();
+           // EraseMeshCollider();
     }
+    void offCol()
+    {  var v = GetComponentsInChildren<Collider>();
+        for (int i = 0; i < v.Length; i++)
+        {
+            v[i].enabled = false;
+        }
+
+    }
+
+    void offAni()
+    {
+        var v = GetComponentsInChildren<RagdollAnimator2>();
+        for (int i = 0; i < v.Length; i++)
+        {
+            v[i].enabled = false;
+        }
+    }
+
 
     void Update()
     {
