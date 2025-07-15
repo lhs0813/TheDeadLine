@@ -61,7 +61,7 @@ public class UI_Objective_Info : MonoBehaviour
                 if (mapIndex != 0)
                 {
                     stationName.SetActive(true);
-                    stationName.GetComponentInChildren<TextMeshProUGUI>().text =  "Station " + (GamePlayManager.instance.currentMapIndex - 4).ToString();
+                    stationName.GetComponentInChildren<TextMeshProUGUI>().text =  "Station " + (GamePlayManager.instance.currentMapIndex - 2).ToString();
                 }
                 else
                 {

@@ -67,12 +67,21 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
     //0612 이현수 수정 자식 데미저블 그룹 가져오기
     DamageableGroup[] damageableGroups;
-    
+
+
+    Actor _playerActor;
+    KillFeed killFeed;
+    Hitmarker hitmarker;
+
 
     protected virtual void Awake()
     {
         health = DefaultHealth;
         maxHealth = DefaultMaxHealth;
+
+        _playerActor = Player_Manager.Instance.GetComponent<Actor>(); // <-- 이현수 수정 액터 0716
+        killFeed = UIManager.Instance.KillFeed;
+        hitmarker = UIManager.Instance.Hitmarker;
 
         GameObject playerObj = GameObject.FindWithTag("Player");
         if (playerObj != null)
@@ -267,7 +276,13 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         if(ragdollAnim != null)
             ragdollAnim.RA2Event_SwitchToFall();
 
-        
+        _playerActor.kills++;
+
+
+        if (killFeed != null)
+        {
+            killFeed.Show(_playerActor, "zombie", false);
+        }
 
     }
 

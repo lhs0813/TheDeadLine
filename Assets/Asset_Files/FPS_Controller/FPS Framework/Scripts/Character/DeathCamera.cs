@@ -38,10 +38,6 @@ namespace Akila.FPSFramework
             _rigidbody = GetComponent<Rigidbody>();
             _dieBgm = GetComponent<AudioSource>();
 
-            
-
-
-            
             // Rigidbody 설정
             _rigidbody.isKinematic = true; // 기본적으로 비활성화
 
@@ -62,8 +58,10 @@ namespace Akila.FPSFramework
 
             _Inventory = Player_Manager.Instance.gameObject;
 
+            gameObject.active = false;
             transform.position = mainCam.transform.position;
             transform.rotation = mainCam.transform.rotation;
+            gameObject.active = true;
 
             _dieBgm.Play();
             GamePlayManager.instance.bgmController.StopCombatMusic(1.0f);
