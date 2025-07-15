@@ -323,7 +323,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
         if (distance <= attackRange)
         {
-            Debug.Log("공격 타이밍!");
+            //Debug.Log("공격 타이밍!");
 
             // Damageable 컴포넌트 가져오기
             var damageable = playerObj.GetComponent<Damageable>();
