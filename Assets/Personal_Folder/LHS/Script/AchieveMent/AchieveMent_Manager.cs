@@ -1,5 +1,5 @@
-﻿using Steamworks;
-using UnityEngine;
+﻿using UnityEngine;
+using Steamworks;
 
 public class AchieveMent_Manager : MonoBehaviour
 {
@@ -7,7 +7,6 @@ public class AchieveMent_Manager : MonoBehaviour
 
     private void Awake()
     {
-        // 싱글톤 설정
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -16,19 +15,38 @@ public class AchieveMent_Manager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        // Steam 초기화 확인
+        if (!SteamClient.IsValid)
+        {
+            Debug.LogError("SteamClient가 초기화되지 않았습니다.");
+        }
     }
 
     public void AddZombieKill()
     {
-        if (!SteamClient.IsValid) return;
+        if (!SteamClient.IsValid || !SteamClient.IsLoggedOn)
+        {
+            Debug.LogWarning("SteamClient가 유효하지 않거나 로그인되어 있지 않음");
+            return;
+        }
 
-        int kills = SteamUserStats.GetStatInt("STAT_ZOMBIE_KILLS");
+        SteamUserStats.AddStat("STAT_ZOMBIE_KILLS", 1);
 
-        kills++;
-
-        SteamUserStats.SetStat("STAT_ZOMBIE_KILLS", kills);
         SteamUserStats.StoreStats();
-
-        Debug.Log("아니 좀비 죽여서 도전과제 했냐고");
     }
+
+    public void FirstSkillChip()
+    {
+        if (!SteamClient.IsValid || !SteamClient.IsLoggedOn)
+        {
+            Debug.LogWarning("SteamClient가 유효하지 않거나 로그인되어 있지 않음");
+            return;
+        }
+
+        SteamUserStats.IndicateAchievementProgress("ACHIEVEMENT_FIRSTCHIP",1,1);
+        SteamUserStats.StoreStats();
+    }
+
+
 }

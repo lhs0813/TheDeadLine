@@ -194,6 +194,7 @@ namespace Akila.FPSFramework
             }
 
             GetComponent<DataChip_To_SkillPoint>().SkillPointUp();
+            AchieveMent_Manager.Instance.FirstSkillChip();
         }
 
         public virtual void InteractWithFuseBox(InteractionsManager source)
