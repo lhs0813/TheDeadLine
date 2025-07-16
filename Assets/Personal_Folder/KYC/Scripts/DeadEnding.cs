@@ -70,7 +70,7 @@ public class DeadEnding : MonoBehaviour
         // 3) 페이드 코루틴 시작
 
 
-        RemainScore.text = (9 - GamePlayManager.instance.currentMapIndex).ToString();
+        RemainScore.text = (10 - GamePlayManager.instance.currentMapIndex).ToString();
 
         StartCoroutine(FadeSequence());
     }
