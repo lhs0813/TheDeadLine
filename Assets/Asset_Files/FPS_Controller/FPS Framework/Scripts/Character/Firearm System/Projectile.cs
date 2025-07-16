@@ -82,7 +82,9 @@ namespace Akila.FPSFramework
             this.direction = direction;
             this.initialVelocity = initialVelocity;
             this.range = range * source.firearmAttachmentsManager.range;
-            this.speed = speed * muzzleModifier;
+            //this.speed = speed * muzzleModifier;
+
+
 
             //Scale
             if (source)
@@ -130,7 +132,7 @@ namespace Akila.FPSFramework
             if (explosive && source) explosive.damageSource = source.actor.gameObject;
 
             transform.localScale = useAutoScaling ? Vector3.zero : Vector3.one * scaleMultipler;
-            if (trail) trail.widthMultiplier = useAutoScaling ? 0 : scaleMultipler;
+            //if (trail) trail.widthMultiplier = useAutoScaling ? 0 : scaleMultipler;
 
             if (isActive)
                 Destroy(gameObject, lifeTime);

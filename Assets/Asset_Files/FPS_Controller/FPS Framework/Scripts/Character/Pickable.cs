@@ -124,7 +124,7 @@ namespace Akila.FPSFramework
             index = Mathf.Clamp(index, 0, inventory.maxSlots - 1);
             inventory.Switch(index);
 
-            AnalyticsManager.Instance.WeaponPick_Dictionary(Name);
+            if(AnalyticsManager.Instance)AnalyticsManager.Instance.WeaponPick_Dictionary(Name);
 
             Destroy(gameObject);
         }
