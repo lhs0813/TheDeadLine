@@ -350,8 +350,8 @@ namespace Akila.FPSFramework
             remainingAmmoCount = preset.reserve;
             magazineCapacity = preset.magazineCapacity;
 
-            remainingAmmoCount = Mathf.CeilToInt(SkillEffectHandler.Instance.magazineIncreaseMultiplier * remainingAmmoCount * 1.199f);
-            magazineCapacity = Mathf.CeilToInt(magazineCapacity * SkillEffectHandler.Instance.magazineIncreaseMultiplier * 1.2f);
+            remainingAmmoCount = Mathf.RoundToInt(SkillEffectHandler.Instance.magazineIncreaseMultiplier * remainingAmmoCount * 1.199f);
+            magazineCapacity = Mathf.RoundToInt(magazineCapacity * SkillEffectHandler.Instance.magazineIncreaseMultiplier * 1.199f);
 
 
 
