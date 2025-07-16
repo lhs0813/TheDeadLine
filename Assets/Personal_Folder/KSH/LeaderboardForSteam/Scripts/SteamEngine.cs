@@ -1,70 +1,67 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Steamworks;
-using UnityEngine.Serialization;
 
 namespace LeastSquares
 {
-    /// <summary>
-    /// Core class that loads Steam into the game
-    /// </summary>
     public class SteamEngine : MonoBehaviour
     {
+        public static SteamEngine Instance { get; private set; }
+
         private static bool _initialized;
-        private static uint _initializedId;
+        private static uint _initializedAppId;
         public uint appId = 480;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <exception cref="ArgumentException">Will throw if multiple scripts of SteamEngine exist and have different AppIds</exception>
         private void Awake()
         {
-            if (_initialized && _initializedId != appId)
-                throw new ArgumentException("Only 1 instance of SteamEngine can exist at the same time");
-            if (_initialized)
+            // 싱글톤 중복 방지
+            if (Instance != null && Instance != this)
             {
-                
+                Destroy(gameObject);
                 return;
             }
+
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
+            // Steam 초기화 중복 방지
+            if (_initialized && _initializedAppId != appId)
+            {
+                throw new ArgumentException("SteamEngine은 AppId당 하나만 존재할 수 있습니다.");
+            }
+
+            if (_initialized) return;
+
             try
             {
                 SteamClient.Init(appId);
-                Debug.Log($"Steam started for app {appId}");
-                DontDestroyOnLoad(gameObject); // 씬 전환 시 유지
+                Debug.Log($"SteamClient 초기화 완료 (AppId: {appId})");
+                _initialized = true;
+                _initializedAppId = appId;
             }
             catch (Exception e)
             {
-                Debug.Log(e);
-                Debug.Log(
-                    $"Failed to initialize steam for app {appId}. Check the troubleshooting section in the docs.");
+                Debug.LogError($"SteamClient 초기화 실패: {e.Message}");
             }
-
-            _initialized = true;
-            _initializedId = appId;
         }
 
-        /// <summary>
-        /// Run steam callbacks every frame
-        /// </summary>
-        void Update()
+        private void Update()
         {
-            SteamClient.RunCallbacks();
+            if (_initialized)
+            {
+                SteamClient.RunCallbacks();
+            }
         }
 
-        /// <summary>
-        /// Shutdown steam on destroy
-        /// </summary>
         private void OnDestroy()
         {
-            if (_initialized && _initializedId == appId)
+            if (Instance == this)
             {
                 SteamClient.Shutdown();
+                Debug.Log("SteamClient 정상 종료");
                 _initialized = false;
-                _initializedId = 0;
-                Debug.Log("SteamClient shutdown.");
+                _initializedAppId = 0;
+                Instance = null;
             }
         }
     }
