@@ -13,38 +13,36 @@ public static class HordeSpawnBuilder
 
     public static Dictionary<EnemyType, float> GetSpawnWeights(int stageIndex)
     {
-        // 1) 원시 가중치 계산
-        // Normal: stageIndex=9에서 약 70% 목표, 로그감소
+        // Normal: 감소, stageIndex=9에서 70 되도록
         float rawNormal = stageIndex > 0
-            ? Mathf.Max(100f - 14.12f * Mathf.Log(stageIndex + 1f), 0f)
+            ? Mathf.Max(100f - 13.02f * Mathf.Log(stageIndex + 1f), 0f)
             : 100f;
 
-        // Big: stageIndex >= 1부터 등장, stageIndex=9에서 약 10%
+        // Big: stageIndex >= 1부터 등장, 9에서 10 되도록
         float rawBig = 0f;
         if (stageIndex >= 1)
             rawBig = Mathf.Clamp(4.55f * Mathf.Log(stageIndex), 0f, 10f);
 
-        // Fast: stageIndex >= 3부터 등장, stageIndex=9에서 약 15%
+        // Fast: stageIndex >= 3부터 등장, 9에서 15 되도록
         float rawFast = 0f;
         if (stageIndex >= 3)
-            rawFast = Mathf.Clamp(6.93f * Mathf.Log(stageIndex - 2f), 0f, 15f);
+            rawFast = Mathf.Clamp(7.71f * Mathf.Log(stageIndex - 2f), 0f, 15f);
 
-        // Bomb: stageIndex >= 4부터 등장, stageIndex=9에서 약 5%
+        // Bomb: stageIndex >= 4부터 등장, 9에서 5 되도록
         float rawBomb = 0f;
         if (stageIndex >= 4)
-            rawBomb = Mathf.Clamp(2.32f * Mathf.Log(stageIndex - 3f), 0f, 5f);
+            rawBomb = Mathf.Clamp(2.79f * Mathf.Log(stageIndex - 3f), 0f, 5f);
 
-        // 2) 정규화: 전체 합이 100이 되도록
+        // 정규화
         float total = rawNormal + rawBig + rawFast + rawBomb;
         if (total > 0f)
         {
             rawNormal = rawNormal / total * 100f;
-            rawBig = rawBig / total * 100f;
-            rawFast = rawFast / total * 100f;
-            rawBomb = rawBomb / total * 100f;
+            rawBig    = rawBig    / total * 100f;
+            rawFast   = rawFast   / total * 100f;
+            rawBomb   = rawBomb   / total * 100f;
         }
 
-        // 3) Dictionary로 반환
         return new Dictionary<EnemyType, float>
         {
             { EnemyType.Normal, rawNormal },
@@ -53,6 +51,7 @@ public static class HordeSpawnBuilder
             { EnemyType.Bomb,   rawBomb }
         };
     }
+
 
 
     public static EnemyType RollEnemyType(int stageIndex)
