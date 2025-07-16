@@ -113,6 +113,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2537193533367110458}
   - component: {fileID: 2010698704587544449}
+  - component: {fileID: 436431317048413173}
   m_Layer: 23
   m_Name: Zombie_Fast
   m_TagString: Untagged
@@ -151,6 +152,19 @@ MonoBehaviour:
   Type: 3
   isPrespawn: 0
   wasTrackingPlayer: 0
+  isTileChanged: 0
+--- !u!114 &436431317048413173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5695872680809851286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9e5bec874610c42a68fe369784ab10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6882997414829597913
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,7 +530,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 4300000, guid: 4c05e40e7b3d453438e279f1be02de6e, type: 2}
+      objectReference: {fileID: 4300000, guid: 8c673be5fa896f842a261adab1f29e1d, type: 2}
     - target: {fileID: 7851250638638286208, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
         type: 3}
       propertyPath: m_Layer
@@ -848,9 +862,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.4
-  m_Height: 2.3
+  m_Height: 1.8024824
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.7512407, z: 0}
 --- !u!4 &6312709096983587203 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7851250638638782918, guid: 0f4b038f001b7fc42a5efbd1995d6ec5,
