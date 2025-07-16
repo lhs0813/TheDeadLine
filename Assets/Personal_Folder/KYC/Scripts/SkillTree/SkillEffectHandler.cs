@@ -52,7 +52,7 @@ public class SkillEffectHandler : MonoBehaviour
 
         _applyLevelEffects["ATTACKSPEED"] = (level) =>
         {
-            float[] bonus = { 1f, 0.8333f, 0.7143f, 0.6250f, 0.5556f, 0.5f };
+            float[] bonus = { 1f, 0.9091f, 0.8333f, 0.7692f, 0.7143f, 0.6667f };
             attackSpeedBonus = bonus[Mathf.Clamp(level, 1, 5)];
         };
         _removeEffects["ATTACKSPEED"] = () => attackSpeedBonus = 1f;

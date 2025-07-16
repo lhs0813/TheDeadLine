@@ -118,7 +118,7 @@ namespace Akila.FPSFramework
             // 0~1 정규화
             float t = Mathf.Clamp01(value / 100f);
             // 0.2~0.4 사이로 보간
-            float mapped = Mathf.Lerp(0.1f, 0.3f, t);
+            float mapped = Mathf.Lerp(0.05f, 0.3f, t);
             
             RenderSettings.ambientLight = Color.white * mapped;
 
