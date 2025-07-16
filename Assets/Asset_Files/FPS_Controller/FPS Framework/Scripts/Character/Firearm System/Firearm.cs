@@ -699,7 +699,7 @@ namespace Akila.FPSFramework
             Camera mainCamera = Camera.main;
 
             // Determine the firing position and direction based on preset settings
-            switch (preset.shootingDirection)
+            switch (preset.shootingDirection2)
             {
                 case ShootingDirection.MuzzleForward:
 
