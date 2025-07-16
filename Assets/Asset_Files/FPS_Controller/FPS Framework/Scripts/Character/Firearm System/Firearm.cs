@@ -332,7 +332,7 @@ namespace Akila.FPSFramework
             // Initialize ammo profile if not set
             if (ammoProfile == null)
             {
-               // Debug.LogError("Ammo profile is not set. Using a default instance.", preset);
+                // Debug.LogError("Ammo profile is not set. Using a default instance.", preset);
 
                 ammoProfile = new InventoryCollectable();
 
@@ -346,11 +346,12 @@ namespace Akila.FPSFramework
 
             // Set the initial ammo and magazine capacity based on the preset.
 
-                remainingAmmoCount = preset.reserve;
-                magazineCapacity = preset.magazineCapacity;
 
-            remainingAmmoCount = Mathf.CeilToInt(SkillEffectHandler.Instance.magazineIncreaseMultiplier * remainingAmmoCount);
-            magazineCapacity = Mathf.CeilToInt(magazineCapacity * SkillEffectHandler.Instance.magazineIncreaseMultiplier);
+            remainingAmmoCount = preset.reserve;
+            magazineCapacity = preset.magazineCapacity;
+
+            remainingAmmoCount = Mathf.CeilToInt(SkillEffectHandler.Instance.magazineIncreaseMultiplier * remainingAmmoCount * 1.2f);
+            magazineCapacity = Mathf.CeilToInt(magazineCapacity * SkillEffectHandler.Instance.magazineIncreaseMultiplier * 1.2f);
 
 
 
@@ -388,10 +389,6 @@ namespace Akila.FPSFramework
 
 
             OnDropStart.AddListener(DropStart);
-
-
-
-
         }
         void DropStart() 
         { 
