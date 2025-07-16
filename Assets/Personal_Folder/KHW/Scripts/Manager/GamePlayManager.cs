@@ -133,10 +133,29 @@ public class GamePlayManager : MonoBehaviour
         //다음맵 로딩 시작
         currentMapIndex++;
 
+        if (!isStoryMode)
+        {
+            if(currentMapIndex == 8)
+            {
+                AchieveMent_Manager.Instance.EndlessClear5();
+            }
+
+            if (currentMapIndex == 13)
+            {
+                AchieveMent_Manager.Instance.EndlessClear10();
+            }
+
+            if (currentMapIndex == 23)
+            {
+                AchieveMent_Manager.Instance.EndlessClear20();
+            }
+
+
+        }
+
         if (isStoryMode && currentMapIndex >= 10)
         {
             SceneManager.LoadScene("EndingScene");
-
             return;
         }
 

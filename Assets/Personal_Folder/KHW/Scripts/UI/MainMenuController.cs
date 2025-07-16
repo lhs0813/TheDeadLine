@@ -77,6 +77,7 @@ public class MainMenuController : MonoBehaviour
     public void ShowCredits()
     {
         creditsPanel.SetActive(true);
+        AchieveMent_Manager.Instance.ACHIEVEMENT_CREDIT();
     }
     void OnDisable()
     {

@@ -58,6 +58,82 @@ public class AchieveMent_Manager : MonoBehaviour
         SteamUserStats.StoreStats();
     }
 
+    public void FullUpgrade()
+    {
+        if (!SteamClient.IsValid || !SteamClient.IsLoggedOn)
+        {
+            Debug.LogWarning("SteamClient가 유효하지 않거나 로그인되어 있지 않음");
+            return;
+        }
+        SteamUserStats.AddStat("STAT_FULL_UPGRADE", 1);
+        SteamUserStats.StoreStats();
+    }
+
+    public void CampaignClear()
+    {
+        if (!SteamClient.IsValid || !SteamClient.IsLoggedOn)
+        {
+            Debug.LogWarning("SteamClient가 유효하지 않거나 로그인되어 있지 않음");
+            return;
+        }
+        SteamUserStats.AddStat("STAT_CAMPAIGN_CLEAR", 1);
+        SteamUserStats.StoreStats();
+    }
+
+    public void CampaignFastClear()
+    {
+        if (!SteamClient.IsValid || !SteamClient.IsLoggedOn)
+        {
+            Debug.LogWarning("SteamClient가 유효하지 않거나 로그인되어 있지 않음");
+            return;
+        }
+        SteamUserStats.AddStat("STAT_CAMPAIGN_FAST_CLEAR", 1);
+        SteamUserStats.StoreStats();
+    }
+
+    public void EndlessClear5()
+    {
+        if (!SteamClient.IsValid || !SteamClient.IsLoggedOn)
+        {
+            Debug.LogWarning("SteamClient가 유효하지 않거나 로그인되어 있지 않음");
+            return;
+        }
+        SteamUserStats.AddStat("STAT_ENDLESS_5_CLEAR", 1);
+        SteamUserStats.StoreStats();
+    }
+
+    public void EndlessClear10()
+    {
+        if (!SteamClient.IsValid || !SteamClient.IsLoggedOn)
+        {
+            Debug.LogWarning("SteamClient가 유효하지 않거나 로그인되어 있지 않음");
+            return;
+        }
+        SteamUserStats.AddStat("STAT_ENDLESS_10_CLEAR", 1);
+        SteamUserStats.StoreStats();
+    }
+
+    public void EndlessClear20()
+    {
+        if (!SteamClient.IsValid || !SteamClient.IsLoggedOn)
+        {
+            Debug.LogWarning("SteamClient가 유효하지 않거나 로그인되어 있지 않음");
+            return;
+        }
+        SteamUserStats.AddStat("STAT_ENDLESS_20_CLEAR", 1);
+        SteamUserStats.StoreStats();
+    }
+
+    public void ACHIEVEMENT_CREDIT()
+    {
+        if (!SteamClient.IsValid || !SteamClient.IsLoggedOn)
+        {
+            Debug.LogWarning("SteamClient가 유효하지 않거나 로그인되어 있지 않음");
+            return;
+        }
+        SteamUserStats.AddStat("STAT_CREDIT", 1);
+        SteamUserStats.StoreStats();
+    }
 
 
 
