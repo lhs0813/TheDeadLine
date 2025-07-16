@@ -344,7 +344,7 @@ namespace Akila.FPSFramework
 
             if (useAdvanced)
             {
-                asset.shootingDirection = shootingDirection;
+                asset.shootingDirection2 = shootingDirection;
                 asset.shootingMechanism = shootingMechanism;
                 asset.projectile = projectile.GetComponent<Projectile>();
                 asset.fireRate = fireRate;

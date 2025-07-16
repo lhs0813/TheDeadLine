@@ -104,7 +104,7 @@ namespace Akila.FPSFramework
             EditorGUI.BeginDisabledGroup(!weapon.isFireActive);
 
             weapon.shootingMechanism = (InventoryItem.ShootingMechanism)EditorGUILayout.EnumPopup(new GUIContent(" Shooting Mechanism"), weapon.shootingMechanism);
-            weapon.shootingDirection = (InventoryItem.ShootingDirection)EditorGUILayout.EnumPopup(new GUIContent(" Shooting Direction"), weapon.shootingDirection);
+            weapon.shootingDirection2 = (InventoryItem.ShootingDirection)EditorGUILayout.EnumPopup(new GUIContent(" Shooting Direction"), weapon.shootingDirection2);
             weapon.fireMode = (InventoryItem.FireMode)EditorGUILayout.EnumPopup(new GUIContent(" Mode"), weapon.fireMode);
             weapon.casingDirection = (Vector3Direction)EditorGUILayout.EnumPopup(new GUIContent(" Casing Direction"), weapon.casingDirection);
             weapon.hittableLayers = LayerMaskField("Hittable Layers", weapon.hittableLayers);

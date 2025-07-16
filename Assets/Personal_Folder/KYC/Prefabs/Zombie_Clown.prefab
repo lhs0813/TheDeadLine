@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1356629151988939556}
   - component: {fileID: 2554266323148609595}
+  - component: {fileID: 5059948787677952822}
   m_Layer: 23
   m_Name: Zombie_Clown
   m_TagString: Untagged
@@ -49,6 +50,18 @@ MonoBehaviour:
   isPrespawn: 0
   wasTrackingPlayer: 0
   isTileChanged: 0
+--- !u!114 &5059948787677952822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6755834068937655077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9e5bec874610c42a68fe369784ab10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2983679224785577793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -252,6 +265,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 24
       objectReference: {fileID: 0}
+    - target: {fileID: 5753334728199873105, guid: 6826e71f859158548905b1ce7994a6e1,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 9a88fcd3beb72504d8f59a583a39ce52, type: 2}
     - target: {fileID: 5753334728204923635, guid: 6826e71f859158548905b1ce7994a6e1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -890,9 +908,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.1
-  m_Height: 0.652
+  m_Height: 0.5015222
   m_Direction: 1
-  m_Center: {x: 0, y: 0.35, z: 0}
+  m_Center: {x: 0, y: 0.2747612, z: 0}
 --- !u!4 &7403877112741631410 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5753334728204923635, guid: 6826e71f859158548905b1ce7994a6e1,

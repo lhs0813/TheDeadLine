@@ -17,7 +17,7 @@ namespace Akila.FPSFramework
 
         //Fire Fields
         public InventoryItem.ShootingMechanism shootingMechanism = InventoryItem.ShootingMechanism.Hitscan;
-        public InventoryItem.ShootingDirection shootingDirection = InventoryItem.ShootingDirection.FromMuzzleToCameraForward;
+        public InventoryItem.ShootingDirection shootingDirection2 = InventoryItem.ShootingDirection.MuzzleForward;
         public InventoryItem.FireMode fireMode = InventoryItem.FireMode.Auto;
         public Vector3Direction casingDirection = Vector3Direction.right;
 
