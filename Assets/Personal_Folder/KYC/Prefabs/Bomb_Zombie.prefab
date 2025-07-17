@@ -128,7 +128,8 @@ AudioSource:
   m_GameObject: {fileID: 165926654542711923}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -7128067719386893152, guid: 204ae77320b536d459d12c2126255a73,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
@@ -338,6 +339,9 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
   died: 0
   isPlayer: 0
   onRespawn:
@@ -365,6 +369,7 @@ MonoBehaviour:
   visibleDistance: 45
   fieldOfViewAngle: 180
   minAttackStartDistance: 20
+  hurt: 0
   collider: {fileID: 8413390692514345047}
   ragdollAnim: {fileID: 0}
   audioSource: {fileID: 6297074804781123426}
@@ -2358,6 +2363,7 @@ MonoBehaviour:
   Type: 2
   isPrespawn: 0
   wasTrackingPlayer: 0
+  isTileChanged: 0
 --- !u!1 &8289221062433118695
 GameObject:
   m_ObjectHideFlags: 0
