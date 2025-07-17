@@ -156,13 +156,13 @@ public class Affector : MonoBehaviour
 
         before = transform.position;
     }
-    //void OnTriggerEnter(Collider other)
-    //{
-    //    if (enabled == false) return;
+    void OnTriggerEnter(Collider other)
+    {
+        if (enabled == false) return;
 
-    //    CommonEnter(other.gameObject);
+        CommonEnter(other.gameObject);
 
-    //}
+    }
     void OnCollisionEnter(Collision collision)
     {
         if(enabled==false) return;
