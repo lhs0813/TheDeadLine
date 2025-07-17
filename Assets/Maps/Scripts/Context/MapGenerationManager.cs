@@ -1,8 +1,11 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DunGen;
 using DunGen.Demo;
 using DunGen.Graph;
+using NUnit.Framework;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -92,7 +95,13 @@ public class MapGenerationManager : MonoBehaviour
 
     private void BakeNavMeshOnMapLoaded(DungeonGenerator generator)
     {
-        generator.Root.GetComponent<NavMeshSurface>().BuildNavMesh();
+        List<NavMeshSurface> navs = generator.Root.GetComponents<NavMeshSurface>().ToList();
+
+        foreach(var n in navs)
+        {
+            n.BuildNavMesh();
+        }
+        //generator.Root.GetComponent<NavMeshSurface>().BuildNavMesh();
 
         //Nav Mesh 베이크 완료 알림.
         OnNavMeshBakeAction?.Invoke();
