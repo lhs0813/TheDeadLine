@@ -295,9 +295,9 @@ namespace Akila.FPSFramework
                     {
                         finalDamage = damageable.maxHealth;
                     }
-                    else
+                    else if(damageable.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
                     {
-                        finalDamage = Player_Manager.Instance.MaxHealth * 0.5f;
+                        finalDamage = Player_Manager.Instance.MaxHealth * 0.4f;
                     }
 
                     damageable.Damage(finalDamage, damageSource?.gameObject);

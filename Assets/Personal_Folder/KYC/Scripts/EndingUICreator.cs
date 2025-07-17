@@ -53,6 +53,13 @@ public class EscapeTrigger : MonoBehaviour
         clearTime = RecordManager.Instance.StopStoryTimer();
         bestClearTime = RecordManager.Instance.GetBestStoryTime();
 
+        if (clearTime < 1200.0f)
+            AchieveMent_Manager.Instance.CampaignFastClear();
+
+         AchieveMent_Manager.Instance.CampaignClear();
+
+        
+
         // 2) 포맷된 문자열 세팅
         if (clearTimeNumberText != null)
             clearTimeNumberText.text = FormatTime(clearTime);

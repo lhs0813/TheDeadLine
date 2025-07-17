@@ -125,7 +125,12 @@ namespace Akila.FPSFramework
             inventory.Switch(index);
 
             if(AnalyticsManager.Instance)AnalyticsManager.Instance.WeaponPick_Dictionary(Name);
-
+            
+            if(item.GetComponent<Firearm>().gradeNum == 3)
+            {
+                AchieveMent_Manager.Instance.AddLegendaryCount();
+            }
+                
             Destroy(gameObject);
         }
 
@@ -194,6 +199,7 @@ namespace Akila.FPSFramework
             }
 
             GetComponent<DataChip_To_SkillPoint>().SkillPointUp();
+            AchieveMent_Manager.Instance.GetSkillChip();
         }
 
         public virtual void InteractWithFuseBox(InteractionsManager source)

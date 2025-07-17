@@ -104,6 +104,8 @@ public class SkillTreeManager : MonoBehaviour
         if (allNodes.Any(n => n.currentLevel < n.maxLevel))
             return;
 
+        AchieveMent_Manager.Instance.FullUpgrade();
+
         // 전부 다 5레벨 달성했을 때
         // 1) 기존 UI 비활성화
         foreach (var go in uiToDisable)
