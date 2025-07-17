@@ -53,7 +53,7 @@ public class EscapeTrigger : MonoBehaviour
         clearTime = RecordManager.Instance.StopStoryTimer();
         bestClearTime = RecordManager.Instance.GetBestStoryTime();
 
-        if (clearTime < 1800.0f)
+        if (clearTime < 1200.0f)
             AchieveMent_Manager.Instance.CampaignFastClear();
 
          AchieveMent_Manager.Instance.CampaignClear();
