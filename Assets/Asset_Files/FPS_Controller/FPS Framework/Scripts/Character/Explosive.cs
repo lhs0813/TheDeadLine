@@ -297,7 +297,22 @@ namespace Akila.FPSFramework
                     }
                     else if(damageable.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
                     {
+                        if (Player_Manager.Instance.playerIsGod)
+                            return;
+
                         finalDamage = Player_Manager.Instance.MaxHealth * 0.4f;
+
+                        float evasionChance = SkillEffectHandler.Instance.evasionChance;
+                        float roll = UnityEngine.Random.value; // 0.0f ~ 1.0f 사이 랜덤값
+
+                        if (roll < evasionChance)
+                        {
+                            Debug.Log("⚡ 회피 성공! 데미지를 받지 않음");
+                            return; // 회피 성공 시 데미지 무시
+                        }
+
+                        finalDamage = finalDamage * SkillEffectHandler.Instance.damageReduction; // 데미지 감소 적용 // 폭좀 회피 및 뎀감 적용
+
                     }
 
                     damageable.Damage(finalDamage, damageSource?.gameObject);
