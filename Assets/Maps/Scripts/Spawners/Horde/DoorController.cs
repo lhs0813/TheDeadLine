@@ -9,6 +9,11 @@ public class DoorController : MonoBehaviour
     [SerializeField] private AudioSource audioSource;    // 문 소리를 재생할 AudioSource
     [SerializeField] private AudioClip openClip;         // 열릴 때 한 번 재생할 클립
 
+    void Start()
+    {
+        audioSource.outputAudioMixerGroup = MixerSingleton.sfxMixerGroup;
+    }
+
     public void OpenDoor()
     {
         animator.ResetTrigger("Close");

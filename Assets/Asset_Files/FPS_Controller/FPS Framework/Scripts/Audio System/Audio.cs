@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Events;
 
 namespace Akila.FPSFramework
@@ -372,7 +373,8 @@ namespace Akila.FPSFramework
             }
 
             audioSource.clip = audioProfile.audioClip;
-            audioSource.outputAudioMixerGroup = audioProfile.output;
+
+            audioSource.outputAudioMixerGroup = MixerSingleton.sfxMixerGroup;
             audioSource.mute = audioProfile.mute;
             audioSource.bypassEffects = audioProfile.bypassEffects;
             audioSource.bypassListenerEffects = audioProfile.bypassListenerEffects;
