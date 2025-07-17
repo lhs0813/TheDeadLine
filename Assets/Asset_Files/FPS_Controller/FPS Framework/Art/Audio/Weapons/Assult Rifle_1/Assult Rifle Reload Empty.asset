@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25e741ac5eb03e24385ed1fb16be686e, type: 3}
   m_Name: Assult Rifle Reload Empty
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: d7573d70d8374d44a83c659c7e978f7d, type: 3}
-  output: {fileID: 0}
+  audioClip: {fileID: 8300000, guid: d7573d70d8374d44a83c659c7e978f7d, type: 3}
+  output: {fileID: -7128067719386893152, guid: 204ae77320b536d459d12c2126255a73, type: 2}
   mute: 0
   bypassEffects: 0
   bypassListenerEffects: 0
@@ -28,8 +28,38 @@ MonoBehaviour:
   reverbZoneMix: 1
   dopplerLevel: 1
   spread: 0
-  volumeRolloff: 2
   minDistance: 1
   maxDistance: 15
-  dymaicPitch: 1
-  pitchFactor: 0.1
+  dynamicPitch: 0
+  pitchOffset: 0
+  forwardFactor: 0
+  backwardFactor: 0
+  rightFactor: 0
+  leftFactor: 0
+  upFactor: 0
+  downFactor: 0
+  _6DSoundCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  audioLayers: []

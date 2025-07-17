@@ -33774,6 +33774,9 @@ Transform:
   - {fileID: 276237242}
   - {fileID: 1105091366}
   - {fileID: 1572631934}
+  - {fileID: 7022278475629972046}
+  - {fileID: 2744886808288475493}
+  - {fileID: 1480216970}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1277518878
@@ -40386,13 +40389,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1480445354}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
   m_LocalPosition: {x: -32.675144, y: 18.21379, z: 99.76}
   m_LocalScale: {x: 12, y: 12, z: 12}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1480216682}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1277518877}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!1 &1480444960
 GameObject:
@@ -56087,7 +56090,8 @@ AudioSource:
   m_GameObject: {fileID: 2071425931}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -7128067719386893152, guid: 204ae77320b536d459d12c2126255a73,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 9934ee435931292409863e18ea20fa6a, type: 3}
   m_Resource: {fileID: 8300000, guid: 9934ee435931292409863e18ea20fa6a, type: 3}
   m_PlayOnAwake: 1
@@ -59403,14 +59407,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2744886808288896325}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
   m_LocalPosition: {x: -33.85, y: 18.18318, z: 99.5}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2744886808288475269}
   - {fileID: 2744886808288475495}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1277518877}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!4 &2744886808288475495
 Transform:
@@ -60222,7 +60226,8 @@ AudioSource:
   m_GameObject: {fileID: 2744886808288896325}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -7128067719386893152, guid: 204ae77320b536d459d12c2126255a73,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: dbedfa53dfb41064ca61fcbc506a6add, type: 3}
   m_Resource: {fileID: 8300000, guid: dbedfa53dfb41064ca61fcbc506a6add, type: 3}
   m_PlayOnAwake: 1
@@ -61958,6 +61963,26 @@ PrefabInstance:
       propertyPath: 'options.Array.data[3]'
       value: "\u4E2D\u6587"
       objectReference: {fileID: 0}
+    - target: {fileID: 3249000991935905527, guid: d849df0628ea1fd4d8fc3f5561f9cda3,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3249000991935905527, guid: d849df0628ea1fd4d8fc3f5561f9cda3,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3249000991935905527, guid: d849df0628ea1fd4d8fc3f5561f9cda3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3249000991935905527, guid: d849df0628ea1fd4d8fc3f5561f9cda3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3384668462554160668, guid: d849df0628ea1fd4d8fc3f5561f9cda3,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -62271,11 +62296,6 @@ PrefabInstance:
       propertyPath: currentGameState
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 4781862735877332105, guid: ea72811a6aedcbb49a26143d920154e7,
-        type: 3}
-      propertyPath: Loop
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7727236882916227382, guid: ea72811a6aedcbb49a26143d920154e7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -62502,7 +62522,7 @@ Transform:
   m_Children:
   - {fileID: 7022278475629972396}
   - {fileID: 7022278475629972044}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1277518877}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!4 &7022278475629972352
 Transform:
@@ -63827,7 +63847,8 @@ AudioSource:
   m_GameObject: {fileID: 7022278475630007918}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -7128067719386893152, guid: 204ae77320b536d459d12c2126255a73,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: add1df4c3208722479d5aeba8f42461b, type: 3}
   m_Resource: {fileID: 8300000, guid: add1df4c3208722479d5aeba8f42461b, type: 3}
   m_PlayOnAwake: 1
@@ -64791,6 +64812,3 @@ SceneRoots:
   - {fileID: 1379097609}
   - {fileID: 83714825}
   - {fileID: 1305938608}
-  - {fileID: 7022278475629972046}
-  - {fileID: 2744886808288475493}
-  - {fileID: 1480216970}
