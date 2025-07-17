@@ -220,7 +220,7 @@ public class Affector : MonoBehaviour
                 var value = damage ;
                 var critical=false;
                
-                var damageableGroup = go.GetComponent<DamageableGroup>(); Debug.Log(damageableGroup.gameObject);
+                var damageableGroup = go.GetComponent<DamageableGroup>(); 
                 if (damageableGroup)
                 {
                     value *= damageableGroup.GetDamageMultipler();
