@@ -300,7 +300,7 @@ namespace Akila.FPSFramework
                         if (Player_Manager.Instance.playerIsGod)
                             return;
 
-                        finalDamage = Player_Manager.Instance.MaxHealth * 0.4f;
+                        finalDamage = Player_Manager.Instance.MaxHealth * 0.3f;
 
                         float evasionChance = SkillEffectHandler.Instance.evasionChance;
                         float roll = UnityEngine.Random.value; // 0.0f ~ 1.0f 사이 랜덤값
