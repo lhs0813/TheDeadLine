@@ -110,19 +110,27 @@ namespace Akila.FPSFramework
             inventory.items = inventory.transform.GetComponentsInChildren<InventoryItem>(true).ToList();
 
             int index = inventory.items.IndexOf(newItem);
+            int index2 = 0;
 
             if (inventory.items.Count > inventory.maxSlots)
             {
                 if (inventory.currentItemIndex >= 0 && inventory.currentItemIndex < inventory.items.Count)
                 {
+                    index2 = inventory.currentItemIndex;
                     inventory.items[inventory.currentItemIndex]?.Drop();
                 }
 
+                newItem.transform.SetSiblingIndex(index2);
+                inventory.Switch(index2);
+            }
+            else
+            {
                 index = inventory.items.Count - 1;
+                index = Mathf.Clamp(index, 0, inventory.maxSlots - 1);
+                inventory.Switch(index);
             }
 
-            index = Mathf.Clamp(index, 0, inventory.maxSlots - 1);
-            inventory.Switch(index);
+            
 
             if(AnalyticsManager.Instance)AnalyticsManager.Instance.WeaponPick_Dictionary(Name);
             

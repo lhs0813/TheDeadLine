@@ -160,14 +160,14 @@ public class Affector : MonoBehaviour
     {
         if (enabled == false) return;
 
-        CommonEnter(other.gameObject);
+        //CommonEnter(other.gameObject);
 
     }
     void OnCollisionEnter(Collision collision)
     {
         if(enabled==false) return;
 
-        CommonEnter(collision.gameObject);
+       // CommonEnter(collision.gameObject);
     }
 
 
@@ -225,10 +225,10 @@ public class Affector : MonoBehaviour
                 {
                     value *= damageableGroup.GetDamageMultipler();
                     critical = damageableGroup.GetHead();
+                    damageTarget.Damage(value, gameObject, critical);
                 }
 
 
-                damageTarget.Damage(value, gameObject, critical);
             }
 
 
