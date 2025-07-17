@@ -118,6 +118,9 @@ public class Affector : MonoBehaviour
             if (hits[i].collider == null)
                 continue;
 
+            if (hits[i].collider.enabled==false)
+                continue;
+
             if (hits[i].collider.isTrigger)
                 continue;
 
