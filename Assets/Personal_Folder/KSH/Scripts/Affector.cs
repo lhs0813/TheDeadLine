@@ -118,6 +118,9 @@ public class Affector : MonoBehaviour
             if (hits[i].collider == null)
                 continue;
 
+            if (hits[i].collider.enabled==false)
+                continue;
+
             if (hits[i].collider.isTrigger)
                 continue;
 
@@ -153,13 +156,13 @@ public class Affector : MonoBehaviour
 
         before = transform.position;
     }
-    void OnTriggerEnter(Collider other)
-    {
-        if (enabled == false) return;
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if (enabled == false) return;
 
-        CommonEnter(other.gameObject);
+    //    CommonEnter(other.gameObject);
 
-    }
+    //}
     void OnCollisionEnter(Collision collision)
     {
         if(enabled==false) return;
@@ -216,16 +219,14 @@ public class Affector : MonoBehaviour
             {
                 var value = damage ;
                 var critical=false;
-
-                var damageableGroup = go.GetComponent<DamageableGroup>();
+               
+                var damageableGroup = go.GetComponent<DamageableGroup>(); Debug.Log(damageableGroup.gameObject);
                 if (damageableGroup)
                 {
                     value *= damageableGroup.GetDamageMultipler();
                     critical = damageableGroup.GetHead();
+                   damageTarget.Damage(value, gameObject, critical);
                 }
-
-
-                damageTarget.Damage(value, gameObject, critical);
             }
 
 
