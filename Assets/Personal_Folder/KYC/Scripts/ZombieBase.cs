@@ -2,6 +2,7 @@
 using FIMSpace.FProceduralAnimation;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Audio;
 using UnityEngine.UIElements;
 
 public abstract class ZombieBase : MonoBehaviour, IZombie
@@ -101,6 +102,8 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
         damageable = GetComponentInChildren<Damageable>();
         identifier = GetComponentInParent<EnemyIdentifier>();
         scaleOrigin = transform.localScale;
+
+        audioSource.outputAudioMixerGroup = MixerSingleton.sfxMixerGroup;
     }
 
     public void SetState(IZombieState newState)
