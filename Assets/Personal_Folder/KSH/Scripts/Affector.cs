@@ -156,13 +156,13 @@ public class Affector : MonoBehaviour
 
         before = transform.position;
     }
-    //void OnTriggerEnter(Collider other)
-    //{
-    //    if (enabled == false) return;
+    void OnTriggerEnter(Collider other)
+    {
+        if (enabled == false) return;
 
-    //    CommonEnter(other.gameObject);
+        CommonEnter(other.gameObject);
 
-    //}
+    }
     void OnCollisionEnter(Collision collision)
     {
         if(enabled==false) return;
@@ -182,12 +182,16 @@ public class Affector : MonoBehaviour
             return;
         }
 
-
+       
 
         //Damagebla 판단 
         var damageTarget = go.GetComponentInParent<Damageable>();
         if (damageTarget == null && go.transform.parent)
-            damageTarget = go.transform.parent.GetComponentInChildren<Damageable>();
+        {
+            if(go.GetComponent<ZombieBase>())
+                 damageTarget = go.transform.parent.GetComponentInChildren<Damageable>();
+        }
+
 
         if (damageTarget)
         {
@@ -220,13 +224,14 @@ public class Affector : MonoBehaviour
                 var value = damage ;
                 var critical=false;
                
-                var damageableGroup = go.GetComponent<DamageableGroup>(); Debug.Log(damageableGroup.gameObject);
+                var damageableGroup = go.GetComponent<DamageableGroup>(); 
                 if (damageableGroup)
                 {
                     value *= damageableGroup.GetDamageMultipler();
                     critical = damageableGroup.GetHead();
-                   damageTarget.Damage(value, gameObject, critical);
                 }
+
+               damageTarget.Damage(value, gameObject, critical);
             }
 
 
@@ -323,8 +328,6 @@ public class Affector : MonoBehaviour
                 Destroy(gameObject); // enabled = false;
             else
                 enabled = false;
-
-
         }
 
 
