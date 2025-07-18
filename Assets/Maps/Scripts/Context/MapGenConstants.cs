@@ -11,11 +11,11 @@ public static class MapGenConstants
 
 
     ///Max Enemy Count On a stage
-    public const int MaxNormalCreatureCountLimitOnStage = 120; //스테이지 내 일반 적의 수의 리미트.
+    public const int MaxNormalCreatureCountLimitOnStage = 80; //스테이지 내 일반 적의 수의 리미트.
 
     public const int MaxBigCreatureCountLimitOnStage = 10; //스테이지 내 거대 적의 수의 리미트.
 
-    public const int MaxBombCreatureCountLimitOnStage = 10; //스테이지 내 자폭형 적의 수의 리미트.
+    public const int MaxBombCreatureCountLimitOnStage = 5; //스테이지 내 자폭형 적의 수의 리미트.
 
     public const int MaxFastCreatureCountLimitOnStage = 10;
 
