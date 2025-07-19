@@ -7,5 +7,6 @@ public class EnemyIdentifier : MonoBehaviour
     public bool isPrespawn;
     public bool wasTrackingPlayer;
     public bool isTileChanged;
+    public int tile;
 }
 

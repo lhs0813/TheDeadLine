@@ -12,7 +12,7 @@ public class MainPathSpawner : MonoBehaviour
     [SerializeField, Tooltip("스폰 지점 간 최소 거리")]
     private float minSpawnDistance = 5f;
 
-    private readonly List<GameObject> preSpawnedEnemies = new List<GameObject>();
+    public List<GameObject> preSpawnedEnemies = new List<GameObject>();
     private List<Vector3> spawnPoints;
 
     // int → float로 변경
@@ -40,13 +40,13 @@ public class MainPathSpawner : MonoBehaviour
     /// <summary>
     /// 분할 스폰: 한 프레임에 한 번씩
     /// </summary>
-    public void MainSpawn(int mapIndex, bool track, bool danger)
+    public void MainSpawn(int mapIndex, bool track, bool danger, int t)
     {
         if (gameObject.activeInHierarchy)
-            StartCoroutine(SpawnRoutine(mapIndex, track, danger));
+            StartCoroutine(SpawnRoutine(mapIndex, track, danger,t ));
     }
 
-    private IEnumerator SpawnRoutine(int mapIndex, bool track, bool danger)
+    private IEnumerator SpawnRoutine(int mapIndex, bool track, bool danger, int t)
     {
         // multiplier 계산
         float multiplier = danger ? dangerSpawnMultiplier : 1f;
@@ -57,17 +57,17 @@ public class MainPathSpawner : MonoBehaviour
         {
             // 1) guaranteed 만큼 스폰
             for (int i = 0; i < guaranteed; i++)
-                SpawnOne(mapIndex, track, point);
+                SpawnOne(mapIndex, track, point, t);
 
             // 2) fractional 확률로 한 마리 추가
             if (danger && Random.value < fractional)
-                SpawnOne(mapIndex, track, point);
+                SpawnOne(mapIndex, track, point, t);
 
             yield return null;
         }
     }
 
-    private void SpawnOne(int mapIndex, bool track, Vector3 point)
+    private void SpawnOne(int mapIndex, bool track, Vector3 point, int tilenum)
     {
         float randomY = Random.Range(0f, 360f);
         EnemyType type = HordeSpawnBuilder.RollEnemyType(mapIndex);
@@ -76,7 +76,11 @@ public class MainPathSpawner : MonoBehaviour
             .Spawn(type, point, Quaternion.Euler(0f, randomY, 0f), !track);
 
         if (enemy != null)
+        {
             preSpawnedEnemies.Add(enemy);
+            enemy.GetComponent<EnemyIdentifier>().tile = tilenum;
+        }
+
     }
 
     // 이하 GetNonOverlappingNavMeshPoints, DeSpawn 등은 그대로 유지
@@ -108,14 +112,21 @@ public class MainPathSpawner : MonoBehaviour
         return points;
     }
 
-    public void DeSpawn()
+    public void DeSpawn(int S)
     {
+        int count = 0;
+
         foreach (var enemy in preSpawnedEnemies)
         {
             if (enemy == null) continue;
             var id = enemy.GetComponent<EnemyIdentifier>();
-            if (id != null && !id.wasTrackingPlayer)
+            if (id != null && !id.wasTrackingPlayer && id.tile == S)
+            {
                 EnemyPoolManager.Instance.ReturnToPool(id.Type, enemy, 0f);
+                count++;
+            }
+
+
         }
         preSpawnedEnemies.Clear();
     }

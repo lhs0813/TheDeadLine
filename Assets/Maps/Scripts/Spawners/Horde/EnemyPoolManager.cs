@@ -284,6 +284,7 @@ public class EnemyPoolManager : MonoBehaviour
         }
 
 
+
         // reset position (optional)
         obj.transform.position = Vector3.zero;
 

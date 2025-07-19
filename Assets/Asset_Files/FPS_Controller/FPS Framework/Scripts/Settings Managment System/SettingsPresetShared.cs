@@ -139,7 +139,6 @@ namespace Akila.FPSFramework
 
         public void SetBrightness(float value)
         {
-            Debug.Log($"[SetBrightness] called with value={value}");
 
             float t = Mathf.Clamp01(value / 100f);
             float mapped = Mathf.Lerp(0f, 2f, t);  // 0 ~ 2 보간
@@ -156,11 +155,9 @@ namespace Akila.FPSFramework
                     if (profile.TryGet(out CRTSettings crt))
                     {
                         crt.brightness.value = mapped;
-                        Debug.Log($"[SetBrightness] Brightness set to {mapped}");
                     }
                     else
                     {
-                        Debug.LogWarning("[SetBrightness] CRTSettings not found in Volume_CRT");
                     }
                 }
                 else
