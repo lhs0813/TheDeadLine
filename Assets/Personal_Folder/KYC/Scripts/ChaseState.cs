@@ -165,9 +165,9 @@ public class ChaseState : IZombieState
         if (Vector3.Distance(target, _lastDestination) < _destinationUpdateThreshold) return;
 
         // Y값 보정 없이 그대로 target 넣으면 공중일 수 있음
-        if (NavMesh.SamplePosition(target, out NavMeshHit hit, 3f, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(target, out NavMeshHit hit, 99, NavMesh.AllAreas))
         {
-            Vector3 groundTarget = new Vector3(target.x, hit.position.y, target.z); // Y 보정
+            Vector3 groundTarget = hit.position;//new Vector3(target.x, hit.position.y, target.z); // Y 보정
             _zombie.Agent.SetDestination(groundTarget);
             _lastDestination = groundTarget;
         }
