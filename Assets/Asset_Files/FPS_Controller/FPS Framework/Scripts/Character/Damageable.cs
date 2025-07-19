@@ -238,7 +238,7 @@ namespace Akila.FPSFramework
             // 풀로 반환: EnemyIdentifier에서 타입을 꺼내서 ReturnToPool 호출
             if (enemyIdentifier != null)
             {
-                Debug.Log($"{enemyIdentifier} 반환.");
+                //Debug.Log($"{enemyIdentifier} 반환.");
                 EnemyPoolManager.Instance.ReturnToPool(enemyIdentifier.Type, enemyIdentifier.gameObject, 3f);
             }
             else
