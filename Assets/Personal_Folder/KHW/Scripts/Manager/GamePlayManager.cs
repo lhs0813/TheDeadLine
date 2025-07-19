@@ -215,7 +215,6 @@ public class GamePlayManager : MonoBehaviour
 
         bgmController.PlayRandomCombatMusic();
 
-        Debug.Log("기차가 역에 도착");
         OnStationArriveAction?.Invoke(currentStageInfo.combatTime);
     }
 
