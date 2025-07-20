@@ -15,7 +15,7 @@ public class ChaseState : IZombieState
 
     private float _checkInterval;
     private float _chaseInterval;
-    private float _destinationUpdateThreshold = 1.0f;
+    private float _destinationUpdateThreshold = 0.2f;
 
     private Vector3 _lastDestination = Vector3.zero;
     private Vector3 flankOffset;
@@ -161,15 +161,37 @@ public class ChaseState : IZombieState
 
     private void SafeSetDestination(Vector3 target)
     {
-        if (_zombie.Agent == null || !_zombie.Agent.isOnNavMesh) return;
-        if (Vector3.Distance(target, _lastDestination) < _destinationUpdateThreshold) return;
+        if (_zombie.Agent == null || !_zombie.Agent.isOnNavMesh)
+            return;
 
-        // Y값 보정 없이 그대로 target 넣으면 공중일 수 있음
-        if (NavMesh.SamplePosition(target, out NavMeshHit hit, 99, NavMesh.AllAreas))
+        // 1) NavMesh 상의 실제 위치를 샘플링
+        Vector3 groundTarget;
+        if (NavMesh.SamplePosition(target, out var hit, 3f, NavMesh.AllAreas))
         {
-            Vector3 groundTarget = hit.position;//new Vector3(target.x, hit.position.y, target.z); // Y 보정
+            groundTarget = hit.position;
+        }
+        else
+        {
+            // 샘플링 실패 시 플레이어 위치로 fallback
+            groundTarget = _player.position;
+        }
+
+        // 2) 경로 계산 시도
+        var path = new NavMeshPath();
+        bool pathOK = _zombie.Agent.CalculatePath(groundTarget, path)
+                      && path.status == NavMeshPathStatus.PathComplete;
+
+        if (pathOK)
+        {
+            // 정상 경로면 이동
             _zombie.Agent.SetDestination(groundTarget);
             _lastDestination = groundTarget;
+        }
+        else
+        {
+            // 경로가 유효하지 않으면 무조건 플레이어 위치로
+            _zombie.Agent.SetDestination(_player.position);
+            _lastDestination = _player.position;
         }
     }
 
