@@ -35,10 +35,14 @@ namespace Akila.FPSFramework
             if (_rigidbody != null)
                 _rigidbody.isKinematic = _kinematicInfo;
 
-            if (_col == null)
-                _col = GetComponent<Collider>();
-            if (_col != null)
-                _col.isTrigger = _kinematicInfo;
+
+            if (GetHead() == false)
+            {
+                if (_col == null)
+                    _col = GetComponent<Collider>();
+                if (_col != null)
+                    _col.isTrigger = _kinematicInfo;
+            }
         }
         
 
