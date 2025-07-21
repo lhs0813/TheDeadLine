@@ -4,7 +4,7 @@ public class SocialLinker : MonoBehaviour
 {
     [Header("URLs")]
     [Tooltip("초대 링크가 아니라면 서버 주소로 교체하세요")]
-    public string discordUrl = "https://discord.gg/3SgmFVPcQ2";
+    [SerializeField] private string discordUrl = "https://discord.gg/pMn6YjHknE";
     public string twitterUrl = "https://x.com/RottenApple_170";
     public string steamUrl = "https://store.steampowered.com/app/3827830/The_DeadLine/";
 

@@ -131,6 +131,7 @@ namespace Akila.FPSFramework.UI
             FPSFrameworkCore.IsPaused = true;
             AudioListener.pause = true;
             Time.timeScale = 0f;
+            Physics.simulationMode = SimulationMode.Script;
             _isOpen = true;
 
             // 2) CanvasGroup 활성화 상태로 전환
@@ -168,7 +169,7 @@ namespace Akila.FPSFramework.UI
             // 2) 인터랙션 차단
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
-
+            Physics.simulationMode = SimulationMode.FixedUpdate;
             // 3) 시간 복구
             FPSFrameworkCore.IsPaused = false;
             Time.timeScale = 1f;
