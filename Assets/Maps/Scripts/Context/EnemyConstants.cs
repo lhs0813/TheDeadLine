@@ -1,4 +1,5 @@
 using System.Text;
+using UnityEngine;
 
 public static class EnemyConstants
 {
@@ -62,8 +63,8 @@ public static class EnemyConstants
     public const float big_damageOffset = 3f;
     public const float fast_baseDamage = 5f;
     public const float fast_damageOffset = 1f;
-    public const float bomb_baseDamage = 5f;
-    public const float bomb_damageOffset = 3f;
+    public const float bomb_baseDamage = 0.3f;
+    //public const float bomb_damageOffset = 3f;
 
     public static float GetZombieDamageByType(EnemyType enemyType, int mapIndex)
     {
@@ -76,7 +77,20 @@ public static class EnemyConstants
             case EnemyType.Fast:
                 return fast_baseDamage + mapIndex * fast_damageOffset;
             case EnemyType.Bomb:
-                return bomb_baseDamage + mapIndex * bomb_damageOffset;
+            {
+                // 2차함수 계수 (x = stage)
+                const float a = 0.0003075292f;
+                const float b = 0.0160021209f;
+                const float c = 0.2310710498f;
+
+                // f(x) = a·x² + b·x + c
+                float damage = a * mapIndex * mapIndex
+                            + b * mapIndex
+                            + c;
+
+                // 1.8f를 넘지 않도록 클램프
+                return Mathf.Min(damage, 1.8f);
+            }
             default:
                 return 0f;
         }
