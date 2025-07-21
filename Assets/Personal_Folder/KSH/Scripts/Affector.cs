@@ -233,7 +233,7 @@ public class Affector : MonoBehaviour
                 else
                 {
                     value *= damageTarget.GetComponentInChildren<DamageableGroup>().GetDamageMultipler();
-                    critical = damageableGroup.GetHead();
+                    //critical = damageableGroup.GetHead();
                 }
 
                 damageTarget.Damage(value, gameObject, critical);
