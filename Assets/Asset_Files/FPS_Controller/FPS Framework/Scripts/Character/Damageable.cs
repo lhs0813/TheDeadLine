@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
 using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.Audio;
 
 namespace Akila.FPSFramework
 {
@@ -45,6 +46,10 @@ namespace Akila.FPSFramework
         public bool deadConfirmed { get; set; }
 
         ZombieBase _zombie;
+
+        public AudioSource hitSounds;
+
+        public List<AudioClip> _playerHitClips;
 
         //킬 데미지 관련 변수 설정
         KillFeed _killFeed;
@@ -296,6 +301,10 @@ namespace Akila.FPSFramework
             if (type == HealthType.Player && isPlayer)
             {
                 float predictedHp = health - amount;
+
+                int randomIndex = UnityEngine.Random.Range(0, _playerHitClips.Count);
+                hitSounds.clip = _playerHitClips[randomIndex];
+                hitSounds.Play();
 
                 // 스킬이 적용 중이고, 체력이 20 이하로 떨어지며, 아직 해당 역에서 한 번도 발동되지 않은 경우
                 if (SkillEffectHandler.Instance.isInvinciblePerStation &&

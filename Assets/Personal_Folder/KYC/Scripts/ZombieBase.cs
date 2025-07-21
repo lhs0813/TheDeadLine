@@ -51,6 +51,8 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
     public AudioClip[] attackClips;
     public AudioClip[] deathClips;
 
+    
+
     [Header("Procedual Zombie")]
     public Material[] materials;
     public GameObject hatSpace;
@@ -352,6 +354,7 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
 
                 if (roll < evasionChance)
                 {
+
                     Debug.Log("⚡ 회피 성공! 데미지를 받지 않음");
                     return; // 회피 성공 시 데미지 무시
                 }
