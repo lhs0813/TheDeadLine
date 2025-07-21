@@ -73,7 +73,9 @@ namespace Akila.FPSFramework
                 case PickableType.rotateGate:
                     InteractWithRotateGate(source);
                     break;
-
+                case PickableType.ArmHanger:
+                    InteractWithArmHanger(source);
+                    break;
                 default:
                     Debug.LogWarning($"Unhandled pickable type: {type}", gameObject);
                     break;
@@ -275,6 +277,17 @@ namespace Akila.FPSFramework
             rotateGate.Activate();
         }
 
+
+        public virtual void InteractWithArmHanger(InteractionsManager source)
+        {
+            if (source == null || source.Inventory == null)
+            {
+                Debug.LogError("Missing source or inventory reference during collectable interaction.", gameObject);
+                return;
+            }
+            GetComponent<ArmChange>().ChangeArm();
+        }
+
     }
 
     public enum PickableType
@@ -287,5 +300,6 @@ namespace Akila.FPSFramework
         ReCharge = 5,
         AccelerationButton = 6,
         rotateGate = 7,
+        ArmHanger = 8,
     }
 }
