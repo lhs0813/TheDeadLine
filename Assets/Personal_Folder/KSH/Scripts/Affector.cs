@@ -182,7 +182,7 @@ public class Affector : MonoBehaviour
             return;
         }
 
-        Debug.Log(go.gameObject);
+        //Debug.Log(go.gameObject);
 
         //Damagebla 판단 
         var damageTarget = go.GetComponentInParent<Damageable>();
@@ -217,7 +217,7 @@ public class Affector : MonoBehaviour
             if (hitDamageble == false)
                 return;
 
-            Debug.Log(go.gameObject);
+            //Debug.Log(go.gameObject);
 
 
             if (damage != 0)
