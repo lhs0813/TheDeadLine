@@ -285,6 +285,7 @@ namespace Akila.FPSFramework
                 Debug.LogError("Missing source or inventory reference during collectable interaction.", gameObject);
                 return;
             }
+
             GetComponent<ArmChange>().ChangeArm();
         }
 

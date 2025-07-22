@@ -192,6 +192,11 @@ namespace Akila.FPSFramework
         /// <summary>
         /// Represents the current progress of the aiming animation, ranging from 0 (not aiming) to 1 (fully aimed).
         /// </summary>
+        /// 
+
+        public GameObject fpsHands;
+
+
         public float aimProgress
         {
             get
@@ -219,11 +224,18 @@ namespace Akila.FPSFramework
 
         private bool isPreviouslyReloading;
 
+        public void SetTexture()
+        {
+            fpsHands = GetComponentInChildren<FpsHands_ColorSet>().gameObject;
+            fpsHands.GetComponent<SkinnedMeshRenderer>().material.SetTexture("_BaseMap", HandMat_Holder.currentTexture);
+        }
 
         protected override void Start()
         {
             // Call the base class Start method to ensure any inherited initialization is performed.
             base.Start();
+
+            SetTexture();
 
             // Check if a valid preset is provided
             if (preset == null)
