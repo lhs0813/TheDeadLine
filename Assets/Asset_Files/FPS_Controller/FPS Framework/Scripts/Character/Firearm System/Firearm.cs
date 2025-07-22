@@ -196,6 +196,7 @@ namespace Akila.FPSFramework
 
         public GameObject fpsHands;
 
+        public GameObject interactFpsHands;
 
         public float aimProgress
         {
@@ -228,12 +229,17 @@ namespace Akila.FPSFramework
         {
             fpsHands = GetComponentInChildren<FpsHands_ColorSet>().gameObject;
             fpsHands.GetComponent<SkinnedMeshRenderer>().material.SetTexture("_BaseMap", HandMat_Holder.currentTexture);
+
+            interactFpsHands = FindAnyObjectByType<InteractHands_Mat>().gameObject;
+            interactFpsHands.GetComponent<SkinnedMeshRenderer>().material.SetTexture("_BaseMap", HandMat_Holder.currentTexture);
         }
 
         protected override void Start()
         {
             // Call the base class Start method to ensure any inherited initialization is performed.
             base.Start();
+
+            
 
             SetTexture();
 
