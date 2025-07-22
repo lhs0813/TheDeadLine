@@ -32,10 +32,31 @@ namespace LeastSquares
                 Debug.LogError("SteamClient is not initialized. Waiting for initialization...");
                 await WaitForSteamInitialization();
             }
+
+            await InitializeScoreIfMissing();
+
             SaveScore();
             RefreshScores();
         }
 
+
+        private async Task InitializeScoreIfMissing()
+        {
+            // 주변 순위(내 순위 포함)를 한 번 가져와서 내 SteamId가 있는지 확인
+            var around = await Leaderboard.GetScoresAroundUser(EntriesToShowAtOnce / 2);
+            bool hasMyEntry = around != null && around.Any(e => e.User.Id == SteamClient.SteamId);
+
+            if (!hasMyEntry)
+            {
+                Debug.Log("리더보드에 내 기록이 없습니다. 로컬 스코어를 0으로 초기화합니다.");
+                // RecordManager 쪽에서 PlayerPrefs.SetInt + Save까지 처리되도록 구현한 메서드 사용
+                
+                PlayerPrefs.SetInt("InfiniteMaxStage", 0);
+                PlayerPrefs.Save();
+
+                Leaderboard.SubmitScore(0);
+            }
+        }
         /// <summary>
         /// Fill the leaderboardUI with new scores
         /// </summary>

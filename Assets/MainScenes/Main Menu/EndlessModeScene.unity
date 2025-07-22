@@ -40377,6 +40377,92 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2005239119}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2014210589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2014210592}
+  - component: {fileID: 2014210591}
+  - component: {fileID: 2014210590}
+  m_Layer: 0
+  m_Name: Prop_WallHanger_03
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &2014210590
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014210589}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &2014210591
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014210589}
+  m_Mesh: {fileID: 4300000, guid: fbe076ebb658e4d4b9a2ff562d12a96a, type: 2}
+--- !u!4 &2014210592
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014210589}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.217, y: -0.181, z: -1.52}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2019462931
 GameObject:
   m_ObjectHideFlags: 0
@@ -54760,6 +54846,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   died: 0
+  hitSounds: {fileID: 0}
+  _playerHitClips: []
   isPlayer: 0
   onRespawn:
     m_PersistentCalls:
@@ -57136,6 +57224,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -309.594
       objectReference: {fileID: 0}
+    - target: {fileID: 902918845454636775, guid: d849df0628ea1fd4d8fc3f5561f9cda3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1157792200476153307, guid: d849df0628ea1fd4d8fc3f5561f9cda3,
         type: 3}
       propertyPath: m_Alpha
@@ -57585,6 +57678,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -583.0465
+      objectReference: {fileID: 0}
+    - target: {fileID: 8329475839575839554, guid: d849df0628ea1fd4d8fc3f5561f9cda3,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8329475839575839554, guid: d849df0628ea1fd4d8fc3f5561f9cda3,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8823690777255650902, guid: d849df0628ea1fd4d8fc3f5561f9cda3,
         type: 3}
@@ -61743,6 +61846,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   died: 0
+  hitSounds: {fileID: 0}
+  _playerHitClips: []
   isPlayer: 0
   onRespawn:
     m_PersistentCalls:
@@ -73398,3 +73503,4 @@ SceneRoots:
   - {fileID: 239547095}
   - {fileID: 217879986}
   - {fileID: 932731077}
+  - {fileID: 2014210592}
