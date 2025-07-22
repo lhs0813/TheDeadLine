@@ -26,6 +26,7 @@ public class Player_Manager : MonoBehaviour
 
     public AudioSource _bonusRunSounds;
     public AudioSource throwSounds;
+    public AudioSource evadeSounds;
 
     public bool playerIsGod = true;
 
@@ -43,7 +44,7 @@ public class Player_Manager : MonoBehaviour
         PlayerHpChange += hpUpdate;
         PlayerMaxHpChange += MaxhpUpdate;
     }
-
+    public void EvadeSound() { evadeSounds.Play(); }
     private void hpUpdate(float hp)
     {
         playerHp = hp;
