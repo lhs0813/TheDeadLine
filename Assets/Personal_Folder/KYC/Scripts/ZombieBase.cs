@@ -356,6 +356,8 @@ public abstract class ZombieBase : MonoBehaviour, IZombie
                 {
 
                     Debug.Log("⚡ 회피 성공! 데미지를 받지 않음");
+                    Player_Manager.Instance.EvadeSound();
+
                     return; // 회피 성공 시 데미지 무시
                 }
 
