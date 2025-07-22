@@ -172,7 +172,7 @@ public class Affector : MonoBehaviour
 
 
 
-
+    public bool noCri;
     public void CommonEnter(GameObject go)
     {
         var ex = go.GetComponentInParent<Explosive>();
@@ -182,7 +182,6 @@ public class Affector : MonoBehaviour
             return;
         }
 
-       
 
         //Damagebla 판단 
         var damageTarget = go.GetComponentInParent<Damageable>();
@@ -217,6 +216,7 @@ public class Affector : MonoBehaviour
             if (hitDamageble == false)
                 return;
 
+            Debug.Log(go.gameObject);
 
 
             if (damage != 0)
@@ -224,20 +224,26 @@ public class Affector : MonoBehaviour
                 var value = damage;
                 var critical = false;
 
-                var damageableGroup = go.GetComponentInChildren<DamageableGroup>();
-                if (damageableGroup)
+                if (noCri)
                 {
-                    value *= damageableGroup.GetDamageMultipler();
-                    critical = damageableGroup.GetHead();
+                    value *= damageTarget.GetComponentInChildren<DamageableGroup>().GetDamageMultipler();
                 }
                 else
                 {
-                    value *= damageTarget.GetComponentInChildren<DamageableGroup>().GetDamageMultipler();
-                    //critical = damageableGroup.GetHead();
+                    var damageableGroup = go.GetComponentInChildren<DamageableGroup>();
+                    if (damageableGroup)
+                    {
+                        value *= damageableGroup.GetDamageMultipler();
+                        critical = damageableGroup.GetHead();
+                    }
+                    else
+                    {
+                        value *= damageTarget.GetComponentInChildren<DamageableGroup>().GetDamageMultipler();
+                    }
                 }
 
-                damageTarget.Damage(value, gameObject, critical);
 
+                damageTarget.Damage(value, gameObject, critical);
             }
 
 
