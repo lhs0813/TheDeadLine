@@ -2,6 +2,7 @@
 using Akila.FPSFramework.Internal;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.ParticleSystem;
@@ -192,6 +193,13 @@ namespace Akila.FPSFramework
         /// <summary>
         /// Represents the current progress of the aiming animation, ranging from 0 (not aiming) to 1 (fully aimed).
         /// </summary>
+        /// 
+
+        public GameObject fpsHands;
+
+        public GameObject interactFpsHands;
+
+        public GameObject tabletFpsHands;
         public float aimProgress
         {
             get
@@ -219,11 +227,37 @@ namespace Akila.FPSFramework
 
         private bool isPreviouslyReloading;
 
+        public void SetTexture()
+        {
+            fpsHands = GetComponentInChildren<FpsHands_ColorSet>().gameObject;
+            fpsHands.GetComponent<SkinnedMeshRenderer>().material.SetTexture("_BaseMap", HandMat_Holder.currentTexture);
+
+            interactFpsHands = FindAnyObjectByType<InteractHands_Mat>().gameObject;
+            interactFpsHands.GetComponent<SkinnedMeshRenderer>().material.SetTexture("_BaseMap", HandMat_Holder.currentTexture);
+
+            var tabletComp = FindObjectsByType<Tablet_Color>(FindObjectsInactive.Include,FindObjectsSortMode.None).FirstOrDefault();
+
+            if (tabletComp != null)
+            {
+                tabletFpsHands = tabletComp.gameObject;
+                tabletFpsHands.GetComponent<SkinnedMeshRenderer>().material.SetTexture("_BaseMap", HandMat_Holder.currentTexture);
+            }
+            else
+            {
+                Debug.LogWarning("Tablet_Color 컴포넌트를 가진 오브젝트를 찾지 못했습니다.");
+            }
+            
+
+        }
 
         protected override void Start()
         {
             // Call the base class Start method to ensure any inherited initialization is performed.
             base.Start();
+
+            
+
+            SetTexture();
 
             // Check if a valid preset is provided
             if (preset == null)
