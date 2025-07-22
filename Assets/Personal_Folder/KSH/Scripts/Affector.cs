@@ -156,13 +156,13 @@ public class Affector : MonoBehaviour
 
         before = transform.position;
     }
-    void OnTriggerEnter(Collider other)
-    {
-        if (enabled == false) return;
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if (enabled == false) return;
 
-        CommonEnter(other.gameObject);
+    //    CommonEnter(other.gameObject);
 
-    }
+    //}
     void OnCollisionEnter(Collision collision)
     {
         if(enabled==false) return;
@@ -182,6 +182,7 @@ public class Affector : MonoBehaviour
             return;
         }
 
+        Debug.Log(go.gameObject);
 
         //Damagebla 판단 
         var damageTarget = go.GetComponentInParent<Damageable>();
