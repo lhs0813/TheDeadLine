@@ -21,11 +21,13 @@ namespace Akila.FPSFramework
 
         public static Resolution[] GetResolutions()
         {
-            List<Resolution> resolutions = new List<Resolution>();
+            var resolutions = new List<Resolution>();
 
-            foreach (Resolution res in Screen.resolutions)
+            foreach (var res in Screen.resolutions)
             {
-                if (res.width >= 1920 && res.height >= 1080 && res.refreshRateRatio.value >= GetRefreshRate())
+                if (res.width  >= 1920 &&
+                    res.height >= 1080 &&
+                    res.refreshRate >= GetRefreshRate())  // refreshRateRatio 대신 refreshRate 사용 권장
                 {
                     resolutions.Add(res);
                 }
@@ -33,8 +35,13 @@ namespace Akila.FPSFramework
 
             resolutions.Reverse();
 
+            // 개별 항목별로 로그 출력
+            // foreach (var r in resolutions)
+            //     Debug.LogError($"Resolution: {r.width}×{r.height} @ {r.refreshRate}Hz (ratio {r.refreshRateRatio.value:F2})");
+
             return resolutions.ToArray();
         }
+
 
         public static Vector3 MultiplyVectors(Vector3 a, Vector3 b)
         {

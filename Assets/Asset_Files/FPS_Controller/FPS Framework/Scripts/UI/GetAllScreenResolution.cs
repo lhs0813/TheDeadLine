@@ -15,12 +15,12 @@ namespace Akila.FPSFramework
 
         private void Awake()
         {
-
+            RegenrateList();
         }
 
         private void Start()
         {
-            RegenrateList();
+
         }
 
         [ContextMenu("Regenrate List")]
