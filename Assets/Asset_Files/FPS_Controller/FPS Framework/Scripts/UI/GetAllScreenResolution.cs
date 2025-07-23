@@ -58,7 +58,7 @@ namespace Akila.FPSFramework
 
             int currentResIndex = 0;
 
-            currentResIndex = resolutions.IndexOf(Screen.currentResolution);
+            //currentResIndex = resolutions.IndexOf(Screen.currentResolution);
 
             if (dropdown != null)
                 dropdown.value = currentResIndex;

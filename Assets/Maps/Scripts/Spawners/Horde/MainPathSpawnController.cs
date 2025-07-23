@@ -16,6 +16,7 @@ public class MainPathSpawnController : MonoBehaviour
     bool upperSpawned;
     bool underSpawned;
     bool danger;
+    bool isDangerSpawnTile;
 
     bool canSpawn;
     public float spawnCooldown = 5f;
@@ -44,6 +45,18 @@ public class MainPathSpawnController : MonoBehaviour
 
         spawnDeepness = tileSpawning.GetDeepness();
         Debug.Log(spawnDeepness);
+    }
+
+    void Update()
+    {
+        if (danger && isDangerSpawnTile)
+        {
+            if (DangerTImer.isDangerSpawnable)
+            {
+                UnderSpawn();
+                DangerTImer.isDangerSpawnable = false;
+            }
+        }
     }
 
     private void ManagePlayerLocation(DungenCharacter character, Tile previousTile, Tile newTile)
@@ -82,6 +95,15 @@ public class MainPathSpawnController : MonoBehaviour
                     return;
                 }
             }
+        }
+
+        if (danger && newDepth == spawnDeepness + 2)
+        {
+            isDangerSpawnTile = true;
+        }
+        else
+        {
+            isDangerSpawnTile = false;
         }
 
         // 상승/하강 분기 (플래그 검사 포함)
