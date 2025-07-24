@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 public class AnalyticsManager : MonoBehaviour
 {
     public static AnalyticsManager Instance { get; private set; }
-    private bool _isInitialized = false;
+    private bool _isInitialized = true;
 
     private Dictionary<string, int> _pickedWeaponCounts = new Dictionary<string, int>();
     private Dictionary<string, int> _pickedSkillCounts = new Dictionary<string, int>();
