@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 public class AnalyticsManager : MonoBehaviour
 {
     public static AnalyticsManager Instance { get; private set; }
-    private bool _isInitialized = true;
+    private bool _isInitialized = false;
 
     private Dictionary<string, int> _pickedWeaponCounts = new Dictionary<string, int>();
     private Dictionary<string, int> _pickedSkillCounts = new Dictionary<string, int>();
@@ -29,7 +29,7 @@ public class AnalyticsManager : MonoBehaviour
     {
         await UnityServices.InitializeAsync();
         AnalyticsService.Instance.StartDataCollection();
-        //_isInitialized = true;
+        _isInitialized = true;
     }
 
     public void log_storymode_round_progress(int round) // 매번 라운드를 지나 이동할 때, 로그를 남기면 몇스테이지까지 보통 진행하는지 확인해서, 시간과 진행도를 모두 확인 가능
@@ -113,17 +113,17 @@ public class AnalyticsManager : MonoBehaviour
         Debug.Log("획득한 총기 이름 전송");
     }*/
 
-    public void SkillnPick_Dictionary(string weaponName)
+    public void SkillnPick_Dictionary(string Skill_Id)
     {
         if (!_isInitialized)
             return;
 
-        if (_pickedSkillCounts.ContainsKey(weaponName))
-            _pickedSkillCounts[weaponName]++;
+        if (_pickedSkillCounts.ContainsKey(Skill_Id))
+            _pickedSkillCounts[Skill_Id]++;
         else
-            _pickedSkillCounts[weaponName] = 1;
+            _pickedSkillCounts[Skill_Id] = 1;
 
-        Debug.Log($"스킬포인트 투자 기록: {weaponName}");
+        Debug.Log($"스킬포인트 투자 기록: {Skill_Id}");
     }
 
     public void log_skill_pick_summary()
