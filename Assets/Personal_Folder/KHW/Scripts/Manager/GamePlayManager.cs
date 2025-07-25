@@ -156,6 +156,10 @@ public class GamePlayManager : MonoBehaviour
         if (isStoryMode && currentMapIndex >= 10)
         {
             SceneManager.LoadScene("EndingScene");
+            AnalyticsManager.Instance.log_storymode_round_progress(currentMapIndex);
+            AnalyticsManager.Instance.log_send_weapon_pick_summary(); // 무기 주웠던거 모두 전송 딕셔너리
+            AnalyticsManager.Instance.log_skill_pick_summary(); // 스킬 투자한거 모두 전송 딕셔너리
+
             return;
         }
 

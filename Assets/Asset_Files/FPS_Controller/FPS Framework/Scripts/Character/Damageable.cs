@@ -224,7 +224,7 @@ namespace Akila.FPSFramework
                 if (damageSource) DeathCamera.Instance?.Enable(gameObject, damageSource);
 
                 AnalyticsManager.Instance.log_send_weapon_pick_summary(); // 무기 주웠던거 모두 전송 딕셔너리
-                AnalyticsManager.Instance.log_skill_pick_summary();
+                AnalyticsManager.Instance.log_skill_pick_summary(); // 스킬 투자한거 모두 전송 딕셔너리
 
                 //데이터 로그 전송 로직 -> 이현수
                 if (GamePlayManager.instance.isStoryMode)

@@ -58,7 +58,7 @@ public class EscapeTrigger : MonoBehaviour
 
          AchieveMent_Manager.Instance.CampaignClear();
 
-        
+        AnalyticsManager.Instance.log_storymode_clear_time(clearTime);
 
         // 2) 포맷된 문자열 세팅
         if (clearTimeNumberText != null)
