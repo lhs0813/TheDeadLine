@@ -43,7 +43,7 @@ public class AnalyticsManager : MonoBehaviour
         };
 
         AnalyticsService.Instance.RecordEvent(log_storymode_round_progress);
-        AnalyticsService.Instance.Flush();
+        //AnalyticsService.Instance.Flush();
 
         Debug.Log("스토리모드 점수 서버 전송");
     }
@@ -59,7 +59,7 @@ public class AnalyticsManager : MonoBehaviour
         };
 
         AnalyticsService.Instance.RecordEvent(log_endlessmode_round_progress);
-        AnalyticsService.Instance.Flush();
+        //AnalyticsService.Instance.Flush();
 
         Debug.Log("무한모드 점수 서버 전송");
     }
@@ -90,7 +90,7 @@ public class AnalyticsManager : MonoBehaviour
         }
 
         AnalyticsService.Instance.RecordEvent(log_send_weapon_pick_summary);
-        AnalyticsService.Instance.Flush();
+        //AnalyticsService.Instance.Flush();
 
         Debug.Log("무기 요약 이벤트 전송 완료");
 
@@ -139,11 +139,27 @@ public class AnalyticsManager : MonoBehaviour
         }
 
         AnalyticsService.Instance.RecordEvent(log_skill_pick_summary);
-        AnalyticsService.Instance.Flush();
+        //AnalyticsService.Instance.Flush();
 
         Debug.Log("스킬포인트 요약 이벤트 전송");
 
         _pickedSkillCounts.Clear();
+    }
+
+    public void log_storymode_clear_time(float clearTime)
+    {
+        if (!_isInitialized)
+            return;
+
+        CustomEvent log_storymode_clear_time = new CustomEvent("log_storymode_clear_time")
+        {
+            {"clearTime", clearTime}
+        };
+
+        AnalyticsService.Instance.RecordEvent(log_storymode_clear_time);
+        //AnalyticsService.Instance.Flush();
+
+        Debug.Log("스토리 모드 클리어 타임 전송 완료");
     }
 
 }
