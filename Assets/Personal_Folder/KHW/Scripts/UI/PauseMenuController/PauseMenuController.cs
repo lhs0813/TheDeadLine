@@ -22,6 +22,7 @@ namespace Akila.FPSFramework.UI
 
         [Tooltip("설정창 컨트롤러 (null이어도 됨)")]
         public SettingsMenuController settingsMenu;
+        public ReturnConfirmMenuController returnConfirmMenu;
 
         private Controls _controls;
         private bool _isOpen;
@@ -103,6 +104,11 @@ namespace Akila.FPSFramework.UI
         {
             // 먼저 설정창이 열려 있으면 그것만 닫기
             if (_isOpen && settingsMenu != null && settingsMenu.IsOpen)
+            {
+                settingsMenu.HideSettingsMenu();
+                return;
+            }
+            if (_isOpen && settingsMenu != null && returnConfirmMenu.IsOpen)
             {
                 settingsMenu.HideSettingsMenu();
                 return;
@@ -203,6 +209,7 @@ namespace Akila.FPSFramework.UI
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
 
+            
             // 2) _isOpen 은 그대로 true
             //    Time.timeScale 도 그대로 0 유지
         }
@@ -214,11 +221,26 @@ namespace Akila.FPSFramework.UI
             canvasGroup.blocksRaycasts = true;
             // 언스케일드 페이드 인 코루틴 호출하거나 즉시
             canvasGroup.alpha = 1f;
+
+            ApplySchemeBehavior(InputSchemeManager.CurrentScheme);
         }
 
         private void OnDestroy()
         {
             AudioListener.pause = false;
+        }
+
+        public void OnCheckReturnToMainMenu()
+        {
+            if (!_isOpen) return;
+
+            // ① SettingsController에 Controls와 자기 자신 넘겨 주기
+            returnConfirmMenu.Setup(_controls, this);
+
+            HidePauseUIOnly();
+
+            // ② 그 다음에 실제 열기 호출
+            returnConfirmMenu.ShowReturnConfirmMenu();
         }
 
     }
