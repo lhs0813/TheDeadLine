@@ -1,16 +1,13 @@
-using System;
 using System.Collections;
+using Akila.FPSFramework;
+using Akila.FPSFramework.UI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
-namespace Akila.FPSFramework.UI
+public class ReturnConfirmMenuController : MonoBehaviour
 {
-    [RequireComponent(typeof(CanvasGroup))]
-    public class SettingsMenuController : MonoBehaviour
-    {
         [Header("Fade Settings")]
         [Tooltip("Settings Menu 페이드 인/아웃에 걸리는 시간 (초)")]
         public float settingsMenuActivateTime = 0.4f;
@@ -29,7 +26,6 @@ namespace Akila.FPSFramework.UI
 
         [Header("Manage Setting Executions")]
         public GameObject firstUIObj;
-        public SettingApplier mainSettingApplier; //Save & Apply의 그것을 할당.
 
         void Start()
         {
@@ -54,7 +50,6 @@ namespace Akila.FPSFramework.UI
 
             // Pause 액션을 Settings 닫기로 바인딩
             _controls.UI.Pause.performed += OnPausePerformed;
-            _controls.UI.Save.performed += ExecuteSave;
             _controls.UI.ReturnToPreviousMenu.performed += OnPausePerformed;
         }
 
@@ -70,19 +65,12 @@ namespace Akila.FPSFramework.UI
             }
         }
 
-        private void ExecuteSave(InputAction.CallbackContext context)
-        {
-            mainSettingApplier.ApplyAll();
-
-            HideSettingsMenu();
-        }
 
         void OnDisable()
         {
             if (_controls != null)
             {
                 _controls.UI.Pause.performed -= OnPausePerformed;
-                _controls.UI.Save.performed -= ExecuteSave;
                 _controls.UI.ReturnToPreviousMenu.performed -= OnPausePerformed;
             }
 
@@ -93,29 +81,29 @@ namespace Akila.FPSFramework.UI
         {
             // 설정창 열려 있을 때만 닫는다
             if (_isOpen)
-                HideSettingsMenu();
+                HideReturnConfirmMenu();
         }
 
         /// <summary>
         /// Pause 메뉴가 열려 있을 때만 호출
         /// </summary>
-        public void ShowSettingsMenu()
+        public void ShowReturnConfirmMenu()
         {
             if (!_pauseMenuController.IsOpened || _isOpen) return;
 
-            StartCoroutine(ShowSettingsCoroutine());
+            StartCoroutine(ShowReturnConfirmMenuCoroutine());
         }
 
         /// <summary>
         /// 페이드 인 후 _isOpen=true
         /// </summary>
-        private IEnumerator ShowSettingsCoroutine()
+        private IEnumerator ShowReturnConfirmMenuCoroutine()
         {
             _isOpen = true;
-            OnOpen?.Invoke();
 
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
+
 
             float elapsed = 0f;
             while (elapsed < settingsMenuActivateTime)
@@ -126,22 +114,23 @@ namespace Akila.FPSFramework.UI
             }
             _canvasGroup.alpha = 1f;
 
+
             SetInputMode(InputSchemeManager.CurrentScheme);
         }
 
         /// <summary>
         /// 설정창 닫기
         /// </summary>
-        public void HideSettingsMenu()
+        public void HideReturnConfirmMenu()
         {
             if (!_isOpen) return;
-            StartCoroutine(HideSettingsCoroutine());
+            StartCoroutine(HideReturnConfirmCoroutine());
         }
 
-        private IEnumerator HideSettingsCoroutine()
+        private IEnumerator HideReturnConfirmCoroutine()
         {
-            OnClose?.Invoke();
 
+            
             float start = _canvasGroup.alpha;
             float elapsed = 0f;
             while (elapsed < settingsMenuActivateTime)
@@ -167,24 +156,7 @@ namespace Akila.FPSFramework.UI
 
         }
 
-        public void SetUpForMainMenu(Controls sharedControls)
-        {
-            _controls = sharedControls;
-
-            // Pause 액션을 Settings 닫기로 바인딩
-            _controls.UI.Pause.performed += OnPausePerformed;
-            _controls.UI.Save.performed += ExecuteSave;
-            _controls.UI.ReturnToPreviousMenu.performed += OnPausePerformed;
-
-            ShowSettingsMenuForMainMenu();
-        }
-
-        public void ShowSettingsMenuForMainMenu()
-        {
-            StartCoroutine(ShowSettingsCoroutine());
-        }
         
-    }
 
 
 }
