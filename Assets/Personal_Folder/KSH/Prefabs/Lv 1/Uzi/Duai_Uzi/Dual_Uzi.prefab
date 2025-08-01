@@ -1886,6 +1886,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2216960631568961830}
   - {fileID: 727292114204132865}
   - {fileID: 1732057807808130479}
   - {fileID: 9222458868834652774}
@@ -1998,10 +1999,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   preset: {fileID: 11400000, guid: d62a0f8c3db297e48bfac66b6e1c553e, type: 2}
-  muzzle: {fileID: 22683148312192800}
+  muzzle: {fileID: 2216960631568961830}
   handLeftWeapon: {fileID: 5333049288054600973}
   handRight: {fileID: 3683062708926653081}
-  gradeNum: 1
+  gradeNum: 2
   gradeColor:
   - {r: 0, g: 0.53333336, b: 1, a: 0.50980395}
   - {r: 0.5372549, g: 0, b: 1, a: 0.50980395}
@@ -3093,6 +3094,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1604647498272454963}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3220354545571390079
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2216960631568961830}
+  m_Layer: 0
+  m_Name: Dual_Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2216960631568961830
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3220354545571390079}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.096, y: 0, z: 0.385}
+  m_LocalScale: {x: -0.1, y: 0.10000011, z: 0.09999998}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1732057807179131602}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3257546211803282796
 GameObject:
   m_ObjectHideFlags: 0
@@ -3632,7 +3664,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2523718194259403181
 Transform:
   m_ObjectHideFlags: 0
