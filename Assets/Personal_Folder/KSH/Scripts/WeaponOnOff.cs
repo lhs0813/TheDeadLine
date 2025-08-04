@@ -129,7 +129,7 @@ public class WeaponOnOff : MonoBehaviour
 
     void FireSound(Vector3 a,Quaternion b,Vector3 z)
     {
-        soundStart.Play();
+        if (soundStart) soundStart.Play();
     }
 }
 
