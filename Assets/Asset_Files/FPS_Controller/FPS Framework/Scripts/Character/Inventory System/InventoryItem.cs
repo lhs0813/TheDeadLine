@@ -419,8 +419,11 @@ namespace Akila.FPSFramework
 
 
 
-            Animator _anim = GetComponentInChildren<Animator>();
-            _anim.SetTrigger("Throw");
+            Animator[] animators = GetComponentsInChildren<Animator>();
+            foreach (Animator animator in animators)
+            {
+                animator.SetTrigger("Throw");
+            }
 
             Player_Manager.Instance.throwSounds.Play();
 

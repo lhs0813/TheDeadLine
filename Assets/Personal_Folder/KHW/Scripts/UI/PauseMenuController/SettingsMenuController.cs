@@ -126,7 +126,7 @@ namespace Akila.FPSFramework.UI
             }
             _canvasGroup.alpha = 1f;
 
-            EventSystem.current.SetSelectedGameObject(firstUIObj);
+            SetInputMode(InputSchemeManager.CurrentScheme);
         }
 
         /// <summary>

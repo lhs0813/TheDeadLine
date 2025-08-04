@@ -45,6 +45,7 @@ public class MainSceneController : MonoBehaviour
     private WaitForSeconds waitAfterDoor;
     private WaitForSeconds buttonDelay;
     private Dictionary<GameObject, CanvasGroup> buttonCanvasGroups = new();
+    private bool hasShownTitleUI = false;
 
     [Header("Leaderboard")]
     [Tooltip("오른쪽 아래에 활성화할 리더보드 오브젝트")]
@@ -100,6 +101,15 @@ public class MainSceneController : MonoBehaviour
         StartCoroutine(PlayIntroSequence());
     }
 
+    private void Update()
+    {
+        if (!hasShownTitleUI && Input.anyKeyDown)
+        {
+            hasShownTitleUI = true;
+            StartCoroutine(FadeInTitleUI());
+        }
+    }
+
     private IEnumerator PlayIntroSequence()
     {
         // 1) 감속 사운드
@@ -150,7 +160,8 @@ public class MainSceneController : MonoBehaviour
         }
 
         // 5) UI 페이드 인
-        StartCoroutine(FadeInTitleUI());
+        if(!hasShownTitleUI)
+            StartCoroutine(FadeInTitleUI());
     }
 
     private IEnumerator FadeInTitleUI()

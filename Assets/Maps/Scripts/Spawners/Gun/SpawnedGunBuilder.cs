@@ -23,6 +23,8 @@ public static class SpawnedGunBuilder
     // 등급별 프리팹 캐시 (Addressables 로드 1회)
     private static readonly Dictionary<WeaponGrade, List<GameObject>> PrefabCache = new();
 
+    public static bool isInitialized = false;
+
     /// <summary>
     /// 게임 시작 시 한 번만 호출해 Addressables 로드
     /// </summary>
@@ -39,6 +41,8 @@ public static class SpawnedGunBuilder
             else
                 PrefabCache[grade] = new List<GameObject>();
         }
+
+        isInitialized = true;
     }
 
     /// <summary>
@@ -53,22 +57,22 @@ public static class SpawnedGunBuilder
 
         // 1스테이지에서 lnStage=0 → rare=90, epic=3*2=6, legendary=1
         // 9스테이지에서 lnStage=ln(9) → rare≈40, epic≈(3+27)/ln9*2, legendary≈1+9/ln9
-        float rare      = 90f - (30f  / ln9) * lnStage;  
-        float epic      = (3f   + (27f  / ln9) * lnStage) * 2f;  // ← 여기에 2배 적용
-        float legendary = 1f   + (9f   / ln9) * lnStage;  
+        float rare = 90f - (30f / ln9) * lnStage;
+        float epic = (3f + (27f / ln9) * lnStage) * 2f;  // ← 여기에 2배 적용
+        float legendary = 1f + (9f / ln9) * lnStage;
 
         // 음수로 떨어지지 않도록 0 이상으로 보정
         return grade switch
         {
-            WeaponGrade.Rare      => Mathf.Max(rare,      0f),
-            WeaponGrade.Epic      => Mathf.Max(epic,      0f),
+            WeaponGrade.Rare => Mathf.Max(rare, 0f),
+            WeaponGrade.Epic => Mathf.Max(epic, 0f),
             WeaponGrade.Legendary => Mathf.Max(legendary, 0f),
-            _                     => 0f,
+            _ => 0f,
         };
     }
 
 
-        /// <summary>
+    /// <summary>
     /// 스테이지별 등급 확률을 각각 한 줄씩 포맷팅해서 반환합니다.
     /// 예) "Rare: 75.00%\nEpic: 20.00%\nLegendary: 5.00%"
     /// </summary>
@@ -139,6 +143,18 @@ public static class SpawnedGunBuilder
     {
         WeaponGrade grade = RollGrade(stageIndex);
 
+        if (!PrefabCache.TryGetValue(grade, out var list) || list.Count == 0)
+        {
+            Debug.LogError($"[SpawnedGunBuilder] Prefabs for grade {grade} not loaded or empty.");
+            return null;
+        }
+
+        int idx = UnityEngine.Random.Range(0, list.Count);
+        return list[idx];
+    }
+
+    public static GameObject GetRandomGunPrefabByGrade(WeaponGrade grade)
+    {
         if (!PrefabCache.TryGetValue(grade, out var list) || list.Count == 0)
         {
             Debug.LogError($"[SpawnedGunBuilder] Prefabs for grade {grade} not loaded or empty.");
