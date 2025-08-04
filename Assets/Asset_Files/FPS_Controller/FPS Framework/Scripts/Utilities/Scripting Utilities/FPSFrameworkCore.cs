@@ -25,8 +25,8 @@ namespace Akila.FPSFramework
 
             foreach (var res in Screen.resolutions)
             {
-                if (res.width  >= 1920 &&
-                    res.height >= 1080 &&
+                if (res.width  >= 800 &&
+                    res.height >= 600 &&
                     res.refreshRate >= GetRefreshRate())  // refreshRateRatio 대신 refreshRate 사용 권장
                 {
                     resolutions.Add(res);
