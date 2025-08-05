@@ -9,7 +9,7 @@ public class TabletStep : TutorialStepBase
     CharacterInput input;
     public override void ExecuteTutorial()
     {
-        TabletController.onTabletShownAction += ShowTabletOpenTutorialInstantly;
+        TabletController.onTabletShownAction += ShowTabletOpenTutorial;
         TabletController.onTabletDisabledAction += ShowTabletClosedTutorial;
 
         //플레이어 멈추기
@@ -17,48 +17,30 @@ public class TabletStep : TutorialStepBase
         input.controls.Player.Disable();
         input.controls.Firearm.Disable();
         input.controls.Player.UseTablet.Enable();
-        
+
         //UI 표출.
-        TutorialTriggerUIController.Instance.ShowUI("5", 10000f); //그냥 tab을 눌렀더라도, tab이 조작법이라는 것은 표시필요.
-
-        if (TabletController.isTabletActive) //이미 보고있었다면?
-        {
-            StartCoroutine(TabletOpenTutorialCoroutine(3f));
-        }
-        else
-        {
-
-        }
-
-
-
+        TutorialTriggerUIController.Instance.ShowUI("5", 10000f);
     }
 
     void OnDestroy()
     {
-        TabletController.onTabletShownAction -= ShowTabletOpenTutorialInstantly;
-        TabletController.onTabletDisabledAction -= ShowTabletClosedTutorial;        
+        TabletController.onTabletShownAction -= ShowTabletOpenTutorial;
+        TabletController.onTabletDisabledAction -= ShowTabletClosedTutorial;
     }
 
-    private void ShowTabletOpenTutorialInstantly()
+    private void ShowTabletOpenTutorial()
     {
-        StartCoroutine(TabletOpenTutorialCoroutine(0f));
+        StartCoroutine(TabletOpenTutorialCoroutine());
 
     }
 
-    private IEnumerator TabletOpenTutorialCoroutine(float delay)
+    private IEnumerator TabletOpenTutorialCoroutine()
     {
-        yield return new WaitForSeconds(delay);
-
         TutorialTriggerUIController.Instance.ShowUI("8", 4f);
 
         yield return new WaitForSeconds(4f);
 
         TutorialTriggerUIController.Instance.ShowUI("9", 3f);
-
-
-
-
     }
 
     private void ShowTabletClosedTutorial()
@@ -66,7 +48,7 @@ public class TabletStep : TutorialStepBase
         input.controls.Player.Enable();
         input.controls.Firearm.Enable();
 
-        Destroy(gameObject, 15f);
+        Destroy(gameObject);
     }
 
 }
