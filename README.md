@@ -10,7 +10,7 @@ Krafton Jungle GameLab EPIC Project
 
 작업 인원 : 4명
 
-제작 기간 : 2025.06.08 ~ 2024.07.25 (65일)
+제작 기간 : 2025.05.27 ~ 2024.07.25 (60일)
 
 
 프로젝트 소개 - [Notion](https://foxdaniel0813.notion.site/The-DeadLine-24bffa670d26809b9eaad80c76e427f3?source=copy_link)
