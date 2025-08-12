@@ -29,7 +29,7 @@ public class AnalyticsManager : MonoBehaviour
     {
         await UnityServices.InitializeAsync();
         AnalyticsService.Instance.StartDataCollection();
-        _isInitialized = true;
+        _isInitialized = false; // 로그수집 중단
     }
 
     public void log_storymode_round_progress(int round) // 매번 라운드를 지나 이동할 때, 로그를 남기면 몇스테이지까지 보통 진행하는지 확인해서, 시간과 진행도를 모두 확인 가능
