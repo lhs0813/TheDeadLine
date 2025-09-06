@@ -6,7 +6,9 @@ Krafton Jungle GameLab EPIC Project
 
 장르 : FPS, Zombie, Old School, Action, Shooting
 
-개발 환경 : Unity, C#, Blender
+개발 환경 : Unity, C#, Blender, GoldenWave
+
+사용 AI : ChatGpt, Grok, leonardo.ai, Mesh Ai, Rodin(Hyper 3d), ElevenLabs, KLING 2.1, Suno
 
 작업 인원 : 4명
 
